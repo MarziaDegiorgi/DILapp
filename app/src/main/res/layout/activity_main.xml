@@ -1,18 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="24sp"
+    android:paddingLeft="24sp"
+    android:paddingRight="24sp"
+    android:paddingTop="24sp"
     tools:context="com.polimi.dilapp.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:inputType="textEmailAddress"
+            android:hint="@string/email"
+            android:id="@+id/editTextEmail"
+            android:layout_width= "match_parent"
+            android:layout_height="match_parent" />
+        <EditText
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:id="@+id/editTextPassword"
+            android:layout_width= "match_parent"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/buttonRegister"
+            android:hint="@string/register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textAlignment="center"
+            android:text="sei già registrato? accedi qui"
+            android:id="@+id/textViewSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</RelativeLayout>
