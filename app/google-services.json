@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "452410503746",
+    "firebase_url": "https://dilapp-firebase.firebaseio.com",
+    "project_id": "dilapp-firebase",
+    "storage_bucket": "dilapp-firebase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452410503746:android:d44a5dcddd25efb3",
+        "android_client_info": {
+          "package_name": "com.polimi.dilapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452410503746-ebvpleem7tns7miiaqaj416spaldmh1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLF169fHppIWKGu2sONLNbF3OcKctgLQA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
