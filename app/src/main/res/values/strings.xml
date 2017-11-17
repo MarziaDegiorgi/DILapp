@@ -1,6 +1,3 @@
 <resources>
     <string name="app_name">DILapp</string>
-    <string name="email">Inserisci email</string>
-    <string name="password">Inserisci Password</string>
-    <string name="register" >Registrati</string>
 </resources>
