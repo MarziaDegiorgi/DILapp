@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="letters">
+
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+        <item>d</item>
+        <item>e</item>
+        <item>f</item>
+        <item>g</item>
+        <item>h</item>
+        <item>i</item>
+        <item>l</item>
+        <item>m</item>
+        <item>n</item>
+        <item>o</item>
+        <item>p</item>
+        <item>q</item>
+        <item>r</item>
+        <item>s</item>
+        <item>t</item>
+        <item>u</item>
+        <item>v</item>
+        <item>z</item>
+
+    </string-array>
+    <string-array name="numbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+    </string-array>
+
+    //all the elements in the arrays are put in italian alphabetical order
+    <string-array name="yellow_items">
+        <item>banana</item>
+        <item>lemon</item>
+        <item>corn</item>
+        <item>grapefruit</item>
+    </string-array>
+    
+    <string-array name="red_items">
+        <item>watermelon</item>
+        <item>strawberry</item>
+        <item>apple</item>
+        <item>pepper</item>
+        <item>tomato</item>
+    </string-array>
+    
+    <string-array name="orange_items">
+        <item>orange</item>
+        <item>carrot</item>
+        <item>onion</item>
+        <item>tangerine</item>
+    </string-array>
+    
+    <string-array name="violet_items">
+        <item>aubergine</item>
+    </string-array>
+    
+    <string-array name="green_items">
+        <item>asparagus</item>
+        <item>broccoli</item>
+        <item>cucumber</item>
+        <item>pear</item>
+        <item>green pea</item>
+    </string-array>
+    
+    <string-array name="white_items">
+        <item>fennel</item>
+    </string-array>
+
+    <string-array name="brown_items">
+        <item>potato</item>
+    </string-array>
+</resources>
