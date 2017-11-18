@@ -26,6 +26,7 @@
         <item>z</item>
 
     </string-array>
+
     <string-array name="numbers">
         <item>1</item>
         <item>2</item>
@@ -91,4 +92,15 @@
     <string-array name="brown_items">
         <item>potato</item>
     </string-array>
+
+    <string-array name="all_items">
+        <item color='yellow'>@array/yellow_items</item>
+        <item color='red'>@array/red_items</item>
+        <item color='orange'>@array/orange_items</item>
+        <item color='violet'>@array/violet_items</item>
+        <item color='green'>@array/green_items</item>
+        <item color='white'>@array/white_items</item>
+        <item color='brown'>@array/brown_items</item>
+    </string-array>
+
 </resources>
