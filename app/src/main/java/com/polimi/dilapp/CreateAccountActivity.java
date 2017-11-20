@@ -3,6 +3,8 @@ package com.polimi.dilapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
 
 public class CreateAccountActivity extends AppCompatActivity{
@@ -16,7 +18,14 @@ public class CreateAccountActivity extends AppCompatActivity{
         Intent intent = getIntent();
 
         //dummy link to ActivityAlfa for debugging purpose
-        Intent dummyIntent = new Intent(getApplicationContext(), ActivityAlfa.class);
-        startActivity(dummyIntent);
+        Button dummyButton = findViewById(R.id.DummyLink);
+        dummyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dummyIntent = new Intent(getApplicationContext(), ActivityAlfa.class);
+                startActivity(dummyIntent);
+            }
+        });
+
     }
 }

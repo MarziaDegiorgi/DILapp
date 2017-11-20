@@ -1,5 +1,6 @@
 package com.polimi.dilapp;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ public class ActivityAlfa extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alfa);
+        Intent intent = getIntent();
         Log.d("Activity Alfa:","the onCreate()has been executed.");
         //When the activity is created the introduction video starts
         startNewVideo(R.id.video_box, R.raw.dummy_video);
