@@ -103,4 +103,14 @@
         <item color='brown'>@array/brown_items</item>
     </string-array>
 
+    <string-array name="colors">
+        <item>yellow</item>
+        <item>red</item>
+        <item>orange</item>
+        <item>violet</item>
+        <item>green</item>
+        <item>white</item>
+        <item>brown</item>
+    </string-array>
+
 </resources>
