@@ -14,5 +14,9 @@ public class CreateAccountActivity extends AppCompatActivity{
 
         // Get the Intent that started this activity
         Intent intent = getIntent();
+
+        //dummy link to ActivityAlfa for debugging purpose
+        Intent dummyIntent = new Intent(getApplicationContext(), ActivityAlfa.class);
+        startActivity(dummyIntent);
     }
 }
