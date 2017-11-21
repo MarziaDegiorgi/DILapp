@@ -54,48 +54,37 @@ public class ActivityAlfa extends AppCompatActivity {
 
     }
 
-    /*private VideoView startNewVideo(int viewIdentifier, int uriReference){
-        VideoView videoView = (VideoView)findViewById(viewIdentifier);
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+uriReference);
-        videoView.setVideoURI(uri);
-        videoView.start();
-        /*videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-
-            }
-        });
-    return videoView;
-    }
-
-    public void startNewAnimation(int animationIdentifier, int viewIdentifier){
-        Animation animation = AnimationUtils.loadAnimation(this, animationIdentifier);
-        ImageView animationView = (ImageView) findViewById(viewIdentifier);
-        animationView.setAnimation(animation);
-    }*/
-
     //sessionOne includes all the yellow items
     private void startSessionOne(){
 
         Log.d("Activity Alfa:", "session one begins!");
+
         //This is the video of the first session of 4 fruits: banana, lemon, corn, grapefruit
-        VideoView videoView = (VideoView)findViewById(R.id.video_box);
+        final VideoView videoView = (VideoView)findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.dummy_video);
         videoView.setVideoURI(uri);
         videoView.start();
 
+        //When the video is terminated the animation with the first required fruit begins with its audio
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                videoView.setVisibility(videoView.INVISIBLE);
+
                 ImageView animationView = (ImageView) findViewById(R.id.animation_box);
+                animationView.setVisibility(animationView.VISIBLE);
+                animationView.setImageDrawable(getResources().getDrawable(R.drawable.dummy_fruit));
+                Animation animation = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.animation_definition);
                 animationView.setVisibility(View.VISIBLE);
+                animationView.setAnimation(animation);
+
             }
         });
 
-            Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation_definition);
-            ImageView animationView = (ImageView) findViewById(R.id.animation_box);
-            animationView.setVisibility(View.VISIBLE);
-            animationView.setAnimation(animation);
+
+
+
+
 
         //tempArray contains the fruits of the session
         String[] tempArray = getResources().getStringArray(R.array.yellow_items);
