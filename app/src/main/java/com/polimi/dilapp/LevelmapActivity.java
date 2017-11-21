@@ -2,6 +2,7 @@ package com.polimi.dilapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
 
 public class LevelmapActivity extends AppCompatActivity {
 

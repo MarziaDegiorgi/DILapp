@@ -26,6 +26,15 @@ public class CreateAccountActivity extends AppCompatActivity{
                 startActivity(dummyIntent);
             }
         });
+        //dummy link to ActivityAlfa for debugging purpose
+        Button dummyButton2 = findViewById(R.id.DummyLink2);
+        dummyButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dummyIntent = new Intent(getApplicationContext(), LevelmapActivity.class);
+                startActivity(dummyIntent);
+            }
+        });
 
     }
 }

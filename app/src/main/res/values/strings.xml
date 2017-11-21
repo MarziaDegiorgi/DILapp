@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">DILapp</string>
 
+    <string name="play">Gioca</string>
     <string name="title_activity_one_one">ActivityOneOne</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
