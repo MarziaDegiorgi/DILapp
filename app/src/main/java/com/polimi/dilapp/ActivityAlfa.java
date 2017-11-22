@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -14,19 +15,20 @@ import android.widget.ImageView;
 import android.widget.VideoView;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 /**
  * Created by Roberta on 17/11/2017.
  */
 
 //This is Activity 1.1
-public class ActivityAlfa extends AppCompatActivity {
+public class ActivityAlfa extends AppCompatActivity{
 
    /* private int correctAnswers = 0;
     private int totalAttempts = 0;
     //Timer globalTimer = new Timer();*/
 
-
+    TextToSpeech textToSpeech;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -37,7 +39,16 @@ public class ActivityAlfa extends AppCompatActivity {
         //When the activity is created the introduction video starts
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        VideoView videoIntro = (VideoView)findViewById(R.id.video_box);
+        textToSpeech = new TextToSpeech(ActivityAlfa.this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                    if(status != textToSpeech.ERROR){
+                    textToSpeech.setLanguage(Locale.ITALIAN);
+                    }
+            }
+        });
+
+        VideoView videoIntro = findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.intro);
         videoIntro.setVideoURI(uri);
         videoIntro.start();
@@ -46,7 +57,6 @@ public class ActivityAlfa extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 //here the global timer must starts
-
                 startSessionOne();
             }
         });
@@ -54,13 +64,14 @@ public class ActivityAlfa extends AppCompatActivity {
 
     }
 
+
     //sessionOne includes all the yellow items
     private void startSessionOne(){
 
         Log.d("Activity Alfa:", "session one begins!");
 
         //This is the video of the first session of 4 fruits: banana, lemon, corn, grapefruit
-        final VideoView videoView = (VideoView)findViewById(R.id.video_box);
+        final VideoView videoView = findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.dummy_video);
         videoView.setVideoURI(uri);
         videoView.start();
@@ -69,14 +80,27 @@ public class ActivityAlfa extends AppCompatActivity {
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                videoView.setVisibility(videoView.INVISIBLE);
+                videoView.setVisibility(View.INVISIBLE);
 
-                ImageView animationView = (ImageView) findViewById(R.id.animation_box);
-                animationView.setVisibility(animationView.VISIBLE);
+                ImageView animationView = findViewById(R.id.animation_box);
+                animationView.setVisibility(View.VISIBLE);
                 animationView.setImageDrawable(getResources().getDrawable(R.drawable.dummy_fruit));
                 Animation animation = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.animation_definition);
                 animationView.setVisibility(View.VISIBLE);
                 animationView.setAnimation(animation);
+               /* if(){
+                    Context context = getApplicationContext();
+                    CharSequence text = "Error toast!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                }else{
+                    String presentation = getResources().getString(R.string.fruit_presentation);
+                    CharSequence text = presentation;
+                    textToSpeech.speak(presentation, TextToSpeech.QUEUE_FLUSH, null);
+                }
+                //here we have to put the audio of the animation*/
 
             }
         });
@@ -105,6 +129,8 @@ public class ActivityAlfa extends AppCompatActivity {
 
 
     }
+
+
 
 }
 
