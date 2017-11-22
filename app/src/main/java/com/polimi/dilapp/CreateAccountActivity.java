@@ -15,7 +15,7 @@ public class CreateAccountActivity extends AppCompatActivity{
         setContentView(R.layout.activity_createaccount);
 
         // Get the Intent that started this activity
-        Intent intent = getIntent();
+        getIntent();
 
         //dummy link to ActivityAlfa for debugging purpose
         Button dummyButton = findViewById(R.id.DummyLink);

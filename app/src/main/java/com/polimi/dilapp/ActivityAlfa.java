@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
@@ -88,19 +89,13 @@ public class ActivityAlfa extends AppCompatActivity{
                 Animation animation = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.animation_definition);
                 animationView.setVisibility(View.VISIBLE);
                 animationView.setAnimation(animation);
-               /* if(){
-                    Context context = getApplicationContext();
-                    CharSequence text = "Error toast!";
-                    int duration = Toast.LENGTH_SHORT;
 
-                    Toast toast = Toast.makeText(context, text, duration);
-                    toast.show();
-                }else{
-                    String presentation = getResources().getString(R.string.fruit_presentation);
-                    CharSequence text = presentation;
-                    textToSpeech.speak(presentation, TextToSpeech.QUEUE_FLUSH, null);
-                }
-                //here we have to put the audio of the animation*/
+                String presentation = getResources().getString(R.string.fruit_presentation);
+                CharSequence text = presentation;
+
+                textToSpeech.speak(presentation, TextToSpeech.QUEUE_FLUSH, null, null);
+
+                //here we have to put the audio of the animation
 
             }
         });
