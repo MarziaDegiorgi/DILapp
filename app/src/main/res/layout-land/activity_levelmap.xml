@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroud_level_map"
+    android:background="@drawable/background_menu_land"
     tools:context="com.polimi.dilapp.LevelmapActivity">
 
     <Button
@@ -23,20 +23,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="206dp"
-        android:layout_height="117dp"
-        android:background="@drawable/first_activity"
-        tools:layout_editor_absoluteX="37dp"
-        tools:layout_editor_absoluteY="153dp" />
+    <ImageView
+        android:id="@+id/carrot"
+        android:layout_width="231dp"
+        android:layout_height="144dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.86"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.903"
+        app:srcCompat="@drawable/carrot" />
 
 
 </android.support.constraint.ConstraintLayout>

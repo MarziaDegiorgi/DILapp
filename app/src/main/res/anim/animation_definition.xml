@@ -9,4 +9,7 @@
         android:pivotY="50%"
 
         />
+    <item
+        android:drawable="@drawable/carrot"
+        android:duration="4000"></item>
 </set>
