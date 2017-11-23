@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.widget.ImageView;
 import android.widget.VideoView;
 
 import java.util.Arrays;
-import java.util.Locale;
 
 /**
  * Created by Roberta on 17/11/2017.
@@ -29,7 +26,7 @@ public class ActivityAlfa extends AppCompatActivity{
     private int totalAttempts = 0;
     //Timer globalTimer = new Timer();*/
 
-    TextToSpeech textToSpeech;
+    MediaPlayer request;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -39,15 +36,6 @@ public class ActivityAlfa extends AppCompatActivity{
         Log.d("Activity Alfa:","the onCreate()has been executed.");
         //When the activity is created the introduction video starts
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
-        textToSpeech = new TextToSpeech(ActivityAlfa.this, new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-                    if(status != textToSpeech.ERROR){
-                    textToSpeech.setLanguage(Locale.ITALIAN);
-                    }
-            }
-        });
 
         VideoView videoIntro = findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.intro);
@@ -73,7 +61,7 @@ public class ActivityAlfa extends AppCompatActivity{
 
         //This is the video of the first session of 4 fruits: banana, lemon, corn, grapefruit
         final VideoView videoView = findViewById(R.id.video_box);
-        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.dummy_video);
+        Uri uri = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.video_set_of_object);
         videoView.setVideoURI(uri);
         videoView.start();
 
@@ -83,20 +71,22 @@ public class ActivityAlfa extends AppCompatActivity{
             public void onCompletion(MediaPlayer mp) {
                 videoView.setVisibility(View.INVISIBLE);
 
-                ImageView animationView = findViewById(R.id.animation_box);
+                final ImageView animationView = findViewById(R.id.animation_box);
                 animationView.setVisibility(View.VISIBLE);
                 animationView.setImageDrawable(getResources().getDrawable(R.drawable.dummy_fruit));
-                Animation animation = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.animation_definition);
+                final Animation animation = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.rotation);
                 animationView.setVisibility(View.VISIBLE);
                 animationView.setAnimation(animation);
 
-                String presentation = getResources().getString(R.string.fruit_presentation);
-                CharSequence text = presentation;
-
-                textToSpeech.speak(presentation, TextToSpeech.QUEUE_FLUSH, null, null);
-
-                //here we have to put the audio of the animation
-
+                request = MediaPlayer.create(ActivityAlfa.this, R.raw.request_object);
+                request.start();
+                request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        animationView.setAnimation(animation);
+                        //wait NFC tag
+                    }
+                });
             }
         });
 
