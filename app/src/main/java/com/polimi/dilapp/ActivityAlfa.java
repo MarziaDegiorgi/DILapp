@@ -22,6 +22,8 @@ import java.util.Arrays;
 //This is Activity 1.1
 public class ActivityAlfa extends AppCompatActivity{
 
+    //TO-DO: ADD TIMER, COUNTERS, SOUND
+
    /* private int correctAnswers = 0;
     private int totalAttempts = 0;
     //Timer globalTimer = new Timer();*/
@@ -74,16 +76,21 @@ public class ActivityAlfa extends AppCompatActivity{
                 final ImageView animationView = findViewById(R.id.animation_box);
                 animationView.setVisibility(View.VISIBLE);
                 animationView.setImageDrawable(getResources().getDrawable(R.drawable.dummy_fruit));
-                final Animation animation = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.rotation);
+                Animation animationBegin = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.rotation);
                 animationView.setVisibility(View.VISIBLE);
-                animationView.setAnimation(animation);
+                animationView.setAnimation(animationBegin);
 
                 request = MediaPlayer.create(ActivityAlfa.this, R.raw.request_object);
                 request.start();
                 request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        animationView.setAnimation(animation);
+                        Animation animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.slide);
+                        animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.blink);
+                        animationView.getResources().getDrawable(R.drawable.dummy_fruit);
+                        animationView.setVisibility(View.VISIBLE);
+                        animationView.setAnimation(animationWait);
+                        animationView.startAnimation(animationWait);
                         //wait NFC tag
                     }
                 });
