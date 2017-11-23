@@ -1,18 +1,9 @@
 package com.polimi.dilapp;
 
-import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.nfc.NdefMessage;
-import android.nfc.NdefRecord;
-import android.nfc.NfcAdapter;
-import android.nfc.Tag;
-import android.nfc.tech.Ndef;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -20,13 +11,9 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
-
-import static android.content.ContentValues.TAG;
 
 /**
  * Created by Roberta on 17/11/2017.
@@ -43,11 +30,11 @@ public class ActivityAlfa extends AppCompatActivity{
 
     MediaPlayer request;
 
-    NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(ActivityAlfa.this);
+  /*  NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(ActivityAlfa.this);
     String currentReadElement = "";
     String currentElement = "";
     public static final String MIME_TEXT_PLAIN = "text/plain";
-
+*/
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -78,12 +65,12 @@ public class ActivityAlfa extends AppCompatActivity{
     //sessionOne includes all the yellow items
     private void startSessionOne(){
 
-        if(nfcAdapter == null || !nfcAdapter.isEnabled()){
+       /* if(nfcAdapter == null || !nfcAdapter.isEnabled()){
             Toast.makeText(ActivityAlfa.this, "NFC non attivato!", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
-
+*/
         Log.d("Activity Alfa:", "session one begins!");
 
         //This is the video of the first session of 4 fruits: banana, lemon, corn, grapefruit
@@ -97,7 +84,7 @@ public class ActivityAlfa extends AppCompatActivity{
             @Override
             public void onCompletion(MediaPlayer mp) {
                 videoView.setVisibility(View.INVISIBLE);
-                currentElement = "lemon";
+                //currentElement = "lemon";
                 final ImageView animationView = findViewById(R.id.animation_box);
                 animationView.setVisibility(View.VISIBLE);
                 animationView.setImageDrawable(getResources().getDrawable(R.drawable.dummy_fruit));
@@ -110,6 +97,20 @@ public class ActivityAlfa extends AppCompatActivity{
                 request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
+                        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
+                        animationViewExtra.setVisibility(View.VISIBLE);
+                        Animation extraAnimation =AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.move);
+                        animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
+                        animationViewExtra.setAnimation(extraAnimation);
+                        animationViewExtra.startAnimation(extraAnimation);
+
+                        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+                        animationViewExtra.setVisibility(View.VISIBLE);
+                        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.move);
+                        animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
+                        animationViewExtraTwo.setAnimation(extraAnimationTwo);
+                        animationViewExtraTwo.startAnimation(extraAnimationTwo);
+
                         Animation animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.slide);
                         animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.blink);
                         animationView.getResources().getDrawable(R.drawable.dummy_fruit);
@@ -117,7 +118,7 @@ public class ActivityAlfa extends AppCompatActivity{
                         animationView.setAnimation(animationWait);
                         animationView.startAnimation(animationWait);
                         //wait NFC tag
-                        handleIntent(getIntent());
+                        /*handleIntent(getIntent());
 
                         if(currentReadElement == currentElement){
                             //animation + audio for correct answer
@@ -141,8 +142,8 @@ public class ActivityAlfa extends AppCompatActivity{
                                     i=2;
                                 }
                             }
-                            
-                        }
+
+                        }*/
 
                     }
                 });
@@ -166,9 +167,9 @@ public class ActivityAlfa extends AppCompatActivity{
             String currentItem = tempArray[i];
 
 
+*/
 
-
-        }*/
+        }
 
 
 
@@ -178,7 +179,7 @@ public class ActivityAlfa extends AppCompatActivity{
 
 
 
-    //CODE TO READ THE NDEF TAG
+ /*   //CODE TO READ THE NDEF TAG
     @Override
     protected void onResume() {
         super.onResume();
@@ -292,4 +293,4 @@ public class ActivityAlfa extends AppCompatActivity{
 
 
 
-
+*/
