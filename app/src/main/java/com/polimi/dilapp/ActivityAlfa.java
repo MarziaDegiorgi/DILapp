@@ -187,6 +187,7 @@ public class ActivityAlfa extends AppCompatActivity {
 
     }
 
+    //rimettere onNewIntent() che chiama handle intent and onPause
     private void handleIntent(Intent intent) {
         String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
@@ -195,7 +196,7 @@ public class ActivityAlfa extends AppCompatActivity {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 new NdefReaderTask().execute(tag);
             } else {
-                Log.d(TAG, "Mime type errato: " + type);
+                Log.d(TAG, "Wrong mime type: " + type);
             }
         } else if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)) {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
@@ -213,8 +214,8 @@ public class ActivityAlfa extends AppCompatActivity {
 
     private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
         @Override
-        protected String doInBackground(Tag... params) {
-            Tag tag = params[0];
+        protected String doInBackground(Tag... parameters) {
+            Tag tag = parameters[0];
             Ndef ndef = Ndef.get(tag);
             if (ndef == null) {
                 return null;
@@ -226,12 +227,13 @@ public class ActivityAlfa extends AppCompatActivity {
                     try {
                         return readText(ndefRecord);
                     } catch (UnsupportedEncodingException e) {
-                        Log.e(TAG, "Encoding non supportato", e);
+                        Log.e(TAG, "Encoding not supported!", e);
                     }
                 }
             }
             return null;
         }
+
         private String readText(NdefRecord record) throws UnsupportedEncodingException {
             byte[] payload = record.getPayload();
             String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
