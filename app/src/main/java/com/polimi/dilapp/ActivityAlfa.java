@@ -1,6 +1,9 @@
 package com.polimi.dilapp;
 
+import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -129,7 +132,9 @@ public class ActivityAlfa extends AppCompatActivity {
                         animationView.startAnimation(animationWait);
                         //wait NFC tag
                         handleIntent(getIntent());
-
+                        if(currentReadElement!= ""){
+                        Toast.makeText(ActivityAlfa.this, currentReadElement, Toast.LENGTH_LONG).show();
+                        }
                        /* if(currentReadElement==""){
                             try {
                                 ActivityAlfa.this.wait();
@@ -187,7 +192,53 @@ public class ActivityAlfa extends AppCompatActivity {
 
     }
 
-    //rimettere onNewIntent() che chiama handle intent and onPause
+    //We want to handle NFC only when the Activity is in the foreground
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setupForegroundDispatch(this, nfcAdapter);
+    }
+
+    @Override
+    protected void onPause() {
+        stopForegroundDispatch(this, nfcAdapter);
+        super.onPause();
+    }
+
+    //onNewIntent let us stay in the same activity after reading a TAG
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+    }
+
+    //Activity SINGLE_TOP launchMode: when an new intent is detected for an Activity for which there is already an instance available,
+    //that instance is used, no other are created.
+    public static void setupForegroundDispatch(final Activity activity, NfcAdapter adapter) {
+        final Intent intent = new Intent(activity.getApplicationContext(), activity.getClass());
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+
+        final PendingIntent pendingIntent = PendingIntent.getActivity(activity.getApplicationContext(), 0, intent, 0);
+
+        IntentFilter[] filters = new IntentFilter[1];
+        String[][] techList = new String[][]{};
+
+        //same of the manifest 
+        filters[0] = new IntentFilter();
+        filters[0].addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
+        filters[0].addCategory(Intent.CATEGORY_DEFAULT);
+        try {
+            filters[0].addDataType(MIME_TEXT_PLAIN);
+        } catch (IntentFilter.MalformedMimeTypeException e) {
+            throw new RuntimeException("Check your mime type.");
+        }
+
+        adapter.enableForegroundDispatch(activity, pendingIntent, filters, techList);
+    }
+
+    public static void stopForegroundDispatch(final Activity activity, NfcAdapter adapter) {
+        adapter.disableForegroundDispatch(activity);
+    }
+
     private void handleIntent(Intent intent) {
         String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
@@ -210,8 +261,8 @@ public class ActivityAlfa extends AppCompatActivity {
             }
         }
     }
-    //CODE TO READ THE NDEF TAG
 
+    //CODE TO READ THE NDEF TAG
     private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
         @Override
         protected String doInBackground(Tag... parameters) {
@@ -247,7 +298,8 @@ public class ActivityAlfa extends AppCompatActivity {
         protected void onPostExecute(String result) {
             if (result != null) {
                 currentReadElement = result;
-                Toast.makeText(ActivityAlfa.this, result, Toast.LENGTH_LONG).show();
+                //only for debug
+                Toast.makeText(ActivityAlfa.this, currentReadElement, Toast.LENGTH_LONG).show();
             }
         }
     }
