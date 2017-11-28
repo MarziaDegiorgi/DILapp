@@ -42,10 +42,10 @@ public class ActivityAlfa extends AppCompatActivity {
     //Timer globalTimer = new Timer();*/
 
     MediaPlayer request;
-
+    Thread thread;
     NfcAdapter nfcAdapter;
-    String currentReadElement = "";
-    String currentElement = "";
+    String currentReadElement = "none ";
+    String currentElement = "lemon";
     public static final String MIME_TEXT_PLAIN = "text/plain";
 
     @Override
@@ -131,72 +131,54 @@ public class ActivityAlfa extends AppCompatActivity {
                         animationView.setAnimation(animationWait);
                         animationView.startAnimation(animationWait);
                         //wait NFC tag
+                        //put here to read only one nfc when required.
+                        setupForegroundDispatch(ActivityAlfa.this, nfcAdapter);
                         handleIntent(getIntent());
-                        if(currentReadElement!= ""){
-                        Toast.makeText(ActivityAlfa.this, currentReadElement, Toast.LENGTH_LONG).show();
-                        }
-                       /* if(currentReadElement==""){
-                            try {
-                                ActivityAlfa.this.wait();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        } else{
+                        startElementTwo();
 
 
-                        if (currentReadElement == currentElement) {
-                            //animation + audio for correct answer
-                            //here toast for debug
-                            Toast.makeText(ActivityAlfa.this, "Corretto!", Toast.LENGTH_LONG);
-                            //then the application proceeds with the next fruit
-                        } else {
 
-                            //animation + audio for not correct answer
-                            //here toast for debug
-                            Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG);
-                            for (int i = 0; i < 2; i++) {
-                                //audio+animation again, to require the same object
-                                handleIntent(getIntent());
-                                if (currentReadElement != currentElement) {
-                                    //animation + audio for not correct answer
-                                    //here toast for debug
-                                    Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG);
-                                    i++;
-                                } else {
-                                    i = 2;
-                                }
-                            }
 
-                        }
-
-                    }*/
                     }
                 });
 
             }
         });
 
+    }
 
-        //tempArray contains the fruits of the session
-        String[] tempArray = getResources().getStringArray(R.array.yellow_items);
-        int tempArrayLenght = tempArray.length;
-        Arrays.sort(tempArray);
+    private void startElementTwo(){
+        if (currentReadElement.equals(currentElement)) {
+            //animation + audio for correct answer
+            //here toast for debug
+            Toast.makeText(ActivityAlfa.this, "Corretto!", Toast.LENGTH_LONG);
+            //then the application proceeds with the next fruit
+        } else {
 
+            //animation + audio for not correct answer
+            //here toast for debug
+            Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG);
+            for (int i = 0; i < 2; i++) {
+                //audio+animation again, to require the same object
+                handleIntent(getIntent());
+                if (!currentReadElement.equals(currentElement)) {
+                    //animation + audio for not correct answer
+                    //here toast for debug
+                    Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG);
+                    i++;
+                } else {
+                    i = 2;
+                }
+            }
 
-        /*for(int i=0; i<(tempArrayLenght-1);i++){
-            totalAttempts++;
-            String currentItem = tempArray[i];
-
-
-*/
-
+        }
     }
 
     //We want to handle NFC only when the Activity is in the foreground
     @Override
     protected void onResume() {
         super.onResume();
-        setupForegroundDispatch(this, nfcAdapter);
+       // setupForegroundDispatch(this, nfcAdapter);
     }
 
     @Override
@@ -222,7 +204,7 @@ public class ActivityAlfa extends AppCompatActivity {
         IntentFilter[] filters = new IntentFilter[1];
         String[][] techList = new String[][]{};
 
-        //same of the manifest 
+        //same of the manifest -> forse è qui il problema (si riapre)
         filters[0] = new IntentFilter();
         filters[0].addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
         filters[0].addCategory(Intent.CATEGORY_DEFAULT);
@@ -256,7 +238,8 @@ public class ActivityAlfa extends AppCompatActivity {
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
                     new NdefReaderTask().execute(tag);
-                    break;
+                    //break;
+                    return;
                 }
             }
         }
