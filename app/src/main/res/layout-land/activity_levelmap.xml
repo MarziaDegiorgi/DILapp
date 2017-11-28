@@ -7,90 +7,79 @@
     android:background="@drawable/background_menu_land"
     tools:context="com.polimi.dilapp.LevelmapActivity">
 
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
-    <Button
-        android:id="@+id/playButton"
-        style="@android:style/Widget.DeviceDefault.Button.Borderless"
-        android:layout_width="163dp"
-        android:layout_height="76dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/roundedbutton"
-        android:backgroundTint="@color/colorPrimaryDark"
-        android:text="@string/play"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="?android:attr/colorForegroundInverse"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-       />
+        <Button
+            android:id="@+id/playButton"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:background="@drawable/roundedbutton"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="@string/play"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="?android:attr/colorForegroundInverse"
+            />
 
-    <ImageView
-        android:id="@+id/carrot"
-        android:layout_width="231dp"
-        android:layout_height="144dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.86"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.903"
-        app:srcCompat="@drawable/carrot" />
+        <Button
+            android:id="@+id/menuButton"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ic_action_menu"
+            android:onClick="showPopup"/>
 
-    <ImageView
-        android:id="@+id/pear"
-        android:layout_width="122dp"
-        android:layout_height="119dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.411"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.884"
-        app:srcCompat="@drawable/pear" />
+        <ImageView
+            android:id="@+id/carrot"
+            android:layout_width="231dp"
+            android:layout_height="144dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            app:srcCompat="@drawable/carrot"
+            android:contentDescription="TODO" />
 
-    <ImageView
-        android:id="@+id/apple"
-        android:layout_width="128dp"
-        android:layout_height="112dp"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.942"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.94"
-        app:srcCompat="@drawable/logofruitvector" />
+        <ImageView
+            android:id="@+id/pear"
+            android:layout_width="122dp"
+            android:layout_height="119dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="40dp"
+            app:srcCompat="@drawable/pear"
+            android:contentDescription="TODO" />
 
-    <Button
-        android:id="@+id/menuButton"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="68dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:background="@drawable/ic_action_menu"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="showPopup"/>
+        <ImageView
+            android:id="@+id/apple"
+            android:layout_width="128dp"
+            android:layout_height="112dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="160dp"
+            android:layout_marginBottom="20dp"
+            app:srcCompat="@drawable/logofruitvector"
+            android:contentDescription="TODO" />
+
+
+
+    </RelativeLayout>
+
+
+
 
 
 </android.support.constraint.ConstraintLayout>
