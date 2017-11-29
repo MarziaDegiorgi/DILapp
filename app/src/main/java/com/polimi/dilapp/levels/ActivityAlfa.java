@@ -29,10 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
 import static android.content.ContentValues.TAG;
-
-/**
- * Created by Roberta on 17/11/2017.
- */
+import static android.os.AsyncTask.Status.FINISHED;
 
 //This is Activity 1.1
 public class ActivityAlfa extends AppCompatActivity {
@@ -44,7 +41,6 @@ public class ActivityAlfa extends AppCompatActivity {
     //Timer globalTimer = new Timer();*/
 
     MediaPlayer request;
-    Thread thread;
     NfcAdapter nfcAdapter;
     String currentReadElement = "none ";
     String currentElement = "lemon";
@@ -232,13 +228,22 @@ public class ActivityAlfa extends AppCompatActivity {
     }
 
     private synchronized void handleIntent(Intent intent) {
+        AsyncTask.Status progressStatus;
         String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
             String type = intent.getType();
             if (MIME_TEXT_PLAIN.equals(type)) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                new NdefReaderTask().execute(tag);
-                notifyAll();
+                progressStatus = new NdefReaderTask().execute(tag).getStatus();
+                if(progressStatus.equals(FINISHED)){
+                    notify();
+                } else {
+                    try {
+                        wait(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
             }
@@ -248,14 +253,22 @@ public class ActivityAlfa extends AppCompatActivity {
             String searchedTech = Ndef.class.getName();
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
-                    new NdefReaderTask().execute(tag);
-                    notifyAll();
+                    progressStatus = new NdefReaderTask().execute(tag).getStatus();
+                    if(progressStatus.equals(FINISHED)){
+                        notify();
+                    } else {
+                        try {
+                            wait(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     //break;
-                    return;
+
                 }
             }
         }
-        notifyAll();
+
     }
 
     //CODE TO READ THE NDEF TAG
@@ -285,8 +298,6 @@ public class ActivityAlfa extends AppCompatActivity {
             byte[] payload = record.getPayload();
             String textEncoding = ((payload[0] & 128) == 0) ? "UTF-8" : "UTF-16";
             int languageCodeLength = payload[0] & 0063;
-            String languageCode = new String(payload, 1, languageCodeLength, "US-ASCII");
-
             return new String(payload, languageCodeLength + 1, payload.length - languageCodeLength - 1, textEncoding);
         }
 
