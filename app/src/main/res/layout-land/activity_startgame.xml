@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_menu_land"
-    tools:context="com.polimi.dilapp.controller.LevelmapActivity">
+    android:background="@drawable/background_land"
+    tools:context="com.polimi.dilapp.startgame.StartGameActivity">
 
     <RelativeLayout
         android:id="@+id/RelativeLayout"
@@ -46,11 +46,12 @@
             android:id="@+id/carrot"
             android:layout_width="231dp"
             android:layout_height="144dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="50dp"
-            app:srcCompat="@drawable/carrot"
-            android:contentDescription="TODO" />
+            android:layout_alignBottom="@+id/pear"
+            android:layout_alignStart="@+id/playButton"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="31dp"
+            android:contentDescription="TODO"
+            app:srcCompat="@drawable/carrot" />
 
         <ImageView
             android:id="@+id/pear"

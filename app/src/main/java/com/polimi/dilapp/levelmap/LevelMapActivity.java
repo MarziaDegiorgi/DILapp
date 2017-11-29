@@ -19,6 +19,7 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_levelmap_view);
+
         listView = (ExpandableListView) findViewById(R.id.expandableListView);
 
         // Set up the presenter
