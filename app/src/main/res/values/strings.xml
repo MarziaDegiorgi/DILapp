@@ -8,5 +8,6 @@
 
     <string name="change_level">Cambia Livello</string>
     <string name="report">Reportistica</string>
+    <string name="create_account">Crea un account giocatore</string>
 
 </resources>
