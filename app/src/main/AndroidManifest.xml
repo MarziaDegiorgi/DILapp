@@ -39,6 +39,7 @@
                 android:resource="@xml/nfc_tech_filter" />
         </activity>
         <activity android:name=".startgame.StartGameActivity" />
+        <activity android:name=".levelmap.LevelMapActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

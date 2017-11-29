@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.polimi.dilapp.controller.LevelmapActivity"
+    tools:context="com.polimi.dilapp.startgame.StartGameActivity"
     android:background="@drawable/default_background">
 
     <RelativeLayout
@@ -28,7 +28,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="?android:attr/colorForegroundInverse"
             tools:layout_editor_absoluteX="102dp"
-            tools:layout_editor_absoluteY="256dp" />
+            tools:layout_editor_absoluteY="256dp"
+            android:onClick="onClickPlay"/>
 
         <Button
             android:id="@+id/menuButton"
@@ -37,9 +38,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:background="@drawable/ic_action_menu"
-            android:onClick="showPopup"
-
-            />
+            android:onClick="showPopup"/>
 
         <ImageView
             android:id="@+id/carrot"

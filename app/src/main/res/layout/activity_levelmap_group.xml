@@ -10,10 +10,11 @@
             android:id="@+id/listTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
-            android:textColor="@android:color/black"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            android:textColor="@color/black_overlay"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:textAlignment="center"
+             />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

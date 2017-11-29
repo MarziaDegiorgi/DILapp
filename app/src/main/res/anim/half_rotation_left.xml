@@ -8,5 +8,6 @@
     android:toDegrees="-20"
     android:fillEnabled="true"
     android:fillAfter="true"
+    android:repeatMode="reverse"
     android:repeatCount="infinite"
     />
