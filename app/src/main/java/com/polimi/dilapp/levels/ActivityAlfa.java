@@ -26,25 +26,32 @@ import android.widget.VideoView;
 import com.polimi.dilapp.R;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
-import static android.os.AsyncTask.Status.FINISHED;
 
 //This is Activity 1.1
 public class ActivityAlfa extends AppCompatActivity {
 
     //TO-DO: ADD TIMER, COUNTERS, SOUND
 
-   /* private int correctAnswers = 0;
-    private int totalAttempts = 0;
+    public int correctAnswers = 0;
+    public int totalAttempts = 0;
     //Timer globalTimer = new Timer();*/
+    private int counter = 0;
 
     MediaPlayer request;
     NfcAdapter nfcAdapter;
-    String currentReadElement = "none ";
-    String currentElement = "lemon";
+    String currentElement;
+    String presentationVideo;
     public static final String MIME_TEXT_PLAIN = "text/plain";
+    String[] sessionFruitVector;
+    List<String> tempArray;
+    String[] colors;
+    List<String> colorSequence;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,9 @@ public class ActivityAlfa extends AppCompatActivity {
             return;
         }
 
+        colors = getResources().getStringArray(R.array.colors);
+        colorSequence = new ArrayList<String>(Arrays.asList(colors));
+
         Log.d("Activity Alfa:", "the onCreate()has been executed.");
         //When the activity is created the introduction video starts
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -72,113 +82,144 @@ public class ActivityAlfa extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 //here the global timer must starts
-                startSessionOne();
+                startGame();
             }
         });
-
-
     }
 
+    //color sequence: yellow, red, orange, violet, green, white, brown
+    private void startGame(){
+        if(colorSequence.isEmpty()){
+            //termina attività 1.1
+            //carica i contatori su DB
+            //screen per tasto esci o continua cn 1.2
+            Toast.makeText(ActivityAlfa.this, "Fine Attività 1.1", Toast.LENGTH_LONG).show();
 
-    //sessionOne includes all the yellow items
-    private void startSessionOne() {
-        Log.d("Activity Alfa:", "session one begins!");
 
-        //This is the video of the first session of 4 fruits: banana, lemon, corn, grapefruit
+        } else {
+        String currentElem = colorSequence.get(0);
+        colorSequence.remove(currentElem);
+        startNewSession(currentElem);
+        }
+    }
+
+    private void startNewSession(String currentElement){
+        String vectorName = "R.array."+ currentElement + "_items";
+        presentationVideo = "R.raw.video_set_of_" + currentElement + "_items";
+        sessionFruitVector = getResources().getStringArray(Integer.parseInt(vectorName));
+        tempArray = new ArrayList<String>(Arrays.asList(sessionFruitVector));
+        chooseElement();
+            }
+
+
+    private void chooseElement(){
+        if(tempArray.isEmpty()){
+            startGame();
+            Toast.makeText(ActivityAlfa.this, "start new session", Toast.LENGTH_LONG).show();
+        }else{
+            Collections.sort(tempArray);
+            currentElement = tempArray.get(0);
+            tempArray.remove(currentElement);
+            askCurrentElement();
+        }
+    }
+
+    private void askCurrentElement(){
+        setVideoView();
+        setWaitingAnimation();
+
+        //wait NFC tag
+        //put here to read only one nfc when required.
+        setupForegroundDispatch(ActivityAlfa.this, nfcAdapter);
+        handleIntent(getIntent());
+    }
+
+    private void checkAnswer(String readTag){
+        if(readTag.equals(currentElement)){
+            //aumenta contatore risposte esatte e tentativi
+            //audio risposta corretta + animazione
+            correctAnswers++;
+            totalAttempts++;
+            Toast.makeText(ActivityAlfa.this, "Risposta corretta, andiamo avanti!", Toast.LENGTH_LONG).show();
+            chooseElement();
+            counter = 0;
+        }else{
+            //aumenta contatore tentativi
+            //audio: hai sbagliato! hai presto "readTAG" non "currentElement" riprova!
+            Toast.makeText(ActivityAlfa.this, "Hai sbagliato! prova di nuovo!", Toast.LENGTH_LONG).show();
+            totalAttempts++;
+            if(counter < 3){
+                askCurrentElement();
+            }else{
+                chooseElement();
+            }
+        }
+    }
+
+    private void setVideoView(){
         final VideoView videoView = findViewById(R.id.video_box);
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_set_of_object);
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + presentationVideo);
         videoView.setVideoURI(uri);
         videoView.start();
-
-        //When the video is terminated the animation with the first required fruit begins with its audio
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 videoView.setVisibility(View.INVISIBLE);
-                //currentElement = "lemon";
-                final ImageView animationView = findViewById(R.id.animation_box);
-                animationView.setVisibility(View.VISIBLE);
-                animationView.setImageDrawable(getResources().getDrawable(R.drawable.dummy_fruit));
-                Animation animationBegin = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.rotation);
-                animationView.setVisibility(View.VISIBLE);
-                animationView.setAnimation(animationBegin);
-
-                request = MediaPlayer.create(ActivityAlfa.this, R.raw.request_object);
-                request.start();
-                request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
-                        animationViewExtra.setVisibility(View.VISIBLE);
-                        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.move);
-                        animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
-                        animationViewExtra.setAnimation(extraAnimation);
-                        animationViewExtra.startAnimation(extraAnimation);
-
-                        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
-                        animationViewExtra.setVisibility(View.VISIBLE);
-                        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.move);
-                        animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
-                        animationViewExtraTwo.setAnimation(extraAnimationTwo);
-                        animationViewExtraTwo.startAnimation(extraAnimationTwo);
-
-                        Animation animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.slide);
-                        animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.blink);
-                        animationView.getResources().getDrawable(R.drawable.dummy_fruit);
-                        animationView.setVisibility(View.VISIBLE);
-                        animationView.setAnimation(animationWait);
-                        animationView.startAnimation(animationWait);
-
-                        //wait NFC tag
-                        //put here to read only one nfc when required.
-                        setupForegroundDispatch(ActivityAlfa.this, nfcAdapter);
-                        handleIntent(getIntent());
-                        while(currentReadElement.equals("none")){
-                            try {
-                                ActivityAlfa.this.wait();
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        startElementTwo();
-
-
-
-
-                    }
-                });
-
+                setPresentationAnimation();
             }
         });
-
     }
 
-    private void startElementTwo(){
-        if (currentReadElement.equals(currentElement)) {
-            //animation + audio for correct answer
-            //here toast for debug
-            Toast.makeText(ActivityAlfa.this, "Corretto!", Toast.LENGTH_LONG).show();
-            //then the application proceeds with the next fruit
-        } else {
+    private void setPresentationAnimation(){
+        String resource ="R.drawable."+ currentElement;
+        final ImageView animationView = findViewById(R.id.animation_box);
+        animationView.setVisibility(View.VISIBLE);
+        animationView.setImageDrawable(getResources().getDrawable(Integer.parseInt(resource)));
+        Animation animationBegin = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.rotation);
+        animationView.setVisibility(View.VISIBLE);
+        animationView.setAnimation(animationBegin);
+        setAudioRequest();
+    }
 
-            //animation + audio for not correct answer
-            //here toast for debug
-            Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG).show();
-            for (int i = 0; i < 2; i++) {
-                //audio+animation again, to require the same object
-                handleIntent(getIntent());
-                if (!currentReadElement.equals(currentElement)) {
-                    //animation + audio for not correct answer
-                    //here toast for debug
-                    Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG).show();
-                    i++;
-                } else {
-                    i = 2;
-                }
+    private void setAudioRequest(){
+        String objectClaimed = "R.raw." + currentElement;
+        request = MediaPlayer.create(ActivityAlfa.this, Uri.parse(objectClaimed));
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                setAnimationBoxExtra();
             }
-
-        }
+        });
     }
+
+    private void setAnimationBoxExtra(){
+        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
+        animationViewExtra.setVisibility(View.VISIBLE);
+        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.move);
+        animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
+        animationViewExtra.setAnimation(extraAnimation);
+        animationViewExtra.startAnimation(extraAnimation);
+
+        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        animationViewExtra.setVisibility(View.VISIBLE);
+        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.move);
+        animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
+        animationViewExtraTwo.setAnimation(extraAnimationTwo);
+        animationViewExtraTwo.startAnimation(extraAnimationTwo);
+    }
+
+    private void setWaitingAnimation(){
+        final ImageView animationView = findViewById(R.id.animation_box);
+        Animation animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.slide);
+        animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.blink);
+        animationView.getResources().getDrawable(R.drawable.lemon);
+        animationView.setVisibility(View.VISIBLE);
+        animationView.setAnimation(animationWait);
+        animationView.startAnimation(animationWait);
+    }
+
+
 
     //We want to handle NFC only when the Activity is in the foreground
     @Override
@@ -228,23 +269,12 @@ public class ActivityAlfa extends AppCompatActivity {
     }
 
     private synchronized void handleIntent(Intent intent) {
-        AsyncTask.Status progressStatus;
         String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
             String type = intent.getType();
             if (MIME_TEXT_PLAIN.equals(type)) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                progressStatus = new NdefReaderTask().execute(tag).getStatus();
-                if(progressStatus.equals(FINISHED)){
-                    notify();
-                } else {
-                    try {
-                        wait(3000);
-                        notify();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                new NdefReaderTask().execute(tag);
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
             }
@@ -254,19 +284,7 @@ public class ActivityAlfa extends AppCompatActivity {
             String searchedTech = Ndef.class.getName();
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
-                    progressStatus = new NdefReaderTask().execute(tag).getStatus();
-                    if(progressStatus.equals(FINISHED)){
-                        notify();
-                    } else {
-                        try {
-                            wait(3000);
-                            notify();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    //break;
-
+                    new NdefReaderTask().execute(tag);
                 }
             }
         }
@@ -306,9 +324,9 @@ public class ActivityAlfa extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             if (result != null) {
-                currentReadElement = result;
                 //only for debug
-                Toast.makeText(ActivityAlfa.this, currentReadElement, Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityAlfa.this, result, Toast.LENGTH_LONG).show();
+                checkAnswer(result);
             }
         }
     }
