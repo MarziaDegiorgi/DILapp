@@ -10,7 +10,7 @@
             android:id="@+id/listTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black_overlay"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="30sp"
             android:textStyle="bold"
             android:textAlignment="center"

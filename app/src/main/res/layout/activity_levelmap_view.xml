@@ -20,12 +20,12 @@
         <ExpandableListView
             android:id="@+id/expandableListView"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="300dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:textAlignment="center"
-            android:divider="@android:color/holo_red_dark"
-            android:dividerHeight="3dp"
+            android:divider="@color/colorPrimary"
+            android:dividerHeight="2dp"
            />
 
     </RelativeLayout>

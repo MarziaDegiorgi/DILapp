@@ -14,28 +14,27 @@ public class ExpandableListData {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
         List<String> objects = new ArrayList<String>();
-        objects.add("Colori");
-        objects.add("Nomi");
-        objects.add("Forme");
-        objects.add("Componi");
+        objects.add("COLORI");
+        objects.add("NOMI");
+        objects.add("FORME");
+        objects.add("COMPONI");
 
 
         List<String> numbers = new ArrayList<String>();
-        numbers.add("Numeri");
-        numbers.add("Alfabeto");
-        numbers.add("Parole");
-        numbers.add("Descrizione");
+        numbers.add("NUMERI");
+        numbers.add("ALFABETO");
+        numbers.add("PAROLE");
+        numbers.add("DESCRIZIONE");
 
         List<String> logic = new ArrayList<String>();
-        logic.add("Imparare a contare");
-        logic.add("Lista della spesa");
-        logic.add(" In cucina con Patty");
+        logic.add("IMPARARE A CONTARE");
+        logic.add("LISTA DELLA SPESA");
+        logic.add("IN CUCINA CON PATTY");
 
 
-
-        expandableListDetail.put("LOGICA", logic);
-        expandableListDetail.put("LETTERE E NUMERI", numbers);
         expandableListDetail.put("OGGETTI E COLORI", objects);
+        expandableListDetail.put("LETTERE E NUMERI", numbers);
+        expandableListDetail.put("LOGICA", logic);
 
         return expandableListDetail;
     }
