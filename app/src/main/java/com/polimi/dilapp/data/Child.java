@@ -1,4 +1,4 @@
-package com.polimi.dilapp.model;
+package com.polimi.dilapp.data;
 
 public class Child {
     private String name;

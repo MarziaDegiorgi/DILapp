@@ -1,4 +1,4 @@
-package com.polimi.dilapp.model;
+package com.polimi.dilapp.levelmap;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -49,7 +49,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.change_level_list_items, null);
+            convertView = layoutInflater.inflate(R.layout.activity_levelmap_list, null);
         }
         TextView expandedListTextView = (TextView) convertView
                 .findViewById(R.id.expandedListItem);
@@ -85,7 +85,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.change_level_list_group, null);
+            convertView = layoutInflater.inflate(R.layout.activity_levelmap_group, null);
         }
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.listTitle);

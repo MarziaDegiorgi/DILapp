@@ -1,4 +1,4 @@
-package com.polimi.dilapp;
+package com.polimi.dilapp.levels;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -22,6 +22,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
+
+import com.polimi.dilapp.R;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;

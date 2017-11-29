@@ -1,4 +1,4 @@
-package com.polimi.dilapp;
+package com.polimi.dilapp.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-import com.polimi.dilapp.controller.LevelmapActivity;
+import com.polimi.dilapp.R;
+import com.polimi.dilapp.levels.ActivityAlfa;
+import com.polimi.dilapp.startgame.StartGameActivity;
 
 
 public class CreateAccountActivity extends AppCompatActivity{
@@ -33,7 +35,7 @@ public class CreateAccountActivity extends AppCompatActivity{
         dummyButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent dummyIntent = new Intent(getApplicationContext(), LevelmapActivity.class);
+                Intent dummyIntent = new Intent(getApplicationContext(), StartGameActivity.class);
                 startActivity(dummyIntent);
             }
         });

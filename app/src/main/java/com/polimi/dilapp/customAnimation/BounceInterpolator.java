@@ -1,4 +1,4 @@
-package com.polimi.dilapp.model;
+package com.polimi.dilapp.customAnimation;
 
 import android.view.animation.Interpolator;
 

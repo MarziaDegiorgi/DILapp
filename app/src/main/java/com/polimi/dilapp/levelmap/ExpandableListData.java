@@ -1,4 +1,4 @@
-package com.polimi.dilapp.model;
+package com.polimi.dilapp.levelmap;
 
 import java.util.ArrayList;
 import java.util.HashMap;

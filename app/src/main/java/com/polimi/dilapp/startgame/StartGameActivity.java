@@ -1,4 +1,4 @@
-package com.polimi.dilapp.controller;
+package com.polimi.dilapp.startgame;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,16 +14,16 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.polimi.dilapp.customAnimation.BounceInterpolator;
+import com.polimi.dilapp.levelmap.CustomExpandableListAdapter;
+import com.polimi.dilapp.levelmap.ExpandableListData;
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.model.BounceInterpolator;
-import com.polimi.dilapp.model.CustomExpandableListAdapter;
-import com.polimi.dilapp.model.ExpandableListData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class LevelmapActivity extends AppCompatActivity {
+public class StartGameActivity extends AppCompatActivity {
 
     //two possible view
     private View levelMapView, changeLevelView;
@@ -31,8 +31,8 @@ public class LevelmapActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        levelMapView = getLayoutInflater().inflate(R.layout.activity_levelmap, null);
-        changeLevelView = getLayoutInflater().inflate(R.layout.change_level_list_view, null);
+        levelMapView = getLayoutInflater().inflate(R.layout.activity_startgame, null);
+        changeLevelView = getLayoutInflater().inflate(R.layout.activity_levelmap_view, null);
 
         //the default view of the activity is the level map
         setContentView(levelMapView);
@@ -51,8 +51,8 @@ public class LevelmapActivity extends AppCompatActivity {
 
        // Load animations
        final Animation animationBounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
-       final Animation animationRight = AnimationUtils.loadAnimation(LevelmapActivity.this, R.anim.half_rotation_right);
-       final Animation animationLeft = AnimationUtils.loadAnimation(LevelmapActivity.this, R.anim.half_rotation_left);
+       final Animation animationRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_right);
+       final Animation animationLeft = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_left);
 
        // Add the personilized interpolator for "animationBounce"
        BounceInterpolator interpolator = new BounceInterpolator(0.7, 10);
