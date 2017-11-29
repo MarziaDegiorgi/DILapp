@@ -132,10 +132,18 @@ public class ActivityAlfa extends AppCompatActivity {
                         animationView.setVisibility(View.VISIBLE);
                         animationView.setAnimation(animationWait);
                         animationView.startAnimation(animationWait);
+
                         //wait NFC tag
                         //put here to read only one nfc when required.
                         setupForegroundDispatch(ActivityAlfa.this, nfcAdapter);
                         handleIntent(getIntent());
+                        while(currentReadElement.equals("none")){
+                            try {
+                                ActivityAlfa.this.wait();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
                         startElementTwo();
 
 
@@ -153,20 +161,20 @@ public class ActivityAlfa extends AppCompatActivity {
         if (currentReadElement.equals(currentElement)) {
             //animation + audio for correct answer
             //here toast for debug
-            Toast.makeText(ActivityAlfa.this, "Corretto!", Toast.LENGTH_LONG);
+            Toast.makeText(ActivityAlfa.this, "Corretto!", Toast.LENGTH_LONG).show();
             //then the application proceeds with the next fruit
         } else {
 
             //animation + audio for not correct answer
             //here toast for debug
-            Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG);
+            Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG).show();
             for (int i = 0; i < 2; i++) {
                 //audio+animation again, to require the same object
                 handleIntent(getIntent());
                 if (!currentReadElement.equals(currentElement)) {
                     //animation + audio for not correct answer
                     //here toast for debug
-                    Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG);
+                    Toast.makeText(ActivityAlfa.this, "Non corretto!", Toast.LENGTH_LONG).show();
                     i++;
                 } else {
                     i = 2;
@@ -223,13 +231,14 @@ public class ActivityAlfa extends AppCompatActivity {
         adapter.disableForegroundDispatch(activity);
     }
 
-    private void handleIntent(Intent intent) {
+    private synchronized void handleIntent(Intent intent) {
         String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
             String type = intent.getType();
             if (MIME_TEXT_PLAIN.equals(type)) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 new NdefReaderTask().execute(tag);
+                notifyAll();
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
             }
@@ -240,11 +249,13 @@ public class ActivityAlfa extends AppCompatActivity {
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
                     new NdefReaderTask().execute(tag);
+                    notifyAll();
                     //break;
                     return;
                 }
             }
         }
+        notifyAll();
     }
 
     //CODE TO READ THE NDEF TAG
