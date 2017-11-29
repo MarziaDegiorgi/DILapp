@@ -240,6 +240,7 @@ public class ActivityAlfa extends AppCompatActivity {
                 } else {
                     try {
                         wait(3000);
+                        notify();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -259,6 +260,7 @@ public class ActivityAlfa extends AppCompatActivity {
                     } else {
                         try {
                             wait(3000);
+                            notify();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
