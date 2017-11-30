@@ -26,6 +26,7 @@ import android.widget.VideoView;
 import com.polimi.dilapp.R;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -46,7 +47,7 @@ public class ActivityAlfa extends AppCompatActivity {
     MediaPlayer request;
     NfcAdapter nfcAdapter;
     String currentElement;
-    String presentationVideo;
+    int presentationVideo;
     public static final String MIME_TEXT_PLAIN = "text/plain";
     String[] sessionFruitVector;
     List<String> tempArray;
@@ -66,12 +67,14 @@ public class ActivityAlfa extends AppCompatActivity {
             return;
         }
 
-        colors = getResources().getStringArray(R.array.colors);
-        colorSequence = new ArrayList<String>(Arrays.asList(colors));
+
 
         Log.d("Activity Alfa:", "the onCreate()has been executed.");
         //When the activity is created the introduction video starts
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        colors = getResources().getStringArray(R.array.colors);
+        colorSequence = new ArrayList<String>(Arrays.asList(colors));
 
         VideoView videoIntro = findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
@@ -97,18 +100,19 @@ public class ActivityAlfa extends AppCompatActivity {
 
 
         } else {
-        String currentElem = colorSequence.get(0);
-        colorSequence.remove(currentElem);
-        startNewSession(currentElem);
+        String currentColor = colorSequence.get(0);
+        colorSequence.remove(currentColor);
+        startNewSession(currentColor);
         }
     }
 
-    private void startNewSession(String currentElement){
-        String vectorName = "R.array."+ currentElement + "_items";
-        presentationVideo = "R.raw.video_set_of_" + currentElement + "_items";
-        sessionFruitVector = getResources().getStringArray(Integer.parseInt(vectorName));
+    private void startNewSession(String currentColor){
+        int vecortID = getResourceId(currentColor+"_items", R.array.class);
+        presentationVideo = getResourceId( "video_set_of_" + currentColor + "_items", R.raw.class);
+
+        sessionFruitVector = getResources().getStringArray(vecortID);
         tempArray = new ArrayList<String>(Arrays.asList(sessionFruitVector));
-        chooseElement();
+        setVideoView();
             }
 
 
@@ -125,7 +129,7 @@ public class ActivityAlfa extends AppCompatActivity {
     }
 
     private void askCurrentElement(){
-        setVideoView();
+        setPresentationAnimation();
                 //wait NFC tag
         //put here to read only one nfc when required.
         setupForegroundDispatch(ActivityAlfa.this, nfcAdapter);
@@ -163,16 +167,16 @@ public class ActivityAlfa extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 videoView.setVisibility(View.INVISIBLE);
-                setPresentationAnimation();
+                chooseElement();
             }
         });
     }
 
     private void setPresentationAnimation(){
-        String resource ="R.drawable."+ currentElement;
+        int resourceID = getResourceId(currentElement, R.drawable.class);
         final ImageView animationView = findViewById(R.id.animation_box);
         animationView.setVisibility(View.VISIBLE);
-        animationView.setImageDrawable(getResources().getDrawable(Integer.parseInt(resource)));
+        animationView.setImageDrawable(getResources().getDrawable(resourceID));
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.rotation);
         animationView.setVisibility(View.VISIBLE);
         animationView.setAnimation(animationBegin);
@@ -180,8 +184,8 @@ public class ActivityAlfa extends AppCompatActivity {
     }
 
     private void setAudioRequest(){
-        String objectClaimed = "R.raw.request_" + currentElement;
-        request = MediaPlayer.create(ActivityAlfa.this, Uri.parse(objectClaimed));
+        int objectClaimedID = getResourceId("request_" + currentElement, R.raw.class);
+        request = MediaPlayer.create(ActivityAlfa.this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -190,8 +194,6 @@ public class ActivityAlfa extends AppCompatActivity {
                 setWaitingAnimation();
             }
         });
-
-
     }
 
     private void setAnimationBoxExtra(){
@@ -211,13 +213,39 @@ public class ActivityAlfa extends AppCompatActivity {
     }
 
     private void setWaitingAnimation(){
+        int resourceID = getResourceId(currentElement, R.drawable.class);
         final ImageView animationView = findViewById(R.id.animation_box);
         Animation animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.slide);
         animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.blink);
-        animationView.getResources().getDrawable(R.drawable.lemon);
+        animationView.getResources().getDrawable(resourceID);
         animationView.setVisibility(View.VISIBLE);
         animationView.setAnimation(animationWait);
         animationView.startAnimation(animationWait);
+    }
+
+    @SuppressWarnings("rawtypes")
+    public static int getResourceId(String name,  Class resType){
+
+        try {
+            Class res = null;
+            if(resType == R.drawable.class)
+                res = R.drawable.class;
+            if(resType == R.id.class)
+                res = R.id.class;
+            if(resType == R.string.class)
+                res = R.string.class;
+            if(resType == R.raw.class)
+                res = R.raw.class;
+            if(resType == R.array.class)
+                res = R.array.class;
+            Field field = res.getField(name);
+            int retId = field.getInt(null);
+            return retId;
+        }
+        catch (Exception e) {
+            // Log.d(TAG, "Failure to get drawable id.", e);
+        }
+        return 0;
     }
 
 
