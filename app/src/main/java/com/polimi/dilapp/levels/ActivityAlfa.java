@@ -126,9 +126,7 @@ public class ActivityAlfa extends AppCompatActivity {
 
     private void askCurrentElement(){
         setVideoView();
-        setWaitingAnimation();
-
-        //wait NFC tag
+                //wait NFC tag
         //put here to read only one nfc when required.
         setupForegroundDispatch(ActivityAlfa.this, nfcAdapter);
         handleIntent(getIntent());
@@ -189,8 +187,11 @@ public class ActivityAlfa extends AppCompatActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 setAnimationBoxExtra();
+                setWaitingAnimation();
             }
         });
+
+
     }
 
     private void setAnimationBoxExtra(){
