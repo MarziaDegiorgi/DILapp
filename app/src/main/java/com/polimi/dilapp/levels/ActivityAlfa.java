@@ -180,7 +180,7 @@ public class ActivityAlfa extends AppCompatActivity {
     }
 
     private void setAudioRequest(){
-        String objectClaimed = "R.raw." + currentElement;
+        String objectClaimed = "R.raw.request_" + currentElement;
         request = MediaPlayer.create(ActivityAlfa.this, Uri.parse(objectClaimed));
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
