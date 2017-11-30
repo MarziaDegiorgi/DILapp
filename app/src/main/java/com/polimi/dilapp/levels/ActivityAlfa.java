@@ -179,6 +179,7 @@ public class ActivityAlfa extends AppCompatActivity {
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.rotation);
         animationView.setVisibility(View.VISIBLE);
         animationView.setAnimation(animationBegin);
+        animationView.startAnimation(animationBegin);
         setAudioRequest();
     }
 
