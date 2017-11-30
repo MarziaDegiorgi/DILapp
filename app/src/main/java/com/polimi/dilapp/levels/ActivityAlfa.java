@@ -76,6 +76,7 @@ public class ActivityAlfa extends AppCompatActivity {
         colors = getResources().getStringArray(R.array.colors);
         colorSequence = new ArrayList<String>(Arrays.asList(colors));
 
+        //Introduction to th whole activity game
         VideoView videoIntro = findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
         videoIntro.setVideoURI(uri);
@@ -112,6 +113,7 @@ public class ActivityAlfa extends AppCompatActivity {
 
         sessionFruitVector = getResources().getStringArray(vecortID);
         tempArray = new ArrayList<String>(Arrays.asList(sessionFruitVector));
+        //this set the video of the session: example yellow colors video.
         setVideoView();
             }
 
@@ -130,10 +132,7 @@ public class ActivityAlfa extends AppCompatActivity {
 
     private void askCurrentElement(){
         setPresentationAnimation();
-                //wait NFC tag
-        //put here to read only one nfc when required.
-        setupForegroundDispatch(ActivityAlfa.this, nfcAdapter);
-        handleIntent(getIntent());
+                //wait NFC tag//handleIntent(getIntent());
     }
 
     private void checkAnswer(String readTag){
@@ -192,6 +191,7 @@ public class ActivityAlfa extends AppCompatActivity {
             public void onCompletion(MediaPlayer mp) {
                 setAnimationBoxExtra();
                 setWaitingAnimation();
+                handleIntent(getIntent());
             }
         });
     }
@@ -254,7 +254,7 @@ public class ActivityAlfa extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-       // setupForegroundDispatch(this, nfcAdapter);
+        setupForegroundDispatch(this, nfcAdapter);
     }
 
     @Override
