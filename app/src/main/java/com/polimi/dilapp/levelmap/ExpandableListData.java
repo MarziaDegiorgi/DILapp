@@ -32,9 +32,11 @@ public class ExpandableListData {
         logic.add("IN CUCINA CON PATTY");
 
 
-        expandableListDetail.put("OGGETTI E COLORI", objects);
-        expandableListDetail.put("LETTERE E NUMERI", numbers);
+
+
         expandableListDetail.put("LOGICA", logic);
+        expandableListDetail.put("LETTERE E NUMERI", numbers);
+        expandableListDetail.put("OGGETTI E COLORI", objects);
 
         return expandableListDetail;
     }

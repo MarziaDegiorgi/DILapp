@@ -32,6 +32,11 @@ public interface ILevelMap {
          * @param subcategoryPosition sub category clicked
          */
        void onItemSelected(ExpandableListView parent, int mainCategoryPosition, int subcategoryPosition);
+
+        /**
+         *  Called when click back
+         */
+        void onClickBack();
     }
 }
 

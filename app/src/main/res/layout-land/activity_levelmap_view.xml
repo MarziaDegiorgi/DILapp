@@ -16,6 +16,27 @@
         android:paddingTop="10dp"
         tools:context=".MainActivity">
 
+        <ImageView
+            android:id="@+id/kite_animation"
+            android:layout_width="48dp"
+            android:layout_height="58dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="50dp"
+            android:contentDescription="kite animation"
+            android:visibility="visible" />
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentStart="true"
+           android:layout_alignParentBottom="true"
+            android:layout_marginStart="18dp"
+            android:background="@drawable/ic_action_name"
+            android:onClick="goBack"
+            tools:background="@drawable/ic_action_name" />
+
         <ExpandableListView
             android:id="@+id/expandableListView"
             android:layout_width="match_parent"

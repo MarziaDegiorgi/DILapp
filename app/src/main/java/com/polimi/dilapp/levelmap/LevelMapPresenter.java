@@ -1,9 +1,12 @@
 package com.polimi.dilapp.levelmap;
 
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
+
+import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,5 +43,11 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
                             listTitles.get(mainCategoryPosition)).get(subcategoryPosition),
                 Toast.LENGTH_SHORT
                 ).show();
+    }
+
+    @Override
+    public void onClickBack() {
+        Intent intent = new Intent(levelMapView.getContext(), StartGameActivity.class);
+        levelMapView.getContext().startActivity(intent);
     }
 }

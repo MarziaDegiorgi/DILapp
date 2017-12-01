@@ -4,9 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.levels.ActivityAlfa;
 
 
 public class LevelMapActivity extends AppCompatActivity implements ILevelMap.View {
@@ -20,12 +25,25 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
 
         setContentView(R.layout.activity_levelmap_view);
 
+
         listView = (ExpandableListView) findViewById(R.id.expandableListView);
 
         // Set up the presenter
         presenter = new LevelMapPresenter(this);
         presenter.initData();
 
+        startAnimation();
+
+    }
+
+    private void startAnimation() {
+
+        ImageView kiteAnimation = findViewById(R.id.kite_animation);
+        kiteAnimation.setVisibility(View.VISIBLE);
+        Animation extraAnimation = AnimationUtils.loadAnimation(LevelMapActivity.this, R.anim.move);
+        kiteAnimation.setImageDrawable(getResources().getDrawable(R.drawable.kite));
+        kiteAnimation.setAnimation(extraAnimation);
+        kiteAnimation.startAnimation(extraAnimation);
     }
 
     @Override
@@ -44,5 +62,11 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
                 return false;
             }
         });
+    }
+
+    public void goBack(View view) {
+        AlphaAnimation buttonClick = new AlphaAnimation(1F,0.8F);
+        view.startAnimation(buttonClick);
+        presenter.onClickBack();
     }
 }
