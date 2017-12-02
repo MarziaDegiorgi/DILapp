@@ -40,6 +40,7 @@
         </activity>
         <activity android:name=".startgame.StartGameActivity" />
         <activity android:name=".levelmap.LevelMapActivity" />
+        <activity android:name=".main.NewAccountActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,10 +1,16 @@
 package com.polimi.dilapp.data;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.provider.ContactsContract;
+
 public class Child {
     private String name;
     private int age;
     private String id;
     private int level;
+    private Bitmap photo;
     //TODO: Decide if add also an avatar or other information
 
     public Child(String name, int age){
@@ -17,6 +23,7 @@ public class Child {
     public void setName( String name) {
         this.name=name;
     }
+    public void setPhoto (Bitmap photo) {this.photo=photo;}
 
     public String getName() {
         return this.name;

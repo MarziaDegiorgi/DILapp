@@ -5,9 +5,14 @@
     <string name="title_activity_one_one">ActivityOneOne</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-
     <string name="change_level">Cambia Livello</string>
     <string name="report">Reportistica</string>
-    <string name="create_account">Crea un account giocatore</string>
+    <string name="select_account">Seleziona un account giocatore</string>
+    <string name="logo">Logo</string>
+    <string name="name">Name</string>
+    <string name="age">Age</string>
+    <string name="form_button_label">Create new account</string>
+
+
 
 </resources>
