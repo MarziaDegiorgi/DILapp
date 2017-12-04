@@ -53,6 +53,8 @@ public class ActivityAlfa extends AppCompatActivity {
     List<String> tempArray;
     String[] colors;
     List<String> colorSequence;
+    VideoView videoView = findViewById(R.id.video_box);
+    ImageView animationView = findViewById(R.id.animation_box);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,11 +79,10 @@ public class ActivityAlfa extends AppCompatActivity {
         colorSequence = new ArrayList<String>(Arrays.asList(colors));
 
         //Introduction to th whole activity game
-        VideoView videoIntro = findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
-        videoIntro.setVideoURI(uri);
-        videoIntro.start();
-        videoIntro.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        videoView.setVideoURI(uri);
+        videoView.start();
+        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             //When the introduction video finishes the first session begins
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -158,7 +159,7 @@ public class ActivityAlfa extends AppCompatActivity {
     }
 
     private void setVideoView(){
-        final VideoView videoView = findViewById(R.id.video_box);
+
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + presentationVideo);
         videoView.setVideoURI(uri);
         videoView.start();
@@ -173,7 +174,7 @@ public class ActivityAlfa extends AppCompatActivity {
 
     private void setPresentationAnimation(){
         int resourceID = getResourceId(currentElement, R.drawable.class);
-        final ImageView animationView = findViewById(R.id.animation_box);
+
         animationView.setVisibility(View.VISIBLE);
         animationView.setImageDrawable(getResources().getDrawable(resourceID));
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.rotation);
@@ -215,7 +216,6 @@ public class ActivityAlfa extends AppCompatActivity {
 
     private void setWaitingAnimation(){
         int resourceID = getResourceId(currentElement, R.drawable.class);
-        final ImageView animationView = findViewById(R.id.animation_box);
         Animation animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.slide);
         animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.blink);
         animationView.getResources().getDrawable(resourceID);
