@@ -24,5 +24,6 @@ public class ListOfChildren {
     public static int length () {
         return list.size();
     }
+    public static Child getElement(int i){return list.get(i);}
 
 }

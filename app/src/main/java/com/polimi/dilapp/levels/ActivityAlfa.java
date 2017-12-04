@@ -152,6 +152,7 @@ public class ActivityAlfa extends AppCompatActivity {
             Toast.makeText(ActivityAlfa.this, "Hai sbagliato! prova di nuovo!", Toast.LENGTH_LONG).show();
             totalAttempts++;
             if(counter < 3){
+                counter++;
                 askCurrentElement();
             }else{
                 chooseElement();

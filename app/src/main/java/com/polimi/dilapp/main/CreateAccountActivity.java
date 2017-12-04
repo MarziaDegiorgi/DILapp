@@ -1,25 +1,33 @@
 package com.polimi.dilapp.main;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.data.Child;
+import com.polimi.dilapp.data.ListOfChildren;
 import com.polimi.dilapp.levels.ActivityAlfa;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.text.Normalizer;
+import java.util.List;
 
 
 public class CreateAccountActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +41,8 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         // Get the Intent that started this activity
         getIntent();
+
+        //link to already existing account of children
 
         //link to the creation of a new account child
         ImageButton newAccountButton = (ImageButton) findViewById(R.id.newAccount);

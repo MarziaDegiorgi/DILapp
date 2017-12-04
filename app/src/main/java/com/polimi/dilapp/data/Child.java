@@ -1,19 +1,20 @@
 package com.polimi.dilapp.data;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.provider.ContactsContract;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Child {
+    static AtomicInteger nextId = new AtomicInteger();
     private String name;
     private int age;
-    private String id;
+    private int id;
     private int level;
     private Bitmap photo;
     //TODO: Decide if add also an avatar or other information
 
     public Child(String name, int age){
+        this.id = nextId.incrementAndGet();
         this.name=name;
         this.age= age;
         this.level = 0;
@@ -36,7 +37,7 @@ public class Child {
         return this.age;
     }
 
-    public String getId() {
+    public int getId() {
        return this.id;
     }
 
