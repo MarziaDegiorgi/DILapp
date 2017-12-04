@@ -1,7 +1,6 @@
 package com.polimi.dilapp.levels;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -21,14 +20,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ActivityOneOne extends AppCompatActivity implements ActivityOneOneInterface.View {
+public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne.View {
     //TO-DO: ADD TIMER, COUNTERS, SOUND
 
     VideoView videoView;
     ImageView animationView;
     String[] colors;
     List<String> colorSequence;
-    ActivityOneOneInterface.Presenter presenter;
+    IActivityOneOne.Presenter presenter;
     MediaPlayer request;
     String element;
 
@@ -39,7 +38,6 @@ public class ActivityOneOne extends AppCompatActivity implements ActivityOneOneI
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_oneone);
-
 
         presenter = new ActivityOneOnePresenter(this);
 
@@ -70,7 +68,6 @@ public class ActivityOneOne extends AppCompatActivity implements ActivityOneOneI
             //When the introduction video finishes the first session begins
             @Override
             public void onCompletion(MediaPlayer mp) {
-                //here the global timer must starts
                 presenter.startGame(colorSequence);
             }
         });
@@ -111,6 +108,7 @@ public class ActivityOneOne extends AppCompatActivity implements ActivityOneOneI
             @Override
             public void onCompletion(MediaPlayer mp) {
                 setAnimationBoxExtra();
+                setWaitingAnimation();
                 presenter.handleIntent(getIntent());
             }
         });
@@ -135,8 +133,7 @@ public class ActivityOneOne extends AppCompatActivity implements ActivityOneOneI
     public void setWaitingAnimation(){
         animationView = findViewById(R.id.animation_box);
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.slide);
-        animationWait = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.blink);
+        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.blink);
         animationView.getResources().getDrawable(resourceID);
         animationView.setVisibility(View.VISIBLE);
         animationView.setAnimation(animationWait);
@@ -192,19 +189,11 @@ public class ActivityOneOne extends AppCompatActivity implements ActivityOneOneI
         presenter.onDestroy();
     }
 
-
-    public Context getApplicationContext(){
-        return getApplicationContext();
-    }
-
+    @Override
     public Class getApplicationClass(){
         return this.getClass();
     }
 
-    @Override
-    public Activity getActivity(){
-        return this.getActivity();
-    }
 
     @Override
     public Context getScreenContext() {

@@ -37,11 +37,10 @@ import static android.content.ContentValues.TAG;
 //This is Activity 1.1
 public class ActivityAlfa extends AppCompatActivity {
 
-    //TO-DO: ADD TIMER, COUNTERS, SOUND
+    //TODO: ADD TIMER, COUNTERS, SOUND
 
     public int correctAnswers = 0;
     public int totalAttempts = 0;
-    //Timer globalTimer = new Timer();*/
     private int counter = 0;
 
     MediaPlayer request;

@@ -1,13 +1,12 @@
 package com.polimi.dilapp.levels;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ActivityOneOneInterface {
+public interface IActivityOneOne {
     interface  View {
 
         /**
@@ -18,10 +17,7 @@ public interface ActivityOneOneInterface {
         void setVideoView(int videoID);
         ArrayList<String> getSessionArray(int vectorID);
         void setPresentationAnimation(String currentElement);
-        void setWaitingAnimation();
-        Context getApplicationContext();
         Class getApplicationClass();
-        Activity getActivity();
         void setCorrectAnswerAnimation();
         void setNotCorrectAnswerAnimation();
     }

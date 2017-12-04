@@ -1,5 +1,6 @@
 package com.polimi.dilapp.levels;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -10,6 +11,7 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Chronometer;
 import android.widget.Toast;
 
 import com.polimi.dilapp.R;
@@ -22,9 +24,10 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class ActivityOneOnePresenter implements ActivityOneOneInterface.Presenter {
-    //TO-DO: ADD TIMER, COUNTERS, SOUND
+public class ActivityOneOnePresenter implements IActivityOneOne.Presenter {
+    //TODO: ADD TIMER, COUNTERS, SOUND
 
+    private Chronometer chronometer;
     private int correctAnswers = 0;
     private int totalAttempts = 0;
     //Timer globalTimer = new Timer();*/
@@ -38,9 +41,9 @@ public class ActivityOneOnePresenter implements ActivityOneOneInterface.Presente
     private List<String> currentSequence;
 
 
-    private ActivityOneOneInterface.View activityOneOneInterface;
+    private IActivityOneOne.View activityOneOneInterface;
 
-   ActivityOneOnePresenter(ActivityOneOneInterface.View view){
+   ActivityOneOnePresenter(IActivityOneOne.View view){
        this.activityOneOneInterface = view;
    }
 
@@ -49,14 +52,10 @@ public class ActivityOneOnePresenter implements ActivityOneOneInterface.Presente
 
 
     public void startGame(List<String> sequence){
+        chronometer.start();
         currentSequence = sequence;
         if(currentSequence.isEmpty()){
-            //termina attività 1.1
-            //carica i contatori su DB
-            //screen per tasto esci o continua cn 1.2
-            Toast.makeText(activityOneOneInterface.getScreenContext(), "Fine Attività 1.1", Toast.LENGTH_LONG).show();
-
-
+            Toast.makeText(activityOneOneInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
         } else {
             String currentColor = currentSequence.get(0);
             currentSequence.remove(currentColor);
@@ -67,11 +66,12 @@ public class ActivityOneOnePresenter implements ActivityOneOneInterface.Presente
     //NEXT ELEMENT IN THE ARRAY
     private void startNewTurn(){
         if(currentSequence.isEmpty()){
-            //termina attività 1.1
-            //carica i contatori su DB
-            //screen per tasto esci o continua cn 1.2
+            //ActivityOneOne ends
+            //TODO UPDATE COUNTERS IN DB
+            chronometer.stop();
+            Long time = chronometer.getBase();
             Toast.makeText(activityOneOneInterface.getScreenContext(), "Fine Attività 1.1", Toast.LENGTH_LONG).show();
-
+            //TODO: visualize screen with buttons "continue" and "exit"
 
         } else {
             String currentColor = currentSequence.get(0);
@@ -110,18 +110,15 @@ public class ActivityOneOnePresenter implements ActivityOneOneInterface.Presente
 
     private void checkAnswer(String readTag) {
         if (readTag.equals(currentElement)) {
-            //aumenta contatore risposte esatte e tentativi
-            //audio risposta corretta + animazione
             correctAnswers++;
             totalAttempts++;
-            Toast.makeText(activityOneOneInterface.getApplicationContext(), "Risposta corretta, andiamo avanti!", Toast.LENGTH_LONG).show();
+            Toast.makeText(activityOneOneInterface.getScreenContext(), "Risposta corretta, andiamo avanti!", Toast.LENGTH_LONG).show();
             counter = 0;
             activityOneOneInterface.setCorrectAnswerAnimation();
         } else {
-            //aumenta contatore tentativi
-            //audio: hai sbagliato! hai presto "readTAG" non "currentElement" riprova!
+
             totalAttempts++;
-            Toast.makeText(activityOneOneInterface.getApplicationContext(), "Hai sbagliato! prova di nuovo!", Toast.LENGTH_LONG).show();
+            Toast.makeText(activityOneOneInterface.getScreenContext(), "Hai sbagliato! prova di nuovo!", Toast.LENGTH_LONG).show();
             activityOneOneInterface.setNotCorrectAnswerAnimation();
             if (counter < 2) {
                 counter++;
@@ -174,6 +171,7 @@ public class ActivityOneOnePresenter implements ActivityOneOneInterface.Presente
         }
     }
 
+    //TODO CHECK IF IT'S NECESSARY TO USE BOTH IF CASES.
     @Override
     public void handleIntent(Intent intent) {
         String action = intent.getAction();
@@ -200,15 +198,14 @@ public class ActivityOneOnePresenter implements ActivityOneOneInterface.Presente
     //Activity SINGLE_TOP launchMode: when an new intent is detected for an Activity for which there is already an instance available,
     //that instance is used, no other are created.
     public void setupForegroundDispatch() {
-        final Intent intent = new Intent(activityOneOneInterface.getApplicationContext(), activityOneOneInterface.getApplicationClass());
+        final Intent intent = new Intent(activityOneOneInterface.getScreenContext(), activityOneOneInterface.getApplicationClass());
         intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        final PendingIntent pendingIntent = PendingIntent.getActivity(activityOneOneInterface.getApplicationContext(), 0, intent, 0);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(activityOneOneInterface.getScreenContext(), 0, intent, 0);
 
         IntentFilter[] filters = new IntentFilter[1];
         String[][] techList = new String[][]{};
 
-        //same of the manifest -> forse è qui il problema (si riapre)
         filters[0] = new IntentFilter();
         filters[0].addAction(NfcAdapter.ACTION_NDEF_DISCOVERED);
         filters[0].addCategory(Intent.CATEGORY_DEFAULT);
@@ -218,11 +215,11 @@ public class ActivityOneOnePresenter implements ActivityOneOneInterface.Presente
             throw new RuntimeException("Check your mime type.");
         }
 
-        nfcAdapter.enableForegroundDispatch(activityOneOneInterface.getActivity(), pendingIntent, filters, techList);
+        nfcAdapter.enableForegroundDispatch((Activity) activityOneOneInterface, pendingIntent, filters, techList);
     }
 
     public void stopForegroundDispatch() {
-        nfcAdapter.disableForegroundDispatch(activityOneOneInterface.getActivity());
+        nfcAdapter.disableForegroundDispatch((Activity) activityOneOneInterface);
     }
 
     //CODE TO READ THE NDEF TAG
@@ -259,7 +256,7 @@ public class ActivityOneOnePresenter implements ActivityOneOneInterface.Presente
         protected void onPostExecute(String result) {
             if (result != null) {
                 //only for debug
-                Toast.makeText(activityOneOneInterface.getApplicationContext(), result, Toast.LENGTH_LONG).show();
+                Toast.makeText(activityOneOneInterface.getScreenContext(), result, Toast.LENGTH_LONG).show();
                 checkAnswer(result);
             }
         }
