@@ -69,8 +69,6 @@ public class ActivityAlfa extends AppCompatActivity {
             return;
         }
 
-
-
         Log.d("Activity Alfa:", "the onCreate()has been executed.");
         //When the activity is created the introduction video starts
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -151,7 +149,7 @@ public class ActivityAlfa extends AppCompatActivity {
             //audio: hai sbagliato! hai presto "readTAG" non "currentElement" riprova!
             Toast.makeText(ActivityAlfa.this, "Hai sbagliato! prova di nuovo!", Toast.LENGTH_LONG).show();
             totalAttempts++;
-            if(counter < 3){
+            if(counter < 2){
                 counter++;
                 askCurrentElement();
             }else{
