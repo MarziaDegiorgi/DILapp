@@ -53,8 +53,8 @@ public class ActivityAlfa extends AppCompatActivity {
     List<String> tempArray;
     String[] colors;
     List<String> colorSequence;
-    VideoView videoView = findViewById(R.id.video_box);
-    ImageView animationView = findViewById(R.id.animation_box);
+    VideoView videoView;
+    ImageView animationView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,7 @@ public class ActivityAlfa extends AppCompatActivity {
         colorSequence = new ArrayList<String>(Arrays.asList(colors));
 
         //Introduction to th whole activity game
+        VideoView videoView = findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
         videoView.setVideoURI(uri);
         videoView.start();
@@ -159,7 +160,7 @@ public class ActivityAlfa extends AppCompatActivity {
     }
 
     private void setVideoView(){
-
+        videoView = findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + presentationVideo);
         videoView.setVideoURI(uri);
         videoView.start();
@@ -174,7 +175,7 @@ public class ActivityAlfa extends AppCompatActivity {
 
     private void setPresentationAnimation(){
         int resourceID = getResourceId(currentElement, R.drawable.class);
-
+        animationView = findViewById(R.id.animation_box);
         animationView.setVisibility(View.VISIBLE);
         animationView.setImageDrawable(getResources().getDrawable(resourceID));
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.rotation);
@@ -215,6 +216,7 @@ public class ActivityAlfa extends AppCompatActivity {
     }
 
     private void setWaitingAnimation(){
+        animationView = findViewById(R.id.animation_box);
         int resourceID = getResourceId(currentElement, R.drawable.class);
         Animation animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.slide);
         animationWait = AnimationUtils.loadAnimation(ActivityAlfa.this, R.anim.blink);
