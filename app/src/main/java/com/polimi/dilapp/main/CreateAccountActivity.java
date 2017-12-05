@@ -21,6 +21,7 @@ import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.ActivityAlfa;
+import com.polimi.dilapp.levels.ActivityOneOne;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.io.FileNotFoundException;
@@ -117,7 +118,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         dummyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent dummyIntent = new Intent(getApplicationContext(), ActivityAlfa.class);
+                Intent dummyIntent = new Intent(getApplicationContext(), ActivityOneOne.class);
                 startActivity(dummyIntent);
             }
         });

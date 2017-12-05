@@ -27,7 +27,7 @@ import static android.content.ContentValues.TAG;
 public class ActivityOneOnePresenter implements IActivityOneOne.Presenter {
     //TODO: ADD TIMER, COUNTERS, SOUND
 
-    private Chronometer chronometer;
+    //private Chronometer chronometer;
     private int correctAnswers = 0;
     private int totalAttempts = 0;
     //Timer globalTimer = new Timer();*/
