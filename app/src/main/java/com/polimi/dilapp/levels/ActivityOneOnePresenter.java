@@ -47,18 +47,15 @@ public class ActivityOneOnePresenter implements IActivityOneOne.Presenter {
        this.activityOneOneInterface = view;
    }
 
-
-
-
-
+    //TODO: add random request at the end
     public void startGame(List<String> sequence){
-        chronometer.start();
+        //chronometer.start();
         currentSequence = sequence;
         if(currentSequence.isEmpty()){
             Toast.makeText(activityOneOneInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
         } else {
             String currentColor = currentSequence.get(0);
-            currentSequence.remove(currentColor);
+            currentSequence.remove(0);
             startNewSession(currentColor);
         }
     }
@@ -68,14 +65,14 @@ public class ActivityOneOnePresenter implements IActivityOneOne.Presenter {
         if(currentSequence.isEmpty()){
             //ActivityOneOne ends
             //TODO UPDATE COUNTERS IN DB
-            chronometer.stop();
-            Long time = chronometer.getBase();
+            //chronometer.stop();
+            //Long time = chronometer.getBase();
             Toast.makeText(activityOneOneInterface.getScreenContext(), "Fine Attività 1.1", Toast.LENGTH_LONG).show();
             //TODO: visualize screen with buttons "continue" and "exit"
 
         } else {
             String currentColor = currentSequence.get(0);
-            currentSequence.remove(currentColor);
+            currentSequence.remove(0);
             startNewSession(currentColor);
         }
     }
@@ -84,10 +81,10 @@ public class ActivityOneOnePresenter implements IActivityOneOne.Presenter {
     private void startNewSession(String currentColor){
         int vectorID = getResourceId(currentColor+"_items", R.array.class);
         presentationVideo = getResourceId( "video_set_of_" + currentColor + "_items", R.raw.class);
-
+        activityOneOneInterface.setVideoView(presentationVideo);
         tempArray = activityOneOneInterface.getSessionArray(vectorID);
         //this set the video of the session: example yellow colors video.
-        activityOneOneInterface.setVideoView(presentationVideo);
+
     }
 
 
@@ -98,7 +95,7 @@ public class ActivityOneOnePresenter implements IActivityOneOne.Presenter {
         }else{
             Collections.sort(tempArray);
             currentElement = tempArray.get(0);
-            tempArray.remove(currentElement);
+            tempArray.remove(0);
             askCurrentElement();
         }
     }

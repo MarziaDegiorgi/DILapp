@@ -141,10 +141,11 @@ public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne
     }
 
     public void setCorrectAnswerAnimation(){
-        Animation animationCorrect = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.slide);
+
         animationView = findViewById(R.id.animation_box);
-        animationView.getResources().getDrawable(R.drawable.correct_answer);
         animationView.setVisibility(View.VISIBLE);
+        animationView.getResources().getDrawable(R.drawable.correct_answer);
+        Animation animationCorrect = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.slide);
         animationView.setAnimation(animationCorrect);
         animationView.startAnimation(animationCorrect);
         request = MediaPlayer.create(ActivityOneOne.this, R.raw.correct_answer);
@@ -159,10 +160,12 @@ public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne
     }
 
     public void setNotCorrectAnswerAnimation(){
-        Animation animationNotCorrect = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.slide);
+
         animationView = findViewById(R.id.animation_box);
-        animationView.getResources().getDrawable(R.drawable.not_correct_answer);
         animationView.setVisibility(View.VISIBLE);
+        animationView.getResources().getDrawable(R.drawable.not_correct_answer);
+
+        Animation animationNotCorrect = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.slide);
         animationView.setAnimation(animationNotCorrect);
         animationView.startAnimation(animationNotCorrect);
         request = MediaPlayer.create(ActivityOneOne.this, R.raw.not_correct_answer);
