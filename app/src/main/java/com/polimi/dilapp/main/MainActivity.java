@@ -1,5 +1,7 @@
 package com.polimi.dilapp.main;
 
+import android.arch.persistence.room.Database;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -10,8 +12,10 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.database.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -9,8 +9,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.data.ListOfChildren;
+import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levels.ActivityAlfa;
 
 
@@ -24,6 +27,7 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_levelmap_view);
+        //Toast.makeText(LevelMapActivity.this, "Il giocatore è "+ DatabaseInitializer.getCurrentPlayer().getName(), Toast.LENGTH_LONG).show();
 
 
         listView = (ExpandableListView) findViewById(R.id.expandableListView);
