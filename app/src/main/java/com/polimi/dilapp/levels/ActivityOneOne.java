@@ -69,6 +69,7 @@ public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne
             @Override
             public void onCompletion(MediaPlayer mp) {
                 presenter.startGame(colorSequence);
+                mp.release();
             }
         });
     }
@@ -83,6 +84,7 @@ public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne
             public void onCompletion(MediaPlayer mp) {
                 videoView.setVisibility(View.INVISIBLE);
                 presenter.chooseElement();
+                mp.release();
             }
         });
     }
@@ -109,6 +111,7 @@ public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne
             public void onCompletion(MediaPlayer mp) {
                 setAnimationBoxExtra();
                 setWaitingAnimation();
+                mp.release();
                 presenter.handleIntent(getIntent());
             }
         });
@@ -154,6 +157,7 @@ public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne
             @Override
             public void onCompletion(MediaPlayer mp) {
                 animationView.setVisibility(View.INVISIBLE);
+                mp.release();
                 presenter.chooseElement();
             }
         });
@@ -173,6 +177,7 @@ public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                mp.release();
                 animationView.setVisibility(View.INVISIBLE);
             }
         });
