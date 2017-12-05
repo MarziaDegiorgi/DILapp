@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ import java.util.List;
 public class CreateAccountActivity extends AppCompatActivity {
 
     private TextView mTextView;
+    private int teporaryChildId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +45,11 @@ public class CreateAccountActivity extends AppCompatActivity {
 
 
         // recovering the instance state
-        if (savedInstanceState == null) {
+        if (DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext())).size() == 0) {
             mTextView.setText(R.string.create_account);
         } else {
             mTextView.setText(R.string.select_account);
-            int playerId = savedInstanceState.getInt("Current Player");
-            //listOfChildren.getElementPerId(playerId).setCurrentPlayer();
-            //TODO: correct getElementPerId(playerId)
+
         }
 
 
@@ -66,7 +66,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         for (int i = 0; i < listOfChildren.size(); i++) {
             //Creating copy of imagebutton by inflating it
             final ImageButton btn = (ImageButton) inflater.inflate(R.layout.account_box, null);
-            btn.setId(listOfChildren.get(i).getId());
+            teporaryChildId = listOfChildren.get(i).getId();
             Drawable drawable = null;
             try {
                 drawable = new BitmapDrawable(getResources(), DatabaseInitializer.getChildPhoto(getContentResolver(),listOfChildren.get(i)));
@@ -80,9 +80,10 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    ListOfChildren.getElementPerId(btn.getId()).setCurrentPlayer(true);
-                    Intent levelMap = new Intent(getApplicationContext(), LevelMapActivity.class);
-                    startActivity(levelMap);
+                    DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()),teporaryChildId);
+                    //TODO set currentPlayer
+                    Intent startGame = new Intent(getApplicationContext(), StartGameActivity.class);
+                    startActivity(startGame);
                 }
             });
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(account.getLayoutParams());
@@ -150,9 +151,6 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         // call superclass to save any view hierarchy
         super.onSaveInstanceState(savedInstanceState);
-        //savedInstanceState.putInt("Current Player", listOfChildren.getCurrentPlayer().getId());
-        //TODO: correct getCurrentPlayer
-
     }
 
 

@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +30,9 @@ public class NewAccountActivity extends AppCompatActivity {
     private ImageButton avatar;
     private Bitmap bitmap;
     private String photoPath;
-
+    private EditText name;
+    private EditText age;
+    private Button button;
 
 
     @Override
@@ -36,10 +40,8 @@ public class NewAccountActivity extends AppCompatActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_newaccount);
 
-
             bitmap = null;
             avatar = (ImageButton) findViewById(R.id.avatar);
-
             avatar.setOnClickListener(new View.OnClickListener() {
 
             @Override

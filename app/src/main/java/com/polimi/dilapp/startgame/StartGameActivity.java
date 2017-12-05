@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +15,12 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.database.AppDatabase;
+import com.polimi.dilapp.database.ChildEntity;
+import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levelmap.LevelMapActivity;
+
+import java.util.List;
 
 
 public class StartGameActivity extends AppCompatActivity implements IStartGame.View {
@@ -25,8 +31,13 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_startgame);
+
+
+        List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
+        for (ChildEntity child : list) {
+            Log.i("Player "+ child.getName(), child.getCurrentPlayer().toString());
+        }
 
         // Set up the presenter
         presenter = new StartGamePresenter(this);

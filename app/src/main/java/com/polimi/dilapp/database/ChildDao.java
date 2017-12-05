@@ -9,6 +9,8 @@ import com.polimi.dilapp.data.Child;
 
 import java.util.List;
 
+import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
+
 @Dao
 public interface ChildDao {
     @Query("SELECT * FROM child")
@@ -18,7 +20,7 @@ public interface ChildDao {
             + "last_name LIKE :last LIMIT 1")
     ChildEntity findByName(String first, String last);*/
 
-    @Insert
+    @Insert(onConflict = IGNORE)
     void insertChild(ChildEntity child);
 
     @Delete

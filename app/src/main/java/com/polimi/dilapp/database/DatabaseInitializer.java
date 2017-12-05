@@ -47,7 +47,6 @@ public class DatabaseInitializer {
         // Raw height and width of image
         final int height = options.outHeight;
         final int width = options.outWidth;
-        Log.i("BEFORE: Image dimension",  "Height =" + height + " Width="+ width);
         int inSampleSize = 1;
 
         if (height > reqHeight || width > reqWidth) {
@@ -87,8 +86,39 @@ public class DatabaseInitializer {
         inputstream = contentResolver.openInputStream(uri);
         Bitmap bitmap = BitmapFactory.decodeStream(inputstream, null, options);
         inputstream.close();
-        Log.i("AFTER: Image dimension",  "Height =" + options.outHeight + " Width="+ options.outWidth);
         return bitmap;
 
+    }
+
+    public static ChildEntity getChildById (AppDatabase db, int id) {
+        List<ChildEntity> list = getListOfChildren(db);
+        ChildEntity selectedChild = null;
+        for(ChildEntity childEntity : list){
+            if (childEntity.getId() == id) {
+                selectedChild = childEntity;
+            }
+        }
+        return selectedChild;
+    }
+
+    public static ChildEntity getCurrentPlayer (AppDatabase db) {
+        List<ChildEntity> list = getListOfChildren(db);
+        ChildEntity selectedChild = null;
+        for(ChildEntity childEntity : list){
+            if (childEntity.getCurrentPlayer()) {
+                selectedChild = childEntity;
+            }
+        }
+        return selectedChild;
+    }
+    public static void setCurrentPlayer (AppDatabase db, int id) {
+        List<ChildEntity> list = getListOfChildren(db);
+        ChildEntity selectedChild = null;
+        for(ChildEntity childEntity : list){
+            if (childEntity.getId() == id) {
+                selectedChild = childEntity;
+                selectedChild.setCurrentPlayer(true);
+            }
+        }
     }
 }

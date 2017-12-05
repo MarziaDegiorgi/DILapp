@@ -63,7 +63,7 @@ public class ChildEntity {
     public int getId() {
         return this.id;
     }
-    public void setId (int age) {this.age=age;}
+    public void setId (int id) {this.id=id;}
 
     //Level
     public int getLevel() {
