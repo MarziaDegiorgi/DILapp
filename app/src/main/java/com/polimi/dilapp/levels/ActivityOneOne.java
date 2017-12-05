@@ -39,7 +39,9 @@ public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_oneone);
 
-        presenter = new ActivityOneOnePresenter(this);
+       // presenter = new ActivityOneOnePresenter(this);
+
+        presenter = new GamePresenter(this);
 
         setupSequence();
         boolean availability = presenter.checkNfcAvailability();
