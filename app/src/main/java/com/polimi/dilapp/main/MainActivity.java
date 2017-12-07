@@ -1,18 +1,13 @@
 package com.polimi.dilapp.main;
 
-import android.arch.persistence.room.Database;
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.VideoView;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.database.AppDatabase;
 
 public class MainActivity extends AppCompatActivity {
 
