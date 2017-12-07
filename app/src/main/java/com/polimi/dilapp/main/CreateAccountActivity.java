@@ -6,7 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,14 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.data.Child;
 import com.polimi.dilapp.database.ChildEntity;
-import com.polimi.dilapp.data.ListOfChildren;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.levelmap.LevelMapActivity;
-import com.polimi.dilapp.levels.ActivityAlfa;
-import com.polimi.dilapp.levels.ActivityOneOne;
+import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.io.FileNotFoundException;

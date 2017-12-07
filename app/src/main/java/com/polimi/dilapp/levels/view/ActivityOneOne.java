@@ -1,4 +1,4 @@
-package com.polimi.dilapp.levels;
+package com.polimi.dilapp.levels.view;
 
 
 import android.content.Context;
@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.VideoView;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.levels.GamePresenter;
+import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;

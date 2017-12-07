@@ -44,7 +44,7 @@ public class GamePresenter implements IGame.Presenter {
 
     private IGame.View activityInterface;
 
-   GamePresenter(IGame.View view){
+   public GamePresenter(IGame.View view){
        this.activityInterface = view;
    }
 
