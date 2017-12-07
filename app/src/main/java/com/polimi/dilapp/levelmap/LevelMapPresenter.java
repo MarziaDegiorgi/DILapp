@@ -13,13 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class LevelMapPresenter implements  ILevelMap.Presenter{
-    ILevelMap.View levelMapView;
+    private ILevelMap.View levelMapView;
     ExpandableListData levelList;
-    List<String> listTitles;
-    HashMap<String, List<String>> listItems;
-    CustomExpandableListAdapter adapter;
+    private List<String> listTitles;
+    private HashMap<String, List<String>> listItems;
+    private CustomExpandableListAdapter adapter;
 
-    public LevelMapPresenter( ILevelMap.View view){
+    LevelMapPresenter(ILevelMap.View view){
 
         this.levelMapView= view;
     }

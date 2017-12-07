@@ -1,6 +1,5 @@
 package com.polimi.dilapp.levels.view;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.VideoView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -20,18 +18,15 @@ import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class ActivityOneOne extends AppCompatActivity implements IGame.View {
-    //TO-DO: ADD TIMER, COUNTERS, SOUND
+    //TODO: ADD TIMER, COUNTERS, SOUND
 
-    VideoView videoView;
-    ImageView animationView;
-    String[] colors;
-    List<String> colorSequence;
+    ArrayList<String> colorSequence;
     IGame.Presenter presenter;
     MediaPlayer request;
     String element;
+    CommonActivity common;
 
 
     @Override
@@ -41,68 +36,45 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_game);
 
-       // presenter = new ActivityOneOnePresenter(this);
-
+        //set up the presenter and pass it to the common activity view
         presenter = new GamePresenter(this);
+        common = new CommonActivity(presenter);
 
         setupSequence();
+
         boolean availability = presenter.checkNfcAvailability();
         if (availability) {
             setupVideoIntro();
         }else{
             finish();
         }
-
-
     }
 
-
     private void setupSequence(){
-        colors = getResources().getStringArray(R.array.colors);
-        colorSequence = new ArrayList<String>(Arrays.asList(colors));
+        String[] colors = getResources().getStringArray(R.array.colors);
+        colorSequence = common.getList(colors);
     }
 
     private void setupVideoIntro(){
-        //Introduction to th whole activity game
-        videoView = findViewById(R.id.video_box);
+        //Introduction to the whole activity game
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
-        videoView.setVideoURI(uri);
-        videoView.start();
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            //When the introduction video finishes the first session begins
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                presenter.startGame(colorSequence);
-                mp.release();
-            }
-        });
+        common.startIntro(uri, colorSequence,this);
     }
 
+    @Override
     public void setVideoView(int videoID){
-        videoView = findViewById(R.id.video_box);
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
-        videoView.setVideoURI(uri);
-        videoView.start();
-        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                videoView.setVisibility(View.INVISIBLE);
-                presenter.chooseElement();
-                mp.release();
-            }
-        });
+        common.startMainVideo(uri, this);
     }
 
+    @Override
     public void setPresentationAnimation(String currentElement){
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        animationView = findViewById(R.id.animation_box);
-        animationView.setVisibility(View.VISIBLE);
-        animationView.setImageDrawable(getResources().getDrawable(resourceID));
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.rotation);
-        animationView.setVisibility(View.VISIBLE);
-        animationView.setAnimation(animationBegin);
-        animationView.startAnimation(animationBegin);
+
+        common.startMainAnimation(this,animationBegin,resourceID,this);
+
         setAudioRequest();
     }
 
@@ -138,62 +110,26 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     }
 
     public void setWaitingAnimation(){
-        animationView = findViewById(R.id.animation_box);
         int resourceID = presenter.getResourceId(element, R.drawable.class);
         Animation animationWait = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.blink);
-        animationView.getResources().getDrawable(resourceID);
-        animationView.setVisibility(View.VISIBLE);
-        animationView.setAnimation(animationWait);
-        animationView.startAnimation(animationWait);
+        common.startMainAnimation(this,animationWait,resourceID,this);
     }
 
+    @Override
     public void setCorrectAnswerAnimation(){
-
-        animationView = findViewById(R.id.animation_box);
-        animationView.setVisibility(View.VISIBLE);
-        animationView.getResources().getDrawable(R.drawable.correct_answer);
-        Animation animationCorrect = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.slide);
-        animationView.setAnimation(animationCorrect);
-        animationView.startAnimation(animationCorrect);
-        request = MediaPlayer.create(ActivityOneOne.this, R.raw.correct_answer);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                animationView.setVisibility(View.INVISIBLE);
-                mp.release();
-                presenter.chooseElement();
-            }
-        });
+        common.setCorrectAnswerAnimation(this, this);
     }
 
+    @Override
     public void setNotCorrectAnswerAnimation(){
-
-        animationView = findViewById(R.id.animation_box);
-        animationView.setVisibility(View.VISIBLE);
-        animationView.getResources().getDrawable(R.drawable.not_correct_answer);
-
-        Animation animationNotCorrect = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.slide);
-        animationView.setAnimation(animationNotCorrect);
-        animationView.startAnimation(animationNotCorrect);
-        request = MediaPlayer.create(ActivityOneOne.this, R.raw.not_correct_answer);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-                animationView.setVisibility(View.INVISIBLE);
-            }
-        });
+       common.setNotCorrectAnswerAnimation(this,this);
     }
-
 
     @Override
     public ArrayList<String> getSessionArray(int vectorID) {
         String[] sessionFruitVector = getResources().getStringArray(vectorID);
-        return new ArrayList<String>(Arrays.asList(sessionFruitVector));
+        return new ArrayList<>(Arrays.asList(sessionFruitVector));
     }
-
 
     @Override
     public void onDestroy() {
@@ -203,12 +139,14 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     @Override
     public Class getApplicationClass(){
+
         return this.getClass();
     }
 
 
     @Override
     public Context getScreenContext() {
+
         return this;
     }
     //We want to handle NFC only when the Activity is in the foreground
@@ -228,6 +166,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
+
         presenter.handleIntent(intent);
     }
 }
