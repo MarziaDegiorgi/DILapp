@@ -34,10 +34,10 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         setContentView(R.layout.activity_startgame);
 
 
-        List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
+       /* List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
         for (ChildEntity child : list) {
             Log.i("Player "+ child.getName(), child.getCurrentPlayer().toString());
-        }
+        }*/
 
         // Set up the presenter
         presenter = new StartGamePresenter(this);
