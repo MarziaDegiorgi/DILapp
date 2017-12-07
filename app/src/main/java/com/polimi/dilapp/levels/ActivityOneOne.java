@@ -20,14 +20,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne.View {
+public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     //TO-DO: ADD TIMER, COUNTERS, SOUND
 
     VideoView videoView;
     ImageView animationView;
     String[] colors;
     List<String> colorSequence;
-    IActivityOneOne.Presenter presenter;
+    IGame.Presenter presenter;
     MediaPlayer request;
     String element;
 
@@ -37,7 +37,7 @@ public class ActivityOneOne extends AppCompatActivity implements IActivityOneOne
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_oneone);
+        setContentView(R.layout.activity_game);
 
        // presenter = new ActivityOneOnePresenter(this);
 

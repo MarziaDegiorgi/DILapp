@@ -24,7 +24,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class GamePresenter implements IActivityOneOne.Presenter {
+public class GamePresenter implements IGame.Presenter {
     //TODO: ADD TIMER, COUNTERS, SOUND
 
     private Chronometer chronometer;
@@ -42,9 +42,9 @@ public class GamePresenter implements IActivityOneOne.Presenter {
 
 //TODO: REWRITE THE CONSTRUCTOR TO HANDLE RUN TIME INIZIALIZATION OF THE ACTIVITY INTERFACE
 
-    private IActivityOneOne.View activityInterface;
+    private IGame.View activityInterface;
 
-   GamePresenter(IActivityOneOne.View view){
+   GamePresenter(IGame.View view){
        this.activityInterface = view;
    }
 

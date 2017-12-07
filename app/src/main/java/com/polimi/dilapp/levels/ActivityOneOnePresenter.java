@@ -11,7 +11,6 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Chronometer;
 import android.widget.Toast;
 
 import com.polimi.dilapp.R;
@@ -24,7 +23,7 @@ import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
-public class ActivityOneOnePresenter implements IActivityOneOne.Presenter {
+public class ActivityOneOnePresenter implements IGame.Presenter {
     //TODO: ADD TIMER, COUNTERS, SOUND
 
     //private Chronometer chronometer;
@@ -41,9 +40,9 @@ public class ActivityOneOnePresenter implements IActivityOneOne.Presenter {
     private List<String> currentSequence;
 
 
-    private IActivityOneOne.View activityOneOneInterface;
+    private IGame.View activityOneOneInterface;
 
-   ActivityOneOnePresenter(IActivityOneOne.View view){
+   ActivityOneOnePresenter(IGame.View view){
        this.activityOneOneInterface = view;
    }
 
