@@ -69,11 +69,11 @@ class CommonActivity {
     }
 
     /**
-     *  Set video in given context in case of not correct answer
+     *  Set video in given context in case of not correct answer in order then to repeat the request
      * @param context of the activity
      * @param image
      */
-    void setVideoWrongAnswer(final ImageView image, Context context){
+    void setVideoWrongAnswerToRepeat(final ImageView image, Context context){
         image.setVisibility(View.VISIBLE);
         //TODO: here we have to put the video for not correct answer
         MediaPlayer request = MediaPlayer.create(context, R.raw.children_wrong_answer);
@@ -82,6 +82,27 @@ class CommonActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 image.setVisibility(View.INVISIBLE);
+                presenter.askCurrentElement();
+                mp.release();
+
+            }
+        });
+    }
+    /**
+     *  Set video in given context in case of not correct answer in order then to go on
+     * @param context of the activity
+     * @param image
+     */
+    void setVideoWrongAnswerAndGoOn(final ImageView image, Context context){
+        image.setVisibility(View.VISIBLE);
+        //TODO: here we have to put the video for not correct answer
+        MediaPlayer request = MediaPlayer.create(context, R.raw.children_wrong_answer);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                image.setVisibility(View.INVISIBLE);
+                presenter.chooseElement();
                 mp.release();
 
             }

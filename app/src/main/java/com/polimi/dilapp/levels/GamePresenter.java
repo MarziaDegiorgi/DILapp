@@ -101,7 +101,7 @@ public class GamePresenter implements IGame.Presenter {
         }
     }
 
-    private void askCurrentElement(){
+    public void askCurrentElement(){
         activityInterface.setPresentationAnimation(currentElement);
 
     }
@@ -112,19 +112,17 @@ public class GamePresenter implements IGame.Presenter {
             correctAnswers++;
             totalAttempts++;
             //Toast.makeText(activityInterface.getScreenContext(), "Risposta corretta, andiamo avanti!", Toast.LENGTH_LONG).show();
-            activityInterface.setCorrectAnswerAnimation();
+            activityInterface.setVideoCorrectAnswer();
         } else {
 
             totalAttempts++;
             //Toast.makeText(activityInterface.getScreenContext(), "Hai sbagliato! prova di nuovo!", Toast.LENGTH_LONG).show();
             if (counter < 2) {
                 counter++;
-                activityInterface.setNotCorrectAnswerAnimation();
-                askCurrentElement();
+                activityInterface.setVideoWrongAnswerToRepeat();
             } else {
-                activityInterface.setNotCorrectAnswerAnimation();
                 counter = 0;
-                chooseElement();
+                activityInterface.setVideoWrongAnswerAndGoOn();
             }
         }
     }

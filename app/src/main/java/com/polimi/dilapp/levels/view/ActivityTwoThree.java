@@ -123,12 +123,17 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public void setCorrectAnswerAnimation() {
+    public void setVideoCorrectAnswer() {
 
     }
 
     @Override
-    public void setNotCorrectAnswerAnimation() {
+    public void setVideoWrongAnswerToRepeat() {
+
+    }
+
+    @Override
+    public void setVideoWrongAnswerAndGoOn() {
 
     }
 

@@ -39,18 +39,23 @@ public interface IGame {
         Class getApplicationClass();
 
         /**
-         * Display in the View the animation in which the game was played correctly
+         * Display in the View the video in which the game was played correctly
          */
-        void setCorrectAnswerAnimation();
+        void setVideoCorrectAnswer();
 
         /**
-         * Display in the View the animation in which the game was played uncorrectly
+         * Display in the View the video in which the game was played uncorrectly before asking again the same element
          */
-        void setNotCorrectAnswerAnimation();
+        void setVideoWrongAnswerToRepeat();
+        /**
+         * Display in the View the video in which the game was played uncorrectly before going on
+         */
+        void setVideoWrongAnswerAndGoOn();
     }
 
     interface  Presenter {
 
+        void askCurrentElement();
         boolean checkNfcAvailability();
         void startGame(ArrayList<String> sequence);
         void onDestroy();
