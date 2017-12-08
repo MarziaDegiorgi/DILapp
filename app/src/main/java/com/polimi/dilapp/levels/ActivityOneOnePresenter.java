@@ -17,9 +17,9 @@ import com.polimi.dilapp.R;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -36,8 +36,8 @@ public class ActivityOneOnePresenter implements IGame.Presenter {
     private String currentElement;
     private int presentationVideo;
     private static final String MIME_TEXT_PLAIN = "text/plain";
-    private List<String> tempArray;
-    private List<String> currentSequence;
+    private ArrayList<String> tempArray;
+    private ArrayList<String> currentSequence;
 
 
     private IGame.View activityOneOneInterface;
@@ -47,7 +47,7 @@ public class ActivityOneOnePresenter implements IGame.Presenter {
    }
 
     //TODO: add random request at the end
-    public void startGame(List<String> sequence){
+    public void startGame(ArrayList<String> sequence){
         //chronometer.start();
         currentSequence = sequence;
         if(currentSequence.isEmpty()){

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface IGame {
     interface  View {
@@ -53,7 +52,7 @@ public interface IGame {
     interface  Presenter {
 
         boolean checkNfcAvailability();
-        void startGame(List<String> sequence);
+        void startGame(ArrayList<String> sequence);
         void onDestroy();
         void chooseElement();
         void handleIntent(Intent intent);

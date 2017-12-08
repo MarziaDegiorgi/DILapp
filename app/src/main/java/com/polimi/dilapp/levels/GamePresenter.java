@@ -18,9 +18,9 @@ import com.polimi.dilapp.R;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -31,14 +31,14 @@ public class GamePresenter implements IGame.Presenter {
     private int correctAnswers=0;
     private int totalAttempts=0;
     //Timer globalTimer = new Timer();*/
-    private int counter;
+    private int counter = 0;
 
     private NfcAdapter nfcAdapter;
     private String currentElement;
     private int presentationVideo;
     private static final String MIME_TEXT_PLAIN = "text/plain";
-    private List<String> tempArray;
-    private List<String> currentSequence;
+    private ArrayList<String> tempArray;
+    private ArrayList<String> currentSequence;
 
 //TODO: REWRITE THE CONSTRUCTOR TO HANDLE RUN TIME INIZIALIZATION OF THE ACTIVITY INTERFACE
 
@@ -49,9 +49,8 @@ public class GamePresenter implements IGame.Presenter {
    }
 
     //TODO: add random request at the end
-    public void startGame(List<String> sequence){
+    public void startGame(ArrayList<String> sequence){
         //chronometer.start();
-        counter =0;
         currentSequence = sequence;
         if(currentSequence.isEmpty()){
             Toast.makeText(activityInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
@@ -109,6 +108,7 @@ public class GamePresenter implements IGame.Presenter {
 
     private void checkAnswer(String readTag) {
         if (readTag.equals(currentElement)) {
+            counter = 0;
             correctAnswers++;
             totalAttempts++;
             Toast.makeText(activityInterface.getScreenContext(), "Risposta corretta, andiamo avanti!", Toast.LENGTH_LONG).show();
@@ -122,6 +122,7 @@ public class GamePresenter implements IGame.Presenter {
                 counter++;
                 askCurrentElement();
             } else {
+                counter = 0;
                chooseElement();
             }
         }
