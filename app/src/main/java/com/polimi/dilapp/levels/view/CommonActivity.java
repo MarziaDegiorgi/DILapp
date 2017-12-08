@@ -109,7 +109,7 @@ class CommonActivity {
 
         image.setAnimation(animationCorrect);
         image.startAnimation(animationCorrect);
-        MediaPlayer request = MediaPlayer.create(context, R.raw.children_good_answer);
+        MediaPlayer request = MediaPlayer.create(context, R.raw.video_correct_answer);
         request.start();
 
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

@@ -53,7 +53,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     }
 
-
     private void setupSequence() {
         String[] numbers = getResources().getStringArray(R.array.numbers);
         numberSequence = common.getList(numbers);
