@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
@@ -70,22 +69,19 @@ class CommonActivity {
     }
 
     /**
-     *  Set animation in given context in case of not correct answer
+     *  Set video in given context in case of not correct answer
      * @param context of the activity
      * @param image
      */
-    void setNotCorrectAnswerAnimation(ImageView image,Context context){
-
-
-        Animation animationNotCorrect = AnimationUtils.loadAnimation(context, R.anim.slide);
-        image.setAnimation(animationNotCorrect);
-        image.startAnimation(animationNotCorrect);
+    void setVideoWrongAnswer(final ImageView image, Context context){
+        image.setVisibility(View.VISIBLE);
+        //TODO: here we have to put the video for not correct answer
         MediaPlayer request = MediaPlayer.create(context, R.raw.children_wrong_answer);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-
+                image.setVisibility(View.INVISIBLE);
                 mp.release();
 
             }
@@ -99,18 +95,14 @@ class CommonActivity {
         imageView.setVisibility(View.INVISIBLE);
     }
     /**
-     *  Set the correct answer animation and then pass to the next element calling the presenter
+     *  Set the correct answer video and then pass to the next element calling the presenter
      * @param context of the activity
      * @param image
      */
-    void setCorrectAnswerAnimation(ImageView image, Context context){
 
-        Animation animationCorrect = AnimationUtils.loadAnimation(context, R.anim.slide);
-
-        image.setAnimation(animationCorrect);
-        image.startAnimation(animationCorrect);
-
+    void setVideoCorrectAnswer(final ImageView image, Context context){
         // per ora c'e solo audio va aggiunto il video
+        image.setVisibility(View.VISIBLE);
         MediaPlayer request = MediaPlayer.create(context, R.raw.video_correct_answer);
         request.start();
 
@@ -118,6 +110,7 @@ class CommonActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
+                image.setVisibility(View.INVISIBLE);
                 presenter.chooseElement();
             }
         });
