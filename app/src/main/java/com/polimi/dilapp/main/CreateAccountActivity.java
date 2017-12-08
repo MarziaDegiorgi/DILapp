@@ -18,6 +18,7 @@ import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
+import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.io.FileNotFoundException;
@@ -118,12 +119,21 @@ public class CreateAccountActivity extends AppCompatActivity {
                 startActivity(dummyIntent);
             }
         });
-        //dummy link to ActivityAlfa for debugging purpose
+        //dummy link to Start Game screen
         Button dummyButton2 = findViewById(R.id.DummyLink2);
         dummyButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent dummyIntent = new Intent(getApplicationContext(), StartGameActivity.class);
+                startActivity(dummyIntent);
+            }
+        });
+        //dummy link to ActivityBeta
+        Button activityBetaButton = findViewById(R.id.DummyLink3);
+        activityBetaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent dummyIntent = new Intent(getApplicationContext(), ActivityTwoOne.class);
                 startActivity(dummyIntent);
             }
         });

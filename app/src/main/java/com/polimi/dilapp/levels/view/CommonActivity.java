@@ -80,7 +80,7 @@ class CommonActivity {
         Animation animationNotCorrect = AnimationUtils.loadAnimation(context, R.anim.slide);
         image.setAnimation(animationNotCorrect);
         image.startAnimation(animationNotCorrect);
-        MediaPlayer request = MediaPlayer.create(context, R.raw.not_correct_answer);
+        MediaPlayer request = MediaPlayer.create(context, R.raw.children_wrong_answer);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -109,7 +109,7 @@ class CommonActivity {
 
         image.setAnimation(animationCorrect);
         image.startAnimation(animationCorrect);
-        MediaPlayer request = MediaPlayer.create(context, R.raw.correct_answer);
+        MediaPlayer request = MediaPlayer.create(context, R.raw.children_good_answer);
         request.start();
 
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
