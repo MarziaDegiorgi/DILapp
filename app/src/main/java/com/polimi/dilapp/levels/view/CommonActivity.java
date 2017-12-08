@@ -109,6 +109,8 @@ class CommonActivity {
 
         image.setAnimation(animationCorrect);
         image.startAnimation(animationCorrect);
+
+        // per ora c'e solo audio va aggiunto il video
         MediaPlayer request = MediaPlayer.create(context, R.raw.video_correct_answer);
         request.start();
 
