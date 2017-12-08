@@ -26,27 +26,48 @@
     </string-array>
 
     <!-- NUMBERS -->
-    <string-array name="number1_items">
+    <string-array name="number_one_items">
         <item>zero</item>
         <item>one</item>
         <item>two</item>
         <item>three</item>
     </string-array>
-    <string-array name="number2_items">
+
+    <string-array name="number_two_items">
         <item>four</item>
         <item>five</item>
         <item>six</item>
-    </string-array>
-    <string-array name="number3_items">
         <item>seven</item>
+    </string-array>
+
+    <string-array name="number_three_items">
         <item>eight</item>
         <item>nine</item>
+        <item>ten</item>
+        <item>eleven</item>
+    </string-array>
+
+    <string-array name="number_four_items">
+        <item>twelve</item>
+        <item>thirteen</item>
+        <item>fourteen</item>
+        <item>fifteen</item>
+    </string-array>
+
+    <string-array name="number_five_items">
+        <item>sixteen</item>
+        <item>seventeen</item>
+        <item>eighteen</item>
+        <item>nineteen</item>
+        <item>twenty</item>
     </string-array>
 
     <string-array name="numbers">
-        <item id='number1'>@array/number1_items</item>
-        <item id='number2'>@array/number2_items</item>
-        <item id='number3'>@array/number3_items</item>
+        <item>number_one</item>
+        <item>number_two</item>
+        <item>number_three</item>
+        <item>number_four</item>
+        <item>number_five</item>
     </string-array>
 
 
@@ -74,7 +95,7 @@
     </string-array>
     
     <string-array name="violet_items">
-        <item>aubergine</item>
+        <item>eggplant</item>
     </string-array>
     
     <string-array name="green_items">
@@ -91,16 +112,6 @@
 
     <string-array name="brown_items">
         <item>potato</item>
-    </string-array>
-
-    <string-array name="all_items">
-        <item color='yellow'>@array/yellow_items</item>
-        <item color='red'>@array/red_items</item>
-        <item color='orange'>@array/orange_items</item>
-        <item color='violet'>@array/violet_items</item>
-        <item color='green'>@array/green_items</item>
-        <item color='white'>@array/white_items</item>
-        <item color='brown'>@array/brown_items</item>
     </string-array>
 
     <string-array name="colors">

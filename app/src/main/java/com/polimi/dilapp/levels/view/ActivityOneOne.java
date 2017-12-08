@@ -124,7 +124,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         common.disableView(imageToHide);
         common.disableView(animationViewExtra);
         common.disableView(animationViewExtraTwo);
-        
+
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
         image.getResources().getDrawable(R.drawable.correct_answer);

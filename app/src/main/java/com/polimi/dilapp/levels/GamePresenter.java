@@ -72,16 +72,16 @@ public class GamePresenter implements IGame.Presenter {
             //TODO: visualize screen with buttons "continue" and "exit"
 
         } else {
-            String currentColor = currentSequence.get(0);
+            String currentElement = currentSequence.get(0);
             currentSequence.remove(0);
-            startNewSession(currentColor);
+            startNewSession(currentElement);
         }
     }
 
     //NEXT ARRAY IN THE SEQUENCE
-    private void startNewSession(String currentGroup){
-        int vectorID = getResourceId(currentGroup +"_items", R.array.class);
-        presentationVideo = getResourceId( "video_set_of_" + currentGroup + "_items", R.raw.class);
+    private void startNewSession(String currentElement){
+        int vectorID = getResourceId(currentElement +"_items", R.array.class);
+        presentationVideo = getResourceId( "video_set_of_" + currentElement + "_items", R.raw.class);
         activityInterface.setVideoView(presentationVideo);
         tempArray = activityInterface.getSessionArray(vectorID);
         //this set the video of the session: example yellow colors video.
