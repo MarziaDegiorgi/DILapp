@@ -15,7 +15,6 @@ import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  *  This class is a View class that contains the common methods used by all the activity views
@@ -47,6 +46,7 @@ class CommonActivity {
 
     void startMainVideo(Uri uri, AppCompatActivity activity){
         final VideoView video = activity.findViewById(R.id.video_box);
+        video.setVisibility(View.VISIBLE);
         video.setVideoURI(uri);
         video.start();
         video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -63,7 +63,7 @@ class CommonActivity {
 
         ImageView image = activity.findViewById(R.id.animation_box);
         image.setVisibility(View.VISIBLE);
-        image.setImageDrawable( context.getResources().getDrawable(resourceID));
+        image.setImageDrawable(context.getResources().getDrawable(resourceID));
         image.setVisibility(View.VISIBLE);
         image.setAnimation(animation);
         image.startAnimation(animation);
@@ -76,22 +76,28 @@ class CommonActivity {
      */
     void setNotCorrectAnswerAnimation(ImageView image,Context context){
 
-        Animation animationNotCorrect = AnimationUtils.loadAnimation(context, R.anim.slide);
 
+        Animation animationNotCorrect = AnimationUtils.loadAnimation(context, R.anim.slide);
         image.setAnimation(animationNotCorrect);
         image.startAnimation(animationNotCorrect);
         MediaPlayer request = MediaPlayer.create(context, R.raw.not_correct_answer);
         request.start();
-        final ImageView finalImage = image;
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+
                 mp.release();
-                finalImage.setVisibility(View.INVISIBLE);
+
             }
         });
     }
-
+    /**
+     *  Disable the ImageView received as parameter
+     * @param imageView
+     */
+    void disableView(ImageView imageView){
+        imageView.setVisibility(View.INVISIBLE);
+    }
     /**
      *  Set the correct answer animation and then pass to the next element calling the presenter
      * @param context of the activity
@@ -105,11 +111,10 @@ class CommonActivity {
         image.startAnimation(animationCorrect);
         MediaPlayer request = MediaPlayer.create(context, R.raw.correct_answer);
         request.start();
-        final ImageView finalImage = image;
+
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                finalImage.setVisibility(View.INVISIBLE);
                 mp.release();
                 presenter.chooseElement();
             }

@@ -117,13 +117,14 @@ public class GamePresenter implements IGame.Presenter {
 
             totalAttempts++;
             Toast.makeText(activityInterface.getScreenContext(), "Hai sbagliato! prova di nuovo!", Toast.LENGTH_LONG).show();
-            activityInterface.setNotCorrectAnswerAnimation();
             if (counter < 2) {
                 counter++;
+                activityInterface.setNotCorrectAnswerAnimation();
                 askCurrentElement();
             } else {
+                activityInterface.setNotCorrectAnswerAnimation();
                 counter = 0;
-               chooseElement();
+                chooseElement();
             }
         }
     }

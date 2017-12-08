@@ -118,7 +118,14 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     public void setCorrectAnswerAnimation(){
 
-        ImageView image = findViewById(R.id.animation_box);
+        ImageView imageToHide = findViewById(R.id.animation_box);
+        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
+        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        common.disableView(imageToHide);
+        common.disableView(animationViewExtra);
+        common.disableView(animationViewExtraTwo);
+        
+        ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
         image.getResources().getDrawable(R.drawable.correct_answer);
         common.setCorrectAnswerAnimation(image, this);
@@ -127,8 +134,14 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setNotCorrectAnswerAnimation(){
+        ImageView imageToHide = findViewById(R.id.animation_box);
+        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
+        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        common.disableView(imageToHide);
+        common.disableView(animationViewExtra);
+        common.disableView(animationViewExtraTwo);
 
-        ImageView image = findViewById(R.id.animation_box);
+        ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
         image.getResources().getDrawable(R.drawable.not_correct_answer);
         common.setNotCorrectAnswerAnimation(image,this);
