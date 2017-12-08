@@ -117,12 +117,21 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setCorrectAnswerAnimation(){
-        common.setCorrectAnswerAnimation(this, this);
+
+        ImageView image = findViewById(R.id.animation_box);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.correct_answer);
+        common.setCorrectAnswerAnimation(image, this);
+
     }
 
     @Override
     public void setNotCorrectAnswerAnimation(){
-       common.setNotCorrectAnswerAnimation(this,this);
+
+        ImageView image = findViewById(R.id.animation_box);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.not_correct_answer);
+        common.setNotCorrectAnswerAnimation(image,this);
     }
 
     @Override

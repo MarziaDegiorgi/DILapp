@@ -126,12 +126,12 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setCorrectAnswerAnimation() {
-        common.setCorrectAnswerAnimation(this, this);
+
     }
 
     @Override
     public void setNotCorrectAnswerAnimation() {
-        common.setNotCorrectAnswerAnimation(this,this);
+
     }
 
     @Override

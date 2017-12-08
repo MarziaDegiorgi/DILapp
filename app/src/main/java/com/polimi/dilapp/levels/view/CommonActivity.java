@@ -72,15 +72,12 @@ class CommonActivity {
     /**
      *  Set animation in given context in case of not correct answer
      * @param context of the activity
-     * @param activity class
+     * @param image
      */
-    void setNotCorrectAnswerAnimation(Context context,AppCompatActivity activity){
-
-        ImageView image = activity.findViewById(R.id.animation_box);
-        image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
+    void setNotCorrectAnswerAnimation(ImageView image,Context context){
 
         Animation animationNotCorrect = AnimationUtils.loadAnimation(context, R.anim.slide);
+
         image.setAnimation(animationNotCorrect);
         image.startAnimation(animationNotCorrect);
         MediaPlayer request = MediaPlayer.create(context, R.raw.not_correct_answer);
@@ -98,14 +95,12 @@ class CommonActivity {
     /**
      *  Set the correct answer animation and then pass to the next element calling the presenter
      * @param context of the activity
-     * @param activity class
+     * @param image
      */
-    void setCorrectAnswerAnimation(Context context, AppCompatActivity activity){
+    void setCorrectAnswerAnimation(ImageView image, Context context){
 
-        ImageView image = activity.findViewById(R.id.animation_box);
-        image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.correct_answer);
         Animation animationCorrect = AnimationUtils.loadAnimation(context, R.anim.slide);
+
         image.setAnimation(animationCorrect);
         image.startAnimation(animationCorrect);
         MediaPlayer request = MediaPlayer.create(context, R.raw.correct_answer);
