@@ -28,10 +28,10 @@ public class GamePresenter implements IGame.Presenter {
     //TODO: ADD TIMER, COUNTERS, SOUND
 
     private Chronometer chronometer;
-    private int correctAnswers = 0;
-    private int totalAttempts = 0;
+    private int correctAnswers=0;
+    private int totalAttempts=0;
     //Timer globalTimer = new Timer();*/
-    private int counter = 0;
+    private int counter;
 
     private NfcAdapter nfcAdapter;
     private String currentElement;
@@ -51,6 +51,7 @@ public class GamePresenter implements IGame.Presenter {
     //TODO: add random request at the end
     public void startGame(List<String> sequence){
         //chronometer.start();
+        counter =0;
         currentSequence = sequence;
         if(currentSequence.isEmpty()){
             Toast.makeText(activityInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
@@ -111,7 +112,6 @@ public class GamePresenter implements IGame.Presenter {
             correctAnswers++;
             totalAttempts++;
             Toast.makeText(activityInterface.getScreenContext(), "Risposta corretta, andiamo avanti!", Toast.LENGTH_LONG).show();
-            counter = 0;
             activityInterface.setCorrectAnswerAnimation();
         } else {
 
