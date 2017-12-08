@@ -55,9 +55,9 @@ public class GamePresenter implements IGame.Presenter {
         if(currentSequence.isEmpty()){
             Toast.makeText(activityInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
         } else {
-            String currentColor = currentSequence.get(0);
+            String currentGroup = currentSequence.get(0);
             currentSequence.remove(0);
-            startNewSession(currentColor);
+            startNewSession(currentGroup);
         }
     }
 
@@ -79,9 +79,9 @@ public class GamePresenter implements IGame.Presenter {
     }
 
     //NEXT ARRAY IN THE SEQUENCE
-    private void startNewSession(String currentColor){
-        int vectorID = getResourceId(currentColor+"_items", R.array.class);
-        presentationVideo = getResourceId( "video_set_of_" + currentColor + "_items", R.raw.class);
+    private void startNewSession(String currentGroup){
+        int vectorID = getResourceId(currentGroup +"_items", R.array.class);
+        presentationVideo = getResourceId( "video_set_of_" + currentGroup + "_items", R.raw.class);
         activityInterface.setVideoView(presentationVideo);
         tempArray = activityInterface.getSessionArray(vectorID);
         //this set the video of the session: example yellow colors video.

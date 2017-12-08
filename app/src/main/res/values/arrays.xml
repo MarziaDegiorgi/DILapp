@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- ALPHABET -->
     <string-array name="letters">
-
         <item>a</item>
         <item>b</item>
         <item>c</item>
@@ -24,33 +23,34 @@
         <item>u</item>
         <item>v</item>
         <item>z</item>
+    </string-array>
 
+    <!-- NUMBERS -->
+    <string-array name="number1_items">
+        <item>zero</item>
+        <item>one</item>
+        <item>two</item>
+        <item>three</item>
+    </string-array>
+    <string-array name="number2_items">
+        <item>four</item>
+        <item>five</item>
+        <item>six</item>
+    </string-array>
+    <string-array name="number3_items">
+        <item>seven</item>
+        <item>eight</item>
+        <item>nine</item>
     </string-array>
 
     <string-array name="numbers">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
-        <item>6</item>
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
+        <item id='number1'>@array/number1_items</item>
+        <item id='number2'>@array/number2_items</item>
+        <item id='number3'>@array/number3_items</item>
     </string-array>
 
-    //all the elements in the arrays are put in italian alphabetical order
+
+   <!-- COLORS AND OBJECT -->
     <string-array name="yellow_items">
         <item>banana</item>
         <item>lemon</item>
