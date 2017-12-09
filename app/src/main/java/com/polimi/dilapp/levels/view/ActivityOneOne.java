@@ -18,6 +18,8 @@ import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     //TODO: ADD TIMER, COUNTERS, SOUND
@@ -162,7 +164,9 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         if(vectorID == R.array.all_fruits_items){
             return common.getPartialArray(sessionFruitVector);
         }else {
-            return new ArrayList<>(Arrays.asList(sessionFruitVector));
+            List<String> array = new ArrayList<>(Arrays.asList(sessionFruitVector));
+            Collections.sort(array);
+            return (ArrayList<String>) array;
         }
     }
 
