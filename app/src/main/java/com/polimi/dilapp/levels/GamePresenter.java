@@ -21,6 +21,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import static android.content.ContentValues.TAG;
 
@@ -37,11 +38,9 @@ public class GamePresenter implements IGame.Presenter {
     private String currentElement;
     private int presentationVideo;
     private static final String MIME_TEXT_PLAIN = "text/plain";
-    private ArrayList<String> tempArray;
-    private ArrayList<String> currentSequence;
-
-//TODO: REWRITE THE CONSTRUCTOR TO HANDLE RUN TIME INIZIALIZATION OF THE ACTIVITY INTERFACE
-
+    private List<String> tempArray;
+    private List<String> currentSequence;
+    //TODO: add chronometer
     private IGame.View activityInterface;
 
    public GamePresenter(IGame.View view){

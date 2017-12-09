@@ -14,6 +14,8 @@ import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  *  This class is a View class that contains the common methods used by all the activity views
@@ -137,5 +139,12 @@ class CommonActivity {
         });
     }
 
+    ArrayList<String> getPartialArray(String[] array){
+        List<String> completeArray = new ArrayList<>(Arrays.asList(array));
+        Collections.sort(completeArray);
+        int startIndex = 0;
+        int endIndex = completeArray.size() / 2;
+        return new ArrayList<>(completeArray.subList(startIndex, endIndex));
+    }
 
 }

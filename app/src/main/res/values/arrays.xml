@@ -68,6 +68,32 @@
         <item>number_three</item>
         <item>number_four</item>
         <item>number_five</item>
+        <item>all_numbers</item>
+    </string-array>
+
+
+    <string-array name="all_numbers_items">
+        <item>zero</item>
+        <item>one</item>
+        <item>two</item>
+        <item>three</item>
+        <item>four</item>
+        <item>five</item>
+        <item>six</item>
+        <item>seven</item>
+        <item>eight</item>
+        <item>nine</item>
+        <item>ten</item>
+        <item>eleven</item>
+        <item>twelve</item>
+        <item>thirteen</item>
+        <item>fourteen</item>
+        <item>fifteen</item>
+        <item>sixteen</item>
+        <item>seventeen</item>
+        <item>eighteen</item>
+        <item>nineteen</item>
+        <item>twenty</item>
     </string-array>
 
 
@@ -122,6 +148,31 @@
         <item>green</item>
         <item>white</item>
         <item>brown</item>
+        <item>all_fruits</item>
+    </string-array>
+
+    <string-array name="all_fruits_items">
+        <item>banana</item>
+        <item>lemon</item>
+        <item>corn</item>
+        <item>grapefruit</item>
+        <item>watermelon</item>
+        <item>strawberry</item>
+        <item>apple</item>
+        <item>pepper</item>
+        <item>tomato</item>
+        <item>orange</item>
+        <item>carrot</item>
+        <item>onion</item>
+        <item>tangerine</item>
+        <item>eggplant</item>
+        <item>asparagus</item>
+        <item>broccoli</item>
+        <item>cucumber</item>
+        <item>pear</item>
+        <item>greenpea</item>
+        <item>fennel</item>
+        <item>potato</item>
     </string-array>
 
 </resources>

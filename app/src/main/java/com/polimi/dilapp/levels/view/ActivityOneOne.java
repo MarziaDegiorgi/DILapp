@@ -159,7 +159,11 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     public ArrayList<String> getSessionArray(int vectorID) {
         String[] sessionFruitVector = getResources().getStringArray(vectorID);
-        return new ArrayList<>(Arrays.asList(sessionFruitVector));
+        if(vectorID == R.array.all_fruits_items){
+            return common.getPartialArray(sessionFruitVector);
+        }else {
+            return new ArrayList<>(Arrays.asList(sessionFruitVector));
+        }
     }
 
     @Override
