@@ -11,7 +11,6 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.widget.Chronometer;
 import android.widget.Toast;
 
 import com.polimi.dilapp.R;
@@ -26,12 +25,9 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 public class GamePresenter implements IGame.Presenter {
-    //TODO: ADD TIMER, COUNTERS, SOUND
 
-    private Chronometer chronometer;
     private int correctAnswers=0;
     private int totalAttempts=0;
-    //Timer globalTimer = new Timer();*/
     private int counter = 0;
 
     private NfcAdapter nfcAdapter;
@@ -40,16 +36,20 @@ public class GamePresenter implements IGame.Presenter {
     private static final String MIME_TEXT_PLAIN = "text/plain";
     private List<String> tempArray;
     private List<String> currentSequence;
-    //TODO: add chronometer
+    private int initTime;
+    private int endTime;
+    private int totaltime;
+    //TODO set adjustments: they are the approximated lenght in seconds of the videos of the activity
+    private int adjustment = 0;
     private IGame.View activityInterface;
 
    public GamePresenter(IGame.View view){
        this.activityInterface = view;
    }
 
-    //TODO: add random request at the end
     public void startGame(ArrayList<String> sequence){
-        //chronometer.start();
+       //current system time in seconds
+        initTime = (int) (System.currentTimeMillis()/1000);
         currentSequence = sequence;
         if(currentSequence.isEmpty()){
             Toast.makeText(activityInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
@@ -64,9 +64,13 @@ public class GamePresenter implements IGame.Presenter {
     private void startNewTurn(){
         if(currentSequence.isEmpty()){
             //ActivityOneOne ends
-            //TODO UPDATE COUNTERS IN DB
-            //chronometer.stop();
-            //Long time = chronometer.getBase();
+            endTime = (int)(System.currentTimeMillis()/1000);
+            setTimeParameter();
+            //only for debug
+            String i = String.valueOf(totaltime);
+            Log.i("Total time:", i);
+            
+            //TODO UPDATE COUNTERS and TOTAL TIME IN DB
             Toast.makeText(activityInterface.getScreenContext(), "Fine Attività 1.1", Toast.LENGTH_LONG).show();
             //TODO: visualize screen with buttons "continue" and "exit"
 
@@ -258,5 +262,8 @@ public class GamePresenter implements IGame.Presenter {
             }
         }
     }
+        private void setTimeParameter(){
+        totaltime = endTime - initTime - adjustment;
+        }
 
 }
