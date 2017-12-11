@@ -169,6 +169,20 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public void setRepeatOrExitScreen() {
+        Intent intent = new Intent(getApplicationContext(), RepeatOrExitScreen.class);
+        intent.putExtra("activity","ActivityOneTwo");
+        startActivity(intent);
+    }
+
+    @Override
+    public void setGoOnOrExitScreen() {
+        Intent intent = new Intent(getApplicationContext(), GoOnOrExitScreen.class);
+        intent.putExtra("activity","ActivityOneThree");
+        startActivity(intent);
+    }
+
+    @Override
     public ArrayList<String> getSessionArray(int vectorID) {
         String[] sessionFruitVector = getResources().getStringArray(vectorID);
         if(vectorID == R.array.all_colors_items){

@@ -70,9 +70,17 @@ public class GamePresenter implements IGame.Presenter {
             //only for debug
             String i = String.valueOf(totaltime);
             Log.i("Total time:", i);
-
             //TODO UPDATE COUNTERS and TOTAL TIME IN DB
             Toast.makeText(activityInterface.getScreenContext(), "Fine Attività 1.1", Toast.LENGTH_LONG).show();
+            int diff = totalAttempts - correctAnswers;
+            int percentage = (20*totalAttempts)/100;
+            if(diff > percentage){
+                //repeat Activity or go back to the main menu
+                activityInterface.setRepeatOrExitScreen();
+            }else{
+                //unlock next Activity or exit or go back to the main menu
+                activityInterface.setGoOnOrExitScreen();
+            }
             //TODO: visualize screen with buttons "continue" and "exit"
 
         } else {
@@ -89,7 +97,6 @@ public class GamePresenter implements IGame.Presenter {
         activityInterface.setVideoView(presentationVideo);
         tempArray = activityInterface.getSessionArray(vectorID);
         //this set the video of the session: example yellow colors video.
-
     }
 
 

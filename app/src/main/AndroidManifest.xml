@@ -65,6 +65,8 @@
         <activity android:name=".levels.view.ActivityTwoTwo" />
         <activity android:name=".levels.view.ActivityTwoThree" />
         <activity android:name=".levels.view.ActivityTwoFour" />
+        <activity android:name=".levels.view.RepeatOrExitScreen" />
+        <activity android:name=".levels.view.GoOnOrExitScreen" />
 
         <meta-data
             android:name="preloaded_fonts"

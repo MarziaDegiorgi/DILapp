@@ -136,6 +136,16 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public void setRepeatOrExitScreen() {
+
+    }
+
+    @Override
+    public void setGoOnOrExitScreen() {
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         presenter.setupForegroundDispatch();

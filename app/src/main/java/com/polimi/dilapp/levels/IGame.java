@@ -51,6 +51,12 @@ public interface IGame {
          * Display in the View the video in which the game was played uncorrectly before going on
          */
         void setVideoWrongAnswerAndGoOn();
+        /*
+        * The View is changed into the appropriate end game screen.
+        *
+        * */
+        void setRepeatOrExitScreen();
+        void setGoOnOrExitScreen();
     }
 
     interface  Presenter {
