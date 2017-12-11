@@ -20,19 +20,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 /*
 *
-* In this Activity the child learns to associate a shape to an object.
+* In this Activity the child learns to associate a colour to an object.
 *
 * */
-public class ActivityOneThree extends AppCompatActivity implements IGame.View {
+public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
 
-    ArrayList<String> shapeSequence;
+    ArrayList<String> colorSequence;
     IGame.Presenter presenter;
     MediaPlayer request;
     String element;
     CommonActivity common;
+    String currentColour;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,14 +56,14 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     }
 
     private void setupSequence(){
-        String[] shapes = getResources().getStringArray(R.array.shapes);
-        shapeSequence = common.getList(shapes);
+        String[] colors = getResources().getStringArray(R.array.colors);
+        colorSequence = common.getList(colors);
     }
 
     private void setupVideoIntro(){
         //Introduction to the whole activity game
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
-        common.startIntro(uri, shapeSequence,this);
+        common.startIntro(uri, colorSequence,this);
     }
 
     private void disableViews(){
@@ -85,7 +85,8 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     public void setPresentationAnimation(String currentElement){
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.rotation);
+        currentColour = presenter.getCurrentSequenceElement();
+        Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.rotation);
 
         common.startMainAnimation(this,animationBegin,resourceID,this);
 
@@ -93,8 +94,13 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     }
 
     private void setAudioRequest(){
-        int objectClaimedID = presenter.getResourceId("request_shape", R.raw.class);
-        request = MediaPlayer.create(ActivityOneThree.this, objectClaimedID);
+        int objectClaimedID;
+        if(currentColour.equals("all_colors")){
+            objectClaimedID = presenter.getResourceId("request_"+element+"_item", R.raw.class);
+        }else{
+            objectClaimedID = presenter.getResourceId("request_" + currentColour + "_item", R.raw.class);
+        }
+        request = MediaPlayer.create(ActivityOneTwo.this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -112,14 +118,14 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     public void setAnimationBoxExtra(){
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.move);
+        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.move);
         animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
         animationViewExtra.setAnimation(extraAnimation);
         animationViewExtra.startAnimation(extraAnimation);
 
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
         animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.move);
+        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.move);
         animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
         animationViewExtraTwo.setAnimation(extraAnimationTwo);
         animationViewExtraTwo.startAnimation(extraAnimationTwo);
@@ -127,7 +133,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.blink);
+        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.blink);
         common.startMainAnimation(this,animationWait,resourceID,this);
     }
 
@@ -165,7 +171,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     @Override
     public ArrayList<String> getSessionArray(int vectorID) {
         String[] sessionFruitVector = getResources().getStringArray(vectorID);
-        if(vectorID == R.array.all_shapes_items){
+        if(vectorID == R.array.all_colors_items){
             return common.getPartialArray(sessionFruitVector);
         }else {
             List<String> array = new ArrayList<>(Arrays.asList(sessionFruitVector));

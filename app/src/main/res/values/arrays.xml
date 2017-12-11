@@ -148,9 +148,32 @@
         <item>green</item>
         <item>white</item>
         <item>brown</item>
-        <item>all_fruits</item>
+        <item>all_colors</item>
     </string-array>
 
+    <string-array name="all_colors_items">
+        <item>banana_yellow</item>
+        <item>lemon_yellow</item>
+        <item>corn_yellow</item>
+        <item>grapefruit_yellow</item>
+        <item>watermelon_red</item>
+        <item>strawberry_red</item>
+        <item>apple_red</item>
+        <item>pepper_red</item>
+        <item>tomato_red</item>
+        <item>orange_orange</item>
+        <item>carrot_orange</item>
+        <item>onion_orange</item>
+        <item>tangerine_orange</item>
+        <item>eggplant_violet</item>
+        <item>asparagus_green</item>
+        <item>broccoli_green</item>
+        <item>cucumber_green</item>
+        <item>pear_green</item>
+        <item>greenpea_green</item>
+        <item>fennel_white</item>
+        <item>potato_brown</item>
+    </string-array>
 
     <string-array name="all_fruits_items">
         <item>banana</item>
@@ -236,7 +259,33 @@
         <item>long</item>
         <item>generic_shape_one</item>
         <item>generic_shape_two</item>
+        <item>all_shapes</item>
     </string-array>
+
+    <string-array name="all_shapes_items">
+        <item>grapefruitshape</item>
+        <item>appleshape</item>
+        <item>peppershape</item>
+        <item>tomatoshape</item>
+        <item>orangeshape</item>
+        <item>tangerineshape</item>
+        <item>bananashape</item>
+        <item>cornshape</item>
+        <item>carrotshape</item>
+        <item>eggplantshape</item>
+        <item>cucumbershape</item>
+        <item>lemonshape</item>
+        <item>watermelonshape</item>
+        <item>strawberryshape</item>
+        <item>onionshape</item>
+        <item>asparagusshape</item>
+        <item>broccolishape</item>
+        <item>pearshape</item>
+        <item>greenpeashape</item>
+        <item>fennelshape</item>
+        <item>potatoshape</item>
+    </string-array>
+
 
     <string-array name="round_items">
         <item>grapefruitshape</item>
