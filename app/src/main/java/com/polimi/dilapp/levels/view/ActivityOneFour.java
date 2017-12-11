@@ -23,13 +23,13 @@ import java.util.List;
 
 /*
 *
-* In this Activity the child learns to associate a name to an object, following the order of colours.
+* In this Activity we verify what the children has learned so far, in order to unlock the following section.
 *
 * */
 
-public class ActivityOneOne extends AppCompatActivity implements IGame.View {
+public class ActivityOneFour extends AppCompatActivity implements IGame.View {
 
-    ArrayList<String> nameSequence;
+    ArrayList<String> mixedSequence;
     IGame.Presenter presenter;
     MediaPlayer request;
     String element;
@@ -57,14 +57,14 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     }
 
     private void setupSequence(){
-        String[] names = getResources().getStringArray(R.array.names);
-        nameSequence = common.getList(names);
+        String[] names = getResources().getStringArray(R.array.mixed_requests);
+        mixedSequence = common.getList(names);
     }
 
     private void setupVideoIntro(){
         //Introduction to the whole activity game
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
-        common.startIntro(uri, nameSequence,this);
+        common.startIntro(uri, mixedSequence,this);
     }
 
     private void disableViews(){
@@ -86,7 +86,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     public void setPresentationAnimation(String currentElement){
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.rotation);
+        Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneFour.this, R.anim.rotation);
 
         common.startMainAnimation(this,animationBegin,resourceID,this);
 
@@ -95,7 +95,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     private void setAudioRequest(){
         int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
-        request = MediaPlayer.create(ActivityOneOne.this, objectClaimedID);
+        request = MediaPlayer.create(ActivityOneFour.this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -113,14 +113,14 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     public void setAnimationBoxExtra(){
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.move);
+        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneFour.this, R.anim.move);
         animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
         animationViewExtra.setAnimation(extraAnimation);
         animationViewExtra.startAnimation(extraAnimation);
 
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
         animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.move);
+        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneFour.this, R.anim.move);
         animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
         animationViewExtraTwo.setAnimation(extraAnimationTwo);
         animationViewExtraTwo.startAnimation(extraAnimationTwo);
@@ -128,7 +128,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.blink);
+        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneFour.this, R.anim.blink);
         common.startMainAnimation(this,animationWait,resourceID,this);
     }
 

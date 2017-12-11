@@ -42,6 +42,7 @@ public class GamePresenter implements IGame.Presenter {
     //TODO set adjustments: they are the approximated lenght in seconds of the videos of the activity
     private int adjustment = 0;
     private IGame.View activityInterface;
+    private String currentSequenceElement;
 
    public GamePresenter(IGame.View view){
        this.activityInterface = view;
@@ -54,37 +55,37 @@ public class GamePresenter implements IGame.Presenter {
         if(currentSequence.isEmpty()){
             Toast.makeText(activityInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
         } else {
-            String currentGroup = currentSequence.get(0);
+            currentSequenceElement = currentSequence.get(0);
             currentSequence.remove(0);
-            startNewSession(currentGroup);
+            startNewSession(currentSequenceElement);
         }
     }
 
     //NEXT ELEMENT IN THE ARRAY
     private void startNewTurn(){
         if(currentSequence.isEmpty()){
-            //ActivityOneOne ends
+            //ActivityOneTwo ends
             endTime = (int)(System.currentTimeMillis()/1000);
             setTimeParameter();
             //only for debug
             String i = String.valueOf(totaltime);
             Log.i("Total time:", i);
-            
+
             //TODO UPDATE COUNTERS and TOTAL TIME IN DB
             Toast.makeText(activityInterface.getScreenContext(), "Fine Attività 1.1", Toast.LENGTH_LONG).show();
             //TODO: visualize screen with buttons "continue" and "exit"
 
         } else {
-            String currentElement = currentSequence.get(0);
+            currentSequenceElement = currentSequence.get(0);
             currentSequence.remove(0);
-            startNewSession(currentElement);
+            startNewSession(currentSequenceElement);
         }
     }
 
     //NEXT ARRAY IN THE SEQUENCE
-    private void startNewSession(String currentElement){
-        int vectorID = getResourceId(currentElement +"_items", R.array.class);
-        presentationVideo = getResourceId( "video_set_of_" + currentElement + "_items", R.raw.class);
+    private void startNewSession(String currentSequenceElement){
+        int vectorID = getResourceId(currentSequenceElement +"_items", R.array.class);
+        presentationVideo = getResourceId( "video_set_of_" + currentSequenceElement + "_items", R.raw.class);
         activityInterface.setVideoView(presentationVideo);
         tempArray = activityInterface.getSessionArray(vectorID);
         //this set the video of the session: example yellow colors video.
@@ -266,4 +267,7 @@ public class GamePresenter implements IGame.Presenter {
         totaltime = endTime - initTime - adjustment;
         }
 
+        public String getCurrentSequenceElement(){
+            return currentSequenceElement;
+        }
 }

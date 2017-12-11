@@ -17,7 +17,7 @@ import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.levels.view.ActivityOneOne;
+import com.polimi.dilapp.levels.view.ActivityOneTwo;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
@@ -115,7 +115,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         dummyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent dummyIntent = new Intent(getApplicationContext(), ActivityOneOne.class);
+                Intent dummyIntent = new Intent(getApplicationContext(), ActivityOneTwo.class);
                 startActivity(dummyIntent);
             }
         });

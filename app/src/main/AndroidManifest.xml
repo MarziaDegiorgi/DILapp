@@ -48,7 +48,7 @@
         <activity android:name=".main.NewAccountActivity" />
 
 
-        <activity android:name=".levels.view.ActivityOneOne">
+        <activity android:name=".levels.view.ActivityOneTwo">
             <intent-filter>
                 <action android:name="android.nfc.action.TAG_DISCOVERED" />
 

@@ -151,6 +151,7 @@
         <item>all_fruits</item>
     </string-array>
 
+
     <string-array name="all_fruits_items">
         <item>banana</item>
         <item>lemon</item>
@@ -175,4 +176,106 @@
         <item>potato</item>
     </string-array>
 
+    <string-array name="names">
+        <item>subset_names_one</item>
+        <item>subset_names_two</item>
+        <item>subset_names_three</item>
+        <item>subset_names_four</item>
+        <item>subset_names_five</item>
+        <item>subset_names_six</item>
+        <item>subset_names_seven</item>
+        <item>all_fruits</item>
+    </string-array>
+
+    <string-array name="subset_names_one_items">
+        <item>banana</item>
+        <item>lemon</item>
+        <item>corn</item>
+    </string-array>
+
+    <string-array name="subset_names_two_items">
+        <item>grapefruit</item>
+        <item>watermelon</item>
+        <item>strawberry</item>
+    </string-array>
+
+    <string-array name="subset_names_three_items">
+        <item>apple</item>
+        <item>pepper</item>
+        <item>tomato</item>
+    </string-array>
+
+    <string-array name="subset_names_four_items">
+        <item>orange</item>
+        <item>carrot</item>
+        <item>onion</item>
+    </string-array>
+
+    <string-array name="subset_names_five_items">
+        <item>tangerine</item>
+        <item>eggplant</item>
+        <item>asparagus</item>
+    </string-array>
+
+    <string-array name="subset_names_six_items">
+        <item>broccoli</item>
+        <item>cucumber</item>
+        <item>pear</item>
+    </string-array>
+
+    <string-array name="subset_names_seven_items">
+        <item>greenpea</item>
+        <item>fennel</item>
+        <item>potato</item>
+    </string-array>
+
+
+
+    <string-array name="shapes">
+        <item>round</item>
+        <item>long</item>
+        <item>generic_shape_one</item>
+        <item>generic_shape_two</item>
+    </string-array>
+
+    <string-array name="round_items">
+        <item>grapefruitshape</item>
+        <item>appleshape</item>
+        <item>peppershape</item>
+        <item>tomatoshape</item>
+        <item>orangeshape</item>
+        <item>tangerineshape</item>
+    </string-array>
+
+    <string-array name="long_items">
+        <item>bananashape</item>
+        <item>cornshape</item>
+        <item>carrotshape</item>
+        <item>eggplantshape</item>
+        <item>cucumbershape</item>
+    </string-array>
+
+    <string-array name="generic_shape_one_items">
+        <item>lemonshape</item>
+        <item>watermelonshape</item>
+        <item>strawberryshape</item>
+        <item>onionshape</item>
+        <item>asparagusshape</item>
+    </string-array>
+
+
+    <string-array name="generic_shape_two_items">
+        <item>broccolishape</item>
+        <item>pearshape</item>
+        <item>greenpeashape</item>
+        <item>fennelshape</item>
+        <item>potatoshape</item>
+    </string-array>
+
+    <string-array name="mixed_requests">
+    <item>mixed_type</item>
+    </string-array>
+
+    <string-array name="mixed_type_items">
+    </string-array>
 </resources>

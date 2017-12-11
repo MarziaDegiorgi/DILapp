@@ -64,5 +64,6 @@ public interface IGame {
         void setupForegroundDispatch();
         void stopForegroundDispatch();
         int getResourceId(String name,  Class resType);
+        String getCurrentSequenceElement();
     }
 }
