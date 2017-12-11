@@ -138,6 +138,11 @@ class CommonActivity {
             }
         });
     }
+    /**
+     *  Return the partial ArrayList<String> of the array received as parameter.
+     *      * @param array of the Activity
+     *
+     */
 
     ArrayList<String> getPartialArray(String[] array){
         List<String> completeArray = new ArrayList<>(Arrays.asList(array));

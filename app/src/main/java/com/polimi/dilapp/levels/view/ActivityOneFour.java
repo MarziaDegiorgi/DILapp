@@ -30,10 +30,16 @@ import java.util.List;
 public class ActivityOneFour extends AppCompatActivity implements IGame.View {
 
     ArrayList<String> mixedSequence;
+    ArrayList<String> colorSequence;
+    ArrayList<String> nameSequence;
+    ArrayList<String> shapeSequence;
+
+
     IGame.Presenter presenter;
     MediaPlayer request;
     String element;
     CommonActivity common;
+    String currentSequenceElement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +63,41 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
     }
 
     private void setupSequence(){
-        String[] names = getResources().getStringArray(R.array.mixed_requests);
-        mixedSequence = common.getList(names);
+        String[] colors = getResources().getStringArray(R.array.colors);
+        List<String> tempArray = new ArrayList<>(Arrays.asList(colors));
+        colorSequence = common.getList(colors);
+
+        Collections.sort(tempArray);
+        tempArray.remove("all_colors");
+        mixedSequence.add(tempArray.get(0));
+        mixedSequence.add(tempArray.get(1));
+
+        String[] names = getResources().getStringArray(R.array.names);
+        tempArray = new ArrayList<>(Arrays.asList(names));
+        nameSequence = common.getList(names);
+
+        Collections.sort(tempArray);
+        tempArray.remove("all_fruits");
+        mixedSequence.add(tempArray.get(0));
+        mixedSequence.add(tempArray.get(1));
+
+        String[] shapes = getResources().getStringArray(R.array.shapes);
+        tempArray = new ArrayList<>(Arrays.asList(shapes));
+        shapeSequence = common.getList(shapes);
+
+        Collections.sort(tempArray);
+        tempArray.remove("all_shapes");
+        mixedSequence.add(tempArray.get(0));
+        mixedSequence.add(tempArray.get(1));
     }
 
     private void setupVideoIntro(){
-        //Introduction to the whole activity game
+        /*
+        *
+        * We need to specify in the intro that every session has the intent to prepare a basket of fruits with different
+        * methodologies: then each video session will only show the elements that will be considered in each session.
+        *
+        * */
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
         common.startIntro(uri, mixedSequence,this);
     }
@@ -94,7 +129,16 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
     }
 
     private void setAudioRequest(){
-        int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
+        int objectClaimedID;
+        if(nameSequence.contains(currentSequenceElement)){
+            objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
+        } else{
+            if(colorSequence.contains(currentSequenceElement)){
+                objectClaimedID = presenter.getResourceId("request_" + currentSequenceElement + "_item", R.raw.class);
+            }else{
+                objectClaimedID = presenter.getResourceId("request_shape", R.raw.class);
+            }
+        }
         request = MediaPlayer.create(ActivityOneFour.this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -166,13 +210,9 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
     @Override
     public ArrayList<String> getSessionArray(int vectorID) {
         String[] sessionFruitVector = getResources().getStringArray(vectorID);
-        if(vectorID == R.array.all_fruits_items){
-            return common.getPartialArray(sessionFruitVector);
-        }else {
             List<String> array = new ArrayList<>(Arrays.asList(sessionFruitVector));
             Collections.sort(array);
             return (ArrayList<String>) array;
-        }
     }
 
     @Override

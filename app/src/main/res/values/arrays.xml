@@ -321,10 +321,7 @@
         <item>potatoshape</item>
     </string-array>
 
-    <string-array name="mixed_requests">
-    <item>mixed_type</item>
-    </string-array>
-
     <string-array name="mixed_type_items">
+
     </string-array>
 </resources>
