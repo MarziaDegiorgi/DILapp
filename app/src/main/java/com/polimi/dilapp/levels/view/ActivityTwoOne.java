@@ -7,8 +7,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -63,7 +65,10 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         common.startIntro(uri, numberSequence,this);
     }
 
-
+    @Override
+    public Intent newIntent() {
+        return getIntent();
+    }
 
     @Override
     public void setVideoView(int videoID) {
@@ -75,7 +80,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     public void setPresentationAnimation(String currentElement) {
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationBegin = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.rotation);
+        Animation animationBegin = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.combination_set);
 
         common.startMainAnimation(this,animationBegin,resourceID,this.getScreenContext());
         setAudioRequest();
@@ -97,7 +102,12 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     }
 
     public void setAnimationBoxExtra(){
-
+        ImageView animationBox = findViewById(R.id.animation_box_two);
+        animationBox.setVisibility(View.VISIBLE);
+        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.move);
+        animationBox.setImageDrawable(getResources().getDrawable(R.drawable.cloud));
+        animationBox.setAnimation(extraAnimation);
+        animationBox.startAnimation(extraAnimation);
     }
 
     public void setWaitingAnimation(){
@@ -114,7 +124,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     @Override
     public Context getScreenContext() {
-
         return this;
     }
 

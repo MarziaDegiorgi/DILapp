@@ -14,6 +14,8 @@ public interface IGame {
          */
         Context getScreenContext();
 
+        Intent newIntent();
+
         /**
          * Display the video according to the id passed as parameter
          * @param videoID chosen by the presenter

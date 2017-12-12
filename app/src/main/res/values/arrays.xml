@@ -27,39 +27,39 @@
 
     <!-- NUMBERS -->
     <string-array name="number_one_items">
-        <item>zero</item>
-        <item>one</item>
-        <item>two</item>
-        <item>three</item>
+        <item>_0</item>
+        <item>_1</item>
+        <item>_2</item>
+        <item>_3</item>
     </string-array>
 
     <string-array name="number_two_items">
-        <item>four</item>
-        <item>five</item>
-        <item>six</item>
-        <item>seven</item>
+        <item>_4</item>
+        <item>_5</item>
+        <item>_6</item>
+        <item>_7</item>
     </string-array>
 
     <string-array name="number_three_items">
-        <item>eight</item>
-        <item>nine</item>
-        <item>ten</item>
-        <item>eleven</item>
+        <item>_8</item>
+        <item>_9</item>
+        <item>_10</item>
+        <item>_11</item>
     </string-array>
 
     <string-array name="number_four_items">
-        <item>twelve</item>
-        <item>thirteen</item>
-        <item>fourteen</item>
-        <item>fifteen</item>
+        <item>_12</item>
+        <item>_13</item>
+        <item>_14</item>
+        <item>_15</item>
     </string-array>
 
     <string-array name="number_five_items">
-        <item>sixteen</item>
-        <item>seventeen</item>
-        <item>eighteen</item>
-        <item>nineteen</item>
-        <item>twenty</item>
+        <item>_16</item>
+        <item>_17</item>
+        <item>_18</item>
+        <item>_19</item>
+        <item>20</item>
     </string-array>
 
     <string-array name="numbers">
@@ -70,7 +70,6 @@
         <item>number_five</item>
         <item>all_numbers</item>
     </string-array>
-
 
     <string-array name="all_numbers_items">
         <item>zero</item>

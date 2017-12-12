@@ -43,9 +43,16 @@ public class GamePresenter implements IGame.Presenter {
     private int adjustment = 0;
     private IGame.View activityInterface;
     private String currentSequenceElement;
+    private boolean multipleElement = false;
+    private int numberOfElements;
+    private List<String> multipleTags;
 
    public GamePresenter(IGame.View view){
+
        this.activityInterface = view;
+       this.multipleElement = false;
+       this.numberOfElements = 1;
+       multipleTags = new ArrayList<String>();
    }
 
     public void startGame(ArrayList<String> sequence){
@@ -96,45 +103,115 @@ public class GamePresenter implements IGame.Presenter {
         presentationVideo = getResourceId( "video_set_of_" + currentSequenceElement + "_items", R.raw.class);
         activityInterface.setVideoView(presentationVideo);
         tempArray = activityInterface.getSessionArray(vectorID);
+        Log.i("[GamePresenter]", "Starting a new session" + tempArray.toString());
         //this set the video of the session: example yellow colors video.
     }
 
 
     public void chooseElement(){
         if(tempArray.isEmpty()){
+            Log.i("[GamePresenter]", "Array is Empty -> Starting a new Turn" );
             startNewTurn();
             Toast.makeText(activityInterface.getScreenContext(), "start new session", Toast.LENGTH_LONG).show();
         }else{
             Collections.sort(tempArray);
             currentElement = tempArray.get(0);
             tempArray.remove(0);
+            Log.i("[GamePresenter]", "Choose next element -> " + currentElement );
+            this.checkMultipleItems();
             askCurrentElement();
         }
     }
 
     public void askCurrentElement(){
+        Log.i("[GamePresenter]", "Ask View to set Animation -> " + currentElement );
         activityInterface.setPresentationAnimation(currentElement);
-
     }
 
+    /**
+     * Check the correctness of the nfc intent comparing it with the current string element that can be
+     * a single item such as an object or a multiple item composed by multiple object (ex. words that are composed by letters).
+     *  Multiple item are characterized by this form: "_home" that is composed by h, o, m, e.
+     * @param readTag of the NFC got as intent
+     */
     private void checkAnswer(String readTag) {
-        if (readTag.equals(currentElement)) {
-            counter = 0;
-            correctAnswers++;
-            totalAttempts++;
-            //Toast.makeText(activityInterface.getScreenContext(), "Risposta corretta, andiamo avanti!", Toast.LENGTH_LONG).show();
-            activityInterface.setVideoCorrectAnswer();
-        } else {
-
-            totalAttempts++;
-            //Toast.makeText(activityInterface.getScreenContext(), "Hai sbagliato! prova di nuovo!", Toast.LENGTH_LONG).show();
-            if (counter < 2) {
-                counter++;
-                activityInterface.setVideoWrongAnswerToRepeat();
+        if(!multipleElement) {
+            if (readTag.equals(currentElement)) {
+                Log.i("[GamePresenter]", "[CheckAnswer][SingleItem][Correct] " + readTag );
+               this.correctAnswer();
             } else {
-                counter = 0;
-                activityInterface.setVideoWrongAnswerAndGoOn();
+                Log.i("[GamePresenter]", "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: "+ currentElement );
+                this.wrongAnswer();
             }
+        }else {
+            if(numberOfElements > 1){
+                //TODO: set a sound like a "ping" each time that get the intent
+                this.multipleTags.add(readTag);
+                this.handleIntent(activityInterface.newIntent());
+                Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem][AddedTag] " + readTag );
+                numberOfElements--;
+                Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem][UpdateNumberItems] " + numberOfElements );
+            }else {
+                this.multipleTags.add(readTag);
+                Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem][FinalTagList] " + multipleTags );
+                checkMultipleItemsFinalAnswer();
+            }
+        }
+    }
+
+    private void checkMultipleItemsFinalAnswer(){
+        StringBuilder word= new StringBuilder("_");
+        for(int i=0; i<multipleTags.size()-1; i++){
+            word.append(multipleTags.get(i));
+        }
+        Log.i("[GamePresenter]", "[CheckMultipleItemsFinalAnswer][StringBuilt] " + word);
+        if(word.toString().equals(currentElement)){
+            Log.i("[GamePresenter]", "[CheckMultipleItemsFinalAnswer][Correct] " + currentElement);
+            this.correctAnswer();
+            this.multipleTags.clear();
+        }else{
+            Log.i("[GamePresenter]", "[CheckMultipleItemsFinalAnswer][Wrong] " + "-> element->" +currentElement
+            + ", tag-> "+ word);
+            this.wrongAnswer();
+            this.multipleTags.clear();
+        }
+    }
+
+    /**
+     * Update the correct answer calling the view to set a video
+     */
+    private void correctAnswer(){
+        counter = 0;
+        correctAnswers++;
+        totalAttempts++;
+        activityInterface.setVideoCorrectAnswer();
+    }
+    /**
+     * Update the correct answer calling the view to the correspondent video
+     */
+    private void wrongAnswer(){
+        totalAttempts++;
+        if (counter < 2) {
+            counter++;
+            activityInterface.setVideoWrongAnswerToRepeat();
+        } else {
+            counter = 0;
+            activityInterface.setVideoWrongAnswerAndGoOn();
+        }
+    }
+
+    /**
+     *  Check if an element is composed by multiple objects and set the flag variables
+     */
+    public void checkMultipleItems(){
+        if(currentElement.contains("_")){
+            multipleElement = true;
+            numberOfElements = currentElement.length() - 1;
+            Log.i("[GamePresenter]", "[CheckMultipleItems][True] " + numberOfElements);
+        }else{
+            numberOfElements=1;
+            multipleElement = false;
+            Log.i("[GamePresenter]", "[CheckMultipleItems][False] " + numberOfElements);
         }
     }
 
