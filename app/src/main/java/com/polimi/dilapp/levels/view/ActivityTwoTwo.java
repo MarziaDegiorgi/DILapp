@@ -116,6 +116,11 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public Intent newIntent() {
+        return null;
+    }
+
+    @Override
     public Class getApplicationClass() {
         return this.getClass();
     }

@@ -246,6 +246,11 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
 
         return this;
     }
+
+    @Override
+    public Intent newIntent() {
+        return null;
+    }
     //We want to handle NFC only when the Activity is in the foreground
 
     @Override
