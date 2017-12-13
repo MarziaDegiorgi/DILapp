@@ -2,7 +2,6 @@ package com.polimi.dilapp.levelmap;
 
 
 import android.content.Intent;
-import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 

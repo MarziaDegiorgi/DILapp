@@ -1,8 +1,6 @@
 package com.polimi.dilapp.data;
 
 
-import android.graphics.Bitmap;
-
 import java.util.ArrayList;
 
 public class ListOfChildren {

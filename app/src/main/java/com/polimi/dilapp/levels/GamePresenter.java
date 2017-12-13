@@ -231,8 +231,7 @@ public class GamePresenter implements IGame.Presenter {
             if(resType == R.array.class)
                 res = R.array.class;
             Field field = res.getField(name);
-            int retId = field.getInt(null);
-            return retId;
+            return field.getInt(null);
         }
         catch (Exception e) {
             // Log.d(TAG, "Failure to get drawable id.", e);

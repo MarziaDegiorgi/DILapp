@@ -2,14 +2,11 @@ package com.polimi.dilapp.startgame;
 
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.data.Child;
-import com.polimi.dilapp.database.AppDatabase;
-import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levelmap.LevelMapActivity;
 
 
