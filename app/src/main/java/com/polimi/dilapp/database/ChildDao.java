@@ -19,6 +19,8 @@ public interface ChildDao {
     /*@Query("SELECT * FROM user WHERE first_name LIKE :first AND "
             + "last_name LIKE :last LIMIT 1")
     ChildEntity findByName(String first, String last);*/
+    @Query("UPDATE child SET currentPlayer = :currentPlayer  WHERE id = :id")
+            int updateCurrentPlayer(int id, Boolean currentPlayer);
 
     @Insert(onConflict = IGNORE)
     void insertChild(ChildEntity child);

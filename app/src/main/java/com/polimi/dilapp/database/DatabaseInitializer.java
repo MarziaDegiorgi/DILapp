@@ -23,6 +23,7 @@ public class DatabaseInitializer {
         child.setName(name);
         child.setAge(age);
         child.setPhoto(photoPath);
+        child.setCurrentPlayer(false);
         db.childDao().insertChild(child);
 
         List<ChildEntity> list = getListOfChildren(db);
@@ -112,13 +113,9 @@ public class DatabaseInitializer {
         return selectedChild;
     }
     public static void setCurrentPlayer (AppDatabase db, int id) {
-        List<ChildEntity> list = getListOfChildren(db);
-        ChildEntity selectedChild = null;
-        for(ChildEntity childEntity : list){
-            if (childEntity.getId() == id) {
-                selectedChild = childEntity;
-                selectedChild.setCurrentPlayer(true);
-            }
-        }
+       db.childDao().updateCurrentPlayer(id, true);
+    }
+    public static void resetCurrentPlayer (AppDatabase db, int id) {
+        db.childDao().updateCurrentPlayer(id, false);
     }
 }

@@ -64,6 +64,7 @@ public class NewAccountActivity extends AppCompatActivity {
                     Toast.makeText(NewAccountActivity.this, DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext())).size()+": Account created!", Toast.LENGTH_LONG).show();
                     Intent inputForm = new Intent(getApplicationContext(), CreateAccountActivity.class);
                     startActivity(inputForm);
+                    finish();
                     break;
             }
         }

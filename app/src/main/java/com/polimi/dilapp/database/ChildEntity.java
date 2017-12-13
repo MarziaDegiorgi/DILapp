@@ -42,16 +42,6 @@ public class ChildEntity {
     public String getPhoto() { return  this.photo;}
     public void setPhoto(String photo) {this.photo = photo;}
 
-    /*public Bitmap getBitmapPhoto () {
-        Bitmap bitmap = BitmapFactory.decodeByteArray(this.photo, 0, this.photo.length);
-        return bitmap;
-    }
-    public void setBitmapPhoto (Bitmap bitmap) {
-        ByteArrayOutputStream blob = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0 , blob);
-        byte[] bitmapdata = blob.toByteArray();
-        this.photo = bitmapdata;
-    }*/
 
     //Age
     public int getAge() {
@@ -74,8 +64,6 @@ public class ChildEntity {
     //CurrentPlayer
     public Boolean getCurrentPlayer() { return this.currentPlayer; }
     public void setCurrentPlayer(Boolean currentPlayer) { this.currentPlayer = currentPlayer; }
-    public void currentPlayer () {this.currentPlayer = true; }
-
 
 
 

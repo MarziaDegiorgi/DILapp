@@ -22,22 +22,31 @@ import com.polimi.dilapp.levelmap.LevelMapActivity;
 
 import java.util.List;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 
 public class StartGameActivity extends AppCompatActivity implements IStartGame.View {
 
     IStartGame.Presenter presenter;
+    private int currentPlayerId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startgame);
+        Bundle extras = getIntent().getExtras();
 
+       currentPlayerId = -1;
+        if (extras != null) {
+            currentPlayerId = extras.getInt(EXTRA_MESSAGE);
+            setCurrentPlayer(currentPlayerId);
+        }
 
-       /* List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
+       List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
         for (ChildEntity child : list) {
             Log.i("Player "+ child.getName(), child.getCurrentPlayer().toString());
-        }*/
+        }
 
         // Set up the presenter
         presenter = new StartGamePresenter(this);
@@ -98,6 +107,14 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+        resetCurrentPlayer(currentPlayerId);
+
     }
 
+    private void setCurrentPlayer(int id) {
+       DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), id);
+    }
+    private void resetCurrentPlayer(int id) {
+        DatabaseInitializer.resetCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), id);
+    }
 }

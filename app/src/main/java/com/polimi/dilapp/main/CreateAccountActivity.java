@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -26,11 +27,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+
 
 public class CreateAccountActivity extends AppCompatActivity {
 
     private TextView mTextView;
-    private int teporaryChildId;
+    private int temporaryChildId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_createaccount);
         mTextView = findViewById(R.id.createAccount);
         List<ChildEntity> listOfChildren = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
-
+        List<ImageButton> listOfButtons = new ArrayList<>();
 
         // recovering the instance state
         if (DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext())).size() == 0) {
@@ -62,7 +66,9 @@ public class CreateAccountActivity extends AppCompatActivity {
         for (int i = 0; i < listOfChildren.size(); i++) {
             //Creating copy of imagebutton by inflating it
             final ImageButton btn = (ImageButton) inflater.inflate(R.layout.account_box, null);
-            teporaryChildId = listOfChildren.get(i).getId();
+            listOfButtons.add(btn);
+            temporaryChildId = listOfChildren.get(i).getId();
+            btn.setId(temporaryChildId);
             Drawable drawable = null;
             try {
                 drawable = new BitmapDrawable(getResources(), DatabaseInitializer.getChildPhoto(getContentResolver(),listOfChildren.get(i)));
@@ -76,12 +82,12 @@ public class CreateAccountActivity extends AppCompatActivity {
 
                 @Override
                 public void onClick(View v) {
-                    DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()),teporaryChildId);
-                    //TODO set currentPlayer
                     Intent startGame = new Intent(getApplicationContext(), StartGameActivity.class);
+                    startGame.putExtra(EXTRA_MESSAGE, btn.getId());
                     startActivity(startGame);
                 }
             });
+
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(account.getLayoutParams());
             params.setMargins(20,0,20,0);
             btn.setScaleType(ImageButton.ScaleType.CENTER_CROP);
