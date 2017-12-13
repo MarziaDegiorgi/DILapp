@@ -1,10 +1,8 @@
 package com.polimi.dilapp.startgame;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,12 +13,6 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.database.AppDatabase;
-import com.polimi.dilapp.database.ChildEntity;
-import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.levelmap.LevelMapActivity;
-
-import java.util.List;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
@@ -58,10 +50,10 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
      * Start the animations in the start game activity
      */
    private void startAnimation() {
-       ImageView carrotImage = (ImageView) findViewById(R.id.carrot);
-       ImageView appleImage = (ImageView) findViewById(R.id.apple);
-       ImageView pearImage = (ImageView) findViewById(R.id.pear);
-       Button playButton = (Button) findViewById(R.id.playButton);
+       ImageView carrotImage = findViewById(R.id.carrot);
+       ImageView appleImage = findViewById(R.id.apple);
+       ImageView pearImage = findViewById(R.id.pear);
+       Button playButton = findViewById(R.id.playButton);
 
        // Load animations
        final Animation animationBounce = AnimationUtils.loadAnimation(this, R.anim.bounce);

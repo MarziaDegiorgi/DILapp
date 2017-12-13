@@ -3,12 +3,6 @@ package com.polimi.dilapp.database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-
-import java.io.ByteArrayOutputStream;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity(tableName = "child")
 public class ChildEntity {

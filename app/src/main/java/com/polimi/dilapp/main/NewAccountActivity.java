@@ -1,24 +1,18 @@
 package com.polimi.dilapp.main;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.data.Child;
-import com.polimi.dilapp.data.ListOfChildren;
 import com.polimi.dilapp.database.AppDatabase;
-import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.DatabaseInitializer;
 
 import java.io.FileNotFoundException;

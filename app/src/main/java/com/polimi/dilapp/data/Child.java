@@ -1,11 +1,5 @@
 package com.polimi.dilapp.data;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Child {
