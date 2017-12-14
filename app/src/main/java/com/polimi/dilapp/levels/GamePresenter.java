@@ -32,7 +32,6 @@ public class GamePresenter implements IGame.Presenter {
 
     private NfcAdapter nfcAdapter;
     private String currentElement;
-    private int presentationVideo;
     private static final String MIME_TEXT_PLAIN = "text/plain";
     private List<String> tempArray;
     private List<String> currentSequence;
@@ -52,7 +51,7 @@ public class GamePresenter implements IGame.Presenter {
        this.activityInterface = view;
        this.multipleElement = false;
        this.numberOfElements = 1;
-       multipleTags = new ArrayList<String>();
+       multipleTags = new ArrayList<>();
    }
 
     public void startGame(ArrayList<String> sequence){
@@ -100,7 +99,7 @@ public class GamePresenter implements IGame.Presenter {
     //NEXT ARRAY IN THE SEQUENCE
     private void startNewSession(String currentSequenceElement){
         int vectorID = getResourceId(currentSequenceElement +"_items", R.array.class);
-        presentationVideo = getResourceId( "video_set_of_" + currentSequenceElement + "_items", R.raw.class);
+        int presentationVideo = getResourceId("video_set_of_" + currentSequenceElement + "_items", R.raw.class);
         activityInterface.setVideoView(presentationVideo);
         tempArray = activityInterface.getSessionArray(vectorID);
         Log.i("[GamePresenter]", "Starting a new session" + tempArray.toString());
