@@ -6,7 +6,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -152,7 +154,9 @@ public class CreateAccountActivity extends AppCompatActivity {
     // The savedInstanceState Bundle is same as the one used in onCreate().
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-
+    DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), savedInstanceState.getInt("current_player"));
+    DatabaseInitializer.setLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), savedInstanceState.getInt("level"));
+    Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
     }
 
 
@@ -162,8 +166,15 @@ public class CreateAccountActivity extends AppCompatActivity {
 
         // call superclass to save any view hierarchy
         super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext())));
+        savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext())));
+
     }
 
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        DatabaseInitializer.resetCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()));
+    }
 }

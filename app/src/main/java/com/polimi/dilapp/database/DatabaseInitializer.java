@@ -98,20 +98,19 @@ public class DatabaseInitializer {
         return selectedChild;
     }
 
-    public static ChildEntity getCurrentPlayer (AppDatabase db) {
-        List<ChildEntity> list = getListOfChildren(db);
-        ChildEntity selectedChild = null;
-        for(ChildEntity childEntity : list){
-            if (childEntity.getCurrentPlayer()) {
-                selectedChild = childEntity;
-            }
-        }
-        return selectedChild;
-    }
     public static void setCurrentPlayer (AppDatabase db, int id) {
        db.childDao().updateCurrentPlayer(id, true);
     }
-    public static void resetCurrentPlayer (AppDatabase db, int id) {
-        db.childDao().updateCurrentPlayer(id, false);
+    public static void resetCurrentPlayer (AppDatabase db) {
+        db.childDao().resetCurrentPlayer(false, true);
+    }
+    public static int getCurrentPlayer(AppDatabase db) {
+        return db.childDao().getCurrentPlayer(true);
+    }
+    public static int getLevelCurrentPlayer(AppDatabase db) {
+        return db.childDao().getLevelCurrentPlayer(true);
+    }
+    public static void setLevelCurrentPlayer(AppDatabase db, int level) {
+      db.childDao().setLevelCurrentPlayer(level, true);
     }
 }

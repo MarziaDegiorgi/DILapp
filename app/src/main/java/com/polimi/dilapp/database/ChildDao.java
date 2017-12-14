@@ -18,7 +18,19 @@ public interface ChildDao {
             + "last_name LIKE :last LIMIT 1")
     ChildEntity findByName(String first, String last);*/
     @Query("UPDATE child SET currentPlayer = :currentPlayer  WHERE id = :id")
-            int updateCurrentPlayer(int id, Boolean currentPlayer);
+    void updateCurrentPlayer(int id, Boolean currentPlayer);
+
+    @Query("UPDATE child SET currentPlayer = :f  WHERE currentPlayer = :t")
+    void resetCurrentPlayer(Boolean f, Boolean t);
+
+    @Query("SELECT id FROM child WHERE currentPlayer = :t")
+    int getCurrentPlayer(Boolean t);
+
+    @Query("SELECT level FROM child WHERE currentPlayer = :t")
+    int getLevelCurrentPlayer(Boolean t);
+
+    @Query("UPDATE child SET level = :level  WHERE currentPlayer = :t")
+    void setLevelCurrentPlayer(int level, Boolean t);
 
     @Insert(onConflict = IGNORE)
     void insertChild(ChildEntity child);
