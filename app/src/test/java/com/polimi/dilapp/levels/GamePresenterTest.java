@@ -1,6 +1,9 @@
 package com.polimi.dilapp.levels;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,25 +20,81 @@ import static junit.framework.Assert.assertEquals;
 
 public class GamePresenterTest {
 
-    @Parameterized.Parameter(0)
-    public String element;
+    private GamePresenter presenter;
+    private List<String> elements = new ArrayList<>();
+    private IGame.View view = new IGame.View() {
+        @Override
+        public Context getScreenContext() {
+            return null;
+        }
 
-    @Parameterized.Parameter(1)
-    public Boolean result;
+        @Override
+        public Intent newIntent() {
+            return null;
+        }
 
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        Object[][] data = new Object[][] { { "apple" , false }, { "_1", true}, { "_12", true }, { "_apple" , true },
-                {"strawberry", false}};
-        return Arrays.asList(data);
+        @Override
+        public void setVideoView(int videoID) {
+
+        }
+
+        @Override
+        public ArrayList<String> getSessionArray(int vectorID) {
+            return null;
+        }
+
+        @Override
+        public void setPresentationAnimation(String currentElement) {
+
+        }
+
+        @Override
+        public Class getApplicationClass() {
+            return null;
+        }
+
+        @Override
+        public void setVideoCorrectAnswer() {
+
+        }
+
+        @Override
+        public void setVideoWrongAnswerToRepeat() {
+
+        }
+
+        @Override
+        public void setVideoWrongAnswerAndGoOn() {
+
+        }
+
+        @Override
+        public void setRepeatOrExitScreen() {
+
+        }
+
+        @Override
+        public void setGoOnOrExitScreen() {
+
+        }
+    };
+
+    @Before
+    public void setUp() {
+        presenter = new GamePresenter(view);
+        elements.add("apple");
+        elements.add("_1");
+        elements.add("_10");
+        elements.add("_apple");
+        presenter.startGame((ArrayList<String>) elements);
     }
 
 
     @Test
     public void isItemMultiple() throws  Exception {
-        for(Object o : data()) {
 
-        }
+        //assertEquals("Multiple Item :", result,  );
+
     }
 
 

@@ -347,10 +347,25 @@ public class GamePresenter implements IGame.Presenter {
         }
     }
         private void setTimeParameter(){
+
         totaltime = endTime - initTime - adjustment;
+
         }
 
         public String getCurrentSequenceElement(){
+
             return currentSequenceElement;
+        }
+
+        public String getCurrentElement() {
+            return currentElement;
+        }
+
+        public int getNumberOfElements() {
+            return numberOfElements;
+        }
+
+        public boolean getMultipleElement() {
+            return multipleElement;
         }
 }
