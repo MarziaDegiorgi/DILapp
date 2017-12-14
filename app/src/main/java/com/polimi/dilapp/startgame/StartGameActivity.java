@@ -3,6 +3,7 @@ package com.polimi.dilapp.startgame;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.database.AppDatabase;
+import com.polimi.dilapp.database.ChildEntity;
+import com.polimi.dilapp.database.DatabaseInitializer;
+
+import java.util.List;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
