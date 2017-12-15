@@ -28,7 +28,7 @@ class CommonActivity {
     }
 
     ArrayList<String> getList(String[] array) {
-        return new ArrayList<String>(Arrays.asList(array));
+        return new ArrayList<>(Arrays.asList(array));
     }
 
    void startIntro(Uri uri, final ArrayList<String> sequence, AppCompatActivity activity){
@@ -73,7 +73,7 @@ class CommonActivity {
     /**
      *  Set video in given context in case of not correct answer in order then to repeat the request
      * @param context of the activity
-     * @param image
+     * @param image as correct
      */
     void setVideoWrongAnswerToRepeat(final ImageView image, Context context){
         image.setVisibility(View.VISIBLE);

@@ -1,5 +1,6 @@
 package com.polimi.dilapp.levelmap;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import com.polimi.dilapp.R;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *  Fills in the data into the item’s "Change_level_list_view"  with the given index
@@ -23,12 +25,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;
 
-    public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<String>> expandableListDetail)
+    CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
+                                Map<String, List<String>> expandableListDetail)
     {
         this.context = context;
         this.expandableListTitle = expandableListTitle;
-        this.expandableListDetail = expandableListDetail;
+        this.expandableListDetail = (HashMap<String, List<String>>) expandableListDetail;
     }
 
     @Override
@@ -42,6 +44,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
         return expandedListPosition;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
@@ -49,11 +52,15 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.activity_levelmap_list, null);
+            if (layoutInflater != null) {
+                convertView = layoutInflater.inflate(R.layout.activity_levelmap_list, null);
+            }
         }
-        TextView expandedListTextView = (TextView) convertView
-                .findViewById(R.id.expandedListItem);
-        expandedListTextView.setText(expandedListText);
+        TextView expandedListTextView;
+        if (convertView != null) {
+            expandedListTextView = convertView.findViewById(R.id.expandedListItem);
+            expandedListTextView.setText(expandedListText);
+        }
         return convertView;
     }
 
@@ -78,6 +85,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
         return listPosition;
     }
 
+    @SuppressLint("InflateParams")
     @Override
     public View getGroupView(int listPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
@@ -85,12 +93,17 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.activity_levelmap_group, null);
+            if (layoutInflater != null) {
+                convertView = layoutInflater.inflate(R.layout.activity_levelmap_group, null);
+            }
         }
-        TextView listTitleTextView = (TextView) convertView
-                .findViewById(R.id.listTitle);
-        listTitleTextView.setTypeface(null, Typeface.BOLD);
-        listTitleTextView.setText(listTitle);
+        TextView listTitleTextView ;
+        if (convertView != null) {
+            listTitleTextView = convertView
+                    .findViewById(R.id.listTitle);
+            listTitleTextView.setTypeface(null, Typeface.BOLD);
+            listTitleTextView.setText(listTitle);
+        }
         return convertView;
     }
 

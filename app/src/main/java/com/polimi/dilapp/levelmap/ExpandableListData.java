@@ -7,9 +7,8 @@ import java.util.List;
 /**
  * Fill the Expandable List in the view to change level
  */
-
-//TODO: take data from database
 public class ExpandableListData {
+    //TODO: take data from database
     public static HashMap<String, List<String>> getData() {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
@@ -18,7 +17,6 @@ public class ExpandableListData {
         objects.add("NOMI");
         objects.add("FORME");
         objects.add("COMPONI");
-
 
         List<String> numbers = new ArrayList<String>();
         numbers.add("NUMERI");
@@ -31,12 +29,9 @@ public class ExpandableListData {
         logic.add("LISTA DELLA SPESA");
         logic.add("IN CUCINA CON PATTY");
 
-
-
-
-        expandableListDetail.put("LOGICA", logic);
-        expandableListDetail.put("LETTERE E NUMERI", numbers);
         expandableListDetail.put("OGGETTI E COLORI", objects);
+        expandableListDetail.put("LETTERE E NUMERI", numbers);
+        expandableListDetail.put("LOGICA", logic);
 
         return expandableListDetail;
     }

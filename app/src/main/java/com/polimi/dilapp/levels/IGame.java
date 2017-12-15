@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface IGame {
     interface  View {
@@ -27,7 +28,7 @@ public interface IGame {
          * @param vectorID resource
          * @return the array of elements of the activity
          */
-        ArrayList<String> getSessionArray(int vectorID);
+        List<String> getSessionArray(int vectorID);
 
         /**
          * Display in the View the animation of the element selected by the presenter
@@ -65,7 +66,7 @@ public interface IGame {
 
         void askCurrentElement();
         boolean checkNfcAvailability();
-        void startGame(ArrayList<String> sequence);
+        void startGame(List<String> sequence);
         void onDestroy();
         void chooseElement();
         void handleIntent(Intent intent);
@@ -73,5 +74,6 @@ public interface IGame {
         void stopForegroundDispatch();
         int getResourceId(String name,  Class resType);
         String getCurrentSequenceElement();
+        boolean getMultipleElement();
     }
 }

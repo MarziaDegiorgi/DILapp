@@ -7,8 +7,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -16,6 +18,7 @@ import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Activity View referred to 2.2 Level : Learning ALPHABET
@@ -28,7 +31,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     String element;
     MediaPlayer request;
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -41,14 +44,13 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
         common = new CommonActivity(presenter);
 
         setupSequence();
-        setupVideoIntro();
-        /*boolean availability = presenter.checkNfcAvailability();
+
+        boolean availability = presenter.checkNfcAvailability();
         if (availability) {
             setupVideoIntro();
         }else{
             finish();
-        }*/
-
+        }
     }
 
 
@@ -94,7 +96,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     }
 
     public void setAnimationBoxExtra(){
-
+        //TODO: SET EXTRA ANIMATION IN BACKGROUND
     }
 
     public void setWaitingAnimation(){
@@ -104,7 +106,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public ArrayList<String> getSessionArray(int vectorID) {
+    public List<String> getSessionArray(int vectorID) {
         String[] sessionNumberVector = getResources().getStringArray(vectorID);
         return new ArrayList<>(Arrays.asList(sessionNumberVector));
     }
@@ -127,27 +129,56 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoCorrectAnswer() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.correct_answer);
+        common.setVideoCorrectAnswer(image, this);
     }
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.not_correct_answer);
+        common.setVideoWrongAnswerToRepeat(image,this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.not_correct_answer);
+        common.setVideoWrongAnswerAndGoOn(image, this);
+    }
+
+
+    private void disableViews(){
+        ImageView imageToHide = findViewById(R.id.animation_box);
+        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
+        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        common.disableView(imageToHide);
+        common.disableView(animationViewExtra);
+        common.disableView(animationViewExtraTwo);
     }
 
     @Override
     public void setRepeatOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), RepeatOrExitScreen.class);
+        intent.putExtra("activity","ActivityTwoTwo");
+        startActivity(intent);
     }
 
     @Override
     public void setGoOnOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), GoOnOrExitScreen.class);
+        intent.putExtra("activity","ActivityTwoThree");
+        startActivity(intent);
     }
 
     @Override

@@ -93,6 +93,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
    }
 
    public void onClickPlay(View view){
+
        presenter.onPlayButtonPressed();
    }
 

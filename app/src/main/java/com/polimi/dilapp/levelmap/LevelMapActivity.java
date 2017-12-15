@@ -23,9 +23,6 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_levelmap_view);
-        //Toast.makeText(LevelMapActivity.this, "Il giocatore è "+ DatabaseInitializer.getCurrentPlayer().getName(), Toast.LENGTH_LONG).show();
-
-
         listView = findViewById(R.id.expandableListView);
 
         // Set up the presenter
@@ -33,7 +30,6 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
         presenter.initData();
 
         startAnimation();
-
     }
 
     private void startAnimation() {
