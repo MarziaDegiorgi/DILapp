@@ -82,6 +82,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
                     Intent startGame = new Intent(getApplicationContext(), StartGameActivity.class);
                     startGame.putExtra(EXTRA_MESSAGE, btn.getId());
                     startActivity(startGame);
+                    finish();
                 }
             });
 
@@ -144,25 +145,26 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
 
     }
 
+
+    // invoked when the activity may be temporarily destroyed, save the instance state here
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // call superclass to save any view hierarchy
+        presenter.storeCurrentPlayer(savedInstanceState);
+        super.onSaveInstanceState(savedInstanceState);
+
+    }
+
     // This callback is called only when there is a saved instance previously saved using
     // onSaveInstanceState(). We restore some state in onCreate() while we can optionally restore
     // other state here, possibly usable after onStart() has completed.
     // The savedInstanceState Bundle is same as the one used in onCreate().
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
         presenter.resumeCurrentPlayer(savedInstanceState);
+        super.onRestoreInstanceState(savedInstanceState);
+
     }
-
-
-    // invoked when the activity may be temporarily destroyed, save the instance state here
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        // call superclass to save any view hierarchy
-        super.onSaveInstanceState(savedInstanceState);
-        presenter.storeCurrentPlayer(savedInstanceState);
-    }
-
 
     @Override
     protected void onDestroy() {

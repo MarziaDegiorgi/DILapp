@@ -2,6 +2,7 @@ package com.polimi.dilapp.startgame;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 
@@ -39,5 +40,8 @@ public interface IStartGame {
          * @param item selected
          */
         void onItemMenuSelected(MenuItem item);
+
+        void resumeCurrentPlayer(Bundle savedInstanceState);
+        void storeCurrentPlayer(Bundle savedInstanceState);
     }
 }

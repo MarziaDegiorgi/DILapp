@@ -96,6 +96,23 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
        presenter.onPlayButtonPressed();
    }
 
+    // invoked when the activity may be temporarily destroyed, save the instance state here
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // call superclass to save any view hierarchy
+        super.onSaveInstanceState(savedInstanceState);
+        presenter.storeCurrentPlayer(savedInstanceState);
+    }
+
+    // This callback is called only when there is a saved instance previously saved using
+    // onSaveInstanceState(). We restore some state in onCreate() while we can optionally restore
+    // other state here, possibly usable after onStart() has completed.
+    // The savedInstanceState Bundle is same as the one used in onCreate().
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        presenter.resumeCurrentPlayer(savedInstanceState);
+    }
     @Override
     public Context getScreenContext() {
         return  this;

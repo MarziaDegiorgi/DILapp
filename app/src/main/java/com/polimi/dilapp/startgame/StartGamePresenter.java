@@ -2,19 +2,25 @@ package com.polimi.dilapp.startgame;
 
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.database.AppDatabase;
+import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levelmap.LevelMapActivity;
 
 
 public class StartGamePresenter implements  IStartGame.Presenter {
 
     private IStartGame.View startGameView;
+    private AppDatabase db;
 
     StartGamePresenter(IStartGame.View view){
         this.startGameView = view;
+        db = AppDatabase.getAppDatabase(startGameView.getScreenContext());
         //TODO: get the current child from the model
 
     }
@@ -46,5 +52,18 @@ public class StartGamePresenter implements  IStartGame.Presenter {
                 //TODO: Start Report Activity
                 break;
         }
+    }
+    @Override
+    public void resumeCurrentPlayer(Bundle savedInstanceState) {
+        DatabaseInitializer.setCurrentPlayer(db, savedInstanceState.getInt("current_player"));
+        DatabaseInitializer.setLevelCurrentPlayer(db, savedInstanceState.getInt("level"));
+        Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
+
+    }
+
+    @Override
+    public void storeCurrentPlayer(Bundle savedInstanceState) {
+        savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
+        savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
     }
 }
