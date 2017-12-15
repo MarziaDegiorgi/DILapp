@@ -1,5 +1,6 @@
 package com.polimi.dilapp.main;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,6 @@ public interface INewAccount {
 
     interface  Presenter {
         void insertChild(EditText name, EditText age, String photoPath);
-        void setPhoto(Intent data);
+        Boolean setPhoto(Intent data);
     }
 }

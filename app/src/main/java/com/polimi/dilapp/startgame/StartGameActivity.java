@@ -26,7 +26,6 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class StartGameActivity extends AppCompatActivity implements IStartGame.View {
 
     IStartGame.Presenter presenter;
-    private int currentPlayerId;
 
 
     @Override
@@ -35,7 +34,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         setContentView(R.layout.activity_startgame);
         Bundle extras = getIntent().getExtras();
 
-       currentPlayerId = -1;
+        int currentPlayerId = -1;
         if (extras != null) {
             currentPlayerId = extras.getInt(EXTRA_MESSAGE);
             DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
@@ -43,7 +42,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
 
        List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
         for (ChildEntity child : list) {
-            Log.i("Player "+ child.getName(), child.getCurrentPlayer().toString());
+            Log.i("Player "+ child.getName() + "(" +child.getId() + ") ", child.getCurrentPlayer().toString());
         }
 
         // Set up the presenter

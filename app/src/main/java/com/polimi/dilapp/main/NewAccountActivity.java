@@ -1,9 +1,12 @@
 package com.polimi.dilapp.main;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
@@ -26,9 +30,6 @@ public class NewAccountActivity extends AppCompatActivity implements INewAccount
     private ImageButton avatar;
     private Bitmap bitmap;
     private String photoPath;
-    private EditText name;
-    private EditText age;
-    private Button button;
     private INewAccount.Presenter presenter;
 
 
@@ -75,7 +76,20 @@ public class NewAccountActivity extends AppCompatActivity implements INewAccount
         super.onActivityResult(requestCode, resultCode, data);
         //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-            presenter.setPhoto(data);
+            if (!presenter.setPhoto(data)){
+                final Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.pop_up);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                Button close = (Button)dialog.findViewById(R.id.close);
+                close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+
         }
     }
 

@@ -12,6 +12,8 @@
     <string name="logo">Logo</string>
     <string name="name">Name</string>
     <string name="age">Age</string>
+    <string name="ok">OK</string>
+    <string name="error_image">L\'immagine scelta è già stata utilizzata da un altro giocatore.\nSelezionane un\'altra! </string>
     <string name="form_button_label">Create new account</string>
 
 

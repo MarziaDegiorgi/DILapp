@@ -6,5 +6,8 @@
     <color name="backGroundColor">#FFFFFF</color>
     <color name="blue">#1C8ADB</color>
     <color name="white">#FFFFFF</color>
+    <color name="light_red">#f27762</color>
+    <color name="brawn">#CD5C5C</color>
+    <color name="black">#000000</color>
     <color name="black_overlay">#66000000</color>
 </resources>
