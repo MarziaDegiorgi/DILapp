@@ -1,5 +1,7 @@
 package com.polimi.dilapp.main;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -18,7 +20,7 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class NewAccountActivity extends AppCompatActivity {
+public class NewAccountActivity extends AppCompatActivity implements INewAccount.View{
 
     private static final int GET_FROM_GALLERY = 3;
     private ImageButton avatar;
@@ -27,12 +29,16 @@ public class NewAccountActivity extends AppCompatActivity {
     private EditText name;
     private EditText age;
     private Button button;
+    private INewAccount.Presenter presenter;
 
 
     @Override
         protected void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_newaccount);
+
+        //Set up the presenter
+        presenter = new NewAccountPresenter(this);
 
             bitmap = null;
             avatar = (ImageButton) findViewById(R.id.avatar);
@@ -54,8 +60,7 @@ public class NewAccountActivity extends AppCompatActivity {
                 case R.id.form_button:
                     final EditText edit_name = (EditText)findViewById(R.id.edit_name);
                     final EditText edit_age = (EditText)findViewById(R.id.edit_age);
-                    DatabaseInitializer.insertChild(AppDatabase.getAppDatabase(getApplicationContext()), edit_name.getText().toString(), Integer.parseInt(edit_age.getText().toString()), photoPath);
-                    Toast.makeText(NewAccountActivity.this, DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext())).size()+": Account created!", Toast.LENGTH_LONG).show();
+                    presenter.insertChild(edit_name,edit_age,photoPath);
                     Intent inputForm = new Intent(getApplicationContext(), CreateAccountActivity.class);
                     startActivity(inputForm);
                     finish();
@@ -68,23 +73,35 @@ public class NewAccountActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-    //Detects request codes
+        //Detects request codes
         if(requestCode==GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
-            Uri selectedImage = data.getData();
-            photoPath = selectedImage.toString();
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
-                avatar.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            presenter.setPhoto(data);
         }
     }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 
+    @Override
+    public ContentResolver getContentRes() {
+        return getContentResolver();
+    }
+
+    @Override
+    public void setPhoto(String photoPath) {
+        this.photoPath = photoPath;
+    }
+
+    @Override
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
+    }
+
+    @Override
+    public ImageButton getAvatar() {
+        return avatar;
+    }
 }
 

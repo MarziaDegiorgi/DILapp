@@ -7,8 +7,8 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="change_level">Cambia Livello</string>
     <string name="report">Reportistica</string>
-    <string name= "create_account">Crea il tuo account!</string>
-    <string name="select_account">Seleziona un account giocatore</string>
+    <string name= "create_account">Crea il tuo giocatore!</string>
+    <string name="select_account">Seleziona un giocatore</string>
     <string name="logo">Logo</string>
     <string name="name">Name</string>
     <string name="age">Age</string>

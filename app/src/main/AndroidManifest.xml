@@ -10,7 +10,7 @@
         android:required="true" />
 
     <application
-        android:configChanges="orientation"
+        android:configChanges="orientation|screenSize"
         android:allowBackup="true"
         android:icon="@mipmap/logofruit"
         android:label="@string/app_name"
@@ -20,7 +20,10 @@
         android:hardwareAccelerated="false"
         android:largeHeap="true">
         <activity android:name=".main.MainActivity"
-            android:noHistory="true">
+            android:noHistory="true"
+            android:launchMode="singleTask"
+            android:finishOnTaskLaunch="false"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -28,13 +31,39 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.CreateAccountActivity"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:launchMode="singleTask"
+            android:finishOnTaskLaunch="false"/>
 
+        <activity
+            android:name=".levels.ActivityAlfa"
+            android:noHistory="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:finishOnTaskLaunch="false">
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/nfc_tech_filter" />
+        </activity>
         <activity android:name=".startgame.StartGameActivity"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:launchMode="singleTask"
+            android:finishOnTaskLaunch="false"/>
         <activity android:name=".levelmap.LevelMapActivity"
-            android:noHistory="true"/>
-        <activity android:name=".main.NewAccountActivity" />
+            android:noHistory="true"
+            android:launchMode="singleTask"
+            android:finishOnTaskLaunch="false"/>
+        <activity android:name=".main.NewAccountActivity"
+            android:launchMode="singleTask"
+            android:finishOnTaskLaunch="false"/>
 
 
         <activity android:name=".levels.view.ActivityOneTwo">

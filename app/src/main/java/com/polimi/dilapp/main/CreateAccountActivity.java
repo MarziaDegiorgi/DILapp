@@ -6,7 +6,9 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -30,50 +32,45 @@ import java.util.List;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 
-public class CreateAccountActivity extends AppCompatActivity {
+public class CreateAccountActivity extends AppCompatActivity implements ICreateAccount.View{
 
-    private TextView mTextView;
-    private int temporaryChildId;
-
+    ICreateAccount.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createaccount);
-        mTextView = findViewById(R.id.createAccount);
-        List<ChildEntity> listOfChildren = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
-        List<ImageButton> listOfButtons = new ArrayList<>();
+        TextView mTextView = findViewById(R.id.createAccount);
+
+
+        //Set up the presenter
+        presenter = new CreateAccountPresenter(this);
+
+        List<ChildEntity> listOfChildren = presenter.getListOfChildren();
 
         // recovering the instance state
-        if (DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext())).size() == 0) {
+        if (listOfChildren.size() == 0) {
             mTextView.setText(R.string.create_account);
         } else {
             mTextView.setText(R.string.select_account);
 
         }
 
-
-        // Get the Intent that started this activity
-        getIntent();
-
         //link to already existing account of children
         ImageButton account = (ImageButton) findViewById(R.id.account);
         LinearLayout layout = (LinearLayout) findViewById(R.id.listOfAccounts);
 
-        ArrayList<ImageButton> accounts = new ArrayList<ImageButton>();
         // get reference to LayoutInflater
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         for (int i = 0; i < listOfChildren.size(); i++) {
+
             //Creating copy of imagebutton by inflating it
             final ImageButton btn = (ImageButton) inflater.inflate(R.layout.account_box, null);
-            listOfButtons.add(btn);
-            temporaryChildId = listOfChildren.get(i).getId();
+            int temporaryChildId = listOfChildren.get(i).getId();
             btn.setId(temporaryChildId);
             Drawable drawable = null;
             try {
                 drawable = new BitmapDrawable(getResources(), DatabaseInitializer.getChildPhoto(getContentResolver(),listOfChildren.get(i)));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -97,7 +94,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         }
 
 
-    //link to the creation of a new account child
+        //link to the add button that enables the user to create a new account
         ImageButton newAccountButton = (ImageButton) inflater.inflate(R.layout.account_box, null);
         newAccountButton.setImageDrawable(getDrawable(R.drawable.avatar_add));
         newAccountButton.setOnClickListener(new View.OnClickListener()
@@ -109,6 +106,7 @@ public class CreateAccountActivity extends AppCompatActivity {
         startActivity(newAccountIntent);
     }
     });
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(account.getLayoutParams());
         params.setMargins(20,0,20,0);
         newAccountButton.setScaleType(ImageButton.ScaleType.CENTER_CROP);
@@ -152,18 +150,28 @@ public class CreateAccountActivity extends AppCompatActivity {
     // The savedInstanceState Bundle is same as the one used in onCreate().
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-
+        super.onRestoreInstanceState(savedInstanceState);
+        presenter.resumeCurrentPlayer(savedInstanceState);
     }
 
 
     // invoked when the activity may be temporarily destroyed, save the instance state here
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
-
         // call superclass to save any view hierarchy
         super.onSaveInstanceState(savedInstanceState);
+        presenter.storeCurrentPlayer(savedInstanceState);
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.resetCurrentPlayer();
+    }
 
+    @Override
+    public Context getContext() {
+        return this;
+    }
 }

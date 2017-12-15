@@ -6,14 +6,12 @@ import android.view.MenuItem;
 import android.view.animation.Animation;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.data.Child;
 import com.polimi.dilapp.levelmap.LevelMapActivity;
 
 
 public class StartGamePresenter implements  IStartGame.Presenter {
 
     private IStartGame.View startGameView;
-    private Child child;
 
     StartGamePresenter(IStartGame.View view){
         this.startGameView = view;

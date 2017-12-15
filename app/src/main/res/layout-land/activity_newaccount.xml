@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_vert"
+        >
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        >
+    <ImageButton
+        android:id="@+id/avatar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/avatar"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="30dp"
+        />
+<LinearLayout
+    android:id="@+id/form"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginVertical="70dp"
+    android:layout_marginRight="30dp"
+    android:orientation="vertical"
+    android:layout_toRightOf="@id/avatar">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        />
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/age"
+        />
+
+    <EditText
+        android:id="@+id/edit_age"
+        android:inputType="number"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        />
+</LinearLayout>
+</RelativeLayout>
+    <Button
+        android:id="@+id/form_button"
+        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="@string/form_button_label"
+        android:layout_marginBottom="30dp"
+        android:layout_width="130dip"
+        android:textColor="@color/white"
+        android:background="@color/colorPrimaryDark"
+        />
+</LinearLayout>
+
