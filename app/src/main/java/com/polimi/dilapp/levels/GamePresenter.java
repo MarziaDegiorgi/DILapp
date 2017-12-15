@@ -54,7 +54,8 @@ public class GamePresenter implements IGame.Presenter {
        multipleTags = new ArrayList<>();
    }
 
-    public void startGame(ArrayList<String> sequence){
+   @Override
+    public void startGame(List<String> sequence){
        //current system time in seconds
         initTime = (int) (System.currentTimeMillis()/1000);
         currentSequence = sequence;
@@ -364,6 +365,7 @@ public class GamePresenter implements IGame.Presenter {
             return numberOfElements;
         }
 
+        @Override
         public boolean getMultipleElement() {
             return multipleElement;
         }

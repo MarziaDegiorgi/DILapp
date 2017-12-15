@@ -13,10 +13,8 @@ import java.util.List;
 
 public class LevelMapPresenter implements  ILevelMap.Presenter{
     private ILevelMap.View levelMapView;
-    ExpandableListData levelList;
     private List<String> listTitles;
     private HashMap<String, List<String>> listItems;
-    private CustomExpandableListAdapter adapter;
 
     LevelMapPresenter(ILevelMap.View view){
 
@@ -25,9 +23,9 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
 
     @Override
     public void initData() {
-        listItems = ExpandableListData.getData();
-        listTitles = new ArrayList<String>(listItems.keySet());
-        adapter = new CustomExpandableListAdapter(levelMapView.getContext(), listTitles,listItems);
+        listItems =  ExpandableListData.getData();
+        listTitles = new ArrayList<>(listItems.keySet());
+        CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(levelMapView.getContext(), listTitles, listItems);
         levelMapView.showAdapter(adapter);
     }
 

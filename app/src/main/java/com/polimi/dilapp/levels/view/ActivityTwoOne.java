@@ -18,6 +18,7 @@ import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Activity View referred to 2.1 Level : Learning NUMBERS
@@ -33,13 +34,14 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     MediaPlayer request;
 
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_multiple_game_answers);
 
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
@@ -52,7 +54,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         }else{
             finish();
         }
-
     }
 
     private void setupSequence() {
@@ -65,10 +66,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         common.startIntro(uri, numberSequence,this);
     }
 
-    @Override
-    public Intent newIntent() {
-        return getIntent();
-    }
 
     @Override
     public void setVideoView(int videoID) {
@@ -80,9 +77,16 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     public void setPresentationAnimation(String currentElement) {
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
+
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.combination_set);
 
-        common.startMainAnimation(this,animationBegin,resourceID,this.getScreenContext());
+        ImageView image = findViewById(R.id.animation_box_question);
+        image.setVisibility(View.VISIBLE);
+        image.setImageDrawable(getResources().getDrawable(resourceID));
+        image.setVisibility(View.VISIBLE);
+
+        image.setAnimation(animationBegin);
+        image.startAnimation(animationBegin);
         setAudioRequest();
     }
 
@@ -113,11 +117,11 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
         Animation animationWait = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.blink);
-        common.startMainAnimation(this,animationWait,resourceID,this.getScreenContext());
+        common.startMainAnimation(this, animationWait, resourceID, this.getScreenContext());
     }
 
     @Override
-    public ArrayList<String> getSessionArray(int vectorID) {
+    public List<String> getSessionArray(int vectorID) {
         String[] sessionNumberVector = getResources().getStringArray(vectorID);
         return new ArrayList<>(Arrays.asList(sessionNumberVector));
     }
@@ -134,27 +138,56 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setVideoCorrectAnswer() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.correct_answer);
+        common.setVideoCorrectAnswer(image, this);
     }
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.not_correct_answer);
+        common.setVideoWrongAnswerToRepeat(image,this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.not_correct_answer);
+        common.setVideoWrongAnswerAndGoOn(image, this);
+    }
+
+
+    private void disableViews(){
+        ImageView imageToHide = findViewById(R.id.animation_box);
+        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
+        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        common.disableView(imageToHide);
+        common.disableView(animationViewExtra);
+        common.disableView(animationViewExtraTwo);
     }
 
     @Override
     public void setRepeatOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), RepeatOrExitScreen.class);
+        intent.putExtra("activity","ActivityTwoOne");
+        startActivity(intent);
     }
 
     @Override
     public void setGoOnOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), GoOnOrExitScreen.class);
+        intent.putExtra("activity","ActivityTwoTwo");
+        startActivity(intent);
     }
 
     @Override
@@ -177,8 +210,11 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
-
         presenter.handleIntent(intent);
     }
 
+    @Override
+    public Intent newIntent() {
+        return getIntent();
+    }
 }

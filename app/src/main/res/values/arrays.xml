@@ -1,7 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- ALPHABET -->
+    <string-array name="letter_one_items">
+        <item>a</item>
+        <item>b</item>
+        <item>c</item>
+        <item>d</item>
+    </string-array>
+    <string-array name="letter_two_items">
+        <item>e</item>
+        <item>f</item>
+        <item>g</item>
+        <item>h</item>
+    </string-array>
+    <string-array name="letter_three_items">
+        <item>i</item>
+        <item>l</item>
+        <item>m</item>
+        <item>n</item>
+    </string-array>
+        <string-array name="letter_four_items">
+        <item>o</item>
+        <item>p</item>
+        <item>q</item>
+        <item>r</item>
+    </string-array>
+    <string-array name="letter_five_items">
+        <item>s</item>
+        <item>t</item>
+        <item>u</item>
+        <item>v</item>
+        <item>z</item>
+    </string-array>
+
     <string-array name="letters">
+        <item>letter_one</item>
+        <item>letter_two</item>
+        <item>letter_three</item>
+        <item>letter_four</item>
+        <item>letter_five</item>
+        <item>all-letters</item>
+    </string-array>
+
+    <string-array name="all_letters_items">
         <item>a</item>
         <item>b</item>
         <item>c</item>
@@ -72,27 +113,78 @@
     </string-array>
 
     <string-array name="all_numbers_items">
-        <item>zero</item>
-        <item>one</item>
-        <item>two</item>
-        <item>three</item>
-        <item>four</item>
-        <item>five</item>
-        <item>six</item>
-        <item>seven</item>
-        <item>eight</item>
-        <item>nine</item>
-        <item>ten</item>
-        <item>eleven</item>
-        <item>twelve</item>
-        <item>thirteen</item>
-        <item>fourteen</item>
-        <item>fifteen</item>
-        <item>sixteen</item>
-        <item>seventeen</item>
-        <item>eighteen</item>
-        <item>nineteen</item>
-        <item>twenty</item>
+        <item>_0</item>
+        <item>_1</item>
+        <item>_2</item>
+        <item>_3</item>
+        <item>_4</item>
+        <item>_5</item>
+        <item>_6</item>
+        <item>_7</item>
+        <item>_8</item>
+        <item>_9</item>
+        <item>_10</item>
+        <item>_11</item>
+        <item>_12</item>
+        <item>_13</item>
+        <item>_14</item>
+        <item>_15</item>
+        <item>_16</item>
+        <item>_17</item>
+        <item>_18</item>
+        <item>_19</item>
+        <item>_20</item>
+    </string-array>
+
+    <!-- WORDS-->
+    <string-array name="word_one_items">
+        <item>_mela</item>
+        <item>_melanzana</item>
+        <item>_mais</item>
+    </string-array>
+    <string-array name="word_two_items">
+        <item>_carota</item>
+        <item>_cipolla</item>
+        <item>_cetriolo</item>
+        <item>_peperone</item>
+    </string-array>
+    <string-array name="word_three_items">
+        <item>_pomodoro</item>
+        <item>_piselli</item>
+        <item>_pera</item>
+        <item>_patata</item>
+    </string-array>
+    <string-array name="word_four_items">
+        <item>_anguria</item>
+        <item>_fragola</item>
+        <item>_broccoli</item>
+        <item>_arancia</item>
+    </string-array>
+
+    <string-array name="all_words_items">
+        <item>_mela</item>
+        <item>_melanzana</item>
+        <item>_mais</item>
+        <item>_carota</item>
+        <item>_cipolla</item>
+        <item>_cetriolo</item>
+        <item>_peperone</item>
+        <item>_pomodoro</item>
+        <item>_piselli</item>
+        <item>_pera</item>
+        <item>_patata</item>
+        <item>_anguria</item>
+        <item>_fragola</item>
+        <item>_broccoli</item>
+        <item>_arancia</item>
+    </string-array>
+
+
+    <string-array name="words">
+        <item>word_one</item>
+        <item>word_two</item>
+        <item>word_three</item>
+        <item>word_four</item>
     </string-array>
 
 
@@ -251,7 +343,7 @@
         <item>potato</item>
     </string-array>
 
-
+<!--SHAPES -->
 
     <string-array name="shapes">
         <item>round</item>
@@ -321,6 +413,5 @@
     </string-array>
 
     <string-array name="mixed_type_items">
-
     </string-array>
 </resources>

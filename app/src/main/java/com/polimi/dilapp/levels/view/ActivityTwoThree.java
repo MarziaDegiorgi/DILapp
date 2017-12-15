@@ -7,8 +7,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -16,6 +18,7 @@ import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Activity View referred to 2.3 Level : Learning WORDS
@@ -25,12 +28,12 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
     //TODO: ADD A LIST OF WORDS IN @STRING ASSOCIATED WITH AN IMAGE
     private IGame.Presenter presenter;
-    private ArrayList<String> alphabetSequence;
+    private ArrayList<String> wordsSequence;
     private CommonActivity common;
     String element;
     MediaPlayer request;
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -43,25 +46,24 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         common = new CommonActivity(presenter);
 
         setupSequence();
-        setupVideoIntro();
-        /*boolean availability = presenter.checkNfcAvailability();
+
+        boolean availability = presenter.checkNfcAvailability();
         if (availability) {
             setupVideoIntro();
         }else{
             finish();
-        }*/
+        }
 
     }
 
-
     private void setupSequence() {
-        String[] letters = getResources().getStringArray(R.array.letters);
-        alphabetSequence = common.getList(letters);
+        String[] letters = getResources().getStringArray(R.array.words);
+        wordsSequence = common.getList(letters);
     }
 
     private void setupVideoIntro() {
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
-        common.startIntro(uri, alphabetSequence,this);
+        common.startIntro(uri, wordsSequence,this);
     }
 
     @Override
@@ -87,16 +89,11 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                setAnimationBoxExtra();
                 setWaitingAnimation();
                 mp.release();
                 presenter.handleIntent(getIntent());
             }
         });
-    }
-
-    public void setAnimationBoxExtra(){
-
     }
 
     public void setWaitingAnimation(){
@@ -106,7 +103,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public ArrayList<String> getSessionArray(int vectorID) {
+    public List<String> getSessionArray(int vectorID) {
         String[] sessionNumberVector = getResources().getStringArray(vectorID);
         return new ArrayList<>(Arrays.asList(sessionNumberVector));
     }
@@ -126,30 +123,58 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     public Class getApplicationClass() {
         return this.getClass();
     }
-
     @Override
     public void setVideoCorrectAnswer() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.correct_answer);
+        common.setVideoCorrectAnswer(image, this);
     }
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.not_correct_answer);
+        common.setVideoWrongAnswerToRepeat(image,this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.not_correct_answer);
+        common.setVideoWrongAnswerAndGoOn(image, this);
+    }
+
+
+    private void disableViews(){
+        ImageView imageToHide = findViewById(R.id.animation_box);
+        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
+        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        common.disableView(imageToHide);
+        common.disableView(animationViewExtra);
+        common.disableView(animationViewExtraTwo);
     }
 
     @Override
     public void setRepeatOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), RepeatOrExitScreen.class);
+        intent.putExtra("activity","ActivityTwoThree");
+        startActivity(intent);
     }
 
     @Override
     public void setGoOnOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), GoOnOrExitScreen.class);
+        intent.putExtra("activity","ActivityTwoFour");
+        startActivity(intent);
     }
 
     @Override
@@ -172,7 +197,6 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
-
         presenter.handleIntent(intent);
     }
 }

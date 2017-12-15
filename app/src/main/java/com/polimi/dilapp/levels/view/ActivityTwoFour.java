@@ -7,8 +7,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -30,7 +32,7 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
     String element;
     MediaPlayer request;
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -43,14 +45,13 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
         common = new CommonActivity(presenter);
 
         setupSequence();
-        setupVideoIntro();
-        /*boolean availability = presenter.checkNfcAvailability();
+
+        boolean availability = presenter.checkNfcAvailability();
         if (availability) {
             setupVideoIntro();
-        }else{
+        }else {
             finish();
-        }*/
-
+        }
     }
 
 
@@ -87,7 +88,6 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                setAnimationBoxExtra();
                 setWaitingAnimation();
                 mp.release();
                 presenter.handleIntent(getIntent());
@@ -95,9 +95,6 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
         });
     }
 
-    public void setAnimationBoxExtra(){
-
-    }
 
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
@@ -129,26 +126,56 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoCorrectAnswer() {
+        disableViews();
+
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.correct_answer);
+        common.setVideoCorrectAnswer(image, this);
     }
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.not_correct_answer);
+        common.setVideoWrongAnswerToRepeat(image,this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
+        disableViews();
 
+        ImageView image = findViewById(R.id.animation_box_answer);
+        image.setVisibility(View.VISIBLE);
+        image.getResources().getDrawable(R.drawable.not_correct_answer);
+        common.setVideoWrongAnswerAndGoOn(image, this);
+    }
+
+
+    private void disableViews(){
+        ImageView imageToHide = findViewById(R.id.animation_box);
+        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
+        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        common.disableView(imageToHide);
+        common.disableView(animationViewExtra);
+        common.disableView(animationViewExtraTwo);
     }
 
     @Override
     public void setRepeatOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), RepeatOrExitScreen.class);
+        intent.putExtra("activity","ActivityTwoFour");
+        startActivity(intent);
     }
 
     @Override
     public void setGoOnOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), GoOnOrExitScreen.class);
+        intent.putExtra("activity","ActivityThreeOne");
+        startActivity(intent);
     }
 
     @Override

@@ -25,8 +25,7 @@ import java.util.List;
 *
 * In this Activity we verify what the children has learned so far, in order to unlock the following section.
 *
-* */
-
+*/
 public class ActivityOneFour extends AppCompatActivity implements IGame.View {
 
     ArrayList<String> mixedSequence;
@@ -221,11 +220,11 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public ArrayList<String> getSessionArray(int vectorID) {
+    public List<String> getSessionArray(int vectorID) {
         String[] sessionFruitVector = getResources().getStringArray(vectorID);
             List<String> array = new ArrayList<>(Arrays.asList(sessionFruitVector));
             Collections.sort(array);
-            return (ArrayList<String>) array;
+            return array;
     }
 
     @Override
