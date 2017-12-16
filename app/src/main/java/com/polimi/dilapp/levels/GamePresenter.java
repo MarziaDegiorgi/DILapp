@@ -88,7 +88,6 @@ public class GamePresenter implements IGame.Presenter {
                 //unlock next Activity or exit or go back to the main menu
                 activityInterface.setGoOnOrExitScreen();
             }
-            //TODO: visualize screen with buttons "continue" and "exit"
 
         } else {
             currentSequenceElement = currentSequence.get(0);
