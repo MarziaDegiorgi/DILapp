@@ -243,27 +243,27 @@
     </string-array>
 
     <string-array name="all_colors_items">
-        <item>banana_yellow</item>
-        <item>lemon_yellow</item>
-        <item>corn_yellow</item>
-        <item>grapefruit_yellow</item>
-        <item>watermelon_red</item>
-        <item>strawberry_red</item>
-        <item>apple_red</item>
-        <item>pepper_red</item>
-        <item>tomato_red</item>
-        <item>orange_orange</item>
-        <item>carrot_orange</item>
-        <item>onion_orange</item>
-        <item>tangerine_orange</item>
-        <item>eggplant_violet</item>
-        <item>asparagus_green</item>
-        <item>broccoli_green</item>
-        <item>cucumber_green</item>
-        <item>pear_green</item>
-        <item>greenpea_green</item>
-        <item>fennel_white</item>
-        <item>potato_brown</item>
+        <item>bananayellow</item>
+        <item>lemonyellow</item>
+        <item>cornyellow</item>
+        <item>grapefruityellow</item>
+        <item>watermelonred</item>
+        <item>strawberryred</item>
+        <item>applered</item>
+        <item>pepperred</item>
+        <item>tomatored</item>
+        <item>orangeorange</item>
+        <item>carrotorange</item>
+        <item>onionorange</item>
+        <item>tangerineorange</item>
+        <item>eggplantviolet</item>
+        <item>asparagusgreen</item>
+        <item>broccoligreen</item>
+        <item>cucumbergreen</item>
+        <item>peargreen</item>
+        <item>greenpeagreen</item>
+        <item>fennelwhite</item>
+        <item>potatobrown</item>
     </string-array>
 
     <string-array name="all_fruits_items">

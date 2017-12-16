@@ -10,6 +10,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -57,7 +58,8 @@ public class GamePresenter implements IGame.Presenter {
    @Override
     public void startGame(List<String> sequence){
        //current system time in seconds
-        initTime = (int) (System.currentTimeMillis()/1000);
+        initTime = (int) (SystemClock.elapsedRealtime()/1000);
+        Log.i("init time:", String.valueOf(initTime));
         currentSequence = sequence;
         if(currentSequence.isEmpty()){
             Toast.makeText(activityInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
@@ -72,7 +74,8 @@ public class GamePresenter implements IGame.Presenter {
     private void startNewTurn(){
         if(currentSequence.isEmpty()){
             //ActivityOneTwo ends
-            endTime = (int)(System.currentTimeMillis()/1000);
+            endTime = (int)(SystemClock.elapsedRealtime()/1000);
+            Log.i("init time:", String.valueOf(endTime));
             setTimeParameter();
             //only for debug
             String i = String.valueOf(totaltime);
@@ -233,7 +236,7 @@ public class GamePresenter implements IGame.Presenter {
             return field.getInt(null);
         }
         catch (Exception e) {
-            // Log.d(TAG, "Failure to get drawable id.", e);
+            Log.d(TAG, "Failure to get drawable id.", e);
         }
         return 0;
     }
@@ -348,7 +351,7 @@ public class GamePresenter implements IGame.Presenter {
         private void setTimeParameter(){
 
         totaltime = endTime - initTime - adjustment;
-
+        Log.i("init time:", String.valueOf(totaltime));
         }
 
         public String getCurrentSequenceElement(){
