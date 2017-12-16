@@ -1,6 +1,5 @@
 package com.polimi.dilapp.levels.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Chronometer;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
@@ -177,12 +175,6 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         intent.putExtra("activity","ActivityOneFour");
         startActivity(intent);
 
-    }
-
-    @Override
-    public Chronometer setChronometerView() {
-        @SuppressLint("WrongViewCast") Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
-        return chronometer;
     }
 
     @Override

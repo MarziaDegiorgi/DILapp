@@ -1,6 +1,5 @@
 package com.polimi.dilapp.levels.view;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -11,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Chronometer;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
@@ -120,14 +118,14 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     public void setAnimationBoxExtra(){
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.move);
+        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.move_half_rotate);
         animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
         animationViewExtra.setAnimation(extraAnimation);
         animationViewExtra.startAnimation(extraAnimation);
 
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
         animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.move);
+        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.move_half_rotate);
         animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
         animationViewExtraTwo.setAnimation(extraAnimationTwo);
         animationViewExtraTwo.startAnimation(extraAnimationTwo);
@@ -184,11 +182,6 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         startActivity(intent);
     }
 
-    @Override
-    public Chronometer setChronometerView() {
-        @SuppressLint("WrongViewCast") Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
-        return chronometer;
-    }
 
     @Override
     public ArrayList<String> getSessionArray(int vectorID) {
