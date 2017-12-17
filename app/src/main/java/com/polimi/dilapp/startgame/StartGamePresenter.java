@@ -48,9 +48,8 @@ public class StartGamePresenter implements  IStartGame.Presenter {
 
     @Override
     public void onPlayButtonPressed() {
-        //TODO: Redirect to the last activity not completed, checking the level associated to the current child
         Log.e("[StartGamePresenter]", "Current player: "+ String.valueOf(DatabaseInitializer.getCurrentPlayer(db))+" - Level current player: "+ String.valueOf(getLevelCurrentPlayer()));
-       linkToActivity(getLevelCurrentPlayer());
+        linkToActivity(getLevelCurrentPlayer());
     }
 
     @Override

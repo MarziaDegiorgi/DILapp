@@ -101,10 +101,6 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
      presenter.onItemMenuSelected(item);
    }
 
-   /*public void onClickPlay(View view){
-
-       presenter.onPlayButtonPressed();
-   }*/
 
     // invoked when the activity may be temporarily destroyed, save the instance state here
     @Override
