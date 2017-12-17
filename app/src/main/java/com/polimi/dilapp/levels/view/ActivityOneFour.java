@@ -65,6 +65,7 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
         String[] colors = getResources().getStringArray(R.array.colors);
         List<String> tempArray = new ArrayList<>(Arrays.asList(colors));
         colorSequence = common.getList(colors);
+        mixedSequence = new ArrayList<>();
 
         Collections.sort(tempArray);
         tempArray.remove("all_colors");
@@ -217,6 +218,11 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
         Intent intent = new Intent(getApplicationContext(), GoOnOrExitScreen.class);
         intent.putExtra("activity","ActivityTwoOne");
         startActivity(intent);
+    }
+
+    @Override
+    public String getString() {
+        return "ActivityOneFour";
     }
 
     @Override

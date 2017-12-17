@@ -179,6 +179,11 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public String getString() {
+        return "ActivityTwoFour";
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         presenter.setupForegroundDispatch();

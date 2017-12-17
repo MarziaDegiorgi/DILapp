@@ -1,6 +1,7 @@
 package com.polimi.dilapp.startgame;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -43,5 +44,9 @@ public interface IStartGame {
 
         void resumeCurrentPlayer(Bundle savedInstanceState);
         void storeCurrentPlayer(Bundle savedInstanceState);
+        int getLevelCurrentPlayer();
+        void linkToActivity(int level);
+        void resetCurrentPlayer();
+
     }
 }

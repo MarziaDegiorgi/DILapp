@@ -1,6 +1,7 @@
 package com.polimi.dilapp.startgame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,11 +34,20 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startgame);
         Bundle extras = getIntent().getExtras();
+        Button playButton = findViewById(R.id.playButton);
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.onPlayButtonPressed();
+                finish();
+            }
+        });
 
         int currentPlayerId = -1;
         if (extras != null) {
             currentPlayerId = extras.getInt(EXTRA_MESSAGE);
             DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
+            Log.e("[StartGameActivity]", "Current Player Level" + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
         }
 
        List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
@@ -91,10 +101,10 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
      presenter.onItemMenuSelected(item);
    }
 
-   public void onClickPlay(View view){
+   /*public void onClickPlay(View view){
 
        presenter.onPlayButtonPressed();
-   }
+   }*/
 
     // invoked when the activity may be temporarily destroyed, save the instance state here
     @Override

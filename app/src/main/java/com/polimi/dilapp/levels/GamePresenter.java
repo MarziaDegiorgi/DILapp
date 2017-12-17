@@ -15,6 +15,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.database.AppDatabase;
+import com.polimi.dilapp.database.DatabaseInitializer;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
@@ -46,18 +48,23 @@ public class GamePresenter implements IGame.Presenter {
     private boolean multipleElement = false;
     private int numberOfElements;
     private List<String> multipleTags;
+    private AppDatabase db;
 
    public GamePresenter(IGame.View view){
 
        this.activityInterface = view;
+       Log.i("Activity interface", String.valueOf(activityInterface));
        this.multipleElement = false;
        this.numberOfElements = 1;
        multipleTags = new ArrayList<>();
+       db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
+
    }
 
    @Override
     public void startGame(List<String> sequence){
        //current system time in seconds
+        setLevelCurrentPlayer();
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("init time:", String.valueOf(initTime));
         currentSequence = sequence;
@@ -370,5 +377,49 @@ public class GamePresenter implements IGame.Presenter {
         @Override
         public boolean getMultipleElement() {
             return multipleElement;
+        }
+
+        @Override
+        public void setLevelCurrentPlayer(){
+            int level;
+            switch (activityInterface.getString()){
+                case "ActivityOneOne":
+                    level = 11;
+                    break;
+                case "ActivityOneTwo":
+                    level = 12;
+                    break;
+                case "ActivityOneThree":
+                    level = 13;
+                    break;
+                case "ActivityOneFour":
+                    level = 14;
+                    break;
+                case "ActivityTwoOne":
+                    level = 21;
+                    break;
+                case "ActivityTwoTwo":
+                    level = 22;
+                    break;
+                case "ActivityTwoThree":
+                    level = 23;
+                    break;
+                case "ActivityTwoFour":
+                    level = 24;
+                    break;
+                case "ActivityThreeOne":
+                    level = 31;
+                    break;
+                case "ActivityThreeTwo":
+                    level = 32;
+                    break;
+                case "ActivityThreeThree":
+                    level = 33;
+                    break;
+                default:
+                    level = 0;
+                    break;
+            }
+            DatabaseInitializer.setLevelCurrentPlayer(db, level);
         }
 }

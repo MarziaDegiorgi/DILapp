@@ -182,6 +182,11 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         startActivity(intent);
     }
 
+    @Override
+    public String getString() {
+        return "ActivityOneTwo";
+    }
+
 
     @Override
     public ArrayList<String> getSessionArray(int vectorID) {

@@ -18,7 +18,6 @@ public interface ICreateAccount {
         List<ChildEntity> getListOfChildren();
         void resumeCurrentPlayer(Bundle savedInstanceState);
         void storeCurrentPlayer(Bundle savedInstanceState);
-        void resetCurrentPlayer();
     }
 
 }

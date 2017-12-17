@@ -167,12 +167,6 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        presenter.resetCurrentPlayer();
-    }
-
-    @Override
     public Context getContext() {
         return this;
     }

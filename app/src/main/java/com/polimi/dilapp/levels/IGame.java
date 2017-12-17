@@ -60,6 +60,7 @@ public interface IGame {
         * */
         void setRepeatOrExitScreen();
         void setGoOnOrExitScreen();
+        String getString();
     }
 
     interface  Presenter {
@@ -75,5 +76,6 @@ public interface IGame {
         int getResourceId(String name,  Class resType);
         String getCurrentSequenceElement();
         boolean getMultipleElement();
+        void setLevelCurrentPlayer();
     }
 }

@@ -178,6 +178,11 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public String getString() {
+        return "ActivityTwoThree";
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         presenter.setupForegroundDispatch();

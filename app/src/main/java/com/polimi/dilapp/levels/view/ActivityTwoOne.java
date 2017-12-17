@@ -191,6 +191,11 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     }
 
     @Override
+    public String getString() {
+        return "ActivityTwoOne";
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         presenter.setupForegroundDispatch();

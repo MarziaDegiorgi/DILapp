@@ -42,9 +42,4 @@ public class CreateAccountPresenter implements  ICreateAccount.Presenter{
         savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
     }
 
-    @Override
-    public void resetCurrentPlayer() {
-        DatabaseInitializer.resetCurrentPlayer(db);
-    }
-
 }

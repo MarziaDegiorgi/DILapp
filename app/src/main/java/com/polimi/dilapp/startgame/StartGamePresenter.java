@@ -1,6 +1,7 @@
 package com.polimi.dilapp.startgame;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,14 @@ import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levelmap.LevelMapActivity;
+import com.polimi.dilapp.levels.view.ActivityOneFour;
+import com.polimi.dilapp.levels.view.ActivityOneOne;
+import com.polimi.dilapp.levels.view.ActivityOneThree;
+import com.polimi.dilapp.levels.view.ActivityOneTwo;
+import com.polimi.dilapp.levels.view.ActivityTwoFour;
+import com.polimi.dilapp.levels.view.ActivityTwoOne;
+import com.polimi.dilapp.levels.view.ActivityTwoThree;
+import com.polimi.dilapp.levels.view.ActivityTwoTwo;
 
 
 public class StartGamePresenter implements  IStartGame.Presenter {
@@ -34,11 +43,14 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     @Override
     public void onDestroy() {
         startGameView = null;
+        resetCurrentPlayer();
     }
 
     @Override
     public void onPlayButtonPressed() {
         //TODO: Redirect to the last activity not completed, checking the level associated to the current child
+        Log.e("[StartGamePresenter]", "Current player: "+ String.valueOf(DatabaseInitializer.getCurrentPlayer(db))+" - Level current player: "+ String.valueOf(getLevelCurrentPlayer()));
+       linkToActivity(getLevelCurrentPlayer());
     }
 
     @Override
@@ -66,4 +78,72 @@ public class StartGamePresenter implements  IStartGame.Presenter {
         savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
         savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
     }
+
+    @Override
+    public int getLevelCurrentPlayer(){
+        return DatabaseInitializer.getLevelCurrentPlayer(db);
+    }
+
+    @Override
+    public void linkToActivity(int level){
+        switch (level){
+            case 0:
+                Intent activity11 = new Intent(startGameView.getScreenContext(), ActivityOneOne.class);
+                startGameView.getScreenContext().startActivity(activity11);
+                break;
+            case 11:
+                Intent activity11b = new Intent(startGameView.getScreenContext(), ActivityOneOne.class);
+                startGameView.getScreenContext().startActivity(activity11b);
+                break;
+            case 12:
+                Intent activity12 = new Intent(startGameView.getScreenContext(), ActivityOneTwo.class);
+                startGameView.getScreenContext().startActivity(activity12);
+                break;
+            case 13:
+                Intent activity13 = new Intent(startGameView.getScreenContext(), ActivityOneThree.class);
+                startGameView.getScreenContext().startActivity(activity13);
+                break;
+            case 14:
+                Intent activity14 = new Intent(startGameView.getScreenContext(), ActivityOneFour.class);
+                startGameView.getScreenContext().startActivity(activity14);
+                break;
+            case 21:
+                Intent activity21 = new Intent(startGameView.getScreenContext(), ActivityTwoOne.class);
+                startGameView.getScreenContext().startActivity(activity21);
+                break;
+            case 22:
+                Intent activity22 = new Intent(startGameView.getScreenContext(), ActivityTwoTwo.class);
+                startGameView.getScreenContext().startActivity(activity22);
+                break;
+            case 23:
+                Intent activity23 = new Intent(startGameView.getScreenContext(), ActivityTwoThree.class);
+                startGameView.getScreenContext().startActivity(activity23);
+                break;
+            case 24:
+                Intent activity24 = new Intent(startGameView.getScreenContext(), ActivityTwoFour.class);
+                startGameView.getScreenContext().startActivity(activity24);
+                break;
+            /*case 31:
+                Intent activity31 = new Intent(startGameView.getScreenContext(), ActivityThreeOne.class);
+                startGameView.getScreenContext().startActivity(activity31);
+                break;
+                case 32:
+                Intent activity32 = new Intent(startGameView.getScreenContext(), ActivityThreeTwo.class);
+                startGameView.getScreenContext().startActivity(activity32);
+                break;
+                case 33:
+                Intent activity33 = new Intent(startGameView.getScreenContext(), ActivityThreeThree.class);
+                startGameView.getScreenContext().startActivity(activity33);
+                break;*/
+            default: Log.e(this.toString(),"ERROR: Invalid level");
+            break;
+        }
+    }
+
+    @Override
+    public void resetCurrentPlayer() {
+        DatabaseInitializer.resetCurrentPlayer(db);
+    }
+
+
 }
