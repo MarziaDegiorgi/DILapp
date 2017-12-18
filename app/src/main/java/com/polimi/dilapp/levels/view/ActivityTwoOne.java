@@ -100,6 +100,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
                 setAnimationBoxExtra();
                 setWaitingAnimation();
                 mp.release();
+                presenter.setupForegroundDispatch();
                 presenter.handleIntent(getIntent());
             }
         });
@@ -178,15 +179,17 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setRepeatOrExitScreen() {
-        Intent intent = new Intent(getApplicationContext(), RepeatOrExitScreen.class);
+        Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
         intent.putExtra("activity","ActivityTwoOne");
+        intent.putExtra("ButtonName", "Ripeti");
         startActivity(intent);
     }
 
     @Override
     public void setGoOnOrExitScreen() {
-        Intent intent = new Intent(getApplicationContext(), GoOnOrExitScreen.class);
+        Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
         intent.putExtra("activity","ActivityTwoTwo");
+        intent.putExtra("ButtonName", "Avanti");
         startActivity(intent);
     }
 
@@ -198,7 +201,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setupForegroundDispatch();
     }
 
     @Override
@@ -215,6 +217,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
+        presenter.setupForegroundDispatch();
         presenter.handleIntent(intent);
     }
 

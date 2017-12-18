@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.main.CreateAccountActivity;
 
-public class RepeatOrExitScreen extends AppCompatActivity {
+public class EndLevelScreen extends AppCompatActivity {
 //TODO: add a video that explains that the child did the previous activity wrong
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +22,11 @@ public class RepeatOrExitScreen extends AppCompatActivity {
         Intent intent = getIntent();
 
         final String activity = intent.getStringExtra("Activity");
-        setContentView(R.layout.repeat_or_exit_screen);
+        final String buttonName = intent.getStringExtra("ButtonName");
 
-        Animation animation = AnimationUtils.loadAnimation(RepeatOrExitScreen.this, R.anim.half_rotation_right);
+        setContentView(R.layout.end_level_screen);
+
+        Animation animation = AnimationUtils.loadAnimation(EndLevelScreen.this, R.anim.half_rotation_right);
         ImageView imageOne = findViewById(R.id.imageOne);
         imageOne.setVisibility(View.VISIBLE);
         imageOne.setAnimation(animation);
@@ -40,8 +42,10 @@ public class RepeatOrExitScreen extends AppCompatActivity {
         imageThree.setAnimation(animation);
         imageThree.startAnimation(animation);
 
-        Button repeatButton = findViewById(R.id.repeatButton);
-        repeatButton.setOnClickListener(new View.OnClickListener() {
+        Button nextButton = findViewById(R.id.nextButton);
+        nextButton.setText(buttonName);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = null;
@@ -54,6 +58,7 @@ public class RepeatOrExitScreen extends AppCompatActivity {
             }
         });
 
+        //TODO: verify the correct activity to begin clicking on Exit.
         Button exitButton = findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override

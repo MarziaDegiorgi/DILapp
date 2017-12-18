@@ -165,15 +165,17 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setRepeatOrExitScreen() {
-        Intent intent = new Intent(getApplicationContext(), RepeatOrExitScreen.class);
+        Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
         intent.putExtra("activity","ActivityOneThree");
+        intent.putExtra("ButtonName", "Ripeti");
         startActivity(intent);
     }
 
     @Override
     public void setGoOnOrExitScreen() {
-        Intent intent = new Intent(getApplicationContext(), GoOnOrExitScreen.class);
+        Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
         intent.putExtra("activity","ActivityOneFour");
+        intent.putExtra("ButtonName", "Avanti");
         startActivity(intent);
 
     }
