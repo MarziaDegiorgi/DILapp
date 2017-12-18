@@ -40,6 +40,7 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
     CommonActivity common;
     String currentSequenceElement;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -211,14 +212,14 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
     @Override
     public void setRepeatOrExitScreen() {
         Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
-        intent.putExtra("activity","ActivityOneFour");
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityOneFour");
         intent.putExtra("ButtonName", "Ripeti");
         startActivity(intent);    }
 
     @Override
     public void setGoOnOrExitScreen() {
         Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
-        intent.putExtra("activity","ActivityTwoOne");
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityTwoOne");
         intent.putExtra("ButtonName", "Avanti");
         startActivity(intent);
     }

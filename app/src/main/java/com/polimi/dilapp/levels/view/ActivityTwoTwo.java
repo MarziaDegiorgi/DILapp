@@ -171,7 +171,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void setRepeatOrExitScreen() {
         Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
-        intent.putExtra("activity","ActivityTwoTwo");
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityTwoTwo");
         intent.putExtra("ButtonName", "Ripeti");
         startActivity(intent);
     }
@@ -179,7 +179,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void setGoOnOrExitScreen() {
         Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
-        intent.putExtra("activity","ActivityTwoThree");
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityTwoThree");
         intent.putExtra("ButtonName", "Avanti");
         startActivity(intent);
     }

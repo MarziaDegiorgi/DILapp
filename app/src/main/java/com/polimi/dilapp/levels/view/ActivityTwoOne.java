@@ -33,7 +33,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     String element;
     MediaPlayer request;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -180,7 +179,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     @Override
     public void setRepeatOrExitScreen() {
         Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
-        intent.putExtra("activity","ActivityTwoOne");
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityTwoOne");
         intent.putExtra("ButtonName", "Ripeti");
         startActivity(intent);
     }
@@ -188,7 +187,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     @Override
     public void setGoOnOrExitScreen() {
         Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
-        intent.putExtra("activity","ActivityTwoTwo");
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityTwoTwo");
         intent.putExtra("ButtonName", "Avanti");
         startActivity(intent);
     }

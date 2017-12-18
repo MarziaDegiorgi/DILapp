@@ -4,11 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -18,15 +15,12 @@ import android.widget.TextView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.ChildEntity;
-import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.levels.view.ActivityOneTwo;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
+import com.polimi.dilapp.levels.view.EndLevelScreen;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -120,7 +114,9 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         dummyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent dummyIntent = new Intent(getApplicationContext(), ActivityOneTwo.class);
+                Intent dummyIntent = new Intent(getApplicationContext(), EndLevelScreen.class);
+                dummyIntent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityOneOne");
+                dummyIntent.putExtra("ButtonName", "Ripeti");
                 startActivity(dummyIntent);
             }
         });

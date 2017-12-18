@@ -1,5 +1,6 @@
 package com.polimi.dilapp.levels;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -318,6 +319,7 @@ public class GamePresenter implements IGame.Presenter {
     }
 
     //CODE TO READ THE NDEF TAG
+    @SuppressLint("StaticFieldLeak")
     private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
         @Override
         protected String doInBackground(Tag... parameters) {

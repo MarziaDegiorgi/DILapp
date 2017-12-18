@@ -39,6 +39,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
+
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_game);
 
@@ -167,7 +168,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     public void setRepeatOrExitScreen() {
         Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
-        intent.putExtra("activity","ActivityOneOne");
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityOneOne");
         intent.putExtra("ButtonName", "Ripeti");
 
         startActivity(intent);
@@ -176,7 +177,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     public void setGoOnOrExitScreen() {
         Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
-        intent.putExtra("activity","ActivityOneTwo");
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityOneTwo");
         intent.putExtra("ButtonName", "Avanti");
         startActivity(intent);
     }
@@ -226,7 +227,6 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-        //presenter.setupForegroundDispatch();
     }
 
     @Override
