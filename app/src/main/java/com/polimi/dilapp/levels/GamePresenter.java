@@ -157,7 +157,6 @@ public class GamePresenter implements IGame.Presenter {
             if(numberOfElements > 1){
                 //TODO: set a sound like a "ping" each time that get the intent
                 this.multipleTags.add(readTag);
-                this.setupForegroundDispatch();
                 this.handleIntent(activityInterface.newIntent());
                 Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem][AddedTag] " + readTag );
                 numberOfElements--;
