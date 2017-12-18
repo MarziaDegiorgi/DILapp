@@ -192,6 +192,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
+        presenter.setupForegroundDispatch();
     }
 
     @Override
