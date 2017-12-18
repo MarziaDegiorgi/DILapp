@@ -103,6 +103,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
                 setAnimationBoxExtra();
                 setWaitingAnimation();
                 mp.release();
+                presenter.setupForegroundDispatch();
                 presenter.handleIntent(getIntent());
             }
         });
@@ -222,7 +223,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setupForegroundDispatch();
+        //presenter.setupForegroundDispatch();
     }
 
     @Override
@@ -234,7 +235,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
-
+        presenter.setupForegroundDispatch();
         presenter.handleIntent(intent);
     }
 }
