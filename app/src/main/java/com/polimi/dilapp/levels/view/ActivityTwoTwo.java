@@ -38,7 +38,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
 
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_multiple_game_answers);
 
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
@@ -52,7 +52,6 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
             finish();
         }
     }
-
 
     private void setupSequence() {
         String[] letters = getResources().getStringArray(R.array.letters);
@@ -115,11 +114,6 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     public Context getScreenContext() {
 
         return this;
-    }
-
-    @Override
-    public Intent newIntent() {
-        return null;
     }
 
     @Override
@@ -186,6 +180,11 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     @Override
     public String getString() {
         return "ActivityTwoTwo";
+    }
+
+    @Override
+    public void setSubItemAnimation(String currentSubElement) {
+        //Not used in this class
     }
 
     @Override

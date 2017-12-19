@@ -15,8 +15,6 @@ public interface IGame {
          */
         Context getScreenContext();
 
-        Intent newIntent();
-
         /**
          * Display the video according to the id passed as parameter
          * @param videoID chosen by the presenter
@@ -61,6 +59,12 @@ public interface IGame {
         void setRepeatOrExitScreen();
         void setGoOnOrExitScreen();
         String getString();
+
+        /**
+         * Display the new sub-item required, this is used when an element is multiple such as for numbers or words to learn
+         * @param currentSubElement the element actually required by the presenter
+         */
+        void setSubItemAnimation(String currentSubElement);
     }
 
     interface  Presenter {
@@ -74,8 +78,15 @@ public interface IGame {
         void setupForegroundDispatch();
         void stopForegroundDispatch();
         int getResourceId(String name,  Class resType);
-        String getCurrentSequenceElement();
+
+        String getCurrentElement();
         boolean getMultipleElement();
         void setLevelCurrentPlayer();
+
+        /**
+         * This is called by the view once that the main animation of a multiple object is completed and
+         * a subitem should be required
+         */
+        void notifyFirstSubElement();
     }
 }

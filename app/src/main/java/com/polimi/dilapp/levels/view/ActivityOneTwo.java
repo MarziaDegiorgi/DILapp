@@ -85,7 +85,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     public void setPresentationAnimation(String currentElement){
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        currentColour = presenter.getCurrentSequenceElement();
+        currentColour = presenter.getCurrentElement();
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.rotation);
 
         common.startMainAnimation(this,animationBegin,resourceID,this);
@@ -189,6 +189,11 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         return "ActivityOneTwo";
     }
 
+    @Override
+    public void setSubItemAnimation(String currentSubElement) {
+       //Not used in this class
+    }
+
 
     @Override
     public ArrayList<String> getSessionArray(int vectorID) {
@@ -220,12 +225,6 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
 
         return this;
     }
-
-    @Override
-    public Intent newIntent() {
-        return null;
-    }
-    //We want to handle NFC only when the Activity is in the foreground
 
     @Override
     protected void onResume() {

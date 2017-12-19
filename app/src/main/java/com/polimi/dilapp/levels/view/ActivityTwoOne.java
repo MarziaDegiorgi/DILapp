@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
+import com.polimi.dilapp.levels.GridViewAdapter;
 import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     private CommonActivity common;
     String element;
     MediaPlayer request;
+    GridView gridview;
+    GridViewAdapter imageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,12 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         common = new CommonActivity(presenter);
 
         setupSequence();
+
+        //Set Up the gridView for displaying images
+        gridview = findViewById(R.id.multiple_grid);
+        gridview.setVisibility(View.INVISIBLE);
+        imageAdapter = new GridViewAdapter(this);
+        gridview.setAdapter(imageAdapter);
 
         boolean availability = presenter.checkNfcAvailability();
         if (availability) {
@@ -86,11 +96,19 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
         image.setAnimation(animationBegin);
         image.startAnimation(animationBegin);
-        setAudioRequest();
+        setAudioRequest(image);
     }
 
-    private void setAudioRequest(){
-        int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
+    @Override
+    public void setSubItemAnimation(String currentSubElement){
+        int resourceID = presenter.getResourceId(currentSubElement, R.drawable.class);
+
+        gridview.setVisibility(View.VISIBLE);
+        imageAdapter.addImageResource(resourceID);
+        imageAdapter.notifyDataSetChanged();
+
+        //set subItem audio request
+        int objectClaimedID = presenter.getResourceId("request_" + "_"+currentSubElement, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -100,6 +118,24 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
                 setWaitingAnimation();
                 mp.release();
                 presenter.handleIntent(getIntent());
+            }
+        });
+    }
+
+    private void setAudioRequest(final ImageView image){
+        int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
+        request = MediaPlayer.create(this, objectClaimedID);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if(presenter.getMultipleElement()) {
+                    image.setVisibility(View.INVISIBLE);
+                    presenter.notifyFirstSubElement();
+                }else {
+                    setWaitingAnimation();
+                    presenter.handleIntent(getIntent());
+                }
             }
         });
     }
@@ -219,8 +255,15 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         presenter.handleIntent(intent);
     }
 
-    @Override
-    public Intent newIntent() {
-        return getIntent();
+    public List<String> getSequence(){
+        return numberSequence;
+    }
+
+    public IGame.Presenter getPresenter(){
+        return presenter;
+    }
+
+    public CommonActivity getCommonActivity(){
+        return common;
     }
 }

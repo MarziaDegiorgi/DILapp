@@ -229,6 +229,11 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public void setSubItemAnimation(String currentSubElement) {
+        // Not used in this class
+    }
+
+    @Override
     public List<String> getSessionArray(int vectorID) {
         String[] sessionFruitVector = getResources().getStringArray(vectorID);
             List<String> array = new ArrayList<>(Arrays.asList(sessionFruitVector));
@@ -255,12 +260,8 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
         return this;
     }
 
-    @Override
-    public Intent newIntent() {
-        return null;
-    }
-    //We want to handle NFC only when the Activity is in the foreground
 
+    //We want to handle NFC only when the Activity is in the foreground
     @Override
     protected void onResume() {
         super.onResume();

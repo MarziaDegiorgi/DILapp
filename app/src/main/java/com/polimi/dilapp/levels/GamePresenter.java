@@ -35,10 +35,14 @@ public class GamePresenter implements IGame.Presenter {
     private int counter = 0;
 
     private NfcAdapter nfcAdapter;
+    private List<String> currentSequence;
     private String currentElement;
+    private String currentSubElement;
+    private int subElementIndex = 1;
+
     private static final String MIME_TEXT_PLAIN = "text/plain";
     private List<String> tempArray;
-    private List<String> currentSequence;
+
     private int initTime;
     private int endTime;
     private int totaltime;
@@ -48,8 +52,9 @@ public class GamePresenter implements IGame.Presenter {
     private String currentSequenceElement;
     private boolean multipleElement = false;
     private int numberOfElements;
-    private List<String> multipleTags;
     private AppDatabase db;
+
+    private boolean gameStarted;
 
    public GamePresenter(IGame.View view){
 
@@ -57,9 +62,8 @@ public class GamePresenter implements IGame.Presenter {
        Log.i("Activity interface", String.valueOf(activityInterface));
        this.multipleElement = false;
        this.numberOfElements = 1;
-       multipleTags = new ArrayList<>();
+       gameStarted = false;
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
-
    }
 
    @Override
@@ -69,6 +73,7 @@ public class GamePresenter implements IGame.Presenter {
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("init time:", String.valueOf(initTime));
         currentSequence = sequence;
+        gameStarted = true;
         if(currentSequence.isEmpty()){
             Toast.makeText(activityInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
         } else {
@@ -156,36 +161,51 @@ public class GamePresenter implements IGame.Presenter {
         }else {
             if(numberOfElements > 1){
                 //TODO: set a sound like a "ping" each time that get the intent
-                this.multipleTags.add(readTag);
-                this.handleIntent(activityInterface.newIntent());
-                Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem][AddedTag] " + readTag );
-                numberOfElements--;
-                Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem][UpdateNumberItems] " + numberOfElements );
+                // Correct answer
+                if(readTag.equals(currentSubElement)){
+                    subElementIndex++;
+                    Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem]" + currentSubElement );
+                    if(subElementIndex < currentElement.length()){
+                        // Set next sub Item
+                        currentElement = currentElement.substring(subElementIndex,subElementIndex);
+                        Log.i("[GamePresenter]", "[CheckAnswer][updatedSubitem]" + currentSubElement );
+                        //Display correct result
+                        numberOfElements--;
+                        Log.i("[GamePresenter]", "[CheckAnswer][CallingNewItem]" + currentSubElement );
+                        activityInterface.setSubItemAnimation(currentSubElement);
+                    }
+                } else {
+                    { //TODO: Add wrong sound
+                        totalAttempts++;
+                        if (counter < 2) {
+                            counter++;
+                            //TODO: redo animation waiting
+                        } else {
+                            counter = 0;
+                            activityInterface.setVideoWrongAnswerAndGoOn();
+                        }
+                    }
+                }
             }else {
-                this.multipleTags.add(readTag);
-                Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem][FinalTagList] " + multipleTags );
-                checkMultipleItemsFinalAnswer();
+                if(readTag.equals(currentSubElement)){
+                    subElementIndex = 1;
+                    Log.i("[GamePresenter]", "[CheckAnswer][lastSubItem]" + currentSubElement );
+                    this.correctAnswer();
+                }else {
+                    //TODO: Add wrong sound
+                    totalAttempts++;
+                    if (counter < 2) {
+                        counter++;
+                        //TODO: method to repeat animation or request again the element
+                    } else {
+                        counter = 0;
+                        activityInterface.setVideoWrongAnswerAndGoOn();
+                    }
+                }
             }
         }
     }
 
-    private void checkMultipleItemsFinalAnswer(){
-        StringBuilder word= new StringBuilder("_");
-        for(int i=0; i<multipleTags.size()-1; i++){
-            word.append(multipleTags.get(i));
-        }
-        Log.i("[GamePresenter]", "[CheckMultipleItemsFinalAnswer][StringBuilt] " + word);
-        if(word.toString().equals(currentElement)){
-            Log.i("[GamePresenter]", "[CheckMultipleItemsFinalAnswer][Correct] " + currentElement);
-            this.correctAnswer();
-            this.multipleTags.clear();
-        }else{
-            Log.i("[GamePresenter]", "[CheckMultipleItemsFinalAnswer][Wrong] " + "-> element->" +currentElement
-            + ", tag-> "+ word);
-            this.wrongAnswer();
-            this.multipleTags.clear();
-        }
-    }
 
     /**
      * Update the correct answer calling the view to set a video
@@ -203,6 +223,7 @@ public class GamePresenter implements IGame.Presenter {
         totalAttempts++;
         if (counter < 2) {
             counter++;
+            //TODO: substitute the video with just a sound
             activityInterface.setVideoWrongAnswerToRepeat();
         } else {
             counter = 0;
@@ -217,12 +238,20 @@ public class GamePresenter implements IGame.Presenter {
         if(currentElement.contains("_")){
             multipleElement = true;
             numberOfElements = currentElement.length() - 1;
+            //init char inside the string
+            currentSubElement = currentElement.substring(subElementIndex,subElementIndex);
             Log.i("[GamePresenter]", "[CheckMultipleItems][True] " + numberOfElements);
+            Log.i("[GamePresenter]", "[CurrentSubElement] " + currentSubElement);
         }else{
             numberOfElements=1;
             multipleElement = false;
             Log.i("[GamePresenter]", "[CheckMultipleItems][False] " + numberOfElements);
         }
+    }
+
+    @Override
+    public void notifyFirstSubElement(){
+        activityInterface.setSubItemAnimation(currentSubElement);
     }
 
     @SuppressWarnings("rawtypes")
@@ -363,12 +392,15 @@ public class GamePresenter implements IGame.Presenter {
         Log.i("init time:", String.valueOf(totaltime));
         }
 
-        public String getCurrentSequenceElement(){
+        public List<String> getCurrentSequence(){
+            return currentSequence;
+        }
 
+        public String getCurrentElement(){
             return currentSequenceElement;
         }
 
-        public String getCurrentElement() {
+        public String getCurrentSubElement() {
             return currentElement;
         }
 
@@ -423,5 +455,9 @@ public class GamePresenter implements IGame.Presenter {
                     break;
             }
             DatabaseInitializer.setLevelCurrentPlayer(db, level);
+        }
+
+        public boolean isStarted(){
+            return gameStarted;
         }
 }

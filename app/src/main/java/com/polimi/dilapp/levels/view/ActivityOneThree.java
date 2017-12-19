@@ -215,12 +215,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         return this;
     }
 
-    @Override
-    public Intent newIntent() {
-        return null;
-    }
     //We want to handle NFC only when the Activity is in the foreground
-
     @Override
     protected void onResume() {
 
@@ -238,5 +233,10 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     @Override
     protected void onNewIntent(Intent intent) {
         presenter.handleIntent(intent);
+    }
+
+    @Override
+    public void setSubItemAnimation(String currentSubElement) {
+        // Not used in this class
     }
 }

@@ -10,10 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
+import com.polimi.dilapp.levels.GridViewAdapter;
 import com.polimi.dilapp.levels.IGame;
 
 import java.util.ArrayList;
@@ -32,6 +34,8 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     private CommonActivity common;
     String element;
     MediaPlayer request;
+    GridView gridview;
+    GridViewAdapter imageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +44,19 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_multiple_game_answers);
 
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
 
+        //Set Up the gridView for displaying images
+        gridview = findViewById(R.id.multiple_grid);
+        gridview.setVisibility(View.INVISIBLE);
+        imageAdapter = new GridViewAdapter(this);
+        gridview.setAdapter(imageAdapter);
+
         setupSequence();
+
 
         boolean availability = presenter.checkNfcAvailability();
         if (availability) {
@@ -76,14 +87,29 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     public void setPresentationAnimation(String currentElement) {
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationBegin = AnimationUtils.loadAnimation(this, R.anim.rotation);
 
-        common.startMainAnimation(this,animationBegin,resourceID,this.getScreenContext());
-        setAudioRequest();
+        Animation animationBegin = AnimationUtils.loadAnimation(ActivityTwoThree.this, R.anim.combination_set);
+
+        ImageView image = findViewById(R.id.animation_box_question);
+        image.setVisibility(View.VISIBLE);
+        image.setImageDrawable(getResources().getDrawable(resourceID));
+        image.setVisibility(View.VISIBLE);
+
+        image.setAnimation(animationBegin);
+        image.startAnimation(animationBegin);
+        setAudioRequest(image);
     }
 
-    private void setAudioRequest(){
-        int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
+    @Override
+    public void setSubItemAnimation(String currentSubElement){
+        int resourceID = presenter.getResourceId(currentSubElement, R.drawable.class);
+
+        gridview.setVisibility(View.VISIBLE);
+        imageAdapter.addImageResource(resourceID);
+        imageAdapter.notifyDataSetChanged();
+
+        //set subItem audio request
+        int objectClaimedID = presenter.getResourceId("request_" + "_"+currentSubElement, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -92,6 +118,24 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
                 setWaitingAnimation();
                 mp.release();
                 presenter.handleIntent(getIntent());
+            }
+        });
+    }
+
+    private void setAudioRequest(final ImageView image){
+        int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
+        request = MediaPlayer.create(this, objectClaimedID);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if(presenter.getMultipleElement()) {
+                    image.setVisibility(View.INVISIBLE);
+                    presenter.notifyFirstSubElement();
+                }else {
+                    setWaitingAnimation();
+                    presenter.handleIntent(getIntent());
+                }
             }
         });
     }
@@ -115,14 +159,10 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public Intent newIntent() {
-        return null;
-    }
-
-    @Override
     public Class getApplicationClass() {
         return this.getClass();
     }
+
     @Override
     public void setVideoCorrectAnswer() {
         disableViews();
@@ -152,7 +192,6 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         image.getResources().getDrawable(R.drawable.not_correct_answer);
         common.setVideoWrongAnswerAndGoOn(image, this);
     }
-
 
     private void disableViews(){
         ImageView imageToHide = findViewById(R.id.animation_box);

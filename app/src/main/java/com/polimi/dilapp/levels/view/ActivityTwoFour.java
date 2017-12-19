@@ -23,6 +23,7 @@ import java.util.Arrays;
  * Activity View referred to 2.4 Level : This is a summary of previously activity, so it is asked randomly all the
  * activities 2.1, 2.2 and 2.3
  */
+//TODO
 public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
     //TODO: ADD A COMMON ARRAYLIST WITH ALL THE PREVIOUS ACTIVITY AND MAKE THE PRESENTER SELECT RANDOMLY
 
@@ -115,11 +116,6 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public Intent newIntent() {
-        return null;
-    }
-
-    @Override
     public Class getApplicationClass() {
         return this.getClass();
     }
@@ -183,6 +179,11 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
     @Override
     public String getString() {
         return "ActivityTwoFour";
+    }
+
+    @Override
+    public void setSubItemAnimation(String currentSubElement) {
+
     }
 
     @Override

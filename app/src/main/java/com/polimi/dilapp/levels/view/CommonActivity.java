@@ -31,7 +31,7 @@ class CommonActivity {
         return new ArrayList<>(Arrays.asList(array));
     }
 
-   void startIntro(Uri uri, final ArrayList<String> sequence, AppCompatActivity activity){
+   void startIntro(Uri uri, final List<String> sequence, AppCompatActivity activity){
        VideoView video = activity.findViewById(R.id.video_box);
        video.setVideoURI(uri);
        video.start();
