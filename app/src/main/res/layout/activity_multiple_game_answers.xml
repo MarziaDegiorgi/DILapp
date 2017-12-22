@@ -47,8 +47,7 @@
             android:layout_height="170dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:numColumns="10">
-
+            android:numColumns="auto_fit">
         </GridLayout>
 
     </RelativeLayout>
