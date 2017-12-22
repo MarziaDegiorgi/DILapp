@@ -68,7 +68,7 @@ public class GamePresenter implements IGame.Presenter {
    @Override
     public void startGame(List<String> sequence){
        //current system time in seconds
-        setLevelCurrentPlayer();
+        //setLevelCurrentPlayer();
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("init time:", String.valueOf(initTime));
         currentSequence = sequence;
@@ -238,7 +238,7 @@ public class GamePresenter implements IGame.Presenter {
             multipleElement = true;
             numberOfElements = currentElement.length() - 1;
             //init char inside the string
-            currentSubElement = currentElement.substring(subElementIndex,subElementIndex);
+            currentSubElement = currentElement.substring(subElementIndex, subElementIndex+1);
             Log.i("[GamePresenter]", "[CheckMultipleItems][True] " + numberOfElements);
             Log.i("[GamePresenter]", "[CurrentSubElement] " + currentSubElement);
         }else{
@@ -250,7 +250,7 @@ public class GamePresenter implements IGame.Presenter {
 
     @Override
     public void notifyFirstSubElement(){
-        activityInterface.setSubItemAnimation(currentSubElement);
+        activityInterface.initGridView(currentSubElement);
     }
 
     @SuppressWarnings("rawtypes")

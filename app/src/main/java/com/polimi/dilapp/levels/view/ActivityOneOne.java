@@ -240,4 +240,9 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     public void setSubItemAnimation(String currentSubElement) {
         // Not used in this class
     }
+
+    @Override
+    public void initGridView(String currentSubItem) {
+        //NOT USED
+    }
 }

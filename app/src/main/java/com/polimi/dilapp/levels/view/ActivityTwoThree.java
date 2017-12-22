@@ -44,16 +44,10 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_multiple_game_answers);
+        setContentView(R.layout.activity_game);
 
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
-
-        //Set Up the gridView for displaying images
-        gridview = findViewById(R.id.multiple_grid);
-        gridview.setVisibility(View.INVISIBLE);
-        imageAdapter = new GridViewAdapter(this);
-        gridview.setAdapter(imageAdapter);
 
         setupSequence();
 
@@ -90,7 +84,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityTwoThree.this, R.anim.combination_set);
 
-        ImageView image = findViewById(R.id.animation_box_question);
+        ImageView image = findViewById(R.id.animation_box);
         image.setVisibility(View.VISIBLE);
         image.setImageDrawable(getResources().getDrawable(resourceID));
         image.setVisibility(View.VISIBLE);
@@ -115,7 +109,25 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                setWaitingAnimation();
+                mp.release();
+                presenter.handleIntent(getIntent());
+            }
+        });
+    }
+
+    @Override
+    public void initGridView(String currentSubItem) {
+        int resourceID = presenter.getResourceId(currentSubItem, R.drawable.class);
+        gridview = findViewById(R.id.gridView);
+        imageAdapter = new GridViewAdapter(this, resourceID);
+        gridview.setAdapter(imageAdapter);
+        gridview.setVisibility(View.VISIBLE);
+        int objectClaimedID = presenter.getResourceId("request_" + "_"+currentSubItem, R.raw.class);
+        request = MediaPlayer.create(this, objectClaimedID);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
                 mp.release();
                 presenter.handleIntent(getIntent());
             }

@@ -234,6 +234,11 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public void initGridView(String currentSubItem) {
+        //NOT USED
+    }
+
+    @Override
     public List<String> getSessionArray(int vectorID) {
         String[] sessionFruitVector = getResources().getStringArray(vectorID);
             List<String> array = new ArrayList<>(Arrays.asList(sessionFruitVector));

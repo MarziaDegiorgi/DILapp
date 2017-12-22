@@ -38,7 +38,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
 
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_multiple_game_answers);
+        setContentView(R.layout.activity_game);
 
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
@@ -185,6 +185,11 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void setSubItemAnimation(String currentSubElement) {
         //Not used in this class
+    }
+
+    @Override
+    public void initGridView(String currentSubItem) {
+        //The gridView is not used
     }
 
     @Override

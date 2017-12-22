@@ -25,10 +25,9 @@ import java.util.List;
 /**
  * Activity View referred to 2.1 Level : Learning NUMBERS
  */
-
-
 public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
+    private static final String AUDIO = "request__";
     private IGame.Presenter presenter;
     private ArrayList<String> numberSequence;
     private CommonActivity common;
@@ -44,23 +43,18 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
         Intent intent = getIntent();
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_multiple_game_answers);
+        setContentView(R.layout.activity_game);
 
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
 
         setupSequence();
 
-        //Set Up the gridView for displaying images
-        gridview = findViewById(R.id.multiple_grid);
-        gridview.setVisibility(View.INVISIBLE);
-        imageAdapter = new GridViewAdapter(this);
-        gridview.setAdapter(imageAdapter);
 
         boolean availability = presenter.checkNfcAvailability();
         if (availability) {
-            setupVideoIntro();
-        }else{
+         setupVideoIntro();
+       }else{
             finish();
         }
     }
@@ -75,7 +69,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         common.startIntro(uri, numberSequence,this);
     }
 
-
     @Override
     public void setVideoView(int videoID) {
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
@@ -89,7 +82,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.combination_set);
 
-        ImageView image = findViewById(R.id.animation_box_question);
+        ImageView image = findViewById(R.id.animation_box);
         image.setVisibility(View.VISIBLE);
         image.setImageDrawable(getResources().getDrawable(resourceID));
         image.setVisibility(View.VISIBLE);
@@ -97,6 +90,25 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         image.setAnimation(animationBegin);
         image.startAnimation(animationBegin);
         setAudioRequest(image);
+    }
+
+    @Override
+    public void initGridView(String currentSubItem){
+        int resourceID = presenter.getResourceId("_"+currentSubItem, R.drawable.class);
+        gridview = findViewById(R.id.gridView);
+        imageAdapter = new GridViewAdapter(this, resourceID);
+        gridview.setAdapter(imageAdapter);
+        gridview.setVisibility(View.VISIBLE);
+        int objectClaimedID = presenter.getResourceId(AUDIO +currentSubItem, R.raw.class);
+        request = MediaPlayer.create(this, objectClaimedID);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                presenter.handleIntent(getIntent());
+            }
+        });
     }
 
     @Override
@@ -108,14 +120,12 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         imageAdapter.notifyDataSetChanged();
 
         //set subItem audio request
-        int objectClaimedID = presenter.getResourceId("request_" + "_"+currentSubElement, R.raw.class);
+        int objectClaimedID = presenter.getResourceId(AUDIO + currentSubElement, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                setAnimationBoxExtra();
-                setWaitingAnimation();
                 mp.release();
                 presenter.handleIntent(getIntent());
             }
@@ -235,12 +245,12 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setupForegroundDispatch();
+      //  presenter.setupForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
-        presenter.stopForegroundDispatch();
+       // presenter.stopForegroundDispatch();
         super.onPause();
     }
 

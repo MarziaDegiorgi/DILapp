@@ -187,6 +187,11 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public void initGridView(String currentSubItem) {
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         presenter.setupForegroundDispatch();

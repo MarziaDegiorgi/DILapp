@@ -65,6 +65,8 @@ public interface IGame {
          * @param currentSubElement the element actually required by the presenter
          */
         void setSubItemAnimation(String currentSubElement);
+
+        void initGridView(String currentSubItem);
     }
 
     interface  Presenter {

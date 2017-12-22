@@ -194,6 +194,11 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
        //Not used in this class
     }
 
+    @Override
+    public void initGridView(String currentSubItem) {
+        //NOT USED
+    }
+
 
     @Override
     public ArrayList<String> getSessionArray(int vectorID) {
