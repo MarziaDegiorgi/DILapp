@@ -13,7 +13,9 @@ import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levelmap.ILevelMap;
+import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levelmap.LevelMapPresenter;
+import com.polimi.dilapp.levels.view.ActivityTwoOne;
 
 public class MainActivity extends AppCompatActivity implements IMain.View{
 
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
             return;
         }
         setContentView(R.layout.activity_main);
-        VideoView introVideoView = (VideoView) findViewById(R.id.intro);
+        VideoView introVideoView = findViewById(R.id.intro);
 
         //Set up the presenter
         presenter = new MainPresenter(this);
@@ -37,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
 
         introVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
-                Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                Intent intent = new Intent(getApplicationContext(), NewAccountActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
     // This callback is called only when there is a saved instance previously saved using
     // onSaveInstanceState(). We restore some state in onCreate() while we can optionally restore
     // other state here, possibly usable after onStart() has completed.
-    // The savedInstanceState Bundle is same as the one used in onCreate().
+    // The savedInstanceState Bundle is same as the _1 used in onCreate().
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);

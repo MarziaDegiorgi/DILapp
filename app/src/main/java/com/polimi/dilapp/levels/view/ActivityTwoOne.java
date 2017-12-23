@@ -82,14 +82,23 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.combination_set);
 
-        ImageView image = findViewById(R.id.animation_box);
+        final ImageView image = findViewById(R.id.animation_box);
         image.setVisibility(View.VISIBLE);
         image.setImageDrawable(getResources().getDrawable(resourceID));
         image.setVisibility(View.VISIBLE);
 
         image.setAnimation(animationBegin);
         image.startAnimation(animationBegin);
-        setAudioRequest(image);
+        int objectClaimedID = presenter.getResourceId("request_item", R.raw.class);
+        request = MediaPlayer.create(this, objectClaimedID);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                setAudioRequest(image);
+            }
+        });
     }
 
     @Override
@@ -113,7 +122,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setSubItemAnimation(String currentSubElement){
-        int resourceID = presenter.getResourceId(currentSubElement, R.drawable.class);
+        int resourceID = presenter.getResourceId("_"+currentSubElement, R.drawable.class);
 
         gridview.setVisibility(View.VISIBLE);
         imageAdapter.addImageResource(resourceID);
@@ -187,7 +196,8 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.correct_answer);
+        int resourceID = presenter.getResourceId(element, R.drawable.class);
+        image.getResources().getDrawable(resourceID);
         common.setVideoCorrectAnswer(image, this);
     }
 
@@ -213,6 +223,8 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
 
     private void disableViews(){
+        gridview.setVisibility(View.INVISIBLE);
+        imageAdapter.clearImageResources();
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
@@ -245,12 +257,12 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     @Override
     protected void onResume() {
         super.onResume();
-      //  presenter.setupForegroundDispatch();
+      presenter.setupForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
-       // presenter.stopForegroundDispatch();
+       presenter.stopForegroundDispatch();
         super.onPause();
     }
 

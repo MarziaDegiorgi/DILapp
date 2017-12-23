@@ -93,4 +93,8 @@ public class GridViewAdapter extends BaseAdapter {
         this.images_id.add(imageResource);
     }
 
+    public void clearImageResources() {
+        this.images_id.clear();
+    }
+
 }

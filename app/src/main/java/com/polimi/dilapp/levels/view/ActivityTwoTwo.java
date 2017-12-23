@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -45,12 +46,12 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
 
         setupSequence();
 
-        boolean availability = presenter.checkNfcAvailability();
-        if (availability) {
+        //boolean availability = presenter.checkNfcAvailability();
+       // if (availability) {
             setupVideoIntro();
-        }else{
+        /*}else{
             finish();
-        }
+        }*/
     }
 
     private void setupSequence() {
@@ -200,7 +201,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
 
     @Override
     protected void onPause() {
-        presenter.stopForegroundDispatch();
+       presenter.stopForegroundDispatch();
         super.onPause();
     }
 

@@ -37,7 +37,7 @@ public class GamePresenter implements IGame.Presenter {
     private List<String> currentSequence;
     private String currentElement;
     private String currentSubElement;
-    private int subElementIndex = 1;
+    private int subElementIndex ;
 
     private static final String MIME_TEXT_PLAIN = "text/plain";
     private List<String> tempArray;
@@ -58,6 +58,7 @@ public class GamePresenter implements IGame.Presenter {
    public GamePresenter(IGame.View view){
 
        this.activityInterface = view;
+       subElementIndex = 1;
        Log.i("Activity interface", String.valueOf(activityInterface));
        this.multipleElement = false;
        this.numberOfElements = 1;
@@ -68,7 +69,7 @@ public class GamePresenter implements IGame.Presenter {
    @Override
     public void startGame(List<String> sequence){
        //current system time in seconds
-        //setLevelCurrentPlayer();
+        setLevelCurrentPlayer();
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("init time:", String.valueOf(initTime));
         currentSequence = sequence;
@@ -163,10 +164,11 @@ public class GamePresenter implements IGame.Presenter {
                 // Correct answer
                 if(readTag.equals(currentSubElement)){
                     subElementIndex++;
-                    Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem]" + currentSubElement );
-                    if(subElementIndex < currentElement.length()){
+                    Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem]" + currentSubElement  +
+                    "index:" + subElementIndex);
+                    if(subElementIndex <= currentElement.length()){
                         // Set next sub Item
-                        currentElement = currentElement.substring(subElementIndex,subElementIndex);
+                        currentSubElement = currentElement.substring(subElementIndex,subElementIndex+1);
                         Log.i("[GamePresenter]", "[CheckAnswer][updatedSubitem]" + currentSubElement );
                         //Display correct result
                         numberOfElements--;
@@ -303,6 +305,7 @@ public class GamePresenter implements IGame.Presenter {
             if (MIME_TEXT_PLAIN.equals(type)) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 new NdefReaderTask().execute(tag);
+                Log.i("[HandleIntent]:", "Tag Detected" + type);
             } else {
                 Log.d(TAG, "Wrong mime type: " + type);
             }
@@ -315,6 +318,7 @@ public class GamePresenter implements IGame.Presenter {
                     new NdefReaderTask().execute(tag);
                 }
             }
+            Log.i("[HandleIntent]:", "Action Detected" + action);
         }
     }
 
@@ -381,6 +385,7 @@ public class GamePresenter implements IGame.Presenter {
             if (result != null) {
                 //only for debug
                 Toast.makeText(activityInterface.getScreenContext(), result, Toast.LENGTH_LONG).show();
+                Log.i("[OnPostExecute]","NFC Read result: "+ result);
                 checkAnswer(result);
             }
         }

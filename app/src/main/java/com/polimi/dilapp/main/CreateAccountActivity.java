@@ -154,7 +154,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
     // This callback is called only when there is a saved instance previously saved using
     // onSaveInstanceState(). We restore some state in onCreate() while we can optionally restore
     // other state here, possibly usable after onStart() has completed.
-    // The savedInstanceState Bundle is same as the one used in onCreate().
+    // The savedInstanceState Bundle is same as the _1 used in onCreate().
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         presenter.resumeCurrentPlayer(savedInstanceState);

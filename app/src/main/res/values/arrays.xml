@@ -88,6 +88,7 @@
         <item>_11</item>
     </string-array>
 
+
     <string-array name="number_four_items">
         <item>_12</item>
         <item>_13</item>
@@ -100,7 +101,7 @@
         <item>_17</item>
         <item>_18</item>
         <item>_19</item>
-        <item>20</item>
+        <item>_20</item>
     </string-array>
 
     <string-array name="numbers">
@@ -109,34 +110,34 @@
         <item>number_three</item>
         <item>number_four</item>
         <item>number_five</item>
-        <item>all_numbers</item>
-    </string-array>
+<item>all_numbers</item>
+</string-array>
 
-    <string-array name="all_numbers_items">
-        <item>_0</item>
-        <item>_1</item>
-        <item>_2</item>
-        <item>_3</item>
-        <item>_4</item>
-        <item>_5</item>
-        <item>_6</item>
-        <item>_7</item>
-        <item>_8</item>
-        <item>_9</item>
-        <item>_10</item>
-        <item>_11</item>
-        <item>_12</item>
-        <item>_13</item>
-        <item>_14</item>
-        <item>_15</item>
-        <item>_16</item>
-        <item>_17</item>
-        <item>_18</item>
-        <item>_19</item>
-        <item>_20</item>
-    </string-array>
+<string-array name="all_numbers_items">
+    <item>_0</item>
+    <item>_1</item>
+    <item>_2</item>
+    <item>_3</item>
+    <item>_4</item>
+    <item>_5</item>
+    <item>_6</item>
+    <item>_7</item>
+    <item>_8</item>
+    <item>_9</item>
+    <item>_10</item>
+    <item>_11</item>
+    <item>_12</item>
+    <item>_13</item>
+    <item>_14</item>
+    <item>_15</item>
+    <item>_16</item>
+    <item>_17</item>
+    <item>_18</item>
+    <item>_19</item>
+    <item>_20</item>
+</string-array>
 
-    <!-- WORDS-->
+<!-- WORDS-->
     <string-array name="word_one_items">
         <item>_mela</item>
         <item>_melanzana</item>
@@ -179,14 +180,13 @@
         <item>_arancia</item>
     </string-array>
 
-
     <string-array name="words">
         <item>word_one</item>
         <item>word_two</item>
         <item>word_three</item>
         <item>word_four</item>
+        <item>all_words_items</item>
     </string-array>
-
 
    <!-- COLORS AND OBJECT -->
     <string-array name="yellow_items">
@@ -402,7 +402,6 @@
         <item>onionshape</item>
         <item>asparagusshape</item>
     </string-array>
-
 
     <string-array name="generic_shape_two_items">
         <item>broccolishape</item>
