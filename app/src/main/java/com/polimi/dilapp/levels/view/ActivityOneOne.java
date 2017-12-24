@@ -213,7 +213,6 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     @Override
     public Context getScreenContext() {
-
         return this;
     }
 

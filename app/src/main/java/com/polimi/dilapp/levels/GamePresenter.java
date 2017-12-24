@@ -68,7 +68,7 @@ public class GamePresenter implements IGame.Presenter {
    @Override
     public void startGame(List<String> sequence){
        //current system time in seconds
-        //setLevelCurrentPlayer();
+        setLevelCurrentPlayer();
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("init time:", String.valueOf(initTime));
         currentSequence = sequence;
