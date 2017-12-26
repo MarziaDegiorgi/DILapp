@@ -54,6 +54,10 @@ public class GamePresenter implements IGame.Presenter {
     private AppDatabase db;
 
     private boolean gameStarted;
+    private boolean newSessionStarted;
+    private boolean newTurnStarted;
+    private boolean gameEnded;
+
 
    public GamePresenter(IGame.View view){
 
@@ -63,6 +67,9 @@ public class GamePresenter implements IGame.Presenter {
        this.multipleElement = false;
        this.numberOfElements = 1;
        gameStarted = false;
+       newSessionStarted = false;
+       newTurnStarted = false;
+       gameEnded = false;
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
    }
 
@@ -73,10 +80,10 @@ public class GamePresenter implements IGame.Presenter {
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("init time:", String.valueOf(initTime));
         currentSequence = sequence;
-        gameStarted = true;
         if(currentSequence.isEmpty()){
-            Toast.makeText(activityInterface.getScreenContext(), "Problema! Niente Risorse!", Toast.LENGTH_LONG).show();
+            Log.i("[Game Presenter]:", "empty current sequence.");
         } else {
+            gameStarted = true;
             currentSequenceElement = currentSequence.get(0);
             currentSequence.remove(0);
             startNewSession(currentSequenceElement);
@@ -87,6 +94,7 @@ public class GamePresenter implements IGame.Presenter {
     private void startNewTurn(){
         if(currentSequence.isEmpty()){
             //ActivityOneTwo ends
+            gameEnded = true;
             endTime = (int)(SystemClock.elapsedRealtime()/1000);
             Log.i("init time:", String.valueOf(endTime));
             setTimeParameter();
@@ -94,7 +102,7 @@ public class GamePresenter implements IGame.Presenter {
             String i = String.valueOf(totaltime);
             Log.i("Total time:", i);
             //TODO UPDATE COUNTERS and TOTAL TIME IN DB
-            Toast.makeText(activityInterface.getScreenContext(), "Fine Attività 1.1", Toast.LENGTH_LONG).show();
+            Log.i("[Game Presenter]:", "Activity Ended.");
             int diff = totalAttempts - correctAnswers;
             int percentage = (20*totalAttempts)/100;
             if(diff > percentage){
@@ -106,6 +114,8 @@ public class GamePresenter implements IGame.Presenter {
             }
 
         } else {
+            Log.i("[Game Presenter]:", "new Turn started with a new sequence element and new session array.");
+            newTurnStarted = true;
             currentSequenceElement = currentSequence.get(0);
             currentSequence.remove(0);
             startNewSession(currentSequenceElement);
@@ -114,10 +124,12 @@ public class GamePresenter implements IGame.Presenter {
 
     //NEXT ARRAY IN THE SEQUENCE
     private void startNewSession(String currentSequenceElement){
+        newTurnStarted = false;
         int vectorID = getResourceId(currentSequenceElement +"_items", R.array.class);
         int presentationVideo = getResourceId("video_set_of_" + currentSequenceElement + "_items", R.raw.class);
         activityInterface.setVideoView(presentationVideo);
         tempArray = activityInterface.getSessionArray(vectorID);
+        newSessionStarted = true;
         Log.i("[GamePresenter]", "Starting a new session" + tempArray.toString());
         //this set the video of the session: example yellow colors video.
     }
@@ -127,7 +139,6 @@ public class GamePresenter implements IGame.Presenter {
         if(tempArray.isEmpty()){
             Log.i("[GamePresenter]", "Array is Empty -> Starting a new Turn" );
             startNewTurn();
-            Toast.makeText(activityInterface.getScreenContext(), "start new session", Toast.LENGTH_LONG).show();
         }else{
             Collections.sort(tempArray);
             currentElement = tempArray.get(0);
@@ -235,7 +246,7 @@ public class GamePresenter implements IGame.Presenter {
     /**
      *  Check if an element is composed by multiple objects and set the flag variables
      */
-    public void checkMultipleItems(){
+    private void checkMultipleItems(){
         if(currentElement.contains("_")){
             multipleElement = true;
             numberOfElements = currentElement.length() - 1;
@@ -463,5 +474,12 @@ public class GamePresenter implements IGame.Presenter {
 
         public boolean isStarted(){
             return gameStarted;
+        }
+        public boolean isEnded(){return gameEnded;}
+        public boolean getNewSessionStarted(){
+            return newSessionStarted;
+        }
+        public boolean getNewTurnStarted(){
+            return newTurnStarted;
         }
 }
