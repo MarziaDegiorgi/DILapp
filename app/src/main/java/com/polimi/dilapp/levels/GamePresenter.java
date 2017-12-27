@@ -95,6 +95,7 @@ public class GamePresenter implements IGame.Presenter {
         if(currentSequence.isEmpty()){
             //ActivityOneTwo ends
             gameEnded = true;
+            newTurnStarted = false;
             endTime = (int)(SystemClock.elapsedRealtime()/1000);
             Log.i("init time:", String.valueOf(endTime));
             setTimeParameter();
@@ -124,7 +125,6 @@ public class GamePresenter implements IGame.Presenter {
 
     //NEXT ARRAY IN THE SEQUENCE
     private void startNewSession(String currentSequenceElement){
-        newTurnStarted = false;
         int vectorID = getResourceId(currentSequenceElement +"_items", R.array.class);
         int presentationVideo = getResourceId("video_set_of_" + currentSequenceElement + "_items", R.raw.class);
         activityInterface.setVideoView(presentationVideo);
@@ -136,6 +136,7 @@ public class GamePresenter implements IGame.Presenter {
 
 
     public void chooseElement(){
+        newTurnStarted = false;
         if(tempArray.isEmpty()){
             Log.i("[GamePresenter]", "Array is Empty -> Starting a new Turn" );
             startNewTurn();
@@ -285,7 +286,7 @@ public class GamePresenter implements IGame.Presenter {
             return field.getInt(null);
         }
         catch (Exception e) {
-            Log.d(TAG, "Failure to get drawable id.", e);
+            Log.e("[Game Presenter]:", "failure to retrieve id, exception thrown.", e);
         }
         return 0;
     }
@@ -481,5 +482,11 @@ public class GamePresenter implements IGame.Presenter {
         }
         public boolean getNewTurnStarted(){
             return newTurnStarted;
+        }
+        public int getTotalAttempts(){
+            return totalAttempts;
+        }
+        public int getCorrectAnswers(){
+            return correctAnswers;
         }
 }

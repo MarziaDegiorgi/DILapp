@@ -14,9 +14,12 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 import junit.framework.Assert;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -32,6 +35,8 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Log.class, AppDatabase.class, SystemClock.class, Toast.class})
 public class GamePresenterTest {
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Mock
     private IGame.View iGame;
@@ -58,6 +63,7 @@ public class GamePresenterTest {
         PowerMockito.mockStatic(DatabaseInitializer.class);
         PowerMockito.mockStatic(SystemClock.class);
         when(Log.i(any(String.class),any(String.class))).thenReturn(1);
+        when(Log.e(any(String.class),any(String.class),any(Throwable.class))).thenReturn(1);
         when(AppDatabase.getAppDatabase(any(Context.class))).thenReturn(appDatabase);
         when(appDatabase.childDao()).thenReturn(childDao);
         when(iGame.getString()).thenReturn("ActivityOneOne");
@@ -71,6 +77,7 @@ public class GamePresenterTest {
 
     }
 
+    //Here we test startGame(...);
     @Test
     public void gameIsStarted(){
         ArrayList<String> currentSequence = new ArrayList<>();
@@ -87,14 +94,22 @@ public class GamePresenterTest {
         assertFalse(gamePresenter.isStarted());
     }
 
+    //Here we test getResourceId(... , ...);
    @Test
-    public void getResourceIdTest(){
+    public void getResourceIdCorrectFunctioningTest(){
        String name = "lemon";
        int resourceId = gamePresenter.getResourceId(name, R.drawable.class);
 
        Assert.assertEquals(resourceId, R.drawable.lemon );
    }
 
+   @Test(expected = Exception.class)
+   public void getResourceIdThrowingExceptionTest() {
+       int resourceId = gamePresenter.getResourceId(any(String.class), R.drawable.class);
+    }
+
+
+   //Here we test startNewSession(...);
    @Test
    public void startNewSessionTest(){
        String currentSequenceElement = "subset_names_one";
@@ -119,6 +134,32 @@ public class GamePresenterTest {
        } catch (Exception e) {
            e.printStackTrace();
        }
+       int diff = gamePresenter.getTotalAttempts()-gamePresenter.getCorrectAnswers();
+       int percentage = (20*gamePresenter.getTotalAttempts())/100;
+       if(diff > percentage){
+           Mockito.verify(iGame, Mockito.times(
+
+                   1)).setRepeatOrExitScreen();
+       }else{
+           Mockito.verify(iGame, Mockito.times(1)).setGoOnOrExitScreen();
+       }
        assertTrue(gamePresenter.isEnded());
+
    }
+
+   @Test
+    public void isTheNewTurnStarted(){
+       ArrayList<String> notEmptySequence = new ArrayList<String>();
+       notEmptySequence.add("lemon");
+       notEmptySequence.add("carrot");
+       gamePresenter.startGame(notEmptySequence);
+
+       try {
+           Whitebox.invokeMethod(gamePresenter, "startNewTurn");
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+      assertTrue(gamePresenter.getNewTurnStarted());
+   }
+
 }
