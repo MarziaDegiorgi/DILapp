@@ -57,6 +57,7 @@ public class GamePresenter implements IGame.Presenter {
     private boolean newSessionStarted;
     private boolean newTurnStarted;
     private boolean gameEnded;
+    private boolean actionDetected;
 
 
    public GamePresenter(IGame.View view){
@@ -68,6 +69,7 @@ public class GamePresenter implements IGame.Presenter {
        this.numberOfElements = 1;
        gameStarted = false;
        newSessionStarted = false;
+       actionDetected = false;
        newTurnStarted = false;
        gameEnded = false;
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
@@ -308,7 +310,6 @@ public class GamePresenter implements IGame.Presenter {
         }
     }
 
-    //TODO CHECK IF IT'S NECESSARY TO USE BOTH IF CASES.
     @Override
     public void handleIntent(Intent intent) {
         String action = intent.getAction();
@@ -363,7 +364,7 @@ public class GamePresenter implements IGame.Presenter {
 
     //CODE TO READ THE NDEF TAG
     @SuppressLint("StaticFieldLeak")
-    private class NdefReaderTask extends AsyncTask<Tag, Void, String> {
+    class NdefReaderTask extends AsyncTask<Tag, Void, String> {
         @Override
         protected String doInBackground(Tag... parameters) {
             Tag tag = parameters[0];
@@ -473,28 +474,33 @@ public class GamePresenter implements IGame.Presenter {
             DatabaseInitializer.setLevelCurrentPlayer(db, level);
         }
 
-        public boolean isStarted(){
+        boolean isStarted(){
             return gameStarted;
         }
 
         //The following methods have been added oly for testing purpose
-        public boolean isEnded(){return gameEnded;}
-        public boolean getNewSessionStarted(){
+        boolean isEnded(){return gameEnded;}
+        boolean getNewSessionStarted(){
             return newSessionStarted;
         }
-        public boolean getNewTurnStarted(){
+        boolean getNewTurnStarted(){
             return newTurnStarted;
         }
-        public int getTotalAttempts(){
+        int getTotalAttempts(){
             return totalAttempts;
         }
-        public int getCorrectAnswers(){
+        int getCorrectAnswers(){
             return correctAnswers;
         }
-        public int getCounter(){
+        int getCounter(){
             return counter;
         }
-        public void setCounter(int i){
+        void setCounter(int i){
             counter = i;
         }
+
+        IGame.View getActivityInterface(){
+            return activityInterface;
+        }
+
 }
