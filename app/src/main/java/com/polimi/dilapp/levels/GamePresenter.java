@@ -88,8 +88,8 @@ public class GamePresenter implements IGame.Presenter {
         gameStarted = true;
         if(currentSequence.isEmpty()){
             Log.i("[Game Presenter]:", "empty current sequence.");
+            gameStarted = false;
         } else {
-            gameStarted = true;
             currentSequenceElement = currentSequence.get(0);
             currentSequence.remove(0);
             startNewSession(currentSequenceElement);

@@ -339,7 +339,7 @@ public class GamePresenterTest {
         Assert.assertEquals(null, gamePresenter.getActivityInterface());
     }
 
-    //TODO: check verifyStatic
+    //TODO: check setLevelCurrentPlayer(); [Giuli]
     @Test
     public void setLevelCurrentPlayerTest() {
 
