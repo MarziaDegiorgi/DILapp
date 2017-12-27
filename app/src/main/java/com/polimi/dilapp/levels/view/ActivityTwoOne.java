@@ -150,22 +150,15 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
             public void onCompletion(MediaPlayer mp) {
                 if(presenter.getMultipleElement()) {
                     image.setVisibility(View.INVISIBLE);
+                    mp.release();
                     presenter.notifyFirstSubElement();
                 }else {
                     setWaitingAnimation();
+                    mp.release();
                     presenter.handleIntent(getIntent());
                 }
             }
         });
-    }
-
-    public void setAnimationBoxExtra(){
-        ImageView animationBox = findViewById(R.id.animation_box_two);
-        animationBox.setVisibility(View.VISIBLE);
-        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.move);
-        animationBox.setImageDrawable(getResources().getDrawable(R.drawable.cloud));
-        animationBox.setAnimation(extraAnimation);
-        animationBox.startAnimation(extraAnimation);
     }
 
     public void setWaitingAnimation(){
@@ -221,10 +214,13 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         common.setVideoWrongAnswerAndGoOn(image, this);
     }
 
-
+    /**
+     *  Clean the XML resources used
+     */
     private void disableViews(){
         gridview.setVisibility(View.INVISIBLE);
         imageAdapter.clearImageResources();
+
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
