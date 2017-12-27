@@ -27,9 +27,11 @@ import org.powermock.reflect.Whitebox;
 
 import java.util.ArrayList;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
@@ -160,6 +162,113 @@ public class GamePresenterTest {
            e.printStackTrace();
        }
       assertTrue(gamePresenter.getNewTurnStarted());
+       try {
+           PowerMockito.verifyPrivate(gamePresenter, times(1)).invoke("startNewSession","carrot");
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+
+
    }
+
+   //Here we test chooseElement();
+    @Test
+    public void isTheNewElementChosen(){
+        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        notEmptySequence.add("lemon");
+        notEmptySequence.add("carrot");
+        gamePresenter.startGame(notEmptySequence);
+
+        gamePresenter.chooseElement();
+
+        assertEquals(gamePresenter.getCurrentElement(), "carrot");
+    }
+
+    @Test
+    public void noMoreElementsInTheTempArray(){
+        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        notEmptySequence.add("lemon");
+        notEmptySequence.add("carrot");
+        gamePresenter.startGame(notEmptySequence);
+
+        gamePresenter.chooseElement();
+
+        try {
+            PowerMockito.verifyPrivate(gamePresenter, times(1)).invoke("startNewTurn");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //Here we test askCurrentElement();
+    @Test
+    public void isTheCurrentElementAsked(){
+        gamePresenter.askCurrentElement();
+        Mockito.verify(iGame, Mockito.times(1)).setPresentationAnimation(gamePresenter.getCurrentElement());
+    }
+
+    @Test
+    public void correctAnswerTest(){
+        int total = gamePresenter.getTotalAttempts();
+        int correct = gamePresenter.getCorrectAnswers();
+        total++;
+        correct++;
+
+        try {
+            Whitebox.invokeMethod(gamePresenter, "correctAnswer");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(0, gamePresenter.getCounter());
+        Assert.assertEquals(total, gamePresenter.getTotalAttempts());
+        Assert.assertEquals(correct, gamePresenter.getCorrectAnswers());
+
+        Mockito.verify(iGame, Mockito.times(1)).setVideoCorrectAnswer();
+
+    }
+
+    @Test
+    public void wrongAnswerElseTest(){
+        int total = gamePresenter.getTotalAttempts();
+        total++;
+
+        gamePresenter.setCounter(2);
+        try {
+            Whitebox.invokeMethod(gamePresenter, "wrongAnswer");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Assert.assertEquals(0, gamePresenter.getCounter());
+        Assert.assertEquals(total,gamePresenter.getTotalAttempts());
+        Mockito.verify(iGame, Mockito.times(1)).setVideoWrongAnswerAndGoOn();
+    }
+
+    @Test
+    public void wrongAnswerIfTest(){
+        int total = gamePresenter.getTotalAttempts();
+        int counter = gamePresenter.getCounter();
+        counter++;
+        total++;
+
+        gamePresenter.setCounter(0);
+        try {
+            Whitebox.invokeMethod(gamePresenter, "wrongAnswer");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(counter, gamePresenter.getCounter());
+        Assert.assertEquals(total, gamePresenter.getTotalAttempts());
+        Mockito.verify(iGame, Mockito.times(1)).setVideoWrongAnswerToRepeat();
+    }
+
+
+    @Test
+    public void notifyFirstSubElementTest(){
+        gamePresenter.notifyFirstSubElement();
+        Mockito.verify(iGame, Mockito.times(1)).initGridView(gamePresenter.getCurrentSubElement());
+    }
+
 
 }

@@ -476,6 +476,8 @@ public class GamePresenter implements IGame.Presenter {
         public boolean isStarted(){
             return gameStarted;
         }
+
+        //The following methods have been added oly for testing purpose
         public boolean isEnded(){return gameEnded;}
         public boolean getNewSessionStarted(){
             return newSessionStarted;
@@ -488,5 +490,11 @@ public class GamePresenter implements IGame.Presenter {
         }
         public int getCorrectAnswers(){
             return correctAnswers;
+        }
+        public int getCounter(){
+            return counter;
+        }
+        public void setCounter(int i){
+            counter = i;
         }
 }
