@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,8 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     String element;
     MediaPlayer request;
 
+    Handler myHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -43,6 +46,8 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
 
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
+
+        myHandler = new Handler();
 
         setupSequence();
 
@@ -81,18 +86,35 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     }
 
     private void setAudioRequest(){
-        int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
-        request = MediaPlayer.create(this, objectClaimedID);
+        int requestItemID = presenter.getResourceId("request_item", R.raw.class);
+        final int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
+        request = MediaPlayer.create(this, requestItemID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                setAnimationBoxExtra();
-                setWaitingAnimation();
                 mp.release();
-                presenter.handleIntent(getIntent());
+                setSubItemRequest(objectClaimedID);
             }
         });
+    }
+
+    public void setSubItemRequest(int resource){
+        request = MediaPlayer.create(this, resource);
+        myHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                request.start();
+                request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        setWaitingAnimation();
+                        presenter.handleIntent(getIntent());
+                        mp.release();
+                    }
+                });
+            }
+        }, 2000);
     }
 
     public void setAnimationBoxExtra(){
@@ -196,12 +218,12 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setupForegroundDispatch();
+       // presenter.setupForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
-       presenter.stopForegroundDispatch();
+      // presenter.stopForegroundDispatch();
         super.onPause();
     }
 

@@ -237,7 +237,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setSubItemAnimation(String currentSubElement) {
-        // Not used in this class
+        //NOT USED
     }
 
     @Override

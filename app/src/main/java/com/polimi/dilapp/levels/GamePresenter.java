@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.MediaPlayer;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -28,6 +29,8 @@ import java.util.List;
 import static android.content.ContentValues.TAG;
 
 public class GamePresenter implements IGame.Presenter {
+
+    private final String CLASS = "[GamePresenter]";
 
     private int correctAnswers=0;
     private int totalAttempts=0;
@@ -63,15 +66,15 @@ public class GamePresenter implements IGame.Presenter {
        this.multipleElement = false;
        this.numberOfElements = 1;
        gameStarted = false;
-       db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
+       //db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
    }
 
    @Override
     public void startGame(List<String> sequence){
        //current system time in seconds
-        setLevelCurrentPlayer();
+        //setLevelCurrentPlayer();
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
-        Log.i("init time:", String.valueOf(initTime));
+        Log.i("[INIT_TIME]:", String.valueOf(initTime));
         currentSequence = sequence;
         gameStarted = true;
         if(currentSequence.isEmpty()){
@@ -88,7 +91,7 @@ public class GamePresenter implements IGame.Presenter {
         if(currentSequence.isEmpty()){
             //ActivityOneTwo ends
             endTime = (int)(SystemClock.elapsedRealtime()/1000);
-            Log.i("init time:", String.valueOf(endTime));
+            Log.i("[INIT_TIME]", String.valueOf(endTime));
             setTimeParameter();
             //only for debug
             String i = String.valueOf(totaltime);
@@ -118,28 +121,28 @@ public class GamePresenter implements IGame.Presenter {
         int presentationVideo = getResourceId("video_set_of_" + currentSequenceElement + "_items", R.raw.class);
         activityInterface.setVideoView(presentationVideo);
         tempArray = activityInterface.getSessionArray(vectorID);
-        Log.i("[GamePresenter]", "Starting a new session" + tempArray.toString());
+        Log.i(CLASS, "Starting a new session" + tempArray.toString());
         //this set the video of the session: example yellow colors video.
     }
 
 
     public void chooseElement(){
         if(tempArray.isEmpty()){
-            Log.i("[GamePresenter]", "Array is Empty -> Starting a new Turn" );
+            Log.i(CLASS, "Array is Empty -> Starting a new Turn" );
             startNewTurn();
             Toast.makeText(activityInterface.getScreenContext(), "start new session", Toast.LENGTH_LONG).show();
         }else{
             Collections.sort(tempArray);
             currentElement = tempArray.get(0);
             tempArray.remove(0);
-            Log.i("[GamePresenter]", "Choose next element -> " + currentElement );
+            Log.i(CLASS, "Choose next element -> " + currentElement );
             this.checkMultipleItems();
             askCurrentElement();
         }
     }
 
     public void askCurrentElement(){
-        Log.i("[GamePresenter]", "Ask View to set Animation -> " + currentElement );
+        Log.i(CLASS, "Ask View to set Animation -> " + currentElement );
         activityInterface.setPresentationAnimation(currentElement);
     }
 
@@ -152,48 +155,44 @@ public class GamePresenter implements IGame.Presenter {
     private void checkAnswer(String readTag) {
         if(!multipleElement) {
             if (readTag.equals(currentElement)) {
-                Log.i("[GamePresenter]", "[CheckAnswer][SingleItem][Correct] " + readTag );
+                Log.i(CLASS, "[CheckAnswer][SingleItem][Correct] " + readTag );
                this.correctAnswer();
             } else {
-                Log.i("[GamePresenter]", "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: "+ currentElement );
+                Log.i(CLASS, "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: "+ currentElement );
                 this.wrongAnswer();
             }
         }else {
             if(numberOfElements > 1){
-                //TODO: set a sound like a "ping" each time that get the intent
                 // Correct answer
                 if(readTag.equals(currentSubElement)){
                     subElementIndex++;
-                    Log.i("[GamePresenter]", "[CheckAnswer][MultipleItem]" + currentSubElement  +
+                    Log.i(CLASS, "[CheckAnswer][MultipleItem]" + currentSubElement  +
                     "index:" + subElementIndex);
                     if(subElementIndex <= currentElement.length()){
                         // Set next sub Item
                         currentSubElement = currentElement.substring(subElementIndex,subElementIndex+1);
-                        Log.i("[GamePresenter]", "[CheckAnswer][updatedSubitem]" + currentSubElement );
+                        Log.i(CLASS, "[CheckAnswer][updatedSubitem]" + currentSubElement );
                         //Display correct result
                         numberOfElements--;
-                        Log.i("[GamePresenter]", "[CheckAnswer][CallingNewItem]" + currentSubElement );
+                        Log.i(CLASS, "[CheckAnswer][CallingNewItem]" + currentSubElement );
                         activityInterface.setSubItemAnimation(currentSubElement);
                     }
                 } else {
-                    { //TODO: Add wrong sound
-                        totalAttempts++;
-                        if (counter < 2) {
-                            counter++;
-                            //TODO: redo animation waiting
-                        } else {
-                            counter = 0;
-                            activityInterface.setVideoWrongAnswerAndGoOn();
-                        }
+                    totalAttempts++;
+                    if (counter < 2) {
+                        counter++;
+                        //TODO: redo animation waiting
+                    } else {
+                        counter = 0;
+                        activityInterface.setVideoWrongAnswerAndGoOn();
                     }
                 }
             }else {
                 if(readTag.equals(currentSubElement)){
                     subElementIndex = 1;
-                    Log.i("[GamePresenter]", "[CheckAnswer][lastSubItem]" + currentSubElement );
+                    Log.i(CLASS, "[CheckAnswer][lastSubItem]" + currentSubElement );
                     this.correctAnswer();
                 }else {
-                    //TODO: Add wrong sound
                     totalAttempts++;
                     if (counter < 2) {
                         counter++;
@@ -235,18 +234,18 @@ public class GamePresenter implements IGame.Presenter {
     /**
      *  Check if an element is composed by multiple objects and set the flag variables
      */
-    public void checkMultipleItems(){
+    private void checkMultipleItems(){
         if(currentElement.contains("_")){
             multipleElement = true;
             numberOfElements = currentElement.length() - 1;
             //init char inside the string
             currentSubElement = currentElement.substring(subElementIndex, subElementIndex+1);
-            Log.i("[GamePresenter]", "[CheckMultipleItems][True] " + numberOfElements);
-            Log.i("[GamePresenter]", "[CurrentSubElement] " + currentSubElement);
+            Log.i(CLASS, "[CheckMultipleItems][True] " + numberOfElements);
+            Log.i(CLASS, "[CurrentSubElement] " + currentSubElement);
         }else{
             numberOfElements=1;
             multipleElement = false;
-            Log.i("[GamePresenter]", "[CheckMultipleItems][False] " + numberOfElements);
+            Log.i(CLASS, "[CheckMultipleItems][False] " + numberOfElements);
         }
     }
 
@@ -381,12 +380,21 @@ public class GamePresenter implements IGame.Presenter {
         }
 
         @Override
-        protected void onPostExecute(String result) {
+        protected void onPostExecute(final String result) {
             if (result != null) {
                 //only for debug
                 Toast.makeText(activityInterface.getScreenContext(), result, Toast.LENGTH_LONG).show();
                 Log.i("[OnPostExecute]","NFC Read result: "+ result);
-                checkAnswer(result);
+                int tagID = getResourceId("nfc_sound", R.raw.class);
+                MediaPlayer tag = MediaPlayer.create(activityInterface.getScreenContext(),tagID);
+                tag.start();
+                tag.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                        checkAnswer(result);
+                    }
+                });
             }
         }
     }
