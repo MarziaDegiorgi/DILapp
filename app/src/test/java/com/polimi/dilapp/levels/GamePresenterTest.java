@@ -86,6 +86,7 @@ public class GamePresenterTest {
     DatabaseInitializer databaseInitializer;
 
 
+
     @Before
     public void test() {
 
@@ -109,6 +110,7 @@ public class GamePresenterTest {
         //isTheCurrentSessionArrayEmpty
         ArrayList<String> currentSessionArray = new ArrayList<>();
         when(iGame.getSessionArray(any(int.class))).thenReturn(currentSessionArray);
+
 
         gamePresenter = new GamePresenter(iGame);
 
@@ -217,6 +219,7 @@ public class GamePresenterTest {
         gamePresenter.chooseElement();
 
         assertEquals("carrot", gamePresenter.getCurrentElement());
+        assertEquals(1, gamePresenter.getNumberOfElements());
     }
 
     @Test
@@ -326,11 +329,18 @@ public class GamePresenterTest {
 
     }
 
-    //TODO: cover checkMultipleItems() [Marzia]
+
     @Test
     @Ignore
     public void checkMultipleItemsTest() {
+        ArrayList<String> multipleItems = new ArrayList<>();
+        multipleItems.add("_mela");
 
+        gamePresenter.startGame(multipleItems);
+        gamePresenter.chooseElement();
+       //TODO: SOLVE PROBLEM OF RETURN NULL
+        assertEquals("m", gamePresenter.getCurrentSubElement());
+        assertEquals(4, gamePresenter.getNumberOfElements());
     }
 
     @Test

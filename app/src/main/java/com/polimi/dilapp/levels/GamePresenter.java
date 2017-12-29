@@ -87,7 +87,7 @@ public class GamePresenter implements IGame.Presenter {
         currentSequence = sequence;
         gameStarted = true;
         if(currentSequence.isEmpty()){
-            Log.i("[Game Presenter]:", "empty current sequence.");
+            Log.i(CLASS, "empty current sequence.");
             gameStarted = false;
         } else {
             currentSequenceElement = currentSequence.get(0);
@@ -147,7 +147,6 @@ public class GamePresenter implements IGame.Presenter {
             Log.i(CLASS, "Array is Empty -> Starting a new Turn" );
             startNewTurn();
         }else{
-            Collections.sort(tempArray);
             currentElement = tempArray.get(0);
             tempArray.remove(0);
             Log.i(CLASS, "Choose next element -> " + currentElement );
@@ -249,7 +248,7 @@ public class GamePresenter implements IGame.Presenter {
     /**
      *  Check if an element is composed by multiple objects and set the flag variables
      */
-    private void checkMultipleItems(){
+    public void checkMultipleItems(){
         if(currentElement.contains("_")){
             multipleElement = true;
             numberOfElements = currentElement.length() - 1;
@@ -418,7 +417,7 @@ public class GamePresenter implements IGame.Presenter {
         Log.i("init time:", String.valueOf(totaltime));
         }
 
-        public List<String> getCurrentSequence(){
+        List<String> getCurrentSequence(){
             return currentSequence;
         }
 
@@ -426,11 +425,11 @@ public class GamePresenter implements IGame.Presenter {
             return currentSequenceElement;
         }
 
-        public String getCurrentSubElement() {
+        String getCurrentSubElement() {
             return currentElement;
         }
 
-        public int getNumberOfElements() {
+        int getNumberOfElements() {
             return numberOfElements;
         }
 
