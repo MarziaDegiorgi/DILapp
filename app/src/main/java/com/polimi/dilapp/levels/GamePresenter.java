@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.nfc.NdefMessage;
 import android.media.MediaPlayer;
+import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
@@ -23,7 +23,6 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -319,7 +318,7 @@ public class GamePresenter implements IGame.Presenter {
                 new NdefReaderTask().execute(tag);
                 Log.i("[HandleIntent]:", "Tag Detected" + type);
             } else {
-                Log.d(TAG, "Wrong mime type: " + type);
+                Log.i("Wrong mime type: " , type);
             }
         } else if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)) {
             Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);

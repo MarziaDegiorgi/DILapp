@@ -358,42 +358,4 @@ public class GamePresenterTest {
 
 
     }
-
-
-    //TODO: [ROBY]
-    @Test
-    @Ignore
-    public void handleIntentTest() {
-        when(intent.getAction()).thenReturn("android.nfc.action.NDEF_DISCOVERED");
-        when(intent.getType()).thenReturn("text/plain");
-        when(intent.getParcelableExtra("android.nfc.extra.TAG")).thenReturn(null);
-        PowerMockito.mock(GamePresenter.NdefReaderTask.class);
-
-        gamePresenter.handleIntent(intent);
-
-        verify(ndefReaderTask, Mockito.times(1)).execute(tag);
-    }
-
-
-    //TODO: roby
-    @Test
-    @Ignore
-    public void stopForegroungDispacherTest() {
-
-        when(NfcAdapter.getDefaultAdapter(any(Context.class))).thenReturn(nfcAdapter);
-        gamePresenter.checkNfcAvailability();
-
-        gamePresenter.setupForegroundDispatch();
-
-        gamePresenter.stopForegroundDispatch();
-        verify(nfcAdapter, Mockito.times(1)).disableForegroundDispatch(activity);
-    }
-
-    //TODO: ROBY
-    @Test
-    @Ignore
-    public void setupForegrounfDispacherTest(){
-
-    }
-
 }
