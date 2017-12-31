@@ -81,7 +81,7 @@ public interface IGame {
         void stopForegroundDispatch();
         int getResourceId(String name,  Class resType);
 
-        String getCurrentElement();
+        String getCurrentSequenceElement();
         boolean getMultipleElement();
         void setLevelCurrentPlayer();
 

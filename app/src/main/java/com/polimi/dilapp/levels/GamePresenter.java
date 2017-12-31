@@ -427,7 +427,7 @@ public class GamePresenter implements IGame.Presenter {
             return currentSequence;
         }
 
-        public String getCurrentElement(){
+        public String getCurrentSequenceElement(){
             return currentSequenceElement;
         }
 

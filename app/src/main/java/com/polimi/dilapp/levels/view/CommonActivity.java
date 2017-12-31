@@ -39,8 +39,8 @@ class CommonActivity {
            //When the introduction video finishes the first session begins
            @Override
            public void onCompletion(MediaPlayer mp) {
-               mp.release();
               presenter.startGame(sequence);
+               mp.release();
            }
        });
     }
@@ -54,8 +54,8 @@ class CommonActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 video.setVisibility(View.INVISIBLE);
-                mp.release();
                 presenter.chooseElement();
+                mp.release();
             }
         });
     }
@@ -84,8 +84,8 @@ class CommonActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 image.setVisibility(View.INVISIBLE);
-                mp.release();
                 presenter.askCurrentElement();
+                mp.release();
 
             }
         });
@@ -97,15 +97,14 @@ class CommonActivity {
      */
     void setVideoWrongAnswerAndGoOn(final ImageView image, Context context){
         image.setVisibility(View.VISIBLE);
-        //TODO: here we have to put the video for not correct answer
         MediaPlayer request = MediaPlayer.create(context, R.raw.children_wrong_answer);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 image.setVisibility(View.INVISIBLE);
-                mp.release();
                 presenter.chooseElement();
+                mp.release();
             }
         });
     }
@@ -131,8 +130,8 @@ class CommonActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 image.setVisibility(View.INVISIBLE);
-                mp.release();
                 presenter.chooseElement();
+                mp.release();
             }
         });
 

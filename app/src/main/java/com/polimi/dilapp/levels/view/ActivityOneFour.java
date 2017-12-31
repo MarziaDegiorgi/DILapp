@@ -68,8 +68,9 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
         colorSequence = common.getList(colors);
         mixedSequence = new ArrayList<>();
 
-        Collections.sort(tempArray);
+
         tempArray.remove("all_colors");
+        Collections.sort(tempArray);
         mixedSequence.add(tempArray.get(0));
         mixedSequence.add(tempArray.get(1));
 
@@ -77,8 +78,8 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
         tempArray = new ArrayList<>(Arrays.asList(names));
         nameSequence = common.getList(names);
 
-        Collections.sort(tempArray);
         tempArray.remove("all_fruits");
+        Collections.sort(tempArray);
         mixedSequence.add(tempArray.get(0));
         mixedSequence.add(tempArray.get(1));
 
@@ -86,8 +87,8 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
         tempArray = new ArrayList<>(Arrays.asList(shapes));
         shapeSequence = common.getList(shapes);
 
-        Collections.sort(tempArray);
         tempArray.remove("all_shapes");
+        Collections.sort(tempArray);
         mixedSequence.add(tempArray.get(0));
         mixedSequence.add(tempArray.get(1));
     }
@@ -131,6 +132,7 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
 
     private void setAudioRequest(){
         int objectClaimedID;
+        currentSequenceElement = presenter.getCurrentSequenceElement();
         if(nameSequence.contains(currentSequenceElement)){
             objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
         } else{
@@ -183,7 +185,6 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
 
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.correct_answer);
         common.setVideoCorrectAnswer(image, this);
 
     }
@@ -194,7 +195,6 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
 
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
         common.setVideoWrongAnswerToRepeat(image,this);
     }
 
@@ -204,7 +204,6 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
 
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
         common.setVideoWrongAnswerAndGoOn(image, this);
     }
 

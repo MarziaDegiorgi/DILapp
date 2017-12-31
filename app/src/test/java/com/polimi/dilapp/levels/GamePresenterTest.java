@@ -218,7 +218,7 @@ public class GamePresenterTest {
 
         gamePresenter.chooseElement();
 
-        assertEquals("carrot", gamePresenter.getCurrentElement());
+        assertEquals("carrot", gamePresenter.getCurrentSequenceElement());
         assertEquals(1, gamePresenter.getNumberOfElements());
     }
 
@@ -242,7 +242,7 @@ public class GamePresenterTest {
     @Test
     public void isTheCurrentElementAsked() {
         gamePresenter.askCurrentElement();
-        verify(iGame, Mockito.times(1)).setPresentationAnimation(gamePresenter.getCurrentElement());
+        verify(iGame, Mockito.times(1)).setPresentationAnimation(gamePresenter.getCurrentSequenceElement());
     }
 
     @Test

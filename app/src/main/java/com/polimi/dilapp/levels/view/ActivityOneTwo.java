@@ -85,7 +85,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     public void setPresentationAnimation(String currentElement){
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        currentColour = presenter.getCurrentElement();
+        currentColour = presenter.getCurrentSequenceElement();
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.rotation);
 
         common.startMainAnimation(this,animationBegin,resourceID,this);
