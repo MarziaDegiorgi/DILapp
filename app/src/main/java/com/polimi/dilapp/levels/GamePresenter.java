@@ -171,8 +171,15 @@ public class GamePresenter implements IGame.Presenter {
                 Log.i(CLASS, "[CheckAnswer][SingleItem][Correct] " + readTag );
                this.correctAnswer();
             } else {
+                String shapeElement = currentElement.replace("shape","");
+                Log.i("shape element", shapeElement);
+                if(readTag.equals(shapeElement)){
+                    Log.i(CLASS, "[CheckAnswer][SingleItem][Correct][ShapeElement] " + readTag );
+                    this.correctAnswer();
+                }else{
                 Log.i(CLASS, "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: "+ currentElement );
                 this.wrongAnswer();
+                }
             }
         }else {
             if(numberOfElements > 1){

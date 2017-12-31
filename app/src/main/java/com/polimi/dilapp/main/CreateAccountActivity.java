@@ -16,8 +16,8 @@ import android.widget.TextView;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.DatabaseInitializer;
+import com.polimi.dilapp.levels.view.ActivityOneFour;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
-import com.polimi.dilapp.levels.view.EndLevelScreen;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.io.IOException;
@@ -114,9 +114,9 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         dummyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent dummyIntent = new Intent(getApplicationContext(), EndLevelScreen.class);
-                dummyIntent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityOneOne");
-                dummyIntent.putExtra("ButtonName", "Ripeti");
+                Intent dummyIntent = new Intent(getApplicationContext(), ActivityOneFour.class);
+                //dummyIntent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityOneOne");
+                //dummyIntent.putExtra("ButtonName", "Ripeti");
                 startActivity(dummyIntent);
             }
         });

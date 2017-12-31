@@ -39,8 +39,8 @@ class CommonActivity {
            //When the introduction video finishes the first session begins
            @Override
            public void onCompletion(MediaPlayer mp) {
+               mp.release();
               presenter.startGame(sequence);
-              mp.release();
            }
        });
     }
@@ -54,8 +54,8 @@ class CommonActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 video.setVisibility(View.INVISIBLE);
-                presenter.chooseElement();
                 mp.release();
+                presenter.chooseElement();
             }
         });
     }
@@ -84,8 +84,8 @@ class CommonActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 image.setVisibility(View.INVISIBLE);
-                presenter.askCurrentElement();
                 mp.release();
+                presenter.askCurrentElement();
 
             }
         });
@@ -104,9 +104,8 @@ class CommonActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 image.setVisibility(View.INVISIBLE);
-                presenter.chooseElement();
                 mp.release();
-
+                presenter.chooseElement();
             }
         });
     }
@@ -126,17 +125,17 @@ class CommonActivity {
     void setVideoCorrectAnswer(final ImageView image, Context context){
         // per ora c'e solo audio va aggiunto il video
         image.setVisibility(View.VISIBLE);
-        MediaPlayer request = MediaPlayer.create(context, R.raw.video_correct_answer);
+        MediaPlayer request = MediaPlayer.create(context, R.raw.children_correct_answer);
         request.start();
-
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                mp.release();
                 image.setVisibility(View.INVISIBLE);
+                mp.release();
                 presenter.chooseElement();
             }
         });
+
     }
     /**
      *  Return the partial ArrayList<String> of the array received as parameter.
@@ -148,7 +147,7 @@ class CommonActivity {
         List<String> completeArray = new ArrayList<>(Arrays.asList(array));
         Collections.sort(completeArray);
         int startIndex = 0;
-        int endIndex = completeArray.size() / 2;
+        int endIndex = completeArray.size() / 3;
         return new ArrayList<>(completeArray.subList(startIndex, endIndex));
     }
 
