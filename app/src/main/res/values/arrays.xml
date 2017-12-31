@@ -302,45 +302,45 @@
     </string-array>
 
     <string-array name="subset_names_one_items">
+        <item>watermelon</item>
+        <item>orange</item>
+        <item>asparagus</item>
+    </string-array>
+
+    <string-array name="subset_names_two_items">
         <item>banana</item>
+        <item>broccoli</item>
+        <item>carrot</item>
+    </string-array>
+
+    <string-array name="subset_names_three_items">
+        <item>cucumber</item>
+        <item>onion</item>
+        <item>fennel</item>
+    </string-array>
+
+    <string-array name="subset_names_four_items">
+        <item>strawberry</item>
         <item>lemon</item>
         <item>corn</item>
     </string-array>
 
-    <string-array name="subset_names_two_items">
-        <item>grapefruit</item>
-        <item>watermelon</item>
-        <item>strawberry</item>
-    </string-array>
-
-    <string-array name="subset_names_three_items">
-        <item>apple</item>
-        <item>pepper</item>
-        <item>tomato</item>
-    </string-array>
-
-    <string-array name="subset_names_four_items">
-        <item>orange</item>
-        <item>carrot</item>
-        <item>onion</item>
-    </string-array>
-
     <string-array name="subset_names_five_items">
         <item>tangerine</item>
+        <item>apple</item>
         <item>eggplant</item>
-        <item>asparagus</item>
     </string-array>
 
     <string-array name="subset_names_six_items">
-        <item>broccoli</item>
-        <item>cucumber</item>
+        <item>potato</item>
+        <item>pepper</item>
         <item>pear</item>
     </string-array>
 
     <string-array name="subset_names_seven_items">
         <item>greenpea</item>
-        <item>fennel</item>
-        <item>potato</item>
+        <item>tomato</item>
+        <item>grapefruit</item>
     </string-array>
 
 <!--SHAPES -->
