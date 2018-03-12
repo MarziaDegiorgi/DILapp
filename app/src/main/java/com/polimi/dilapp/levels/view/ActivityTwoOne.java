@@ -148,7 +148,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                if(presenter.getMultipleElement()) {
+                if(presenter.getMultipleElement() && presenter.getNumberOfElements()>1 ) {
                     image.setVisibility(View.INVISIBLE);
                     mp.release();
                     presenter.notifyFirstSubElement();
@@ -163,6 +163,12 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
+        //init gridview
+        gridview = findViewById(R.id.gridView);
+        imageAdapter = new GridViewAdapter(this, resourceID);
+        gridview.setAdapter(imageAdapter);
+        gridview.setVisibility(View.INVISIBLE);
+        //set waiting animation
         Animation animationWait = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.blink);
         common.startMainAnimation(this, animationWait, resourceID, this.getScreenContext());
     }

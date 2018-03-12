@@ -40,7 +40,7 @@ class CommonActivity {
            @Override
            public void onCompletion(MediaPlayer mp) {
               presenter.startGame(sequence);
-               mp.release();
+              mp.release();
            }
        });
     }
@@ -77,8 +77,7 @@ class CommonActivity {
      */
     void setVideoWrongAnswerToRepeat(final ImageView image, Context context){
         image.setVisibility(View.VISIBLE);
-        //TODO: here we have to put the video for not correct answer
-        MediaPlayer request = MediaPlayer.create(context, R.raw.children_wrong_answer);
+        MediaPlayer request = MediaPlayer.create(context, R.raw.request_wrong_answer_repeat);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -86,7 +85,6 @@ class CommonActivity {
                 image.setVisibility(View.INVISIBLE);
                 presenter.askCurrentElement();
                 mp.release();
-
             }
         });
     }
@@ -97,7 +95,8 @@ class CommonActivity {
      */
     void setVideoWrongAnswerAndGoOn(final ImageView image, Context context){
         image.setVisibility(View.VISIBLE);
-        MediaPlayer request = MediaPlayer.create(context, R.raw.children_wrong_answer);
+        image.clearAnimation();
+        MediaPlayer request = MediaPlayer.create(context, R.raw.request_wrong_answer_go_on);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -105,6 +104,7 @@ class CommonActivity {
                 image.setVisibility(View.INVISIBLE);
                 presenter.chooseElement();
                 mp.release();
+
             }
         });
     }
@@ -113,6 +113,7 @@ class CommonActivity {
      * @param imageView
      */
     void disableView(ImageView imageView){
+
         imageView.setVisibility(View.INVISIBLE);
     }
     /**
@@ -124,17 +125,18 @@ class CommonActivity {
     void setVideoCorrectAnswer(final ImageView image, Context context){
         // per ora c'e solo audio va aggiunto il video
         image.setVisibility(View.VISIBLE);
-        MediaPlayer request = MediaPlayer.create(context, R.raw.children_correct_answer);
+        image.clearAnimation();
+        MediaPlayer request = MediaPlayer.create(context, R.raw.request_correct_answer);
         request.start();
+
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                mp.release();
                 image.setVisibility(View.INVISIBLE);
                 presenter.chooseElement();
-                mp.release();
             }
         });
-
     }
     /**
      *  Return the partial ArrayList<String> of the array received as parameter.
@@ -146,7 +148,7 @@ class CommonActivity {
         List<String> completeArray = new ArrayList<>(Arrays.asList(array));
         Collections.sort(completeArray);
         int startIndex = 0;
-        int endIndex = completeArray.size() / 3;
+        int endIndex = completeArray.size() / 2;
         return new ArrayList<>(completeArray.subList(startIndex, endIndex));
     }
 

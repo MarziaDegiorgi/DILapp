@@ -83,6 +83,7 @@ public interface IGame {
 
         String getCurrentSequenceElement();
         boolean getMultipleElement();
+        int getNumberOfElements();
         void setLevelCurrentPlayer();
 
         /**
@@ -90,5 +91,6 @@ public interface IGame {
          * a subitem should be required
          */
         void notifyFirstSubElement();
+
     }
 }

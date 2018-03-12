@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
 
         introVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
-                Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LevelMapActivity.class);
                 startActivity(intent);
                 finish();
             }
