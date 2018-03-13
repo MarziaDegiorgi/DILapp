@@ -140,44 +140,22 @@
 <!-- WORDS-->
     <string-array name="word_one_items">
         <item>_mela</item>
-        <item>_melanzana</item>
-        <item>_mais</item>
     </string-array>
     <string-array name="word_two_items">
         <item>_carota</item>
-        <item>_cipolla</item>
-        <item>_cetriolo</item>
-        <item>_peperone</item>
     </string-array>
     <string-array name="word_three_items">
-        <item>_pomodoro</item>
-        <item>_piselli</item>
         <item>_pera</item>
-        <item>_patata</item>
     </string-array>
     <string-array name="word_four_items">
-        <item>_anguria</item>
-        <item>_fragola</item>
-        <item>_broccoli</item>
-        <item>_arancia</item>
+        <item>_limone</item>
     </string-array>
 
     <string-array name="all_words_items">
         <item>_mela</item>
-        <item>_melanzana</item>
-        <item>_mais</item>
         <item>_carota</item>
-        <item>_cipolla</item>
-        <item>_cetriolo</item>
-        <item>_peperone</item>
-        <item>_pomodoro</item>
-        <item>_piselli</item>
         <item>_pera</item>
-        <item>_patata</item>
-        <item>_anguria</item>
-        <item>_fragola</item>
-        <item>_broccoli</item>
-        <item>_arancia</item>
+        <item>_limone</item>
     </string-array>
 
     <string-array name="words">

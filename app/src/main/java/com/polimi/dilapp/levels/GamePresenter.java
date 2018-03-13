@@ -74,13 +74,13 @@ public class GamePresenter implements IGame.Presenter {
        actionDetected = false;
        newTurnStarted = false;
        gameEnded = false;
-       //db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
+       db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
    }
 
    @Override
     public void startGame(List<String> sequence){
        //current system time in seconds
-        //setLevelCurrentPlayer();
+        setLevelCurrentPlayer();
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("[INIT_TIME]:", String.valueOf(initTime));
         currentSequence = sequence;

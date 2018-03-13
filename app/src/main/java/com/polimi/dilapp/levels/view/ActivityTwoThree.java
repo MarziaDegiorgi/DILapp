@@ -51,14 +51,12 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         setupSequence();
 
-
         boolean availability = presenter.checkNfcAvailability();
         if (availability) {
             setupVideoIntro();
         }else{
             finish();
         }
-
     }
 
     private void setupSequence() {

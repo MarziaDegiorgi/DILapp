@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -36,6 +37,8 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     GridView gridview;
     GridViewAdapter imageAdapter;
 
+    Handler myHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -47,9 +50,9 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
+        myHandler = new Handler();
 
         setupSequence();
-
 
         boolean availability = presenter.checkNfcAvailability();
         if (availability) {
@@ -95,8 +98,8 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                mp.release();
-                setAudioRequest(image);
+                        mp.release();
+                        setAudioRequest(image);
             }
         });
     }
@@ -110,14 +113,21 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         gridview.setVisibility(View.VISIBLE);
         int objectClaimedID = presenter.getResourceId(AUDIO +currentSubItem, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+        myHandler.postDelayed(new Runnable() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-                presenter.handleIntent(getIntent());
+            public void run() {
+
+                request.start();
+                request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                        presenter.handleIntent(getIntent());
+                    }
+                });
             }
-        });
+        },1000);
     }
 
     @Override
@@ -131,34 +141,45 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         //set subItem audio request
         int objectClaimedID = presenter.getResourceId(AUDIO + currentSubElement, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+        myHandler.postDelayed(new Runnable() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-                presenter.handleIntent(getIntent());
+            public void run() {
+                request.start();
+                request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                        presenter.handleIntent(getIntent());
+                    }
+                });
             }
-        });
+        },500);
     }
 
     private void setAudioRequest(final ImageView image){
         int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        myHandler.postDelayed(new Runnable() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
-                if(presenter.getMultipleElement() && presenter.getNumberOfElements()>1 ) {
-                    image.setVisibility(View.INVISIBLE);
-                    mp.release();
-                    presenter.notifyFirstSubElement();
-                }else {
-                    setWaitingAnimation();
-                    mp.release();
-                    presenter.handleIntent(getIntent());
-                }
+            public void run() {
+                request.start();
+                request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        if (presenter.getMultipleElement() && presenter.getNumberOfElements() > 1) {
+                            image.setVisibility(View.INVISIBLE);
+                            mp.release();
+                            presenter.notifyFirstSubElement();
+                        } else {
+                            setWaitingAnimation();
+                            mp.release();
+                            presenter.handleIntent(getIntent());
+                        }
+                    }
+                });
             }
-        });
+        }, 500);
     }
 
     public void setWaitingAnimation(){

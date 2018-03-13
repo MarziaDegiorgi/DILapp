@@ -104,7 +104,6 @@ class CommonActivity {
                 image.setVisibility(View.INVISIBLE);
                 presenter.chooseElement();
                 mp.release();
-
             }
         });
     }
@@ -123,9 +122,10 @@ class CommonActivity {
      */
 
     void setVideoCorrectAnswer(final ImageView image, Context context){
-        // per ora c'e solo audio va aggiunto il video
         image.setVisibility(View.VISIBLE);
         image.clearAnimation();
+
+        //audio response
         MediaPlayer request = MediaPlayer.create(context, R.raw.request_correct_answer);
         request.start();
 
@@ -151,5 +151,7 @@ class CommonActivity {
         int endIndex = completeArray.size() / 2;
         return new ArrayList<>(completeArray.subList(startIndex, endIndex));
     }
+
+
 
 }

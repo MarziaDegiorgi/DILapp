@@ -109,12 +109,12 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         setWaitingAnimation();
-                        presenter.handleIntent(getIntent());
                         mp.release();
+                        presenter.handleIntent(getIntent());
                     }
                 });
             }
-        }, 2000);
+        }, 1000);
     }
 
     public void setAnimationBoxExtra(){
@@ -218,12 +218,12 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-       // presenter.setupForegroundDispatch();
+       presenter.setupForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
-      // presenter.stopForegroundDispatch();
+      presenter.stopForegroundDispatch();
         super.onPause();
     }
 
