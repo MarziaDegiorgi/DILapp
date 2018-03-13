@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -107,37 +108,6 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         newAccountButton.setScaleType(ImageButton.ScaleType.CENTER_CROP);
         newAccountButton.setLayoutParams(params);
         layout.addView(newAccountButton);
-
-
-        //dummy link to ActivityAlfa for debugging purpose
-        Button dummyButton = findViewById(R.id.DummyLink);
-        dummyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent dummyIntent = new Intent(getApplicationContext(), ActivityOneFour.class);
-                //dummyIntent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityOneOne");
-                //dummyIntent.putExtra("ButtonName", "Ripeti");
-                startActivity(dummyIntent);
-            }
-        });
-        //dummy link to Start Game screen
-        Button dummyButton2 = findViewById(R.id.DummyLink2);
-        dummyButton2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent dummyIntent = new Intent(getApplicationContext(), StartGameActivity.class);
-                startActivity(dummyIntent);
-            }
-        });
-        //dummy link to ActivityBeta
-        Button activityBetaButton = findViewById(R.id.DummyLink3);
-        activityBetaButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent dummyIntent = new Intent(getApplicationContext(), ActivityTwoOne.class);
-                startActivity(dummyIntent);
-            }
-        });
 
     }
 

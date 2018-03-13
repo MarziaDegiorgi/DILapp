@@ -63,27 +63,31 @@ public class DatabaseInitializer {
     }
 
     public static Bitmap decodeSampledBitmapFromResource(ContentResolver contentResolver, ChildEntity childEntity) throws IOException {
-        Uri uri = parse(childEntity.getPhoto());
-        InputStream inputstream = contentResolver.openInputStream(uri);
+       if(childEntity.getPhoto() !=null) {
+           Uri uri = parse(childEntity.getPhoto());
+           InputStream inputstream = contentResolver.openInputStream(uri);
 
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeStream(inputstream, null, options);
-        inputstream.close();
+           // First decode with inJustDecodeBounds=true to check dimensions
+           final BitmapFactory.Options options = new BitmapFactory.Options();
+           options.inJustDecodeBounds = true;
+           BitmapFactory.decodeStream(inputstream, null, options);
+           inputstream.close();
 
-        if ((options.outWidth == -1) || (options.outHeight == -1)) {
-            return null;
-        }
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, 500, 500);
-        options.inJustDecodeBounds = false;
+           if ((options.outWidth == -1) || (options.outHeight == -1)) {
+               return null;
+           }
+           // Calculate inSampleSize
+           options.inSampleSize = calculateInSampleSize(options, 500, 500);
+           options.inJustDecodeBounds = false;
 
-        // Decode bitmap with inSampleSize set
-        inputstream = contentResolver.openInputStream(uri);
-        Bitmap bitmap = BitmapFactory.decodeStream(inputstream, null, options);
-        inputstream.close();
-        return bitmap;
+           // Decode bitmap with inSampleSize set
+           inputstream = contentResolver.openInputStream(uri);
+           Bitmap bitmap = BitmapFactory.decodeStream(inputstream, null, options);
+           inputstream.close();
+           return bitmap;
+       }else {
+           return null;
+       }
 
     }
 

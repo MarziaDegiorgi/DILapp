@@ -51,10 +51,11 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         }
 
        List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
-        for (ChildEntity child : list) {
-            Log.i("Player "+ child.getName() + "(" +child.getId() + ") ", child.getCurrentPlayer().toString());
+        if(!list.isEmpty()) {
+            for (ChildEntity child : list) {
+                Log.i("Player " + child.getName() + "(" + child.getId() + ") ", child.getCurrentPlayer().toString());
+            }
         }
-
         // Set up the presenter
         presenter = new StartGamePresenter(this);
 

@@ -60,38 +60,4 @@
 
     </HorizontalScrollView>
 
-    <Button
-        android:id="@+id/DummyLink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="ActivityAlfa"
-        android:visibility="gone"
-        />
-
-    <Button
-        android:id="@+id/DummyLink2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Level Map"
-        android:visibility="gone"/>
-
-    <Button
-        android:id="@+id/DummyLink3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/DummyLink2"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:text="ActivityBeta"
-        android:visibility="gone"/>
-
 </LinearLayout>

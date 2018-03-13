@@ -53,7 +53,8 @@ public class GridViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-            ImageView imageView;
+            ImageView gridView;
+            ImageView lastImage; //last object to ask to the user
 
             // Want the width/height of the items
             // to be 120dp
@@ -65,26 +66,31 @@ public class GridViewAdapter extends BaseAdapter {
                 convertView = LayoutInflater.from(context).inflate(R.layout.multiple_item_view, null);
             }
 
-            imageView = (ImageView) convertView.findViewById(R.id.imageGridView);
+            gridView = (ImageView) convertView.findViewById(R.id.imageGridView);
             // Set height and width constraints for the image view
-            imageView.setLayoutParams(new LinearLayout.LayoutParams(wPixel, hPixel));
+            gridView.setLayoutParams(new LinearLayout.LayoutParams(wPixel, hPixel));
 
             // Set the content of the image based on the provided URI
             int imageId = this.images_id.get(position);
-            imageView.setVisibility(View.VISIBLE);
-            imageView.setImageDrawable(context.getResources().getDrawable(imageId));
+            int lastImageId = this.images_id.get(this.images_id.size()-1);
+
+            gridView.setVisibility(View.VISIBLE);
+            gridView.setImageDrawable(context.getResources().getDrawable(imageId));
+
+            //get last image in the gridView and set the animation effect
+
             Animation animationWait = AnimationUtils.loadAnimation(context, R.anim.blink);
-            imageView.setAnimation(animationWait);
-            imageView.startAnimation(animationWait);
+            gridView.setAnimation(animationWait);
+            gridView.startAnimation(animationWait);
 
             // Image should be cropped towards the center
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            gridView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
             // Set Padding for images
-            imageView.setPadding(1, 0, 1, 0);
+            gridView.setPadding(1, 0, 1, 0);
 
             // Crop the image to fit within its padding
-            imageView.setCropToPadding(true);
+            gridView.setCropToPadding(true);
 
             return convertView;
     }

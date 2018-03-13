@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
 
         introVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
-                Intent intent = new Intent(getApplicationContext(), LevelMapActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class );
                 startActivity(intent);
                 finish();
             }
@@ -67,6 +67,16 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (presenter == null){
+            presenter = new MainPresenter(this);
+            Toast.makeText(this, String.valueOf(DatabaseInitializer.getCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 
 }
