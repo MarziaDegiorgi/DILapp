@@ -44,7 +44,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         //set up the presenter and pass it to the common activity view
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
-
+        presenter.setColourLevel();
         setupSequence();
 
         boolean availability = presenter.checkNfcAvailability();
@@ -84,9 +84,9 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void setPresentationAnimation(String currentElement){
         element = currentElement;
-        int resourceID = presenter.getResourceId(element, R.drawable.class);
         currentColour = presenter.getCurrentSequenceElement();
-        Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.rotation);
+        int resourceID = presenter.getResourceId(currentColour, R.drawable.class);
+        Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.blink);
 
         common.startMainAnimation(this,animationBegin,resourceID,this);
 
@@ -95,17 +95,13 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
 
     private void setAudioRequest(){
         int objectClaimedID;
-        if(currentColour.equals("all_colors")){
-            objectClaimedID = presenter.getResourceId("request_"+element+"_item", R.raw.class);
-        }else{
-            objectClaimedID = presenter.getResourceId("request_" + currentColour + "_item", R.raw.class);
-        }
+        objectClaimedID = presenter.getResourceId("request_" + currentColour + "_item", R.raw.class);
+
         request = MediaPlayer.create(ActivityOneTwo.this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                setAnimationBoxExtra();
                 setWaitingAnimation();
                 mp.release();
                 presenter.handleIntent(getIntent());
@@ -115,21 +111,6 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
 
 
     //TODO modify extra animation with something cool
-    public void setAnimationBoxExtra(){
-        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
-        animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.move_half_rotate);
-        animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
-        animationViewExtra.setAnimation(extraAnimation);
-        animationViewExtra.startAnimation(extraAnimation);
-
-        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
-        animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.move_half_rotate);
-        animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
-        animationViewExtraTwo.setAnimation(extraAnimationTwo);
-        animationViewExtraTwo.startAnimation(extraAnimationTwo);
-    }
 
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
@@ -140,22 +121,32 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoCorrectAnswer(){
         disableViews();
-
-        ImageView image = findViewById(R.id.animation_box_answer);
+        int resourceID = presenter.getResourceId(element, R.drawable.class);
+        ImageView image = findViewById(R.id.animation_box);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.correct_answer);
+        image.getResources().getDrawable(resourceID);
+        Animation animationCorrect = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.blink);
         common.setVideoCorrectAnswer(image, this);
-
     }
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
         disableViews();
 
-        ImageView image = findViewById(R.id.animation_box_answer);
+        final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
         image.getResources().getDrawable(R.drawable.not_correct_answer);
-        common.setVideoWrongAnswerToRepeat(image,this);
+        image.setVisibility(View.VISIBLE);
+        MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                image.setVisibility(View.INVISIBLE);
+                setPresentationAnimation(currentColour);
+                mp.release();
+            }
+        });
     }
 
     @Override

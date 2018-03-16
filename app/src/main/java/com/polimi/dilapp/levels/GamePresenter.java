@@ -34,6 +34,7 @@ public class GamePresenter implements IGame.Presenter {
     private int correctAnswers=0;
     private int totalAttempts=0;
     private int counter = 0;
+    private int counterColourSession = 0;
 
     private NfcAdapter nfcAdapter;
     private List<String> currentSequence;
@@ -59,6 +60,7 @@ public class GamePresenter implements IGame.Presenter {
     private boolean newSessionStarted;
     private boolean newTurnStarted;
     private boolean gameEnded;
+    private boolean colourLevel = false;
     private boolean actionDetected;
 
    public GamePresenter(IGame.View view){
@@ -80,7 +82,7 @@ public class GamePresenter implements IGame.Presenter {
     public void startGame(List<String> sequence){
        //current system time in seconds
         setLevelCurrentPlayer();
-       Toast.makeText(activityInterface.getScreenContext(), "Level current player: "+DatabaseInitializer.getLevelCurrentPlayer(db), Toast.LENGTH_LONG).show();
+        Toast.makeText(activityInterface.getScreenContext(), "Level current player: "+DatabaseInitializer.getLevelCurrentPlayer(db), Toast.LENGTH_LONG).show();
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("[INIT_TIME]:", String.valueOf(initTime));
         currentSequence = sequence;
@@ -141,16 +143,20 @@ public class GamePresenter implements IGame.Presenter {
 
 
     public void chooseElement(){
-        newTurnStarted = false;
-        if(tempArray.isEmpty()){
-            Log.i(CLASS, "Array is Empty -> Starting a new Turn" );
-            startNewTurn();
-        }else{
-            currentElement = tempArray.get(0);
-            tempArray.remove(0);
-            Log.i(CLASS, "Choose next element -> " + currentElement );
-            this.checkMultipleItems();
-            askCurrentElement();
+        if(colourLevel){
+            chooseColour();
+        } else {
+            newTurnStarted = false;
+            if (tempArray.isEmpty()) {
+                Log.i(CLASS, "Array is Empty -> Starting a new Turn");
+                startNewTurn();
+            } else {
+                currentElement = tempArray.get(0);
+                tempArray.remove(0);
+                Log.i(CLASS, "Choose next element -> " + currentElement);
+                this.checkMultipleItems();
+                askCurrentElement();
+            }
         }
     }
 
@@ -166,66 +172,76 @@ public class GamePresenter implements IGame.Presenter {
      * @param readTag of the NFC got as intent
      */
     private void checkAnswer(String readTag) {
-        if(!multipleElement) {
-            if (readTag.equals(currentElement)) {
-                Log.i(CLASS, "[CheckAnswer][SingleItem][Correct] " + readTag );
-               this.correctAnswer();
+        if (colourLevel) {
+            if(tempArray.contains(readTag)){
+                Log.i(CLASS, "[CheckAnswer][ColourItem][Correct] " + readTag);
+                this.correctAnswerColour();
             } else {
-                String shapeElement = currentElement.replace("shape","");
-                Log.i("shape element", shapeElement);
-                if(readTag.equals(shapeElement)){
-                    Log.i(CLASS, "[CheckAnswer][SingleItem][Correct][ShapeElement] " + readTag );
-                    this.correctAnswer();
-                }else{
-                Log.i(CLASS, "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: "+ currentElement );
-                this.wrongAnswer();
-                }
+                Log.i(CLASS, "[CheckAnswer][ColourItem][Wrong] " + readTag + ", current element: " + currentElement);
+                this.wrongAnswerColour();
             }
-        }else {
-            if(numberOfElements > 1){
-                // Correct answer
-                if(readTag.equals(currentSubElement)){
-                    subElementIndex++;
-                    Log.i(CLASS, "[CheckAnswer][MultipleItem]" + currentSubElement  +
-                    "index:" + subElementIndex);
-                    if(subElementIndex <= currentElement.length()){
-                        // Set next sub Item
-                        currentSubElement = currentElement.substring(subElementIndex,subElementIndex+1);
-                        Log.i(CLASS, "[CheckAnswer][updatedSubitem]" + currentSubElement );
-                        //Display correct result
-                        numberOfElements--;
-                        Log.i(CLASS, "[CheckAnswer][CallingNewItem]" + currentSubElement );
-                        activityInterface.setSubItemAnimation(currentSubElement);
+
+        } else {
+            if (!multipleElement) {
+                if (readTag.equals(currentElement)) {
+                    Log.i(CLASS, "[CheckAnswer][SingleItem][Correct] " + readTag);
+                    this.correctAnswer();
+                } else {
+                    String shapeElement = currentElement.replace("shape", "");
+                    Log.i("shape element", shapeElement);
+                    if (readTag.equals(shapeElement)) {
+                        Log.i(CLASS, "[CheckAnswer][SingleItem][Correct][ShapeElement] " + readTag);
+                        this.correctAnswer();
+                    } else {
+                        Log.i(CLASS, "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: " + currentElement);
+                        this.wrongAnswer();
+                    }
+                }
+            } else {
+                if (numberOfElements > 1) {
+                    // Correct answer
+                    if (readTag.equals(currentSubElement)) {
+                        subElementIndex++;
+                        Log.i(CLASS, "[CheckAnswer][MultipleItem]" + currentSubElement +
+                                "index:" + subElementIndex);
+                        if (subElementIndex <= currentElement.length()) {
+                            // Set next sub Item
+                            currentSubElement = currentElement.substring(subElementIndex, subElementIndex + 1);
+                            Log.i(CLASS, "[CheckAnswer][updatedSubitem]" + currentSubElement);
+                            //Display correct result
+                            numberOfElements--;
+                            Log.i(CLASS, "[CheckAnswer][CallingNewItem]" + currentSubElement);
+                            activityInterface.setSubItemAnimation(currentSubElement);
+                        }
+                    } else {
+                        totalAttempts++;
+                        if (counter < 2) {
+                            counter++;
+                            //TODO: redo animation waiting
+                        } else {
+                            counter = 0;
+                            activityInterface.setVideoWrongAnswerAndGoOn();
+                        }
                     }
                 } else {
-                    totalAttempts++;
-                    if (counter < 2) {
-                        counter++;
-                        //TODO: redo animation waiting
+                    if (readTag.equals(currentSubElement)) {
+                        subElementIndex = 1;
+                        Log.i(CLASS, "[CheckAnswer][lastSubItem]" + currentSubElement);
+                        this.correctAnswer();
                     } else {
-                        counter = 0;
-                        activityInterface.setVideoWrongAnswerAndGoOn();
-                    }
-                }
-            }else {
-                if(readTag.equals(currentSubElement)){
-                    subElementIndex = 1;
-                    Log.i(CLASS, "[CheckAnswer][lastSubItem]" + currentSubElement );
-                    this.correctAnswer();
-                }else {
-                    totalAttempts++;
-                    if (counter < 2) {
-                        counter++;
-                        //TODO: method to repeat animation or request again the element
-                    } else {
-                        counter = 0;
-                        activityInterface.setVideoWrongAnswerAndGoOn();
+                        totalAttempts++;
+                        if (counter < 2) {
+                            counter++;
+                            //TODO: method to repeat animation or request again the element
+                        } else {
+                            counter = 0;
+                            activityInterface.setVideoWrongAnswerAndGoOn();
+                        }
                     }
                 }
             }
         }
     }
-
 
     /**
      * Update the correct answer calling the view to set a video
@@ -235,6 +251,33 @@ public class GamePresenter implements IGame.Presenter {
         correctAnswers++;
         totalAttempts++;
         activityInterface.setVideoCorrectAnswer();
+    }
+
+    private void correctAnswerColour(){
+        counter = 0;
+        counterColourSession ++;
+
+        correctAnswers++;
+        totalAttempts++;
+            if (counterColourSession < 2) {
+                activityInterface.setVideoCorrectAnswer();
+            } else {
+                startNewTurn();
+            }
+        }
+
+
+    private void wrongAnswerColour(){
+        totalAttempts++;
+        if (counter < 2) {
+            counter++;
+            //TODO: substitute the video with just a sound
+            activityInterface.setVideoWrongAnswerToRepeat();
+        } else {
+            counter = 0;
+            counterColourSession = 0;
+            startNewTurn();
+        }
     }
     /**
      * Update the correct answer calling the view to the correspondent video
@@ -267,6 +310,12 @@ public class GamePresenter implements IGame.Presenter {
             multipleElement = false;
             Log.i(CLASS, "[CheckMultipleItems][False] " + numberOfElements);
         }
+    }
+
+    private void chooseColour(){
+        newTurnStarted = false;
+        Log.i(CLASS, "Ask current colour element" );
+        activityInterface.setPresentationAnimation(currentSequenceElement);
     }
 
     @Override
@@ -500,6 +549,10 @@ public class GamePresenter implements IGame.Presenter {
             Log.e("[GamePresenterLevel]", String.valueOf(level));
             DatabaseInitializer.setLevelCurrentPlayer(db, level);
             Log.e("[GamePresenterLevel]", String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
+        }
+
+        public void setColourLevel(){
+            colourLevel = true;
         }
 
         boolean isStarted(){

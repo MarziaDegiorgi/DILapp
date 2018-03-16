@@ -3,7 +3,6 @@ package com.polimi.dilapp.levels;
 import android.content.Context;
 import android.content.Intent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IGame {
@@ -85,6 +84,7 @@ public interface IGame {
         boolean getMultipleElement();
         int getNumberOfElements();
         void setLevelCurrentPlayer();
+        void setColourLevel();
 
         /**
          * This is called by the view once that the main animation of a multiple object is completed and

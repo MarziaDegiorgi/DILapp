@@ -1,7 +1,6 @@
 package com.polimi.dilapp.startgame;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -32,6 +31,10 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
+
         setContentView(R.layout.activity_startgame);
         Bundle extras = getIntent().getExtras();
         Button playButton = findViewById(R.id.playButton);
@@ -43,6 +46,17 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             }
         });
 
+       /* Button fake = findViewById(R.id.fake);
+        Intent intent;
+        fake.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent intent = new Intent(getApplicationContext(), ActivityOneTwo.class );
+                                        startActivity(intent);
+                                    }
+                                }
+
+        );*/
         int currentPlayerId = -1;
         if (extras != null) {
             currentPlayerId = extras.getInt(EXTRA_MESSAGE);

@@ -14,6 +14,15 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
+       <!-- <Button
+            android:id="@+id/fake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="fake"
+
+
+            />-->
+
         <Button
             android:id="@+id/playButton"
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
@@ -29,7 +38,7 @@
             android:textColor="?android:attr/colorForegroundInverse"
             tools:layout_editor_absoluteX="102dp"
             tools:layout_editor_absoluteY="256dp"
-            android:onClick="onClickPlay"/>
+            />
 
         <Button
             android:id="@+id/menuButton"
@@ -71,7 +80,7 @@
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="40dp"
             android:contentDescription="TODO"
-            app:srcCompat="@drawable/logofruitvector" />
+            app:srcCompat="@drawable/apple" />
 
     </RelativeLayout>
 

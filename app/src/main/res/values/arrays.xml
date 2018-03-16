@@ -212,12 +212,12 @@
     <string-array name="colors">
         <item>yellow</item>
         <item>red</item>
-        <item>orange</item>
+        <item>orangec</item>
         <item>violet</item>
         <item>green</item>
         <item>white</item>
         <item>brown</item>
-        <item>all_colors</item>
+        <!--<item>all_colors</item> -->
     </string-array>
 
     <string-array name="all_colors_items">
