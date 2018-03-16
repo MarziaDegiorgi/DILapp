@@ -81,6 +81,7 @@ public class GamePresenter implements IGame.Presenter {
     public void startGame(List<String> sequence){
        //current system time in seconds
         setLevelCurrentPlayer();
+       Toast.makeText(activityInterface.getScreenContext(), "Level current player: "+DatabaseInitializer.getLevelCurrentPlayer(db), Toast.LENGTH_LONG).show();
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("[INIT_TIME]:", String.valueOf(initTime));
         currentSequence = sequence;
@@ -448,30 +449,39 @@ public class GamePresenter implements IGame.Presenter {
         @Override
         public void setLevelCurrentPlayer(){
             int level;
+            Log.e("Activity interface ", activityInterface.getString());
             switch (activityInterface.getString()){
                 case "ActivityOneOne":
                     level = 11;
+                    Log.e("Switch ", "11");
                     break;
                 case "ActivityOneTwo":
                     level = 12;
+                    Log.e("Switch ", "12");
                     break;
                 case "ActivityOneThree":
                     level = 13;
+                    Log.e("Switch ", "13");
                     break;
                 case "ActivityOneFour":
                     level = 14;
+                    Log.e("Switch ", "14");
                     break;
                 case "ActivityTwoOne":
                     level = 21;
+                    Log.e("Switch ", "21");
                     break;
                 case "ActivityTwoTwo":
                     level = 22;
+                    Log.e("Switch ", "22");
                     break;
                 case "ActivityTwoThree":
                     level = 23;
+                    Log.e("Switch ", "23");
                     break;
                 case "ActivityTwoFour":
                     level = 24;
+                    Log.e("Switch ", "24");
                     break;
                 case "ActivityThreeOne":
                     level = 31;
@@ -484,9 +494,12 @@ public class GamePresenter implements IGame.Presenter {
                     break;
                 default:
                     level = 0;
+                    Log.e("Switch ", "default");
                     break;
             }
+            Log.e("[GamePresenterLevel]", String.valueOf(level));
             DatabaseInitializer.setLevelCurrentPlayer(db, level);
+            Log.e("[GamePresenterLevel]", String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
         }
 
         boolean isStarted(){

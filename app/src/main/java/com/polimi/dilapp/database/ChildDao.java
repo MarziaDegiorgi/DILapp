@@ -29,7 +29,7 @@ public interface ChildDao {
     @Query("SELECT level FROM child WHERE currentPlayer = :t")
     int getLevelCurrentPlayer(Boolean t);
 
-    @Query("UPDATE child SET level = :level  WHERE currentPlayer = :t")
+    @Query("UPDATE child SET level = :level WHERE currentPlayer = :t")
     void setLevelCurrentPlayer(int level, Boolean t);
 
     @Insert(onConflict = IGNORE)

@@ -2,6 +2,7 @@ package com.polimi.dilapp.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levels.view.ActivityOneFour;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.startgame.StartGameActivity;
+
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.List;
@@ -52,7 +55,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         }
 
         //link to already existing account of children
-        ImageButton account = (ImageButton) findViewById(R.id.account);
+        LinearLayout account = (LinearLayout) findViewById(R.id.account);
         LinearLayout layout = (LinearLayout) findViewById(R.id.listOfAccounts);
 
         // get reference to LayoutInflater
@@ -60,7 +63,9 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         for (int i = 0; i < listOfChildren.size(); i++) {
 
             //Creating copy of imagebutton by inflating it
-            final ImageButton btn = (ImageButton) inflater.inflate(R.layout.account_box, null);
+            final LinearLayout box = (LinearLayout) inflater.inflate(R.layout.account_box, null);
+            final ImageButton btn = (ImageButton) box.findViewById(R.id.avatar);
+            TextView name = (TextView) box.findViewById(R.id.name);
             int temporaryChildId = listOfChildren.get(i).getId();
             btn.setId(temporaryChildId);
             Drawable drawable = null;
@@ -80,18 +85,23 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
                     finish();
                 }
             });
-
+            name.setText(listOfChildren.get(i).getName());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(account.getLayoutParams());
             params.setMargins(20,0,20,0);
             btn.setScaleType(ImageButton.ScaleType.CENTER_CROP);
 
-            btn.setLayoutParams(params);
-            layout.addView(btn);
+            box.setLayoutParams(params);
+            layout.addView(box);
+
         }
 
 
         //link to the add button that enables the user to create a new account
-        ImageButton newAccountButton = (ImageButton) inflater.inflate(R.layout.account_box, null);
+        LinearLayout newBox = (LinearLayout) inflater.inflate(R.layout.account_box, null);
+        ImageButton newAccountButton = (ImageButton) newBox.findViewById(R.id.avatar);
+        newBox.findViewById(R.id.name).setVisibility(View.GONE);
+        //TextView newName = (TextView) newBox.findViewById(R.id.name);
+        //newName.setText("Nuovo giocatore");
         newAccountButton.setImageDrawable(getDrawable(R.drawable.avatar_add));
         newAccountButton.setOnClickListener(new View.OnClickListener()
 
@@ -106,8 +116,8 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(account.getLayoutParams());
         params.setMargins(20,0,20,0);
         newAccountButton.setScaleType(ImageButton.ScaleType.CENTER_CROP);
-        newAccountButton.setLayoutParams(params);
-        layout.addView(newAccountButton);
+        newBox.setLayoutParams(params);
+        layout.addView(newBox);
 
     }
 
