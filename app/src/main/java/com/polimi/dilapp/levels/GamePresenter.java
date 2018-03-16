@@ -61,9 +61,6 @@ public class GamePresenter implements IGame.Presenter {
     private boolean gameEnded;
     private boolean actionDetected;
 
-    private NdefReaderTask ndefReaderTask = new NdefReaderTask();
-
-
    public GamePresenter(IGame.View view){
 
        this.activityInterface = view;
@@ -169,7 +166,6 @@ public class GamePresenter implements IGame.Presenter {
      * @param readTag of the NFC got as intent
      */
     private void checkAnswer(String readTag) {
-        ndefReaderTask.cancel(true);
         if(!multipleElement) {
             if (readTag.equals(currentElement)) {
                 Log.i(CLASS, "[CheckAnswer][SingleItem][Correct] " + readTag );
@@ -326,7 +322,7 @@ public class GamePresenter implements IGame.Presenter {
             String type = intent.getType();
             if (MIME_TEXT_PLAIN.equals(type)) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-                ndefReaderTask.execute(tag);
+                new NdefReaderTask().execute(tag);
                 Log.i("[HandleIntent]:", "Tag Detected" + type);
             } else {
                 Log.i("Wrong mime type: " , type);
@@ -337,7 +333,7 @@ public class GamePresenter implements IGame.Presenter {
             String searchedTech = Ndef.class.getName();
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
-                    ndefReaderTask.execute(tag);
+                    new NdefReaderTask().execute(tag);
                 }
             }
             Log.i("[HandleIntent]:", "Action Detected" + action);
