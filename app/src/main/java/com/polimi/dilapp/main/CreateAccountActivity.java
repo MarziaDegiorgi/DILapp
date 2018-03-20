@@ -8,7 +8,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -33,6 +36,9 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class CreateAccountActivity extends AppCompatActivity implements ICreateAccount.View{
 
     ICreateAccount.Presenter presenter;
+    public static final int CONTEXT_MENU_EDIT = 0;
+    public static final int CONTEXT_MENU_DELETE = 1;
+    private ChildEntity childSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +50,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         //Set up the presenter
         presenter = new CreateAccountPresenter(this);
 
-        List<ChildEntity> listOfChildren = presenter.getListOfChildren();
+        final List<ChildEntity> listOfChildren = presenter.getListOfChildren();
 
         // recovering the instance state
         if (listOfChildren.size() == 0) {
@@ -66,7 +72,8 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
             final LinearLayout box = (LinearLayout) inflater.inflate(R.layout.account_box, null);
             final ImageButton btn = (ImageButton) box.findViewById(R.id.avatar);
             TextView name = (TextView) box.findViewById(R.id.name);
-            int temporaryChildId = listOfChildren.get(i).getId();
+            final ChildEntity temporaryChild = listOfChildren.get(i);
+            final int temporaryChildId = temporaryChild.getId();
             btn.setId(temporaryChildId);
             Drawable drawable = null;
             try {
@@ -85,6 +92,21 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
                     finish();
                 }
             });
+            btn.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    for(ChildEntity c:listOfChildren){
+                        if(c.getId() == btn.getId()){
+                            childSelected = c;
+                        }
+                    }
+                    registerForContextMenu(btn);
+                    openContextMenu(btn);
+                    return true;
+                }
+            });
+
+
             name.setText(listOfChildren.get(i).getName());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(account.getLayoutParams());
             params.setMargins(20,0,20,0);
@@ -92,6 +114,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
 
             box.setLayoutParams(params);
             layout.addView(box);
+            Log.i("Button Id: ", temporaryChild.getName() +":" +String.valueOf(btn.getId()));
 
         }
 
@@ -122,6 +145,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
     }
 
 
+
     // invoked when the activity may be temporarily destroyed, save the instance state here
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -145,5 +169,28 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        //Context menu
+        menu.add(Menu.NONE, CONTEXT_MENU_EDIT, Menu.NONE, "Modifica");
+        menu.add(Menu.NONE, CONTEXT_MENU_DELETE, Menu.NONE, "Elimina");
+    }
+
+    @Override
+    public boolean onContextItemSelected (MenuItem item) {
+        switch (item.getItemId()) {
+            case CONTEXT_MENU_EDIT: {
+
+            }
+            break;
+            case CONTEXT_MENU_DELETE: {
+                presenter.deletePlayer(childSelected);
+                Intent createAccountIntent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                startActivity(createAccountIntent);
+            }
+        }
+        return true;
     }
 }

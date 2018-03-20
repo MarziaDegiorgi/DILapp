@@ -117,4 +117,7 @@ public class DatabaseInitializer {
     public static void setLevelCurrentPlayer(AppDatabase db, int level) {
       db.childDao().setLevelCurrentPlayer(level, true);
     }
+    public static void deletePlayer(AppDatabase db, ChildEntity childEntity){
+        db.childDao().delete(childEntity);
+    }
 }

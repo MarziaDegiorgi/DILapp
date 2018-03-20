@@ -3,6 +3,7 @@ package com.polimi.dilapp.main;
 
 import android.arch.persistence.room.Database;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.polimi.dilapp.database.AppDatabase;
@@ -40,6 +41,11 @@ public class CreateAccountPresenter implements  ICreateAccount.Presenter{
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
         savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
+    }
+
+    @Override
+    public void deletePlayer(ChildEntity childEntity) {
+        DatabaseInitializer.deletePlayer(db, childEntity);
     }
 
 }
