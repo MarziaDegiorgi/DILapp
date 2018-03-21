@@ -5,8 +5,11 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import java.io.IOException;
 
 
 public interface INewAccount {
@@ -19,7 +22,8 @@ public interface INewAccount {
     }
 
     interface  Presenter {
-        void insertChild(EditText name, EditText age, String photoPath);
-        Boolean setPhoto(Intent data);
+        void insertChild(String name, String age, String photoPath);
+        Boolean setPhoto(Uri selectedImage);
+        void reloadPhoto(String image) throws IOException;
     }
 }

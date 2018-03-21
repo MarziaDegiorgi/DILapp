@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -34,14 +35,13 @@ public class NewAccountPresenter implements INewAccount.Presenter {
     }
 
     @Override
-    public void insertChild(EditText name, EditText age, String photoPath) {
-        DatabaseInitializer.insertChild(db, name.getText().toString(), Integer.parseInt(age.getText().toString()), photoPath);
+    public void insertChild(String name, String age, String photoPath) {
+        DatabaseInitializer.insertChild(db, name, Integer.parseInt(age), photoPath);
 
     }
 
     @Override
-    public Boolean setPhoto(Intent data) {
-        Uri selectedImage = data.getData();
+    public Boolean setPhoto(Uri selectedImage) {
         if (checkExistingAccount(selectedImage)) {
             if (selectedImage != null) {
                 addAccountView.setPhoto(selectedImage.toString());
@@ -57,9 +57,15 @@ public class NewAccountPresenter implements INewAccount.Presenter {
         } else {
             return false;
         }
-
     }
 
+    @Override
+    public void reloadPhoto(String image) throws IOException {
+        Uri uri = Uri.parse(image);
+        Bitmap bitmap = MediaStore.Images.Media.getBitmap(addAccountView.getContentRes(), uri);
+        addAccountView.setBitmap(bitmap);
+        addAccountView.getAvatar().setImageBitmap(bitmap);
+    }
 
     private Boolean checkExistingAccount(Uri selectedImage) {
         List<ChildEntity> list = db.childDao().getAll();

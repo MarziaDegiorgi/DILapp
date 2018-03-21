@@ -36,7 +36,6 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class CreateAccountActivity extends AppCompatActivity implements ICreateAccount.View{
 
     ICreateAccount.Presenter presenter;
-    public static final int CONTEXT_MENU_EDIT = 0;
     public static final int CONTEXT_MENU_DELETE = 1;
     private ChildEntity childSelected;
 
@@ -114,7 +113,6 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
 
             box.setLayoutParams(params);
             layout.addView(box);
-            Log.i("Button Id: ", temporaryChild.getName() +":" +String.valueOf(btn.getId()));
 
         }
 
