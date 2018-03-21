@@ -108,11 +108,18 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     @Override
     public void initGridView(String currentSubItem){
+        int elementID = presenter.getResourceId(element, R.drawable.class);
         int resourceID = presenter.getResourceId("_"+currentSubItem, R.drawable.class);
+
+        ImageView image = findViewById(R.id.image_box_multiple_elements);
+        image.setImageDrawable(getResources().getDrawable(elementID));
         gridview = findViewById(R.id.gridView);
         imageAdapter = new GridViewAdapter(this, resourceID);
         gridview.setAdapter(imageAdapter);
+
         gridview.setVisibility(View.VISIBLE);
+        image.setVisibility(View.VISIBLE);
+
         int objectClaimedID = presenter.getResourceId(AUDIO +currentSubItem, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
 
@@ -256,9 +263,11 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        ImageView imageBoxMultipleItem = findViewById(R.id.image_box_multiple_elements);
         common.disableView(imageToHide);
         common.disableView(animationViewExtra);
         common.disableView(animationViewExtraTwo);
+        common.disableView(imageBoxMultipleItem);
     }
 
     @Override
