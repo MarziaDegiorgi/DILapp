@@ -62,6 +62,7 @@ public class GamePresenter implements IGame.Presenter {
     private boolean gameEnded;
     private boolean colourLevel = false;
     private boolean actionDetected;
+    private boolean enableNFC = false;
 
    public GamePresenter(IGame.View view){
 
@@ -172,6 +173,7 @@ public class GamePresenter implements IGame.Presenter {
      * @param readTag of the NFC got as intent
      */
     private void checkAnswer(String readTag) {
+        enableNFC = false;
         if (colourLevel) {
             if(tempArray.contains(readTag)){
                 Log.i(CLASS, "[CheckAnswer][ColourItem][Correct] " + readTag);
@@ -449,21 +451,26 @@ public class GamePresenter implements IGame.Presenter {
 
         @Override
         protected void onPostExecute(final String result) {
-            if (result != null) {
-                //only for debug
-                Toast.makeText(activityInterface.getScreenContext(), result, Toast.LENGTH_LONG).show();
-                Log.i("[OnPostExecute]","NFC Read result: "+ result);
-                int tagID = getResourceId("nfc_sound", R.raw.class);
-                MediaPlayer tag = MediaPlayer.create(activityInterface.getScreenContext(),tagID);
-                tag.start();
-                tag.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                    @Override
-                    public void onCompletion(MediaPlayer mp) {
-                        mp.release();
-                        checkAnswer(result);
+            if (enableNFC) {
+                if (result != null) {
+                    //only for debug
+                    enableNFC = false;
+                    Toast.makeText(activityInterface.getScreenContext(), result, Toast.LENGTH_LONG).show();
+                    Log.i("[OnPostExecute]", "NFC Read result: " + result);
+                    int tagID = getResourceId("nfc_sound", R.raw.class);
+                    MediaPlayer tag = MediaPlayer.create(activityInterface.getScreenContext(), tagID);
+                    tag.start();
+                    tag.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            mp.release();
+                            checkAnswer(result);
 
-                    }
-                });
+                        }
+                    });
+                }
+            }else{
+                Log.i("[NFC] ", "not enabled");
             }
         }
     }
@@ -555,7 +562,12 @@ public class GamePresenter implements IGame.Presenter {
             colourLevel = true;
         }
 
-        boolean isStarted(){
+    @Override
+    public void setEnableNFC() {
+        enableNFC = true;
+    }
+
+    boolean isStarted(){
             return gameStarted;
         }
 

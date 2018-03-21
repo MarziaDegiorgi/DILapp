@@ -85,6 +85,7 @@ public interface IGame {
         int getNumberOfElements();
         void setLevelCurrentPlayer();
         void setColourLevel();
+        void setEnableNFC();
 
         /**
          * This is called by the view once that the main animation of a multiple object is completed and

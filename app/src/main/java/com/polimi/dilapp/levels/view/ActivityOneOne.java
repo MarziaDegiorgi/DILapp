@@ -104,6 +104,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
                 setAnimationBoxExtra();
                 setWaitingAnimation();
                 mp.release();
+                presenter.setEnableNFC();
                 presenter.handleIntent(getIntent());
             }
         });
