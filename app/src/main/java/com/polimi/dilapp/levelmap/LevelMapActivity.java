@@ -65,4 +65,5 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
         view.startAnimation(buttonClick);
         presenter.onClickBack();
     }
+
 }

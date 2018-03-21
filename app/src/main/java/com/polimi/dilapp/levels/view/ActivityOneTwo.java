@@ -13,8 +13,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
+import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -238,5 +240,12 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     @Override
     protected void onNewIntent(Intent intent) {
         presenter.handleIntent(intent);
+    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(ActivityOneTwo.this, StartGameActivity.class));
+        finish();
     }
 }

@@ -14,9 +14,11 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.GridViewAdapter;
 import com.polimi.dilapp.levels.IGame;
+import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -276,5 +278,12 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     protected void onNewIntent(Intent intent) {
         presenter.setEnableNFC();
         presenter.handleIntent(intent);
+    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(ActivityTwoThree.this, StartGameActivity.class));
+        finish();
     }
 }
