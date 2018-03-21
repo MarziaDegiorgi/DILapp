@@ -188,4 +188,9 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         }
         return true;
     }
+
+    @Override
+    public void onBackPressed()
+    {
+    }
 }

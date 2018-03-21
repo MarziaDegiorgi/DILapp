@@ -1,5 +1,6 @@
 package com.polimi.dilapp.levels.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -13,8 +14,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
+import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -244,5 +247,12 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     public void initGridView(String currentSubItem) {
         //NOT USED
+    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(ActivityOneOne.this, StartGameActivity.class));
+        finish();
     }
 }

@@ -15,9 +15,11 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.GridViewAdapter;
 import com.polimi.dilapp.levels.IGame;
+import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -310,5 +312,12 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     public CommonActivity getCommonActivity(){
         return common;
+    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(ActivityTwoOne.this, StartGameActivity.class));
+        finish();
     }
 }
