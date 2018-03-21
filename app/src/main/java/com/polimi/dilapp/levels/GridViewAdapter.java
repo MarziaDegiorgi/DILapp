@@ -58,8 +58,8 @@ public class GridViewAdapter extends BaseAdapter {
 
             // Want the width/height of the items
             // to be 120dp
-            int wPixel = dpToPx(95);
-            int hPixel = dpToPx(120);
+            int wPixel = dpToPx(120);
+            int hPixel = dpToPx(160);
 
             if (convertView == null) {
                 // If convertView is null then inflate the appropriate layout file

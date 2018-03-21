@@ -103,7 +103,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         imageAdapter.notifyDataSetChanged();
 
         //set subItem audio request
-        int objectClaimedID = presenter.getResourceId(AUDIO +currentSubElement, R.raw.class);
+        int objectClaimedID = presenter.getResourceId(AUDIO + currentSubElement, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

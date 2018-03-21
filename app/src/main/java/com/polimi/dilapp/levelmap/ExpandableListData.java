@@ -25,10 +25,9 @@ public class ExpandableListData {
         numbers.add("PAROLE");
         numbers.add("DESCRIZIONE");
 
-        expandableListDetail.put("LETTERE E NUMERI", numbers);
         expandableListDetail.put("OGGETTI E COLORI", objects);
+        expandableListDetail.put("LETTERE E NUMERI", numbers);
 
         return expandableListDetail;
     }
-
     }
