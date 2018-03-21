@@ -174,17 +174,12 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
     @Override
     public void onCreateContextMenu (ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         //Context menu
-        menu.add(Menu.NONE, CONTEXT_MENU_EDIT, Menu.NONE, "Modifica");
         menu.add(Menu.NONE, CONTEXT_MENU_DELETE, Menu.NONE, "Elimina");
     }
 
     @Override
     public boolean onContextItemSelected (MenuItem item) {
         switch (item.getItemId()) {
-            case CONTEXT_MENU_EDIT: {
-
-            }
-            break;
             case CONTEXT_MENU_DELETE: {
                 presenter.deletePlayer(childSelected);
                 Intent createAccountIntent = new Intent(getApplicationContext(), CreateAccountActivity.class);
