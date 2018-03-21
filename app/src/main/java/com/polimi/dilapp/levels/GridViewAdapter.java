@@ -67,6 +67,7 @@ public class GridViewAdapter extends BaseAdapter {
             }
 
             gridView = (ImageView) convertView.findViewById(R.id.imageGridView);
+
             // Set height and width constraints for the image view
             gridView.setLayoutParams(new LinearLayout.LayoutParams(wPixel, hPixel));
 
@@ -84,7 +85,7 @@ public class GridViewAdapter extends BaseAdapter {
             gridView.startAnimation(animationWait);
 
             // Image should be cropped towards the center
-            gridView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            gridView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
             // Set Padding for images
             gridView.setPadding(1, 0, 1, 0);

@@ -14,8 +14,8 @@ public class ExpandableListData {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
 
         List<String> objects = new ArrayList<>();
-        objects.add("COLORI");
         objects.add("NOMI");
+        objects.add("COLORI");
         objects.add("FORME");
         objects.add("COMPONI");
 
@@ -25,12 +25,6 @@ public class ExpandableListData {
         numbers.add("PAROLE");
         numbers.add("DESCRIZIONE");
 
-        List<String> logic = new ArrayList<>();
-        logic.add("IMPARARE A CONTARE");
-        logic.add("LISTA DELLA SPESA");
-        logic.add("IN CUCINA CON PATTY");
-
-        expandableListDetail.put("LOGICA", logic);
         expandableListDetail.put("LETTERE E NUMERI", numbers);
         expandableListDetail.put("OGGETTI E COLORI", objects);
 

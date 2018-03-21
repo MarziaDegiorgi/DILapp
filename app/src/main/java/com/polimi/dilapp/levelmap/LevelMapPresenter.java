@@ -42,11 +42,11 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
         String itemSelected = listItems.get(listTitles.get(mainCategoryPosition)).get(subcategoryPosition);
         Intent intent;
         switch (itemSelected){
-            case "COLORI":
+            case "NOMI":
                 intent = new Intent(levelMapView.getContext(), ActivityOneOne.class);
                 levelMapView.getContext().startActivity(intent);
                 break;
-            case "NOMI":
+            case "COLORI":
                 intent = new Intent(levelMapView.getContext(), ActivityOneTwo.class);
                 levelMapView.getContext().startActivity(intent);
                 break;
