@@ -31,7 +31,7 @@
 
         <ImageView
             android:id="@+id/animation_box"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:layout_centerVertical="true"
@@ -54,7 +54,7 @@
         <VideoView
             android:id="@+id/video_box"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:visibility="visible"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"

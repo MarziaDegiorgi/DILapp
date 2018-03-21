@@ -49,7 +49,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
         setupSequence();
 
-        boolean availability = presenter.checkNfcAvailability();
+       boolean availability = presenter.checkNfcAvailability();
         if (availability) {
             setupVideoIntro();
         }else{

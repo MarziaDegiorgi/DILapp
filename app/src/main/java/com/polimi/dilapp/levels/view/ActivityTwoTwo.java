@@ -51,12 +51,12 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
 
         setupSequence();
 
-        //boolean availability = presenter.checkNfcAvailability();
-       // if (availability) {
+        boolean availability = presenter.checkNfcAvailability();
+        if (availability) {
             setupVideoIntro();
-        /*}else{
+        }else{
             finish();
-        }*/
+        }
     }
 
     private void setupSequence() {
@@ -110,6 +110,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
                     public void onCompletion(MediaPlayer mp) {
                         setWaitingAnimation();
                         mp.release();
+                        presenter.setEnableNFC();
                         presenter.handleIntent(getIntent());
                     }
                 });
@@ -235,6 +236,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
+        presenter.setEnableNFC();
         presenter.handleIntent(intent);
     }
 }

@@ -54,7 +54,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
         setupSequence();
 
-        boolean availability = presenter.checkNfcAvailability();
+       boolean availability = presenter.checkNfcAvailability();
         if (availability) {
          setupVideoIntro();
        }else{
@@ -123,6 +123,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         mp.release();
+                        presenter.setEnableNFC();
                         presenter.handleIntent(getIntent());
                     }
                 });
@@ -150,6 +151,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         mp.release();
+                        presenter.setEnableNFC();
                         presenter.handleIntent(getIntent());
                     }
                 });
@@ -174,6 +176,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
                         } else {
                             setWaitingAnimation();
                             mp.release();
+                            presenter.setEnableNFC();
                             presenter.handleIntent(getIntent());
                         }
                     }
@@ -285,7 +288,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     @Override
     protected void onPause() {
-       presenter.stopForegroundDispatch();
+      presenter.stopForegroundDispatch();
         super.onPause();
     }
 
@@ -297,6 +300,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
+        presenter.setEnableNFC();
         presenter.handleIntent(intent);
     }
 

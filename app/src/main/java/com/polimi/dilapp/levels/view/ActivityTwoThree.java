@@ -28,7 +28,6 @@ import java.util.List;
 
 public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
-    //TODO: ADD A LIST OF WORDS IN @STRING ASSOCIATED WITH AN IMAGE
     private IGame.Presenter presenter;
     private ArrayList<String> wordsSequence;
     private CommonActivity common;
@@ -36,6 +35,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     MediaPlayer request;
     GridView gridview;
     GridViewAdapter imageAdapter;
+    final String AUDIO = "request_";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,13 +101,14 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         imageAdapter.notifyDataSetChanged();
 
         //set subItem audio request
-        int objectClaimedID = presenter.getResourceId("request_" + "_"+currentSubElement, R.raw.class);
+        int objectClaimedID = presenter.getResourceId(AUDIO +currentSubElement, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
+                presenter.setEnableNFC();
                 presenter.handleIntent(getIntent());
             }
         });
@@ -120,20 +121,21 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         imageAdapter = new GridViewAdapter(this, resourceID);
         gridview.setAdapter(imageAdapter);
         gridview.setVisibility(View.VISIBLE);
-        int objectClaimedID = presenter.getResourceId("request_" + "_"+currentSubItem, R.raw.class);
+        int objectClaimedID = presenter.getResourceId(AUDIO + "_"+currentSubItem, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
+                presenter.setEnableNFC();
                 presenter.handleIntent(getIntent());
             }
         });
     }
 
     private void setAudioRequest(final ImageView image){
-        int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
+        int objectClaimedID = presenter.getResourceId(AUDIO + element, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -144,6 +146,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
                     presenter.notifyFirstSubElement();
                 }else {
                     setWaitingAnimation();
+                    presenter.setEnableNFC();
                     presenter.handleIntent(getIntent());
                 }
             }
@@ -177,10 +180,28 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     public void setVideoCorrectAnswer() {
         disableViews();
 
-        ImageView image = findViewById(R.id.animation_box_answer);
+        //takes image associated with the word
+        int imageId = presenter.getResourceId("img" + element, R.drawable.class);
+        final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.correct_answer);
-        common.setVideoCorrectAnswer(image, this);
+        image.getResources().getDrawable(imageId);
+
+        //animation response
+        Animation animationRotate = AnimationUtils.loadAnimation(this, R.anim.jump_and_rotate);
+        image.setAnimation(animationRotate);
+
+        //audio response
+        MediaPlayer request = MediaPlayer.create(this, R.raw.request_correct_answer);
+        request.start();
+        image.startAnimation(animationRotate);
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                image.setVisibility(View.INVISIBLE);
+                presenter.chooseElement();
+            }
+        });
     }
 
     @Override
@@ -253,6 +274,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
+        presenter.setEnableNFC();
         presenter.handleIntent(intent);
     }
 }
