@@ -13,7 +13,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
 import com.polimi.dilapp.startgame.StartGameActivity;
@@ -106,6 +105,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
             public void onCompletion(MediaPlayer mp) {
                 setWaitingAnimation();
                 mp.release();
+                presenter.setEnableNFC();
                 presenter.handleIntent(getIntent());
             }
         });

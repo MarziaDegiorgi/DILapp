@@ -269,7 +269,6 @@ public class GamePresenter implements IGame.Presenter {
     private void correctAnswerColour(){
         counter = 0;
         counterColourSession ++;
-
         correctAnswers++;
         totalAttempts++;
             if (counterColourSession < 2) {

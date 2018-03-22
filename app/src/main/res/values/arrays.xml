@@ -183,7 +183,7 @@
         <item>tomato</item>
     </string-array>
     
-    <string-array name="orange_items">
+    <string-array name="orangec_items">
         <item>orange</item>
         <item>carrot</item>
         <item>onion</item>
@@ -218,32 +218,8 @@
         <item>green</item>
         <item>white</item>
         <item>brown</item>
-        <!--<item>all_colors</item> -->
     </string-array>
 
-    <string-array name="all_colors_items">
-        <item>bananayellow</item>
-        <item>lemonyellow</item>
-        <item>cornyellow</item>
-        <item>grapefruityellow</item>
-        <item>watermelonred</item>
-        <item>strawberryred</item>
-        <item>applered</item>
-        <item>pepperred</item>
-        <item>tomatored</item>
-        <item>orangeorange</item>
-        <item>carrotorange</item>
-        <item>onionorange</item>
-        <item>tangerineorange</item>
-        <item>eggplantviolet</item>
-        <item>asparagusgreen</item>
-        <item>broccoligreen</item>
-        <item>cucumbergreen</item>
-        <item>peargreen</item>
-        <item>greenpeagreen</item>
-        <item>fennelwhite</item>
-        <item>potatobrown</item>
-    </string-array>
 
     <string-array name="all_fruits_items">
         <item>banana</item>
