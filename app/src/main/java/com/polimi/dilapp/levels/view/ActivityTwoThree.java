@@ -87,14 +87,24 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityTwoThree.this, R.anim.combination_set);
 
-        ImageView image = findViewById(R.id.animation_box);
+        final ImageView image = findViewById(R.id.animation_box);
         image.setVisibility(View.VISIBLE);
         image.setImageDrawable(getResources().getDrawable(resourceID));
         image.setVisibility(View.VISIBLE);
 
         image.setAnimation(animationBegin);
         image.startAnimation(animationBegin);
-        setAudioRequest(image);
+
+        int objectClaimedID = presenter.getResourceId("request_word", R.raw.class);
+        request = MediaPlayer.create(this, objectClaimedID);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                setAudioRequest(image);
+            }
+        });
     }
 
     @Override
@@ -146,20 +156,26 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     private void setAudioRequest(final ImageView image){
         int objectClaimedID = presenter.getResourceId(AUDIO + element, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+        myHandler.postDelayed(new Runnable() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
-                if(presenter.getMultipleElement()) {
-                    image.setVisibility(View.INVISIBLE);
-                    presenter.notifyFirstSubElement();
-                }else {
-                    setWaitingAnimation();
-                    presenter.setEnableNFC();
-                    presenter.handleIntent(getIntent());
-                }
+            public void run() {
+                request.start();
+                request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        if (presenter.getMultipleElement()) {
+                            image.setVisibility(View.INVISIBLE);
+                            presenter.notifyFirstSubElement();
+                        } else {
+                            setWaitingAnimation();
+                            presenter.setEnableNFC();
+                            presenter.handleIntent(getIntent());
+                        }
+                    }
+                });
             }
-        });
+        }, 800);
     }
 
     public void setWaitingAnimation(){
@@ -191,7 +207,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         //takes image associated with the word
         int imageId = presenter.getResourceId("img" + element, R.drawable.class);
-        final ImageView image = findViewById(R.id.animation_box_answer);
+        ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
         image.setImageDrawable(getResources().getDrawable(imageId));
         image.setVisibility(View.VISIBLE);
@@ -224,7 +240,8 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                image.setVisibility(View.INVISIBLE);
+                ImageView answerBox = findViewById(R.id.animation_box_answer);
+                answerBox.setVisibility(View.INVISIBLE);
                 mp.release();
                 presenter.chooseElement();
             }
@@ -235,15 +252,20 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         //set subItem audio request
         int objectClaimedID = presenter.getResourceId(AUDIO + currentSubElement, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        myHandler.postDelayed(new Runnable() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-                presenter.setEnableNFC();
-                presenter.handleIntent(getIntent());
+            public void run() {
+                request.start();
+                request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                        presenter.setEnableNFC();
+                        presenter.handleIntent(getIntent());
+                    }
+                });
             }
-        });
+        },1000);
     }
 
     @Override
@@ -271,7 +293,12 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
                 }else {
                     disableViews();
                     mp.release();
-                    presenter.chooseElement();
+                    myHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.chooseElement();
+                        }
+                    },1500);
                 }
             }
         });
@@ -330,7 +357,6 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
-        presenter.setEnableNFC();
         presenter.handleIntent(intent);
     }
     @Override

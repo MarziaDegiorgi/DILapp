@@ -144,6 +144,7 @@ public class GamePresenter implements IGame.Presenter {
 
 
     public void chooseElement(){
+        subElementIndex = 1;
         if(colourLevel){
             chooseColour();
         } else {
@@ -243,7 +244,7 @@ public class GamePresenter implements IGame.Presenter {
     private void updateSubItem(){
         subElementIndex++;
         Log.i(CLASS, "[CheckAnswer][MultipleItem]" + currentSubElement +
-                "index:" + subElementIndex);
+                " index:" + subElementIndex);
         if (subElementIndex <= currentElement.length()) {
             // Set next sub Item
             currentSubElement = currentElement.substring(subElementIndex, subElementIndex + 1);
@@ -312,6 +313,7 @@ public class GamePresenter implements IGame.Presenter {
     public void checkMultipleItems(){
         if(currentElement.contains("_")){
             multipleElement = true;
+            subElementIndex = 1;
             numberOfElements = currentElement.length() - 1;
             //init char inside the string
             currentSubElement = currentElement.substring(subElementIndex, subElementIndex+1);

@@ -3,6 +3,7 @@ package com.polimi.dilapp.levels;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,6 @@ public class GridViewAdapter extends BaseAdapter {
 
             // Set the content of the image based on the provided URI
             int imageId = this.images_id.get(position);
-            int lastImageId = this.images_id.get(this.images_id.size()-1);
 
             gridView.setVisibility(View.VISIBLE);
             gridView.setImageDrawable(context.getResources().getDrawable(imageId));
@@ -85,13 +85,11 @@ public class GridViewAdapter extends BaseAdapter {
             gridView.startAnimation(animationWait);
 
             // Image should be cropped towards the center
+            gridView.setAdjustViewBounds(true);
             gridView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
             // Set Padding for images
-            gridView.setPadding(1, 0, 1, 0);
-
-            // Crop the image to fit within its padding
-            gridView.setCropToPadding(true);
+            gridView.setPadding(0, 0, 1, 0);
 
             return convertView;
     }
