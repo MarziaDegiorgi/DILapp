@@ -153,8 +153,8 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
         common.setVideoWrongAnswerAndGoOn(image, this);
     }
 
-
-    private void disableViews(){
+@Override
+    public void disableViews(){
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);

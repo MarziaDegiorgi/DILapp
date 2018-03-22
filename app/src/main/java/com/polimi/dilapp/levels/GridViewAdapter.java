@@ -55,12 +55,6 @@ public class GridViewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
             ImageView gridView;
-            ImageView lastImage; //last object to ask to the user
-
-            // Want the width/height of the items
-            // to be 120dp
-            int wPixel = dpToPx(120);
-            int hPixel = dpToPx(160);
 
             if (convertView == null) {
                 // If convertView is null then inflate the appropriate layout file
@@ -68,9 +62,6 @@ public class GridViewAdapter extends BaseAdapter {
             }
 
             gridView = (ImageView) convertView.findViewById(R.id.imageGridView);
-
-            // Set height and width constraints for the image view
-            //gridView.setLayoutParams(new LinearLayout.LayoutParams(wPixel, hPixel));
 
             // Set the content of the image based on the provided URI
             int imageId = this.images_id.get(position);

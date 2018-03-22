@@ -175,7 +175,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
                     }
                 });
             }
-        }, 800);
+        }, 700);
     }
 
     public void setWaitingAnimation(){
@@ -207,7 +207,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         //takes image associated with the word
         int imageId = presenter.getResourceId("img" + element, R.drawable.class);
-        ImageView image = findViewById(R.id.animation_box_answer);
+        final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
         image.setImageDrawable(getResources().getDrawable(imageId));
         image.setVisibility(View.VISIBLE);
@@ -240,12 +240,16 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                ImageView answerBox = findViewById(R.id.animation_box_answer);
-                answerBox.setVisibility(View.INVISIBLE);
+                image.clearAnimation();
+                image.setVisibility(View.INVISIBLE);
                 mp.release();
                 presenter.chooseElement();
             }
         });
+    }
+
+    void disableImageView(ImageView image){
+        image.setVisibility(View.INVISIBLE);
     }
 
     void requestSubItem( String currentSubElement) {
@@ -265,7 +269,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
                     }
                 });
             }
-        },1000);
+        },800);
     }
 
     @Override
@@ -298,22 +302,28 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
                         public void run() {
                             presenter.chooseElement();
                         }
-                    },1500);
+                    },1800);
                 }
             }
         });
     }
 
-    private void disableViews(){
+    @Override
+    public void disableViews(){
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
         ImageView requestObject = findViewById(R.id.image_box_multiple_elements);
+        ImageView answerBox = findViewById(R.id.animation_box_answer);
+
         gridview.setVisibility(View.INVISIBLE);
-        common.disableView(imageToHide);
-        common.disableView(requestObject);
-        common.disableView(animationViewExtra);
-        common.disableView(animationViewExtraTwo);
+        imageAdapter.clearImageResources();
+
+        this.disableImageView(answerBox);
+        this.disableImageView(imageToHide);
+        this.disableImageView(requestObject);
+        this.disableImageView(animationViewExtra);
+        this.disableImageView(animationViewExtraTwo);
     }
 
     @Override
