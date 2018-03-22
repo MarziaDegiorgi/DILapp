@@ -70,7 +70,7 @@ public class GridViewAdapter extends BaseAdapter {
             gridView = (ImageView) convertView.findViewById(R.id.imageGridView);
 
             // Set height and width constraints for the image view
-            gridView.setLayoutParams(new LinearLayout.LayoutParams(wPixel, hPixel));
+            //gridView.setLayoutParams(new LinearLayout.LayoutParams(wPixel, hPixel));
 
             // Set the content of the image based on the provided URI
             int imageId = this.images_id.get(position);
