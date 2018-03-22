@@ -98,7 +98,8 @@ public class NewAccountActivity extends AppCompatActivity implements INewAccount
 
                         if (mon > 12) mon = 12;
                         cal.set(Calendar.MONTH, mon - 1);
-                        year = (year < 1900) ? 1900 : (year > 2100) ? 2100 : year;
+                        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                        year = (year < 1900) ? 1900 : (year > currentYear) ? currentYear : year;
                         cal.set(Calendar.YEAR, year);
                         // ^ first set year for the line below to work correctly
                         //with leap years - otherwise, date e.g. 29/02/2012
@@ -134,18 +135,24 @@ public class NewAccountActivity extends AppCompatActivity implements INewAccount
             public void onClick(View v) {
                     name = edit_name.getText().toString();
                     birth = edit_birth.getText().toString();
+                    Log.i("BIRTH LENGTH", String.valueOf(birth.length()));
                     switch (name){
                         case "":
-                            if(birth.equals("")){
+                            if(birth.equals("") || birth.contains("g") || birth.contains("m") || birth.contains("a")){
                                 showPopUp(R.string.fields_missing);
                             }else{
                                 showPopUp(R.string.name_missing);
                             }
                             break;
                         default:
-                            if(birth.equals("")) {
+                            if(birth.equals("") || birth.contains("g") || birth.contains("m") || birth.contains("a")) {
                                 showPopUp(R.string.birth_missing);
                                 break;
+                            }else{
+                                presenter.insertChild(name, birth, photoPath);
+                                Intent inputForm = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                                startActivity(inputForm);
+                                finish();
                             }
                     }
         }
