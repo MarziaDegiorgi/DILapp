@@ -82,6 +82,7 @@ public interface IGame {
 
         String getCurrentSequenceElement();
         boolean getMultipleElement();
+        String getCurrentSubElement();
         int getNumberOfElements();
         void setLevelCurrentPlayer();
         void setColourLevel();

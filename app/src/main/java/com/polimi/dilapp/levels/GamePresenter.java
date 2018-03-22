@@ -203,25 +203,16 @@ public class GamePresenter implements IGame.Presenter {
                 if (numberOfElements > 1) {
                     // Correct answer
                     if (readTag.equals(currentSubElement)) {
-                        subElementIndex++;
-                        Log.i(CLASS, "[CheckAnswer][MultipleItem]" + currentSubElement +
-                                "index:" + subElementIndex);
-                        if (subElementIndex <= currentElement.length()) {
-                            // Set next sub Item
-                            currentSubElement = currentElement.substring(subElementIndex, subElementIndex + 1);
-                            Log.i(CLASS, "[CheckAnswer][updatedSubitem]" + currentSubElement);
-                            //Display correct result
-                            numberOfElements--;
-                            Log.i(CLASS, "[CheckAnswer][CallingNewItem]" + currentSubElement);
-                            activityInterface.setSubItemAnimation(currentSubElement);
-                        }
+                        this.updateSubItem();
                     } else {
                         totalAttempts++;
                         if (counter < 2) {
                             counter++;
-                            //TODO: redo animation waiting
+                            activityInterface.setVideoWrongAnswerToRepeat();
                         } else {
                             counter = 0;
+                            //ask the next sub item
+                            this.updateSubItem();
                             activityInterface.setVideoWrongAnswerAndGoOn();
                         }
                     }
@@ -234,14 +225,33 @@ public class GamePresenter implements IGame.Presenter {
                         totalAttempts++;
                         if (counter < 2) {
                             counter++;
-                            //TODO: method to repeat animation or request again the element
+                            activityInterface.setVideoWrongAnswerToRepeat();
                         } else {
                             counter = 0;
+                            numberOfElements=0;
                             activityInterface.setVideoWrongAnswerAndGoOn();
                         }
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Update the subitem to the next one
+     */
+    private void updateSubItem(){
+        subElementIndex++;
+        Log.i(CLASS, "[CheckAnswer][MultipleItem]" + currentSubElement +
+                "index:" + subElementIndex);
+        if (subElementIndex <= currentElement.length()) {
+            // Set next sub Item
+            currentSubElement = currentElement.substring(subElementIndex, subElementIndex + 1);
+            Log.i(CLASS, "[CheckAnswer][updatedSubitem]" + currentSubElement);
+            //Display correct result
+            numberOfElements--;
+            Log.i(CLASS, "[CheckAnswer][CallingNewItem]" + currentSubElement);
+            activityInterface.setSubItemAnimation(currentSubElement);
         }
     }
 
@@ -480,16 +490,14 @@ public class GamePresenter implements IGame.Presenter {
         Log.i("init time:", String.valueOf(totaltime));
         }
 
-        List<String> getCurrentSequence(){
-            return currentSequence;
-        }
-
+        @Override
         public String getCurrentSequenceElement(){
             return currentSequenceElement;
         }
 
-        String getCurrentSubElement() {
-            return currentElement;
+        @Override
+        public String getCurrentSubElement() {
+            return currentSubElement;
         }
 
         @Override

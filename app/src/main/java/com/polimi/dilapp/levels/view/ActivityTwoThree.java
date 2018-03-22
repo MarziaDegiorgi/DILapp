@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -38,6 +39,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     GridView gridview;
     GridViewAdapter imageAdapter;
     final String AUDIO = "request_";
+    Handler myHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
+        myHandler = new Handler();
 
         setupSequence();
 
@@ -103,27 +106,31 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         imageAdapter.notifyDataSetChanged();
 
         //set subItem audio request
-        int objectClaimedID = presenter.getResourceId(AUDIO + currentSubElement, R.raw.class);
-        request = MediaPlayer.create(this, objectClaimedID);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-                presenter.setEnableNFC();
-                presenter.handleIntent(getIntent());
-            }
-        });
+        requestSubItem(currentSubElement);
     }
 
     @Override
     public void initGridView(String currentSubItem) {
+        //resource of the first sub element required
         int resourceID = presenter.getResourceId(currentSubItem, R.drawable.class);
+        //resource of the element required
+        int wordID = presenter.getResourceId(element, R.drawable.class);
+
+        //set up the gridView with the adapter
         gridview = findViewById(R.id.gridView);
         imageAdapter = new GridViewAdapter(this, resourceID);
         gridview.setAdapter(imageAdapter);
+
+        //set up the image of the object required
+        ImageView word = findViewById(R.id.image_box_multiple_elements);
+        word.setImageDrawable(getResources().getDrawable(wordID));
+
+        //set up visibility of the gridview and the image
         gridview.setVisibility(View.VISIBLE);
-        int objectClaimedID = presenter.getResourceId(AUDIO + "_"+currentSubItem, R.raw.class);
+        word.setVisibility(View.VISIBLE);
+
+        //audio request
+        int objectClaimedID = presenter.getResourceId(AUDIO + currentSubItem, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -186,51 +193,98 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         int imageId = presenter.getResourceId("img" + element, R.drawable.class);
         final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(imageId);
+        image.setImageDrawable(getResources().getDrawable(imageId));
+        image.setVisibility(View.VISIBLE);
 
-        //animation response
-        Animation animationRotate = AnimationUtils.loadAnimation(this, R.anim.jump_and_rotate);
-        image.setAnimation(animationRotate);
+        //select the animation response
+        Animation animation;
+        switch (element) {
+        case "_faro":
+            animation = AnimationUtils.loadAnimation(this, R.anim.blink);
+            image.setAnimation(animation);
+            break;
+        case "_mare":
+            animation = AnimationUtils.loadAnimation(this, R.anim.slide);
+            image.setAnimation(animation);
+            break;
+        case "_noce":
+            animation = AnimationUtils.loadAnimation(this, R.anim.bounce);
+            image.setAnimation(animation);
+            break;
+        default:
+            animation = AnimationUtils.loadAnimation(this, R.anim.jump_and_rotate);
+            image.setAnimation(animation);
+            break;
+        }
 
         //audio response
         MediaPlayer request = MediaPlayer.create(this, R.raw.request_correct_answer);
+        image.startAnimation(animation);
         request.start();
-        image.startAnimation(animationRotate);
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                image.setVisibility(View.INVISIBLE);
+                mp.release();
+                presenter.chooseElement();
+            }
+        });
+    }
+
+    void requestSubItem( String currentSubElement) {
+        //set subItem audio request
+        int objectClaimedID = presenter.getResourceId(AUDIO + currentSubElement, R.raw.class);
+        request = MediaPlayer.create(this, objectClaimedID);
+        request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
-                image.setVisibility(View.INVISIBLE);
-                presenter.chooseElement();
+                presenter.setEnableNFC();
+                presenter.handleIntent(getIntent());
             }
         });
     }
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
-        disableViews();
-
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
-        common.setVideoWrongAnswerToRepeat(image,this);
+        MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                requestSubItem(presenter.getCurrentSubElement());
+            }
+        });
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
-        disableViews();
-
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
-        common.setVideoWrongAnswerAndGoOn(image, this);
+        MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if(presenter.getNumberOfElements() > 0) {
+                    mp.release();
+                }else {
+                    disableViews();
+                    mp.release();
+                    presenter.chooseElement();
+                }
+            }
+        });
     }
 
     private void disableViews(){
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        ImageView requestObject = findViewById(R.id.image_box_multiple_elements);
+        gridview.setVisibility(View.INVISIBLE);
         common.disableView(imageToHide);
+        common.disableView(requestObject);
         common.disableView(animationViewExtra);
         common.disableView(animationViewExtraTwo);
     }

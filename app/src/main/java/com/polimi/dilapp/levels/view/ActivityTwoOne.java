@@ -245,12 +245,20 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
-        disableViews();
-
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
-        common.setVideoWrongAnswerAndGoOn(image, this);
+        MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if(presenter.getNumberOfElements() > 0) {
+                    mp.release();
+                }else {
+                    disableViews();
+                    mp.release();
+                    presenter.chooseElement();
+                }
+            }
+        });
     }
 
     /**
@@ -326,6 +334,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     public CommonActivity getCommonActivity(){
         return common;
     }
+
     @Override
     public void onBackPressed()
     {
