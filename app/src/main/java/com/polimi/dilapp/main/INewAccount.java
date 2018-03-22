@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import java.io.IOException;
+import java.util.Date;
 
 
 public interface INewAccount {
@@ -22,7 +23,7 @@ public interface INewAccount {
     }
 
     interface  Presenter {
-        void insertChild(String name, String age, String photoPath);
+        void insertChild(String name, String birth, String photoPath);
         Boolean setPhoto(Uri selectedImage);
         void reloadPhoto(String image) throws IOException;
     }

@@ -21,6 +21,7 @@ import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.DatabaseInitializer;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class NewAccountPresenter implements INewAccount.Presenter {
@@ -35,8 +36,8 @@ public class NewAccountPresenter implements INewAccount.Presenter {
     }
 
     @Override
-    public void insertChild(String name, String age, String photoPath) {
-        DatabaseInitializer.insertChild(db, name, Integer.parseInt(age), photoPath);
+    public void insertChild(String name, String birth, String photoPath) {
+        DatabaseInitializer.insertChild(db, name, birth, photoPath);
 
     }
 

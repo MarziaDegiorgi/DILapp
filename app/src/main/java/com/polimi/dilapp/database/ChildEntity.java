@@ -13,8 +13,8 @@ public class ChildEntity {
     @ColumnInfo(name = "name")
     private String name;
 
-    @ColumnInfo(name = "age")
-    private int age;
+    @ColumnInfo(name = "birth")
+    private String birth;
 
     @ColumnInfo(name = "level")
     private int level;
@@ -38,10 +38,10 @@ public class ChildEntity {
 
 
     //Age
-    public int getAge() {
-        return this.age;
+    public String getBirth() {
+        return this.birth;
     }
-    public void setAge (int age) {this.age=age;}
+    public void setBirth (String birth) {this.birth=birth;}
 
     //Id
     public int getId() {

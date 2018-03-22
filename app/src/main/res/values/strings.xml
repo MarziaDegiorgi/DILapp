@@ -9,11 +9,15 @@
     <string name= "create_account">Crea il tuo giocatore!</string>
     <string name="select_account">Seleziona un giocatore</string>
     <string name="logo">Logo</string>
-    <string name="name">Name</string>
-    <string name="age">Age</string>
+    <string name="name">Nome</string>
+    <string name="birth">Data di nascita</string>
     <string name="ok">OK</string>
     <string name="error_image">L\'immagine scelta è già stata utilizzata da un altro giocatore.\nSelezionane un\'altra! </string>
     <string name="form_button_label">Crea account</string>
+    <string name="name_missing">Inserisci il tuo nome per creare l\'account!</string>
+    <string name="birth_missing">Inserisci la tua data di nascita per creare l\'account!</string>
+    <string name="fields_missing">Inserisci il tuo nome e la tua data di nascita per creare l\'account!</string>
+
 
 
 

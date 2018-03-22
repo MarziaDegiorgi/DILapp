@@ -8,16 +8,17 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 import static android.net.Uri.parse;
 
 public class DatabaseInitializer {
 
-    public static void insertChild(final AppDatabase db, String name, int age, String photoPath) {
+    public static void insertChild(final AppDatabase db, String name, String birth, String photoPath) {
         ChildEntity child = new ChildEntity();
         child.setName(name);
-        child.setAge(age);
+        child.setBirth(birth);
         child.setPhoto(photoPath);
         child.setCurrentPlayer(false);
         db.childDao().insertChild(child);
