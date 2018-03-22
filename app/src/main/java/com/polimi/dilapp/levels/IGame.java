@@ -66,6 +66,8 @@ public interface IGame {
         void setSubItemAnimation(String currentSubElement);
 
         void initGridView(String currentSubItem);
+
+        void disableViews();
     }
 
     interface  Presenter {

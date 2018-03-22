@@ -12,6 +12,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ public class GamePresenter implements IGame.Presenter {
     private int totalAttempts=0;
     private int counter = 0;
     private int counterColourSession = 0;
+
+    Handler myHandler;
 
     private NfcAdapter nfcAdapter;
     private List<String> currentSequence;
@@ -76,6 +79,7 @@ public class GamePresenter implements IGame.Presenter {
        actionDetected = false;
        newTurnStarted = false;
        gameEnded = false;
+       myHandler = new Handler();
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
    }
 
@@ -144,6 +148,7 @@ public class GamePresenter implements IGame.Presenter {
 
 
     public void chooseElement(){
+
         subElementIndex = 1;
         if(colourLevel){
             chooseColour();
@@ -252,7 +257,12 @@ public class GamePresenter implements IGame.Presenter {
             //Display correct result
             numberOfElements--;
             Log.i(CLASS, "[CheckAnswer][CallingNewItem]" + currentSubElement);
-            activityInterface.setSubItemAnimation(currentSubElement);
+            myHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    activityInterface.setSubItemAnimation(currentSubElement);
+                }
+            },2000);
         }
     }
 
@@ -263,7 +273,12 @@ public class GamePresenter implements IGame.Presenter {
         counter = 0;
         correctAnswers++;
         totalAttempts++;
-        activityInterface.setVideoCorrectAnswer();
+        if(multipleElement) {
+            activityInterface.setVideoCorrectAnswer();
+            activityInterface.disableViews();
+        }else {
+            activityInterface.setVideoCorrectAnswer();
+        }
     }
 
     private void correctAnswerColour(){

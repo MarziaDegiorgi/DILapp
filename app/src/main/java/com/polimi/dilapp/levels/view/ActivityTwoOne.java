@@ -255,7 +255,12 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
                 }else {
                     disableViews();
                     mp.release();
-                    presenter.chooseElement();
+                    myHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.chooseElement();
+                        }
+                    },1800);
                 }
             }
         });
@@ -264,14 +269,19 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     /**
      *  Clean the XML resources used
      */
-    private void disableViews(){
-        gridview.setVisibility(View.INVISIBLE);
-        imageAdapter.clearImageResources();
+    @Override
+    public void disableViews(){
 
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
         ImageView imageBoxMultipleItem = findViewById(R.id.image_box_multiple_elements);
+
+        if(presenter.getMultipleElement()) {
+            gridview.setVisibility(View.INVISIBLE);
+            imageAdapter.clearImageResources();
+        }
+
         common.disableView(imageToHide);
         common.disableView(animationViewExtra);
         common.disableView(animationViewExtraTwo);
