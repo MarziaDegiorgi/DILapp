@@ -220,7 +220,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
             image.setAnimation(animation);
             break;
         case "_mare":
-            animation = AnimationUtils.loadAnimation(this, R.anim.slide);
+            animation = AnimationUtils.loadAnimation(this, R.anim.move);
             image.setAnimation(animation);
             break;
         case "_noce":

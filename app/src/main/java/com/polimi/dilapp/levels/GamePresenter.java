@@ -262,7 +262,7 @@ public class GamePresenter implements IGame.Presenter {
                 public void run() {
                     activityInterface.setSubItemAnimation(currentSubElement);
                 }
-            },2000);
+            },1500);
         }
     }
 
@@ -273,12 +273,8 @@ public class GamePresenter implements IGame.Presenter {
         counter = 0;
         correctAnswers++;
         totalAttempts++;
-        if(multipleElement) {
-            activityInterface.setVideoCorrectAnswer();
-            activityInterface.disableViews();
-        }else {
-            activityInterface.setVideoCorrectAnswer();
-        }
+        activityInterface.setVideoCorrectAnswer();
+        activityInterface.disableViews();
     }
 
     private void correctAnswerColour(){
@@ -286,6 +282,7 @@ public class GamePresenter implements IGame.Presenter {
         counterColourSession ++;
         correctAnswers++;
         totalAttempts++;
+        activityInterface.disableViews();
             if (counterColourSession < 2) {
                 activityInterface.setVideoCorrectAnswer();
             } else {
