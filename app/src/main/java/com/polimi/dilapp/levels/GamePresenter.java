@@ -286,17 +286,25 @@ public class GamePresenter implements IGame.Presenter {
         correctAnswers++;
         totalAttempts++;
         activityInterface.disableViews();
-            if (counterColourSession < 2) {
-                activityInterface.setVideoCorrectAnswer();
-            } else {
-                startNewTurn();
+        int size = tempArray.size();
+        if(size == counterColourSession)
+        {
+            counter = 0;
+            counterColourSession = 0;
+            startNewTurn();
+        } else{
+                if (counterColourSession < 4) {
+                    activityInterface.setVideoCorrectAnswer();
+                } else {
+                    startNewTurn();
+                }
             }
         }
 
 
     private void wrongAnswerColour(){
         totalAttempts++;
-        if (counter < 2) {
+        if (counter < 1) {
             counter++;
             //TODO: substitute the video with just a sound
             activityInterface.setVideoWrongAnswerToRepeat();

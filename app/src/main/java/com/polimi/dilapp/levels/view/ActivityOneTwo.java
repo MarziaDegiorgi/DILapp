@@ -128,7 +128,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         disableViews();
         ImageView mainImage = findViewById(R.id.animation_box);
         mainImage.clearAnimation();
-        
+
         String currentReadTag = presenter.getCurrentReadTag();
         int resourceID = presenter.getResourceId(currentReadTag, R.drawable.class);
         final ImageView image = findViewById(R.id.animation_box_answer);
