@@ -16,7 +16,6 @@ import com.polimi.dilapp.levels.view.ActivityOneFour;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.levels.view.ActivityOneThree;
 import com.polimi.dilapp.levels.view.ActivityOneTwo;
-import com.polimi.dilapp.levels.view.ActivityTwoFour;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.levels.view.ActivityTwoThree;
 import com.polimi.dilapp.levels.view.ActivityTwoTwo;
@@ -44,7 +43,6 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     @Override
     public void onDestroy() {
         startGameView = null;
-        resetCurrentPlayer();
     }
 
     @Override
@@ -64,6 +62,7 @@ public class StartGamePresenter implements  IStartGame.Presenter {
                 //TODO: Start Report Activity
                 break;
             case R.id.change_player:
+                resetCurrentPlayer();
                 Intent activity = new Intent(startGameView.getScreenContext(), CreateAccountActivity.class);
                 startGameView.getScreenContext().startActivity(activity);
                 break;
@@ -124,10 +123,6 @@ public class StartGamePresenter implements  IStartGame.Presenter {
                 Intent activity23 = new Intent(startGameView.getScreenContext(), ActivityTwoThree.class);
                 startGameView.getScreenContext().startActivity(activity23);
                 break;
-            case 24:
-                Intent activity24 = new Intent(startGameView.getScreenContext(), ActivityTwoFour.class);
-                startGameView.getScreenContext().startActivity(activity24);
-                break;
             /*case 31:
                 Intent activity31 = new Intent(startGameView.getScreenContext(), ActivityThreeOne.class);
                 startGameView.getScreenContext().startActivity(activity31);
@@ -146,8 +141,24 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     }
 
     @Override
+    public void resumeCurrentPlayer(AppDatabase db, Bundle savedInstanceState) {
+        DatabaseInitializer.setCurrentPlayer(db, savedInstanceState.getInt("current_player"));
+        DatabaseInitializer.setLevelCurrentPlayer(db, savedInstanceState.getInt("level"));
+        Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
+        Log.i("[STARTGAME PRESENTER]", "Resuming current player" +String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
+        Log.i("[STARTGAME PRESENTER]", "Resuming level" +String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
+    }
+
+    @Override
+    public void setCurrentPlayer(int currentPlayer, int level){
+        DatabaseInitializer.setCurrentPlayer(db, currentPlayer);
+        DatabaseInitializer.setLevelCurrentPlayer(db, level);
+
+}
+    @Override
     public void resetCurrentPlayer() {
         DatabaseInitializer.resetCurrentPlayer(db);
+        Log.i("[STARTGAME PRESENTER]", " I'm resetting the current player");
     }
 
 

@@ -11,6 +11,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.database.AppDatabase;
 
 
 public class LevelMapActivity extends AppCompatActivity implements ILevelMap.View {
@@ -18,9 +19,11 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
    ILevelMap.Presenter presenter;
    ExpandableListView listView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         setContentView(R.layout.activity_levelmap_view);
         listView = findViewById(R.id.expandableListView);

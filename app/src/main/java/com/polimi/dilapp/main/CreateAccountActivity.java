@@ -86,6 +86,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
                 @Override
                 public void onClick(View v) {
                     Intent startGame = new Intent(getApplicationContext(), StartGameActivity.class);
+                    Log.i("[CREATEACC ACTIVITY]", " Intent extra saved is "+ btn.getId());
                     startGame.putExtra(EXTRA_MESSAGE, btn.getId());
                     startActivity(startGame);
                     finish();
@@ -139,14 +140,12 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         newAccountButton.setScaleType(ImageButton.ScaleType.CENTER_CROP);
         newBox.setLayoutParams(params);
         layout.addView(newBox);
-
     }
-
-
 
     // invoked when the activity may be temporarily destroyed, save the instance state here
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
+        Log.i("[CREATEACC ACTIVITY]", "I'm in onSaveInstanceState");
         // call superclass to save any view hierarchy
         presenter.storeCurrentPlayer(savedInstanceState);
         super.onSaveInstanceState(savedInstanceState);
@@ -159,9 +158,10 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
     // The savedInstanceState Bundle is same as the _1 used in onCreate().
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
+        Log.i("[CREATEACC ACTIVITY]", "I'm in onRestoreInstanceState");
+
         presenter.resumeCurrentPlayer(savedInstanceState);
         super.onRestoreInstanceState(savedInstanceState);
-
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -285,6 +286,14 @@ public class ActivityOneFour extends AppCompatActivity implements IGame.View {
     protected void onNewIntent(Intent intent) {
         presenter.handleIntent(intent);
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        presenter.storeCurrentPlayer(savedInstanceState);
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i("[ACTIVITY 14]", "I'm calling storeCurrentPlayer");
+    }
+
     @Override
     public void onBackPressed()
     {

@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -253,5 +254,12 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         super.onBackPressed();
         startActivity(new Intent(ActivityOneThree.this, StartGameActivity.class));
         finish();
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        presenter.storeCurrentPlayer(savedInstanceState);
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i("[ACTIVITY 13]", "I'm calling storeCurrentPlayer");
+
     }
 }

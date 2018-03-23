@@ -1,6 +1,7 @@
 package com.polimi.dilapp.startgame;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -26,18 +27,29 @@ import static android.provider.AlarmClock.EXTRA_MESSAGE;
 public class StartGameActivity extends AppCompatActivity implements IStartGame.View {
 
     IStartGame.Presenter presenter;
+    AppDatabase db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-
+        db = AppDatabase.getAppDatabase(this);
+        presenter = new StartGamePresenter(this);
         setContentView(R.layout.activity_startgame);
         Bundle extras = getIntent().getExtras();
         Button playButton = findViewById(R.id.playButton);
+        int currentPlayerId = -1;
+        if (extras != null) {
+            Log.i("[STARTGAME ACTIVITY] ", "Intent extra is "+ extras.getInt(EXTRA_MESSAGE));
+            currentPlayerId = extras.getInt(EXTRA_MESSAGE);
+            DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
+            Log.e("[StartGameActivity]", "Current Player Level" + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
+        }
+        int currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
+        int levelCurrentPlayer = DatabaseInitializer.getLevelCurrentPlayer(db);
+        if(currentPlayer != 0 &&  levelCurrentPlayer != 0){
+            presenter.setCurrentPlayer(currentPlayer, levelCurrentPlayer);
+        }
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,24 +57,6 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
                 finish();
             }
         });
-
-       /* Button fake = findViewById(R.id.fake);
-        Intent intent;
-        fake.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        Intent intent = new Intent(getApplicationContext(), ActivityOneTwo.class );
-                                        startActivity(intent);
-                                    }
-                                }
-
-        );*/
-        int currentPlayerId = -1;
-        if (extras != null) {
-            currentPlayerId = extras.getInt(EXTRA_MESSAGE);
-            DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
-            Log.e("[StartGameActivity]", "Current Player Level" + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
-        }
 
        List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
         if(!list.isEmpty()) {
@@ -131,8 +125,8 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     // The savedInstanceState Bundle is same as the _1 used in onCreate().
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
         presenter.resumeCurrentPlayer(savedInstanceState);
+        super.onRestoreInstanceState(savedInstanceState);
     }
     @Override
     public Context getScreenContext() {
@@ -142,7 +136,23 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     @Override
     public void onDestroy() {
         super.onDestroy();
-        presenter.onDestroy();
     }
 
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.i("[STARTGAME]", " I'm in onNewIntent.");
+        if (intent != null)
+            setIntent(intent);
+        Bundle extras = getIntent().getExtras();
+        Button playButton = findViewById(R.id.playButton);
+        int currentPlayerId = -1;
+        if (extras != null) {
+            Log.i("[STARTGAME ACTIVITY] ", "Intent extra is "+ extras.getInt(EXTRA_MESSAGE));
+            currentPlayerId = extras.getInt(EXTRA_MESSAGE);
+            DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
+            Log.e("[StartGameActivity]", "Current Player Level " + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
+        }
+
+    }
 }

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.animation.Animation;
 
+import com.polimi.dilapp.database.AppDatabase;
+
 public interface IStartGame {
     interface  View {
 
@@ -46,6 +48,8 @@ public interface IStartGame {
         void storeCurrentPlayer(Bundle savedInstanceState);
         int getLevelCurrentPlayer();
         void linkToActivity(int level);
+        void resumeCurrentPlayer(AppDatabase db, Bundle savedInstanceState);
+        void setCurrentPlayer(int currentPlayer, int level);
         void resetCurrentPlayer();
 
     }

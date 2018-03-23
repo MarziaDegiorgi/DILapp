@@ -34,6 +34,8 @@ public class CreateAccountPresenter implements  ICreateAccount.Presenter{
         DatabaseInitializer.setCurrentPlayer(db, savedInstanceState.getInt("current_player"));
         DatabaseInitializer.setLevelCurrentPlayer(db, savedInstanceState.getInt("level"));
         Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
+        Log.i("[CREATEACC PRESENTER]", "Resuming current player " + savedInstanceState.getInt("current_player"));
+        Log.i("[CREATEACC PRESENTER]", "Resuming level " +savedInstanceState.getInt("level"));
 
     }
 
@@ -41,6 +43,8 @@ public class CreateAccountPresenter implements  ICreateAccount.Presenter{
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
         savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
+        Log.i("[CREATEACC PRESENTER]", "Storing current player " +String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
+        Log.i("[CREATEACC PRESENTER]", "Storing level " +String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
     }
 
     @Override

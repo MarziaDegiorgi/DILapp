@@ -248,4 +248,11 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
         startActivity(new Intent(ActivityTwoTwo.this, StartGameActivity.class));
         finish();
     }
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        presenter.storeCurrentPlayer(savedInstanceState);
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i("[ACTIVITY 22]", "I'm calling storeCurrentPlayer");
+
+    }
 }

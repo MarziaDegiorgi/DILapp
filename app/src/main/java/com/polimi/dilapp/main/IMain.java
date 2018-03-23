@@ -19,5 +19,6 @@ public interface IMain {
         void startVideo(VideoView introVideoView, String packageName);
         void resumeCurrentPlayer(Bundle savedInstanceState);
         void storeCurrentPlayer(Bundle savedInstanceState);
+        void resetCurrentPlayer();
     }
 }

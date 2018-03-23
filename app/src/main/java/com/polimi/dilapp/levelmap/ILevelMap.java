@@ -2,7 +2,10 @@ package com.polimi.dilapp.levelmap;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.widget.ExpandableListView;
+
+import com.polimi.dilapp.database.AppDatabase;
 
 public interface ILevelMap {
     interface View{
@@ -37,6 +40,8 @@ public interface ILevelMap {
          *  Called when click back
          */
         void onClickBack();
+
+
     }
 }
 

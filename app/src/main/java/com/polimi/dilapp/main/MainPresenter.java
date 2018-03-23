@@ -32,11 +32,17 @@ public class MainPresenter implements IMain.Presenter{
         Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
 
     }
-
     @Override
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
         savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
     }
+
+    @Override
+    public void resetCurrentPlayer() {
+        DatabaseInitializer.resetCurrentPlayer(db);
+        Log.i("[MAIN PRESENTER]", " I'm resetting the current player");
+    }
+
 
 }

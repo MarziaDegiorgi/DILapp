@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -375,5 +376,12 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         super.onBackPressed();
         startActivity(new Intent(ActivityTwoThree.this, StartGameActivity.class));
         finish();
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        presenter.storeCurrentPlayer(savedInstanceState);
+        super.onSaveInstanceState(savedInstanceState);
+        Log.i("[ACTIVITY 23]", "I'm calling storeCurrentPlayer");
+        Log.i("[ACTIVITY 23]", "SavedInstaceState "+String.valueOf(savedInstanceState));
     }
 }

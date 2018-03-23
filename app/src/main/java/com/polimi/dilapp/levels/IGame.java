@@ -2,6 +2,7 @@ package com.polimi.dilapp.levels;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import java.util.List;
 
@@ -96,6 +97,6 @@ public interface IGame {
          * a subitem should be required
          */
         void notifyFirstSubElement();
-
+        void storeCurrentPlayer(Bundle savedInstanceState);
     }
 }

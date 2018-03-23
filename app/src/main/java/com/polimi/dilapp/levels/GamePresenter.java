@@ -12,6 +12,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -633,4 +634,11 @@ public class GamePresenter implements IGame.Presenter {
             return activityInterface;
         }
 
+    @Override
+    public void storeCurrentPlayer(Bundle savedInstanceState) {
+        savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
+        savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
+        Log.i("[GAME PRESENTER]", "Storing current player " +String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
+        Log.i("[GAME PRESENTER]", "Storing level " +String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
+    }
 }

@@ -2,14 +2,17 @@ package com.polimi.dilapp.levelmap;
 
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.polimi.dilapp.database.AppDatabase;
+import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levels.view.ActivityOneFour;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.levels.view.ActivityOneThree;
 import com.polimi.dilapp.levels.view.ActivityOneTwo;
-import com.polimi.dilapp.levels.view.ActivityTwoFour;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.levels.view.ActivityTwoThree;
 import com.polimi.dilapp.levels.view.ActivityTwoTwo;
@@ -68,10 +71,6 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
                 break;
             case "PAROLE":
                 intent = new Intent(levelMapView.getContext(), ActivityTwoThree.class);
-                levelMapView.getContext().startActivity(intent);
-                break;
-            case "DESCRIZIONE":
-                intent = new Intent(levelMapView.getContext(), ActivityTwoFour.class);
                 levelMapView.getContext().startActivity(intent);
                 break;
             case "IMPARARE A CONTARE": break;
