@@ -123,8 +123,6 @@ class CommonActivity {
 
     void setVideoCorrectAnswer(final ImageView image, Context context){
         image.setVisibility(View.VISIBLE);
-        image.clearAnimation();
-
         //audio response
         MediaPlayer request = MediaPlayer.create(context, R.raw.request_correct_answer);
         request.start();
@@ -133,6 +131,8 @@ class CommonActivity {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
+                image.clearAnimation();
+                disableView(image);
                 image.setVisibility(View.INVISIBLE);
                 presenter.chooseElement();
             }
@@ -148,7 +148,7 @@ class CommonActivity {
         List<String> completeArray = new ArrayList<>(Arrays.asList(array));
         Collections.sort(completeArray);
         int startIndex = 0;
-        int endIndex = completeArray.size() / 2;
+        int endIndex = completeArray.size() / 4;
         return new ArrayList<>(completeArray.subList(startIndex, endIndex));
     }
 

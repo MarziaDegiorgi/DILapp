@@ -72,6 +72,8 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        ImageView animationBoxAnswer = findViewById(R.id.animation_box_answer);
+        common.disableView(animationBoxAnswer);
         common.disableView(imageToHide);
         common.disableView(animationViewExtra);
         common.disableView(animationViewExtraTwo);
@@ -124,11 +126,19 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoCorrectAnswer(){
         disableViews();
-        int resourceID = presenter.getResourceId(element, R.drawable.class);
-        ImageView image = findViewById(R.id.animation_box);
+        ImageView mainImage = findViewById(R.id.animation_box);
+        mainImage.clearAnimation();
+        
+        String currentReadTag = presenter.getCurrentReadTag();
+        int resourceID = presenter.getResourceId(currentReadTag, R.drawable.class);
+        final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(resourceID);
-        Animation animationCorrect = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.blink);
+        image.setImageDrawable(getResources().getDrawable(resourceID));
+        image.setVisibility(View.VISIBLE);
+
+        Animation animationCorrect = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.bounce);
+        image.setAnimation(animationCorrect);
+        image.startAnimation(animationCorrect);
         common.setVideoCorrectAnswer(image, this);
     }
 
@@ -136,16 +146,11 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     public void setVideoWrongAnswerToRepeat() {
         disableViews();
 
-        final ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
-        image.setVisibility(View.VISIBLE);
         MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                image.setVisibility(View.INVISIBLE);
                 setPresentationAnimation(currentColour);
                 mp.release();
             }
@@ -155,12 +160,17 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoWrongAnswerAndGoOn() {
         disableViews();
-
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
-        common.setVideoWrongAnswerAndGoOn(image, this);
+        MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                presenter.chooseElement();
+                mp.release();
+            }
+        });
     }
+
 
     @Override
     public void setRepeatOrExitScreen() {

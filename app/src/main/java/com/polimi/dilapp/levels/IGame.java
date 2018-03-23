@@ -89,6 +89,7 @@ public interface IGame {
         void setLevelCurrentPlayer();
         void setColourLevel();
         void setEnableNFC();
+        String getCurrentReadTag();
 
         /**
          * This is called by the view once that the main animation of a multiple object is completed and

@@ -58,6 +58,7 @@ public class GamePresenter implements IGame.Presenter {
     private boolean multipleElement = false;
     private int numberOfElements;
     private AppDatabase db;
+    private String currentReadTag;
 
     private boolean gameStarted;
     private boolean newSessionStarted;
@@ -180,8 +181,10 @@ public class GamePresenter implements IGame.Presenter {
      */
     private void checkAnswer(String readTag) {
         enableNFC = false;
+        currentReadTag = readTag;
         if (colourLevel) {
             if(tempArray.contains(readTag)){
+
                 Log.i(CLASS, "[CheckAnswer][ColourItem][Correct] " + readTag);
                 this.correctAnswerColour();
             } else {
@@ -586,6 +589,11 @@ public class GamePresenter implements IGame.Presenter {
     @Override
     public void setEnableNFC() {
         enableNFC = true;
+    }
+
+    @Override
+    public String getCurrentReadTag() {
+        return currentReadTag;
     }
 
     boolean isStarted(){
