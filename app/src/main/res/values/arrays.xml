@@ -67,6 +67,7 @@
     </string-array>
 
     <!-- NUMBERS -->
+
     <string-array name="number_one_items">
         <item>_0</item>
         <item>_1</item>
@@ -87,7 +88,6 @@
         <item>_10</item>
         <item>_11</item>
     </string-array>
-
 
     <string-array name="number_four_items">
         <item>_12</item>
@@ -141,13 +141,17 @@
     <string-array name="word_one_items">
         <item>_bici</item>
         <item>_casa</item>
+    </string-array>
+    <string-array name="word_two_items">
+        <item>_noce</item>
+        <item>_ramo</item>
+    </string-array>
+    <string-array name="word_three_items">
         <item>_dado</item>
         <item>_faro</item>
     </string-array>
-    <string-array name="word_two_items">
+    <string-array name="word_four_items">
         <item>_mare</item>
-        <item>_noce</item>
-        <item>_ramo</item>
         <item>_sole</item>
     </string-array>
 
@@ -165,6 +169,8 @@
     <string-array name="words">
         <item>word_one</item>
         <item>word_two</item>
+        <item>word_three_items</item>
+        <item>word_four_items</item>
     </string-array>
 
    <!-- COLORS AND OBJECT -->
@@ -219,7 +225,6 @@
         <item>white</item>
         <item>brown</item>
     </string-array>
-
 
     <string-array name="all_fruits_items">
         <item>banana</item>
