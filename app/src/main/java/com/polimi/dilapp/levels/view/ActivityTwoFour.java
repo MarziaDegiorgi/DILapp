@@ -25,12 +25,10 @@ import java.util.Arrays;
  * Activity View referred to 2.4 Level : This is a summary of previously activity, so it is asked randomly all the
  * activities 2.1, 2.2 and 2.3
  */
-//TODO
 public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
-    //TODO: ADD A COMMON ARRAYLIST WITH ALL THE PREVIOUS ACTIVITY AND MAKE THE PRESENTER SELECT RANDOMLY
 
     private IGame.Presenter presenter;
-    private ArrayList<String> alphabetSequence;
+    private ArrayList<String> randomSequence;
     private CommonActivity common;
     String element;
     MediaPlayer request;
@@ -59,19 +57,19 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
 
 
     private void setupSequence() {
-        String[] letters = getResources().getStringArray(R.array.letters);
-        alphabetSequence = common.getList(letters);
+        String[] all_items = getResources().getStringArray(R.array.words_numbers);
+        randomSequence = common.getPartialArray(all_items);
     }
+
 
     private void setupVideoIntro() {
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
-        common.startIntro(uri, alphabetSequence,this);
+        common.startIntro(uri, randomSequence ,this);
     }
 
     @Override
     public void setVideoView(int videoID) {
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
-        common.startMainVideo(uri, this);
+       //no video in this session of the game
     }
 
     @Override
@@ -98,7 +96,6 @@ public class ActivityTwoFour extends AppCompatActivity implements IGame.View {
             }
         });
     }
-
 
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
