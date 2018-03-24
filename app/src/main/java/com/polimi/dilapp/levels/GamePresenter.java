@@ -297,6 +297,8 @@ public class GamePresenter implements IGame.Presenter {
                 if (counterColourSession < 4) {
                     activityInterface.setVideoCorrectAnswer();
                 } else {
+                    counter = 0;
+                    counterColourSession = 0;
                     startNewTurn();
                 }
             }

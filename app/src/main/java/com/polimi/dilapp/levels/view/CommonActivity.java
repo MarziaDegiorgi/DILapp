@@ -112,7 +112,7 @@ class CommonActivity {
      * @param imageView
      */
     void disableView(ImageView imageView){
-
+        imageView.clearAnimation();
         imageView.setVisibility(View.INVISIBLE);
     }
     /**
