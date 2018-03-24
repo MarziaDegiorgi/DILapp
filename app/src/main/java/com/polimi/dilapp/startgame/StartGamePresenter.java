@@ -1,7 +1,6 @@
 package com.polimi.dilapp.startgame;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +11,6 @@ import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levelmap.LevelMapActivity;
-import com.polimi.dilapp.levels.view.ActivityOneFour;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.levels.view.ActivityOneThree;
 import com.polimi.dilapp.levels.view.ActivityOneTwo;
@@ -106,10 +104,6 @@ public class StartGamePresenter implements  IStartGame.Presenter {
             case 13:
                 Intent activity13 = new Intent(startGameView.getScreenContext(), ActivityOneThree.class);
                 startGameView.getScreenContext().startActivity(activity13);
-                break;
-            case 14:
-                Intent activity14 = new Intent(startGameView.getScreenContext(), ActivityOneFour.class);
-                startGameView.getScreenContext().startActivity(activity14);
                 break;
             case 21:
                 Intent activity21 = new Intent(startGameView.getScreenContext(), ActivityTwoOne.class);

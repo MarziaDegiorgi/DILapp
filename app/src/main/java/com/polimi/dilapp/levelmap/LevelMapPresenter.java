@@ -2,14 +2,9 @@ package com.polimi.dilapp.levelmap;
 
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
-import com.polimi.dilapp.database.AppDatabase;
-import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.levels.view.ActivityOneFour;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.levels.view.ActivityOneThree;
 import com.polimi.dilapp.levels.view.ActivityOneTwo;
@@ -55,10 +50,6 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
                 break;
             case "FORME":
                 intent = new Intent(levelMapView.getContext(), ActivityOneThree.class);
-                levelMapView.getContext().startActivity(intent);
-                break;
-            case "COMPONI":
-                intent = new Intent(levelMapView.getContext(), ActivityOneFour.class);
                 levelMapView.getContext().startActivity(intent);
                 break;
             case "NUMERI":

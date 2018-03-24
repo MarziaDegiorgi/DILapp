@@ -2,7 +2,6 @@ package com.polimi.dilapp.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,11 +19,7 @@ import android.widget.TextView;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.levels.view.ActivityOneFour;
-import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.startgame.StartGameActivity;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.List;

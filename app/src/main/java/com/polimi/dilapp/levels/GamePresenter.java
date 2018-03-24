@@ -552,10 +552,6 @@ public class GamePresenter implements IGame.Presenter {
                     level = 13;
                     Log.e("Switch ", "13");
                     break;
-                case "ActivityOneFour":
-                    level = 14;
-                    Log.e("Switch ", "14");
-                    break;
                 case "ActivityTwoOne":
                     level = 21;
                     Log.e("Switch ", "21");
