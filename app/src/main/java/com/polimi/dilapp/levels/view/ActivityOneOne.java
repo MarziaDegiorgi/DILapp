@@ -1,6 +1,5 @@
 package com.polimi.dilapp.levels.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -15,7 +14,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
 import com.polimi.dilapp.startgame.StartGameActivity;
@@ -116,7 +114,6 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     }
 
 
-    //TODO modify extra animation with something cool
     public void setAnimationBoxExtra(){
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         animationViewExtra.setVisibility(View.VISIBLE);

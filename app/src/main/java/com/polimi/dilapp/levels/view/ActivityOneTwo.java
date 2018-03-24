@@ -115,9 +115,6 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         });
     }
 
-
-    //TODO modify extra animation with something cool
-
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
         Animation animationWait = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.blink);

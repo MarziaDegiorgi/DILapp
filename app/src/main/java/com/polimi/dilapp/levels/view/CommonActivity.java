@@ -152,6 +152,4 @@ class CommonActivity {
         return new ArrayList<>(completeArray.subList(startIndex, endIndex));
     }
 
-
-
 }
