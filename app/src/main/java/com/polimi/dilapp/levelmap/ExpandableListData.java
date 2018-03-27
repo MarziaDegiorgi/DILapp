@@ -17,16 +17,19 @@ public class ExpandableListData {
         objects.add("NOMI");
         objects.add("COLORI");
         objects.add("FORME");
-        objects.add("COMPONI");
 
         List<String> numbers = new ArrayList<>();
         numbers.add("NUMERI");
         numbers.add("ALFABETO");
         numbers.add("PAROLE");
-        numbers.add("DESCRIZIONE");
+
+        List<String> logic = new ArrayList<>();
+        logic.add("CONTIAMO INSIEME");
+        logic.add("CUCINA CON PATTY");
 
         expandableListDetail.put("OGGETTI E COLORI", objects);
         expandableListDetail.put("LETTERE E NUMERI", numbers);
+        expandableListDetail.put("LOGICA", logic);
 
         return expandableListDetail;
     }

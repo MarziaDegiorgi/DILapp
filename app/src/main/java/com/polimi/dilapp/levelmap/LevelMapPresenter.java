@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.levels.view.ActivityOneThree;
 import com.polimi.dilapp.levels.view.ActivityOneTwo;
+import com.polimi.dilapp.levels.view.ActivityThreeOne;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.levels.view.ActivityTwoThree;
 import com.polimi.dilapp.levels.view.ActivityTwoTwo;
@@ -64,9 +65,11 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
                 intent = new Intent(levelMapView.getContext(), ActivityTwoThree.class);
                 levelMapView.getContext().startActivity(intent);
                 break;
-            case "IMPARARE A CONTARE": break;
-            case "LISTA DELLA SPESA": break;
-            case "IN CUCINA CON PATTY": break;
+            case "IMPARARE A CONTARE":
+                intent = new Intent(levelMapView.getContext(), ActivityThreeOne.class);
+                levelMapView.getContext().startActivity(intent);
+                break;
+            case "CUCINA CON NOSCO": break;
             default:break;
         }
         Toast.makeText(

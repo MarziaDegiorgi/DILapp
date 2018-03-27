@@ -87,6 +87,7 @@
         <activity android:name=".levels.view.ActivityTwoTwo" />
         <activity android:name=".levels.view.ActivityTwoThree" />
         <activity android:name=".levels.view.EndLevelScreen" />
+        <activity android:name=".levels.view.ActivityThreeOne" />
 
         <meta-data
             android:name="preloaded_fonts"
