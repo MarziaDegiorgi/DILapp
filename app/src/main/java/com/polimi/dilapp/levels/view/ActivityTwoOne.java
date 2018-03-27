@@ -352,6 +352,8 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     public void onBackPressed()
     {
         super.onBackPressed();
+        presenter.setObjectCurrentPlayer();
+        presenter.setSubStringCurrentPlayer();
         startActivity(new Intent(ActivityTwoOne.this, StartGameActivity.class));
         finish();
     }

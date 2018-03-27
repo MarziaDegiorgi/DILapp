@@ -3,6 +3,7 @@ package com.polimi.dilapp.database;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.ColorInt;
 
 @Entity(tableName = "child")
 public class ChildEntity {
@@ -19,11 +20,17 @@ public class ChildEntity {
     @ColumnInfo(name = "level")
     private int level;
 
+    @ColumnInfo(name = "object")
+    private String object;
+
     @ColumnInfo(name = "photo")
     private String photo;
 
     @ColumnInfo(name = "currentPlayer")
     private Boolean currentPlayer;  //set to true if the child is the current gamer
+
+    @ColumnInfo(name = "subString")
+    private String subString;
 
 
     //Name
@@ -37,11 +44,17 @@ public class ChildEntity {
     public void setPhoto(String photo) {this.photo = photo;}
 
 
-    //Age
+    //Date of birth
     public String getBirth() {
         return this.birth;
     }
     public void setBirth (String birth) {this.birth=birth;}
+
+    //Object of the level
+    public String getObject() {
+        return this.object;
+    }
+    public void setObject (String object) {this.object=object;}
 
     //Id
     public int getId() {
@@ -58,6 +71,10 @@ public class ChildEntity {
     //CurrentPlayer
     public Boolean getCurrentPlayer() { return this.currentPlayer; }
     public void setCurrentPlayer(Boolean currentPlayer) { this.currentPlayer = currentPlayer; }
+
+    //SubString CurrentPlayer
+    public String getSubString() { return this.subString; }
+    public void setSubString(String subString) { this.subString = subString; }
 
 
 

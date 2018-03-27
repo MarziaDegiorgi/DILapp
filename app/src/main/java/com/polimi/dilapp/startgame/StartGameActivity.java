@@ -47,8 +47,10 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         }
         int currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
         int levelCurrentPlayer = DatabaseInitializer.getLevelCurrentPlayer(db);
-        if(currentPlayer != 0 &&  levelCurrentPlayer != 0){
-            presenter.setCurrentPlayer(currentPlayer, levelCurrentPlayer);
+        String objectCurrentPlayer = DatabaseInitializer.getObjectCurrentPlayer(db);
+        String subStringCurrentPlayer = DatabaseInitializer.getSubStringCurrentPlayer(db);
+        if(currentPlayer != 0 &&  levelCurrentPlayer != 0 && objectCurrentPlayer != null){
+            presenter.setCurrentPlayer(currentPlayer, levelCurrentPlayer, objectCurrentPlayer, subStringCurrentPlayer);
         }
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override

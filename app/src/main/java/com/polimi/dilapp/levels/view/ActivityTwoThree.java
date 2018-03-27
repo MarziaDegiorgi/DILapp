@@ -377,6 +377,8 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     public void onBackPressed()
     {
         super.onBackPressed();
+        presenter.setObjectCurrentPlayer();
+        presenter.setSubStringCurrentPlayer();
         startActivity(new Intent(ActivityTwoThree.this, StartGameActivity.class));
         finish();
     }

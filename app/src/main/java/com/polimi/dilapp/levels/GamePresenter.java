@@ -24,6 +24,7 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -87,6 +88,7 @@ public class GamePresenter implements IGame.Presenter {
 
    @Override
     public void startGame(List<String> sequence){
+       String subString = DatabaseInitializer.getSubStringCurrentPlayer(db);
        //current system time in seconds
         setLevelCurrentPlayer();
         Toast.makeText(activityInterface.getScreenContext(), "Level current player: "+DatabaseInitializer.getLevelCurrentPlayer(db), Toast.LENGTH_LONG).show();
@@ -98,9 +100,19 @@ public class GamePresenter implements IGame.Presenter {
             Log.i(CLASS, "empty current sequence.");
             gameStarted = false;
         } else {
+            if (subString != null) {
+                int index = currentSequence.indexOf(subString);
+                if (index > 0) {
+                    for (int i = index-1; i >= 0; i--) {
+                        currentSequence.remove(i);
+                    }
+                }
+                DatabaseInitializer.setSubStringCurrentPlayer(db, null);
+            }
             currentSequenceElement = currentSequence.get(0);
             currentSequence.remove(0);
             startNewSession(currentSequenceElement);
+
         }
     }
 
@@ -150,7 +162,7 @@ public class GamePresenter implements IGame.Presenter {
 
 
     public void chooseElement(){
-
+        String object = DatabaseInitializer.getObjectCurrentPlayer(db);
         subElementIndex = 1;
         if(colourLevel){
             chooseColour();
@@ -160,6 +172,15 @@ public class GamePresenter implements IGame.Presenter {
                 Log.i(CLASS, "Array is Empty -> Starting a new Turn");
                 startNewTurn();
             } else {
+                if (object != null) {
+                    int index = tempArray.indexOf(object);
+                    if (index > 0) {
+                        for (int i = index-1; i >= 0; i--) {
+                            tempArray.remove(i);
+                        }
+                    }
+                    DatabaseInitializer.setObjectCurrentPlayer(db, null);
+                }
                 currentElement = tempArray.get(0);
                 tempArray.remove(0);
                 Log.i(CLASS, "Choose next element -> " + currentElement);
@@ -588,6 +609,18 @@ public class GamePresenter implements IGame.Presenter {
             Log.e("[GamePresenterLevel]", String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
         }
 
+
+        @Override
+        public void setObjectCurrentPlayer(){
+            DatabaseInitializer.setObjectCurrentPlayer(db, currentElement);
+            Log.i(CLASS, "I'm saving "+currentElement+" in the database.");
+        }
+
+    @Override
+    public void setSubStringCurrentPlayer(){
+        DatabaseInitializer.setSubStringCurrentPlayer(db, currentSequenceElement);
+        Log.i(CLASS, "I'm saving "+currentSequenceElement+" in the database.");
+    }
         public void setColourLevel(){
             colourLevel = true;
         }
@@ -635,6 +668,8 @@ public class GamePresenter implements IGame.Presenter {
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
         savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
+        savedInstanceState.putString("object", DatabaseInitializer.getObjectCurrentPlayer(db));
+        savedInstanceState.putString("subString", DatabaseInitializer.getSubStringCurrentPlayer(db));
         Log.i("[GAME PRESENTER]", "Storing current player " +String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
         Log.i("[GAME PRESENTER]", "Storing level " +String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
     }

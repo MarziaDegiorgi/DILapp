@@ -20,7 +20,7 @@
         android:largeHeap="true">
         <activity android:name=".main.MainActivity"
             android:noHistory="true"
-            android:launchMode="singleTask"
+            android:launchMode="singleTop"
             android:finishOnTaskLaunch="false"
             android:configChanges="orientation|screenSize">
             <intent-filter>

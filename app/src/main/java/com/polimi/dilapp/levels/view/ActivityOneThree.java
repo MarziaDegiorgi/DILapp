@@ -35,11 +35,13 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     MediaPlayer request;
     String element;
     CommonActivity common;
+    String object;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
+        object = intent.getStringExtra("object");
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_game);
 
@@ -59,7 +61,15 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
     private void setupSequence(){
         String[] shapes = getResources().getStringArray(R.array.shapes);
-        shapeSequence = common.getList(shapes);
+        ArrayList<String> temporaryShapeSequence = common.getList(shapes);
+        for(int i=0; i<temporaryShapeSequence.size(); i++){
+            if(temporaryShapeSequence.get(i).equals(object)){
+                for(int j=i; j<temporaryShapeSequence.size();j++) {
+                    shapeSequence.add(temporaryShapeSequence.get(j));
+                }
+            }
+        }
+
     }
 
     private void setupVideoIntro(){
@@ -252,6 +262,8 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     public void onBackPressed()
     {
         super.onBackPressed();
+        presenter.setObjectCurrentPlayer();
+        presenter.setSubStringCurrentPlayer();
         startActivity(new Intent(ActivityOneThree.this, StartGameActivity.class));
         finish();
     }

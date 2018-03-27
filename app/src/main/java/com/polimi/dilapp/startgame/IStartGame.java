@@ -47,9 +47,9 @@ public interface IStartGame {
         void resumeCurrentPlayer(Bundle savedInstanceState);
         void storeCurrentPlayer(Bundle savedInstanceState);
         int getLevelCurrentPlayer();
-        void linkToActivity(int level);
+        void linkToActivity(int level, String object);
         void resumeCurrentPlayer(AppDatabase db, Bundle savedInstanceState);
-        void setCurrentPlayer(int currentPlayer, int level);
+        void setCurrentPlayer(int currentPlayer, int level, String object, String subString);
         void resetCurrentPlayer();
 
     }

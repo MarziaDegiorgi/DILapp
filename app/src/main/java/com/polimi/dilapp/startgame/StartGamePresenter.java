@@ -46,7 +46,7 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     @Override
     public void onPlayButtonPressed() {
         Log.e("[StartGamePresenter]", "Current player: "+ String.valueOf(DatabaseInitializer.getCurrentPlayer(db))+" - Level current player: "+ String.valueOf(getLevelCurrentPlayer()));
-        linkToActivity(getLevelCurrentPlayer());
+        linkToActivity(getLevelCurrentPlayer(), getObjectCurrentPlayer());
     }
 
     @Override
@@ -71,6 +71,8 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     public void resumeCurrentPlayer(Bundle savedInstanceState) {
         DatabaseInitializer.setCurrentPlayer(db, savedInstanceState.getInt("current_player"));
         DatabaseInitializer.setLevelCurrentPlayer(db, savedInstanceState.getInt("level"));
+        DatabaseInitializer.setObjectCurrentPlayer(db, savedInstanceState.getString("object"));
+        DatabaseInitializer.setSubStringCurrentPlayer(db, savedInstanceState.getString("subString"));
         Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
 
     }
@@ -79,6 +81,8 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
         savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
+        savedInstanceState.putString("object", DatabaseInitializer.getObjectCurrentPlayer(db));
+        savedInstanceState.putString("subString", DatabaseInitializer.getSubStringCurrentPlayer(db));
     }
 
     @Override
@@ -86,35 +90,46 @@ public class StartGamePresenter implements  IStartGame.Presenter {
         return DatabaseInitializer.getLevelCurrentPlayer(db);
     }
 
+    public String getObjectCurrentPlayer(){
+        return DatabaseInitializer.getObjectCurrentPlayer(db);
+    }
+
     @Override
-    public void linkToActivity(int level){
+    public void linkToActivity(int level, String object){
         switch (level){
             case 0:
                 Intent activity11 = new Intent(startGameView.getScreenContext(), ActivityOneOne.class);
+                activity11.putExtra("object", object);
                 startGameView.getScreenContext().startActivity(activity11);
                 break;
             case 11:
                 Intent activity11b = new Intent(startGameView.getScreenContext(), ActivityOneOne.class);
+                activity11b.putExtra("object", object);
                 startGameView.getScreenContext().startActivity(activity11b);
                 break;
             case 12:
                 Intent activity12 = new Intent(startGameView.getScreenContext(), ActivityOneTwo.class);
+                activity12.putExtra("object", object);
                 startGameView.getScreenContext().startActivity(activity12);
                 break;
             case 13:
                 Intent activity13 = new Intent(startGameView.getScreenContext(), ActivityOneThree.class);
+                activity13.putExtra("object", object);
                 startGameView.getScreenContext().startActivity(activity13);
                 break;
             case 21:
                 Intent activity21 = new Intent(startGameView.getScreenContext(), ActivityTwoOne.class);
+                activity21.putExtra("object", object);
                 startGameView.getScreenContext().startActivity(activity21);
                 break;
             case 22:
                 Intent activity22 = new Intent(startGameView.getScreenContext(), ActivityTwoTwo.class);
+                activity22.putExtra("object", object);
                 startGameView.getScreenContext().startActivity(activity22);
                 break;
             case 23:
                 Intent activity23 = new Intent(startGameView.getScreenContext(), ActivityTwoThree.class);
+                activity23.putExtra("object", object);
                 startGameView.getScreenContext().startActivity(activity23);
                 break;
             /*case 31:
@@ -138,17 +153,23 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     public void resumeCurrentPlayer(AppDatabase db, Bundle savedInstanceState) {
         DatabaseInitializer.setCurrentPlayer(db, savedInstanceState.getInt("current_player"));
         DatabaseInitializer.setLevelCurrentPlayer(db, savedInstanceState.getInt("level"));
+        DatabaseInitializer.setObjectCurrentPlayer(db, savedInstanceState.getString("object"));
+        DatabaseInitializer.setSubStringCurrentPlayer(db, savedInstanceState.getString("subString"));
         Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
         Log.i("[STARTGAME PRESENTER]", "Resuming current player" +String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
         Log.i("[STARTGAME PRESENTER]", "Resuming level" +String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
     }
 
     @Override
-    public void setCurrentPlayer(int currentPlayer, int level){
+    public void setCurrentPlayer(int currentPlayer, int level, String object, String subString){
         DatabaseInitializer.setCurrentPlayer(db, currentPlayer);
         DatabaseInitializer.setLevelCurrentPlayer(db, level);
+        DatabaseInitializer.setObjectCurrentPlayer(db, object);
+        DatabaseInitializer.setSubStringCurrentPlayer(db, subString);
 
-}
+
+
+    }
     @Override
     public void resetCurrentPlayer() {
         DatabaseInitializer.resetCurrentPlayer(db);

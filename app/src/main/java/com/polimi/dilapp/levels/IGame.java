@@ -88,6 +88,8 @@ public interface IGame {
         String getCurrentSubElement();
         int getNumberOfElements();
         void setLevelCurrentPlayer();
+        void setObjectCurrentPlayer();
+        void setSubStringCurrentPlayer();
         void setColourLevel();
         void setEnableNFC();
         String getCurrentReadTag();

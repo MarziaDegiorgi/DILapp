@@ -121,4 +121,16 @@ public class DatabaseInitializer {
     public static void deletePlayer(AppDatabase db, ChildEntity childEntity){
         db.childDao().delete(childEntity);
     }
+    public static void setObjectCurrentPlayer(AppDatabase db, String object) {
+        db.childDao().setObjectCurrentPlayer(object, true);
+    }
+    public static String getObjectCurrentPlayer(AppDatabase db) {
+        return db.childDao().getObjectCurrentPlayer(true);
+    }
+    public static void setSubStringCurrentPlayer(AppDatabase db, String subString) {
+        db.childDao().setSubStringCurrentPlayer(subString, true);
+    }
+    public static String getSubStringCurrentPlayer(AppDatabase db) {
+        return db.childDao().getSubStringCurrentPlayer(true);
+    }
 }

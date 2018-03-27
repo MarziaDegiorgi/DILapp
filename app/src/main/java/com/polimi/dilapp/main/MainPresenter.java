@@ -29,6 +29,8 @@ public class MainPresenter implements IMain.Presenter{
     public void resumeCurrentPlayer(Bundle savedInstanceState) {
         DatabaseInitializer.setCurrentPlayer(db, savedInstanceState.getInt("current_player"));
         DatabaseInitializer.setLevelCurrentPlayer(db, savedInstanceState.getInt("level"));
+        DatabaseInitializer.setObjectCurrentPlayer(db, savedInstanceState.getString("object"));
+        DatabaseInitializer.setSubStringCurrentPlayer(db, savedInstanceState.getString("subString"));
         Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
 
     }
@@ -36,12 +38,14 @@ public class MainPresenter implements IMain.Presenter{
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
         savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
+        savedInstanceState.putString("object", DatabaseInitializer.getObjectCurrentPlayer(db));
+        savedInstanceState.putString("subString", DatabaseInitializer.getSubStringCurrentPlayer(db));
     }
 
     @Override
     public void resetCurrentPlayer() {
         DatabaseInitializer.resetCurrentPlayer(db);
-        Log.i("[MAIN PRESENTER]", " I'm resetting the current player");
+        Log.e("[MAIN PRESENTER]", " I'm resetting the current player");
     }
 
 

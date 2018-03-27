@@ -33,6 +33,8 @@ public class CreateAccountPresenter implements  ICreateAccount.Presenter{
     public void resumeCurrentPlayer(Bundle savedInstanceState) {
         DatabaseInitializer.setCurrentPlayer(db, savedInstanceState.getInt("current_player"));
         DatabaseInitializer.setLevelCurrentPlayer(db, savedInstanceState.getInt("level"));
+        DatabaseInitializer.setObjectCurrentPlayer(db, savedInstanceState.getString("object"));
+        DatabaseInitializer.setSubStringCurrentPlayer(db, savedInstanceState.getString("subString"));
         Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
         Log.i("[CREATEACC PRESENTER]", "Resuming current player " + savedInstanceState.getInt("current_player"));
         Log.i("[CREATEACC PRESENTER]", "Resuming level " +savedInstanceState.getInt("level"));
@@ -43,6 +45,8 @@ public class CreateAccountPresenter implements  ICreateAccount.Presenter{
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));
         savedInstanceState.putInt("level", DatabaseInitializer.getLevelCurrentPlayer(db));
+        savedInstanceState.putString("object", DatabaseInitializer.getObjectCurrentPlayer(db));
+        savedInstanceState.putString("subString", DatabaseInitializer.getSubStringCurrentPlayer(db));
         Log.i("[CREATEACC PRESENTER]", "Storing current player " +String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
         Log.i("[CREATEACC PRESENTER]", "Storing level " +String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
     }

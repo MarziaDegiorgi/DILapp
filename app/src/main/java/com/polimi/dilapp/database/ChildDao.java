@@ -32,6 +32,18 @@ public interface ChildDao {
     @Query("UPDATE child SET level = :level WHERE currentPlayer = :t")
     void setLevelCurrentPlayer(int level, Boolean t);
 
+    @Query("SELECT object FROM child WHERE currentPlayer = :t")
+    String getObjectCurrentPlayer(Boolean t);
+
+    @Query("UPDATE child SET object = :object WHERE currentPlayer = :t")
+    void setObjectCurrentPlayer(String object, Boolean t);
+
+    @Query("SELECT subString FROM child WHERE currentPlayer = :t")
+    String getSubStringCurrentPlayer(Boolean t);
+
+    @Query("UPDATE child SET subString = :subString WHERE currentPlayer = :t")
+    void setSubStringCurrentPlayer(String subString, Boolean t);
+
     @Insert(onConflict = IGNORE)
     void insertChild(ChildEntity child);
 

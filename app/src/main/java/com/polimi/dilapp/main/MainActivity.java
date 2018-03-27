@@ -83,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
 
     @Override
     protected void onDestroy() {
-        presenter.resetCurrentPlayer();
         super.onDestroy();
+        if (presenter == null){
+            presenter = new MainPresenter(this);}
+        presenter.resetCurrentPlayer();
     }
 }
