@@ -77,8 +77,14 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoView(int videoID) {
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
-        common.startMainVideo(uri, this);
+       //No middle session videos for this level, just the video intro
+        //call the presenter to start the new session
+        myHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                presenter.chooseElement();
+            }
+        },1000);
     }
 
     @Override
@@ -193,7 +199,6 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
     @Override
     public Context getScreenContext() {
-
         return this;
     }
 
@@ -312,8 +317,6 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     @Override
     public void disableViews(){
         ImageView imageToHide = findViewById(R.id.animation_box);
-        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
-        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
         ImageView requestObject = findViewById(R.id.image_box_multiple_elements);
         ImageView answerBox = findViewById(R.id.animation_box_answer);
 
@@ -323,8 +326,6 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         this.disableImageView(answerBox);
         this.disableImageView(imageToHide);
         this.disableImageView(requestObject);
-        this.disableImageView(animationViewExtra);
-        this.disableImageView(animationViewExtraTwo);
     }
 
     @Override
@@ -365,11 +366,13 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         super.onDestroy();
         presenter.onDestroy();
     }
+
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
         presenter.handleIntent(intent);
     }
+
     @Override
     public void onBackPressed()
     {
@@ -377,6 +380,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         startActivity(new Intent(ActivityTwoThree.this, StartGameActivity.class));
         finish();
     }
+
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         presenter.storeCurrentPlayer(savedInstanceState);

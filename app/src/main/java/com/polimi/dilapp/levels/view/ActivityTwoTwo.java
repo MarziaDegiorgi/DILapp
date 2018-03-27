@@ -88,7 +88,7 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     }
 
     private void setAudioRequest(){
-        int requestItemID = presenter.getResourceId("request_item", R.raw.class);
+        int requestItemID = presenter.getResourceId("request_letter", R.raw.class);
         final int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
         request = MediaPlayer.create(this, requestItemID);
         request.start();
@@ -96,12 +96,12 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
-                setSubItemRequest(objectClaimedID);
+                setItemRequest(objectClaimedID);
             }
         });
     }
 
-    public void setSubItemRequest(int resource){
+    public void setItemRequest(int resource){
         request = MediaPlayer.create(this, resource);
         myHandler.postDelayed(new Runnable() {
             @Override
@@ -118,10 +118,6 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
                 });
             }
         }, 1000);
-    }
-
-    public void setAnimationBoxExtra(){
-        //TODO: SET EXTRA ANIMATION IN BACKGROUND
     }
 
     public void setWaitingAnimation(){
@@ -152,8 +148,14 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
         disableViews();
 
         ImageView image = findViewById(R.id.animation_box_answer);
+        int imageID = presenter.getResourceId(element, R.drawable.class);
+        Animation answerAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_and_bounce);
+
+        image.setImageDrawable(this.getResources().getDrawable(imageID));
+        image.setAnimation(answerAnimation);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.correct_answer);
+        image.startAnimation(answerAnimation);
+
         common.setVideoCorrectAnswer(image, this);
     }
 
@@ -180,11 +182,9 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void disableViews(){
         ImageView imageToHide = findViewById(R.id.animation_box);
-        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
-        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+        ImageView imageAnswer = findViewById(R.id.animation_box_answer);
         common.disableView(imageToHide);
-        common.disableView(animationViewExtra);
-        common.disableView(animationViewExtraTwo);
+        common.disableView(imageAnswer);
     }
 
     @Override

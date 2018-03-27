@@ -3,6 +3,7 @@ package com.polimi.dilapp.levels.view;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
@@ -23,8 +24,11 @@ import java.util.List;
 class CommonActivity {
     private IGame.Presenter presenter;
 
+    Handler myHandler;
+
     CommonActivity(IGame.Presenter presenter){
         this.presenter = presenter;
+        myHandler = new Handler();
     }
 
     ArrayList<String> getList(String[] array) {
@@ -68,6 +72,20 @@ class CommonActivity {
         image.setVisibility(View.VISIBLE);
         image.setAnimation(animation);
         image.startAnimation(animation);
+    }
+
+    /**
+     * Set background animation during the game
+     */
+    void enableBackgroundAnimation() {
+        //TODO :set up background animation
+    }
+
+    /**
+     * Remove background animation during the game
+     */
+    void disableBackgroundAnimation() {
+        //TODO: disable background animation
     }
 
     /**
@@ -115,6 +133,7 @@ class CommonActivity {
         imageView.clearAnimation();
         imageView.setVisibility(View.INVISIBLE);
     }
+
     /**
      *  Set the correct answer video and then pass to the next element calling the presenter
      * @param context of the activity
@@ -134,10 +153,17 @@ class CommonActivity {
                 image.clearAnimation();
                 disableView(image);
                 image.setVisibility(View.INVISIBLE);
-                presenter.chooseElement();
+               //delay the choose of the next element of 1 sec
+                myHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.chooseElement();
+                    }
+                },1000);
             }
         });
     }
+
     /**
      *  Return the partial ArrayList<String> of the array received as parameter.
      *      * @param array of the Activity

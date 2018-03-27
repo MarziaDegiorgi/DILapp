@@ -228,9 +228,14 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         disableViews();
 
         ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
+        Animation animation = AnimationUtils.loadAnimation(this, R.anim.move);
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        image.getResources().getDrawable(resourceID);
+
+        image.setImageDrawable(this.getResources().getDrawable(resourceID));
+        image.setAnimation(animation);
+        image.setVisibility(View.VISIBLE);
+        image.startAnimation(animation);
+
         common.setVideoCorrectAnswer(image, this);
     }
 
@@ -274,18 +279,15 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     public void disableViews(){
 
         ImageView imageToHide = findViewById(R.id.animation_box);
-        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
-        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
         ImageView imageBoxMultipleItem = findViewById(R.id.image_box_multiple_elements);
+        ImageView imageAnswer = findViewById(R.id.animation_box_answer);
 
         if(presenter.getMultipleElement()) {
             gridview.setVisibility(View.INVISIBLE);
             imageAdapter.clearImageResources();
         }
-
         common.disableView(imageToHide);
-        common.disableView(animationViewExtra);
-        common.disableView(animationViewExtraTwo);
+        common.disableView(imageAnswer);
         common.disableView(imageBoxMultipleItem);
     }
 

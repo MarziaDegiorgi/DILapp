@@ -309,7 +309,6 @@ public class GamePresenter implements IGame.Presenter {
         totalAttempts++;
         if (counter < 1) {
             counter++;
-            //TODO: substitute the video with just a sound
             activityInterface.setVideoWrongAnswerToRepeat();
         } else {
             counter = 0;
