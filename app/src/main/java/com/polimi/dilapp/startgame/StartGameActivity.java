@@ -80,11 +80,15 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
        ImageView appleImage = findViewById(R.id.apple);
        ImageView pearImage = findViewById(R.id.pear);
        Button playButton = findViewById(R.id.playButton);
+       ImageView headImage = findViewById(R.id.lion_head);
+       ImageView taleImage = findViewById(R.id.tale);
+       ImageView bodyImage = findViewById(R.id.lion_body);
 
        // Load animations
        final Animation animationBounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
        final Animation animationRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_right);
        final Animation animationLeft = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_left);
+       final Animation animationLion = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.lion_rotation);
 
        // Add the personilized interpolator for "animationBounce"
        presenter.onInit(animationBounce);
@@ -92,8 +96,9 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
        // Start animations
        playButton.startAnimation(animationBounce);
        carrotImage.startAnimation(animationRight);
-       appleImage.startAnimation(animationRight);
+       appleImage.startAnimation(animationLeft);
        pearImage.startAnimation(animationLeft);
+       headImage.startAnimation(animationLion);
    }
 
 
