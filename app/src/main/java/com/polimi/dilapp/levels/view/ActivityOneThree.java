@@ -122,7 +122,6 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     }
 
 
-    //TODO modify extra animation with something cool
     public void setAnimationBoxExtra(){
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         animationViewExtra.setVisibility(View.VISIBLE);
@@ -148,21 +147,25 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoCorrectAnswer(){
         disableViews();
-
-        ImageView image = findViewById(R.id.animation_box_answer);
+        ImageView mainImage = findViewById(R.id.animation_box);
+        mainImage.clearAnimation();
+        int resourceID = presenter.getResourceId(element, R.drawable.class);
+        final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.correct_answer);
-        common.setVideoCorrectAnswer(image, this);
+        image.setImageDrawable(getResources().getDrawable(resourceID));
+        image.setVisibility(View.VISIBLE);
 
+        Animation animationCorrect = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.bounce);
+        image.setAnimation(animationCorrect);
+        image.startAnimation(animationCorrect);
+        common.setVideoCorrectAnswer(image, this);
     }
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
         disableViews();
-
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
         common.setVideoWrongAnswerToRepeat(image,this);
     }
 
@@ -172,7 +175,6 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
         common.setVideoWrongAnswerAndGoOn(image, this);
     }
 

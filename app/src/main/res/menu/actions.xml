@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/change_level"
-    android:title="@string/change_level"
-        android:onClick="onClickMenuItem"/>
-    <item android:id="@+id/report"
-        android:title="@string/report"
-        android:onClick="onClickMenuItem"/>
-    <item android:id="@+id/change_player"
-        android:title="@string/change_player"
-        android:onClick="onClickMenuItem"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+   >
+
+    <item
+
+        android:id="@+id/change_level"
+        android:onClick="onClickMenuItem"
+        android:title="@string/change_level" />
+    <item
+        android:id="@+id/report"
+        android:onClick="onClickMenuItem"
+        android:title="@string/report" />
+
+    <item
+        android:id="@+id/change_player"
+        android:onClick="onClickMenuItem"
+        android:title="@string/change_player" />
 </menu>

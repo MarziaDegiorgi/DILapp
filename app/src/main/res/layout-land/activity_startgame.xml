@@ -72,7 +72,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="160dp"
             android:layout_marginBottom="20dp"
-            app:srcCompat="@drawable/logofruitvector"
+            app:srcCompat="@drawable/apple"
             android:contentDescription="TODO" />
 
 

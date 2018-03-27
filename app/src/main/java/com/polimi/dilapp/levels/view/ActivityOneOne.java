@@ -139,10 +139,8 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoCorrectAnswer(){
         disableViews();
-
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.correct_answer);
         common.setVideoCorrectAnswer(image, this);
 
     }
@@ -153,7 +151,6 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
         common.setVideoWrongAnswerToRepeat(image,this);
     }
 
