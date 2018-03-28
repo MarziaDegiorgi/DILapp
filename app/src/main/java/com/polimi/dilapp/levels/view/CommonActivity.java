@@ -94,7 +94,8 @@ class CommonActivity {
      * @param image as correct
      */
     void setVideoWrongAnswerToRepeat(final ImageView image, Context context){
-        image.setVisibility(View.VISIBLE);
+        image.setVisibility(View.INVISIBLE);
+        image.clearAnimation();
         MediaPlayer request = MediaPlayer.create(context, R.raw.request_wrong_answer_repeat);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -112,7 +113,7 @@ class CommonActivity {
      * @param image
      */
     void setVideoWrongAnswerAndGoOn(final ImageView image, Context context){
-        image.setVisibility(View.VISIBLE);
+        image.setVisibility(View.INVISIBLE);
         image.clearAnimation();
         MediaPlayer request = MediaPlayer.create(context, R.raw.request_wrong_answer_go_on);
         request.start();

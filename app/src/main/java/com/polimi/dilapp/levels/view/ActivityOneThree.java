@@ -61,14 +61,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
     private void setupSequence(){
         String[] shapes = getResources().getStringArray(R.array.shapes);
-        ArrayList<String> temporaryShapeSequence = common.getList(shapes);
-        for(int i=0; i<temporaryShapeSequence.size(); i++){
-            if(temporaryShapeSequence.get(i).equals(object)){
-                for(int j=i; j<temporaryShapeSequence.size();j++) {
-                    shapeSequence.add(temporaryShapeSequence.get(j));
-                }
-            }
-        }
+        shapeSequence = common.getList(shapes);
 
     }
 
@@ -125,14 +118,14 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     public void setAnimationBoxExtra(){
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.move);
+        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.move_half_rotate);
         animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
         animationViewExtra.setAnimation(extraAnimation);
         animationViewExtra.startAnimation(extraAnimation);
 
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
         animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.move);
+        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.move_half_rotate);
         animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
         animationViewExtraTwo.setAnimation(extraAnimationTwo);
         animationViewExtraTwo.startAnimation(extraAnimationTwo);
@@ -147,9 +140,9 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoCorrectAnswer(){
         disableViews();
-        ImageView mainImage = findViewById(R.id.animation_box);
-        mainImage.clearAnimation();
-        int resourceID = presenter.getResourceId(element, R.drawable.class);
+
+        String correctElement = presenter.getCurrentElement().replace("shape", "");
+        int resourceID = presenter.getResourceId(correctElement, R.drawable.class);
         final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
         image.setImageDrawable(getResources().getDrawable(resourceID));
@@ -163,18 +156,18 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
-        disableViews();
         ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
+        image.clearAnimation();
+        image.setVisibility(View.INVISIBLE);
         common.setVideoWrongAnswerToRepeat(image,this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
-        disableViews();
 
         ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
+        image.clearAnimation();
+        image.setVisibility(View.INVISIBLE);
         common.setVideoWrongAnswerAndGoOn(image, this);
     }
 

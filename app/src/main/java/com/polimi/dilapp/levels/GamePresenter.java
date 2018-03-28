@@ -24,7 +24,6 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -122,6 +121,7 @@ public class GamePresenter implements IGame.Presenter {
             //ActivityOneTwo ends
             gameEnded = true;
             newTurnStarted = false;
+            colourLevel = false;
             endTime = (int)(SystemClock.elapsedRealtime()/1000);
             Log.i("[INIT_TIME]", String.valueOf(endTime));
             setTimeParameter();
@@ -206,7 +206,6 @@ public class GamePresenter implements IGame.Presenter {
         currentReadTag = readTag;
         if (colourLevel) {
             if(tempArray.contains(readTag)){
-
                 Log.i(CLASS, "[CheckAnswer][ColourItem][Correct] " + readTag);
                 this.correctAnswerColour();
             } else {
@@ -328,7 +327,7 @@ public class GamePresenter implements IGame.Presenter {
 
     private void wrongAnswerColour(){
         totalAttempts++;
-        if (counter < 1) {
+        if (counter < 3) {
             counter++;
             activityInterface.setVideoWrongAnswerToRepeat();
         } else {
@@ -344,7 +343,6 @@ public class GamePresenter implements IGame.Presenter {
         totalAttempts++;
         if (counter < 2) {
             counter++;
-            //TODO: substitute the video with just a sound
             activityInterface.setVideoWrongAnswerToRepeat();
         } else {
             counter = 0;
@@ -633,6 +631,11 @@ public class GamePresenter implements IGame.Presenter {
     @Override
     public String getCurrentReadTag() {
         return currentReadTag;
+    }
+
+    @Override
+    public String getCurrentElement() {
+        return currentElement;
     }
 
     boolean isStarted(){
