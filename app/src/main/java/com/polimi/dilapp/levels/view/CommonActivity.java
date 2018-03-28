@@ -120,6 +120,7 @@ class CommonActivity {
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                //TODO: ADD CLEAR LION ANIMATION
                 image.setVisibility(View.INVISIBLE);
                 presenter.chooseElement();
                 mp.release();
@@ -150,6 +151,7 @@ class CommonActivity {
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                //TODO: ADD CLEAR LION ANIMATION
                 mp.release();
                 image.clearAnimation();
                 disableView(image);

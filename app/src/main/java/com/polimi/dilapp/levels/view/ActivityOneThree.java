@@ -92,7 +92,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.rotation);
-
+        setLionHeadAnimation();
         common.startMainAnimation(this,animationBegin,resourceID,this);
 
         setAudioRequest();
@@ -106,6 +106,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 setAnimationBoxExtra();
+                stopLionHeadAnimation();
                 setWaitingAnimation();
                 mp.release();
                 presenter.setEnableNFC();
@@ -131,16 +132,41 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         animationViewExtraTwo.startAnimation(extraAnimationTwo);
     }
 
+    private void setLionHeadAnimation(){
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        lionHeadImage.setVisibility(View.VISIBLE);
+        Animation animationLionHead = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.lion_rotation_waiting);
+        lionHeadImage.setAnimation(animationLionHead);
+        lionHeadImage.startAnimation(animationLionHead);
+    }
+
+    private void stopLionHeadAnimation(){
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        lionHeadImage.setVisibility(View.VISIBLE);
+        lionHeadImage.clearAnimation();
+    }
+
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.blink);
+        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.waiting_rotation);
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        ImageView lionTaleImage = findViewById(R.id.tale_game);
+        ImageView lionBodyImage = findViewById(R.id.lion_body_game);
+        lionBodyImage.setVisibility(View.VISIBLE);
+        lionTaleImage.setVisibility(View.VISIBLE);
+        lionHeadImage.setVisibility(View.VISIBLE);
+
+        Animation animationLionWait = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.tale_rotation);
+        lionTaleImage.setAnimation(animationLionWait);
+        lionTaleImage.setVisibility(View.VISIBLE);
+        lionTaleImage.startAnimation(animationLionWait);
         common.startMainAnimation(this,animationWait,resourceID,this);
     }
 
     @Override
     public void setVideoCorrectAnswer(){
         disableViews();
-
+        setLionHeadAnimation();
         String correctElement = presenter.getCurrentElement().replace("shape", "");
         int resourceID = presenter.getResourceId(correctElement, R.drawable.class);
         final ImageView image = findViewById(R.id.animation_box_answer);
@@ -159,12 +185,13 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         ImageView image = findViewById(R.id.animation_box_answer);
         image.clearAnimation();
         image.setVisibility(View.INVISIBLE);
+        setLionHeadAnimation();
         common.setVideoWrongAnswerToRepeat(image,this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
-
+        setLionHeadAnimation();
         ImageView image = findViewById(R.id.animation_box_answer);
         image.clearAnimation();
         image.setVisibility(View.INVISIBLE);

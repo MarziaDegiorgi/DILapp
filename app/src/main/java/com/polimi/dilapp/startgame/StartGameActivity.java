@@ -89,7 +89,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
        final Animation animationRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_right);
        final Animation animationLeft = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_left);
        final Animation animationLion = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.lion_rotation);
-
+       final Animation animationTale = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.tale_rotation);
        // Add the personilized interpolator for "animationBounce"
        presenter.onInit(animationBounce);
 
@@ -99,6 +99,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
        appleImage.startAnimation(animationLeft);
        pearImage.startAnimation(animationLeft);
        headImage.startAnimation(animationLion);
+       taleImage.startAnimation(animationTale);
    }
 
 

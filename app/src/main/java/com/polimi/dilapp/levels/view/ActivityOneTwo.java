@@ -91,8 +91,8 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         element = currentElement;
         currentColour = presenter.getCurrentSequenceElement();
         int resourceID = presenter.getResourceId(currentColour, R.drawable.class);
-        Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.blink);
-
+        Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.waiting_rotation);
+        setLionHeadAnimation();
         common.startMainAnimation(this,animationBegin,resourceID,this);
 
         setAudioRequest();
@@ -107,6 +107,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                stopLionHeadAnimation();
                 setWaitingAnimation();
                 mp.release();
                 presenter.setEnableNFC();
@@ -115,9 +116,34 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         });
     }
 
+    private void setLionHeadAnimation(){
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        lionHeadImage.setVisibility(View.VISIBLE);
+        Animation animationLionHead = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.lion_rotation_waiting);
+        lionHeadImage.setAnimation(animationLionHead);
+        lionHeadImage.startAnimation(animationLionHead);
+    }
+
+    private void stopLionHeadAnimation(){
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        lionHeadImage.setVisibility(View.VISIBLE);
+        lionHeadImage.clearAnimation();
+    }
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.blink);
+        Animation animationWait = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.bounce);
+
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        ImageView lionTaleImage = findViewById(R.id.tale_game);
+        ImageView lionBodyImage = findViewById(R.id.lion_body_game);
+        lionBodyImage.setVisibility(View.VISIBLE);
+        lionTaleImage.setVisibility(View.VISIBLE);
+        lionHeadImage.setVisibility(View.VISIBLE);
+
+        Animation animationLionWait = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.tale_rotation);
+        lionTaleImage.setAnimation(animationLionWait);
+        lionTaleImage.setVisibility(View.VISIBLE);
+        lionTaleImage.startAnimation(animationLionWait);
         common.startMainAnimation(this,animationWait,resourceID,this);
     }
 
@@ -127,6 +153,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         ImageView mainImage = findViewById(R.id.animation_box);
         mainImage.clearAnimation();
 
+        setLionHeadAnimation();
         String currentReadTag = presenter.getCurrentReadTag();
         int resourceID = presenter.getResourceId(currentReadTag, R.drawable.class);
         final ImageView image = findViewById(R.id.animation_box_answer);
@@ -143,7 +170,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoWrongAnswerToRepeat() {
         disableViews();
-
+        setLionHeadAnimation();
         MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -158,6 +185,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoWrongAnswerAndGoOn() {
         disableViews();
+        setLionHeadAnimation();
         MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
