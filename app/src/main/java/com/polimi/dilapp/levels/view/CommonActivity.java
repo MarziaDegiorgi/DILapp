@@ -24,7 +24,7 @@ import java.util.List;
 class CommonActivity {
     private IGame.Presenter presenter;
 
-    Handler myHandler;
+    private Handler myHandler;
 
     CommonActivity(IGame.Presenter presenter){
         this.presenter = presenter;

@@ -66,8 +66,8 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     }
 
     private void setupSequence() {
-        String[] letters = getResources().getStringArray(R.array.words);
-        wordsSequence = common.getList(letters);
+        String[] words = getResources().getStringArray(R.array.words);
+        wordsSequence = common.getList(words);
     }
 
     private void setupVideoIntro() {
