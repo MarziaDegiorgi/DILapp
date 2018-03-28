@@ -77,14 +77,8 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoView(int videoID) {
-       //No middle session videos for this level, just the video intro
-        //call the presenter to start the new session
-        myHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                presenter.chooseElement();
-            }
-        },1000);
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
+        common.startMainVideo(uri, this);
     }
 
     @Override

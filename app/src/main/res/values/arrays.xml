@@ -138,19 +138,40 @@
 </string-array>
 
 <!-- WORDS-->
-    <string-array name="all_words_items">
+    <string-array name="word_one_items">
         <item>_bici</item>
+    </string-array>
+    <string-array name="word_two_items">
         <item>_casa</item>
+    </string-array>
+    <string-array name="word_three_items">
         <item>_noce</item>
+    </string-array>
+    <string-array name="word_four_items">
         <item>_ramo</item>
+    </string-array>
+    <string-array name="word_five_items">
         <item>_dado</item>
+    </string-array>
+    <string-array name="word_six_items">
         <item>_faro</item>
+    </string-array>
+    <string-array name="word_seven_items">
         <item>_mare</item>
+    </string-array>
+    <string-array name="word_eight_items">
         <item>_sole</item>
     </string-array>
 
     <string-array name="words">
-        <item>all_words</item>
+        <item>word_one</item>
+        <item>word_two</item>
+        <item>word_three</item>
+        <item>word_four</item>
+        <item>word_five</item>
+        <item>word_six</item>
+        <item>word_seven</item>
+        <item>word_eight</item>
     </string-array>
 
    <!-- COLORS AND OBJECT -->
