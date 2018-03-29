@@ -179,18 +179,14 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     public void setVideoWrongAnswerToRepeat() {
         disableViews();
         setLionHeadAnimation();
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        common.setVideoWrongAnswerToRepeat(image,this);
+        common.setVideoWrongAnswerToRepeat(this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
         disableViews();
         setLionHeadAnimation();
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        common.setVideoWrongAnswerAndGoOn(image, this);
+        common.setVideoWrongAnswerAndGoOn( this);
     }
 
     @Override

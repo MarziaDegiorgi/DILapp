@@ -75,33 +75,16 @@ class CommonActivity {
     }
 
     /**
-     * Set background animation during the game
-     */
-    void enableBackgroundAnimation() {
-        //TODO :set up background animation
-    }
-
-    /**
-     * Remove background animation during the game
-     */
-    void disableBackgroundAnimation() {
-        //TODO: disable background animation
-    }
-
-    /**
      *  Set video in given context in case of not correct answer in order then to repeat the request
      * @param context of the activity
-     * @param image as correct
      */
-    void setVideoWrongAnswerToRepeat(final ImageView image, Context context){
-        image.setVisibility(View.INVISIBLE);
-        image.clearAnimation();
+    void setVideoWrongAnswerToRepeat(Context context){
+
         MediaPlayer request = MediaPlayer.create(context, R.raw.request_wrong_answer_repeat);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                image.setVisibility(View.INVISIBLE);
                 presenter.askCurrentElement();
                 mp.release();
             }
@@ -110,18 +93,15 @@ class CommonActivity {
     /**
      *  Set video in given context in case of not correct answer in order then to go on
      * @param context of the activity
-     * @param image
      */
-    void setVideoWrongAnswerAndGoOn(final ImageView image, Context context){
-        image.setVisibility(View.INVISIBLE);
-        image.clearAnimation();
+    void setVideoWrongAnswerAndGoOn(Context context){
         MediaPlayer request = MediaPlayer.create(context, R.raw.request_wrong_answer_go_on);
         request.start();
+
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 //TODO: ADD CLEAR LION ANIMATION
-                image.setVisibility(View.INVISIBLE);
                 presenter.chooseElement();
                 mp.release();
             }

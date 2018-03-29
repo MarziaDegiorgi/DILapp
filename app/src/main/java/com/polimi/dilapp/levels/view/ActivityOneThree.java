@@ -186,7 +186,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         image.clearAnimation();
         image.setVisibility(View.INVISIBLE);
         setLionHeadAnimation();
-        common.setVideoWrongAnswerToRepeat(image,this);
+        common.setVideoWrongAnswerToRepeat(this);
     }
 
     @Override
@@ -195,7 +195,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         ImageView image = findViewById(R.id.animation_box_answer);
         image.clearAnimation();
         image.setVisibility(View.INVISIBLE);
-        common.setVideoWrongAnswerAndGoOn(image, this);
+        common.setVideoWrongAnswerAndGoOn(this);
     }
 
     @Override

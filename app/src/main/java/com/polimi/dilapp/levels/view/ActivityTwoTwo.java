@@ -163,20 +163,14 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     public void setVideoWrongAnswerToRepeat() {
         disableViews();
 
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
-        common.setVideoWrongAnswerToRepeat(image,this);
+        common.setVideoWrongAnswerToRepeat(this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
         disableViews();
 
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
-        common.setVideoWrongAnswerAndGoOn(image, this);
+        common.setVideoWrongAnswerAndGoOn( this);
     }
 
     @Override

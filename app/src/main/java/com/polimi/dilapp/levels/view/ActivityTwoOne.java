@@ -186,6 +186,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
                         } else {
                             setWaitingAnimation();
                             mp.release();
+                            stopLionHeadAnimation();
                             presenter.setEnableNFC();
                             presenter.handleIntent(getIntent());
                         }
@@ -226,16 +227,23 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     @Override
     public void setVideoCorrectAnswer() {
         disableViews();
+        gridview.setVisibility(View.INVISIBLE);
 
-        ImageView image = findViewById(R.id.animation_box_answer);
-        Animation animation = AnimationUtils.loadAnimation(this, R.anim.move);
+        ImageView mainImage = findViewById(R.id.animation_box);
+        mainImage.clearAnimation();
+
+        setLionHeadAnimation();
+
         int resourceID = presenter.getResourceId(element, R.drawable.class);
 
-        image.setImageDrawable(this.getResources().getDrawable(resourceID));
-        image.setAnimation(animation);
+        final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.startAnimation(animation);
+        image.setImageDrawable(getResources().getDrawable(resourceID));
+        image.setVisibility(View.VISIBLE);
 
+        Animation animationCorrect = AnimationUtils.loadAnimation(this.getApplicationContext(), R.anim.bounce);
+        image.setAnimation(animationCorrect);
+        image.startAnimation(animationCorrect);
         common.setVideoCorrectAnswer(image, this);
     }
 
@@ -246,13 +254,24 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
         image.getResources().getDrawable(R.drawable.not_correct_answer);
-        common.setVideoWrongAnswerToRepeat(image,this);
+        setLionHeadAnimation();
+
+        common.setVideoWrongAnswerToRepeat(this.getApplicationContext());
+    }
+
+    private void setLionHeadAnimation(){
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        lionHeadImage.setVisibility(View.VISIBLE);
+        Animation animationLionHead = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.lion_rotation_waiting);
+        lionHeadImage.setAnimation(animationLionHead);
+        lionHeadImage.startAnimation(animationLionHead);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
         MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
         request.start();
+        setLionHeadAnimation();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
@@ -286,9 +305,14 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
             gridview.setVisibility(View.INVISIBLE);
             imageAdapter.clearImageResources();
         }
+
         common.disableView(imageToHide);
         common.disableView(imageAnswer);
         common.disableView(imageBoxMultipleItem);
+
+        imageToHide.setImageDrawable(null);
+        imageBoxMultipleItem.setImageDrawable(null);
+        imageAnswer.setImageDrawable(null);
     }
 
     @Override
@@ -363,5 +387,11 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         super.onSaveInstanceState(savedInstanceState);
         Log.i("[ACTIVITY 21]", "I'm calling storeCurrentPlayer");
 
+    }
+
+    private void stopLionHeadAnimation(){
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        lionHeadImage.setVisibility(View.VISIBLE);
+        lionHeadImage.clearAnimation();
     }
 }
