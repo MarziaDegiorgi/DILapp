@@ -43,7 +43,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             Log.i("[STARTGAME ACTIVITY] ", "Intent extra is "+ extras.getInt(EXTRA_MESSAGE));
             currentPlayerId = extras.getInt(EXTRA_MESSAGE);
             DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
-            Log.e("[StartGameActivity]", "Current Player Level" + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
+            Log.i("[StartGameActivity]", "Current Player Level" + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
         }
         int currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
         int levelCurrentPlayer = DatabaseInitializer.getLevelCurrentPlayer(db);
@@ -136,6 +136,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         presenter.resumeCurrentPlayer(savedInstanceState);
         super.onRestoreInstanceState(savedInstanceState);
     }
+
     @Override
     public Context getScreenContext() {
         return  this;

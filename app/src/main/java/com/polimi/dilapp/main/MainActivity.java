@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
         //Set up the presenter
         presenter = new MainPresenter(this);
         presenter.startVideo(introVideoView, getPackageName());
-        Toast.makeText(this, "[MAIN ACTIVITY] " +String.valueOf(DatabaseInitializer.getCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))),
+        Toast.makeText(this, "[MAIN ACTIVITY] " +
+                        String.valueOf(DatabaseInitializer.getCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))),
                 Toast.LENGTH_LONG).show();
 
         introVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
