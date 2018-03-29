@@ -109,11 +109,13 @@ class CommonActivity {
     }
     /**
      *  Disable the ImageView received as parameter
+     *  and reset the image view
      * @param imageView
      */
     void disableView(ImageView imageView){
         imageView.clearAnimation();
         imageView.setVisibility(View.INVISIBLE);
+        imageView.setImageDrawable(null);
     }
 
     /**

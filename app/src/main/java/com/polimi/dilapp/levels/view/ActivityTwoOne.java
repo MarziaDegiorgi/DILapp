@@ -310,9 +310,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         common.disableView(imageAnswer);
         common.disableView(imageBoxMultipleItem);
 
-        imageToHide.setImageDrawable(null);
-        imageBoxMultipleItem.setImageDrawable(null);
-        imageAnswer.setImageDrawable(null);
     }
 
     @Override
@@ -356,7 +353,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     //onNewIntent let us stay in the same activity after reading a TAG
     @Override
     protected void onNewIntent(Intent intent) {
-        presenter.setEnableNFC();
         presenter.handleIntent(intent);
     }
 
