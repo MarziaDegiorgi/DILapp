@@ -81,6 +81,8 @@ public class GamePresenter implements IGame.Presenter {
        actionDetected = false;
        newTurnStarted = false;
        gameEnded = false;
+       enableNFC = false;
+       colourLevel = false;
        myHandler = new Handler();
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
    }
