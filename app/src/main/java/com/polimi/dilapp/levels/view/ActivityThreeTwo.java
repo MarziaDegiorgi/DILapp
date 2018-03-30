@@ -55,8 +55,8 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     }
 
     private void setupSequence(){
-        String[] shapes = getResources().getStringArray(R.array.shapes);
-        recipeSequence = common.getList(shapes);
+        String[] recipes = getResources().getStringArray(R.array.shapes);
+        recipeSequence = common.getList(recipes);
 
     }
 
@@ -68,12 +68,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     @Override
     public void disableViews(){
-        /*ImageView imageToHide = findViewById(R.id.animation_box);
-        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
-        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
-        common.disableView(imageToHide);
-        common.disableView(animationViewExtra);
-        common.disableView(animationViewExtraTwo);*/
+
     }
 
     @Override

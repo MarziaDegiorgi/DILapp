@@ -9,6 +9,7 @@ import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.levels.view.ActivityOneThree;
 import com.polimi.dilapp.levels.view.ActivityOneTwo;
 import com.polimi.dilapp.levels.view.ActivityThreeOne;
+import com.polimi.dilapp.levels.view.ActivityThreeTwo;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.levels.view.ActivityTwoThree;
 import com.polimi.dilapp.levels.view.ActivityTwoTwo;
@@ -69,7 +70,10 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
                 intent = new Intent(levelMapView.getContext(), ActivityThreeOne.class);
                 levelMapView.getContext().startActivity(intent);
                 break;
-            case "CUCINA CON NOSCO": break;
+            case "CUCINA CON NOSCO":
+                intent = new Intent(levelMapView.getContext(), ActivityThreeTwo.class);
+                levelMapView.getContext().startActivity(intent);
+                break;
             default:break;
         }
         Toast.makeText(

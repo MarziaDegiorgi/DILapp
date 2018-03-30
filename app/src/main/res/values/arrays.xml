@@ -400,4 +400,25 @@
         <item>count_double</item>
     </string-array>
 
+    <string-array name="recipes">
+        <item>soup</item>
+        <item>fruit_salad</item>
+    </string-array>
+
+    <string-array name="soup_items">
+        <item>carrot</item>
+        <item>greenpea</item>
+        <item>potato</item>
+        <items>tomato</items>
+    </string-array>
+
+    <string-array name="fruit_salad_items">
+        <item>strawberry</item>
+        <item>apple</item>
+        <item>orange</item>
+        <item>lemon</item>
+        <item>pear</item>
+        <items>banana</items>
+    </string-array>
+
 </resources>
