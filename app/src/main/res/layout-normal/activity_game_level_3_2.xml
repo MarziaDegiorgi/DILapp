@@ -47,21 +47,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/carrot" />
+                         />
 
                     <ImageView
                         android:id="@+id/imageView29"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/carrot" />
+                         />
 
                     <ImageView
                         android:id="@+id/imageView27"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/carrot" />
+                         />
                 </LinearLayout>
             </TableRow>
 
@@ -76,21 +76,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/carrot" />
+                         />
 
                     <ImageView
                         android:id="@+id/imageView32"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/carrot" />
+                         />
 
                     <ImageView
                         android:id="@+id/imageView31"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/carrot" />
+                         />
 
                 </LinearLayout>
             </TableRow>
@@ -139,21 +139,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/tomato" />
+                     />
 
                 <ImageView
                     android:id="@+id/answer12"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/tomato" />
+                     />
 
                 <ImageView
                     android:id="@+id/answer13"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/tomato" />
+                     />
             </LinearLayout>
         </TableRow>
 
@@ -175,21 +175,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/tomato" />
+                     />
 
                 <ImageView
                     android:id="@+id/answer22"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/tomato" />
+                     />
 
                 <ImageView
                     android:id="@+id/answer23"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/tomato" />
+                    />
             </LinearLayout>
         </TableRow>
 
