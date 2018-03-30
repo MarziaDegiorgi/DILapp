@@ -409,7 +409,7 @@
         <item>carrot</item>
         <item>greenpea</item>
         <item>potato</item>
-        <items>tomato</items>
+        <item>tomato</item>
     </string-array>
 
     <string-array name="fruit_salad_items">
@@ -418,7 +418,7 @@
         <item>orange</item>
         <item>lemon</item>
         <item>pear</item>
-        <items>banana</items>
+        <item>banana</item>
     </string-array>
 
 </resources>
