@@ -75,7 +75,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     @Override
     public void disableViews(){
         String elementToDelete = presenter.getCurrentReadTag();
-        int elementID = presenter.getResourceId(elementToDelete, R.id.class);
+        int elementID = presenter.getResourceId(elementToDelete, R.drawable.class);
         Drawable elementDrawable = getResources().getDrawable(elementID);
         for(int i=0; i<6; i++){
             int imageToCheckId = presenter.getResourceId("imageView"+i, R.id.class);
@@ -157,7 +157,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
             int claimedImageView = presenter.getResourceId("imageView"+ i, R.id.class);
             final ImageView image = findViewById(claimedImageView);
             image.setVisibility(View.VISIBLE);
-            int claimedDrawableID = presenter.getResourceId(temporalElement, R.id.class);
+            int claimedDrawableID = presenter.getResourceId(temporalElement, R.drawable.class);
             image.setImageDrawable(getResources().getDrawable(claimedDrawableID));
         }
     }
