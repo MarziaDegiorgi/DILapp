@@ -65,7 +65,7 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
                 intent = new Intent(levelMapView.getContext(), ActivityTwoThree.class);
                 levelMapView.getContext().startActivity(intent);
                 break;
-            case "IMPARARE A CONTARE":
+            case "CONTIAMO INSIEME":
                 intent = new Intent(levelMapView.getContext(), ActivityThreeOne.class);
                 levelMapView.getContext().startActivity(intent);
                 break;

@@ -372,4 +372,32 @@
         <item>potatoshape</item>
     </string-array>
 
+    <!-- LEARN TO COUNT OBJECTS -->
+
+    <string-array name="count_easy_items">
+        <item>_1</item>
+        <item>_2</item>
+        <item>_3</item>
+    </string-array>
+    <string-array name="count_medium_items">
+        <item>_4</item>
+        <item>_5</item>
+        <item>_6</item>
+    </string-array>
+    <string-array name="count_difficult_items">
+        <item>_7</item>
+        <item>_8</item>
+        <item>_9</item>
+    </string-array>
+    <string-array name="count_double_items">
+        <item>10</item>
+    </string-array>
+
+    <string-array name="count">
+        <item>count_easy</item>
+        <item>count_medium</item>
+        <item>count_difficult</item>
+        <item>count_double</item>
+    </string-array>
+
 </resources>

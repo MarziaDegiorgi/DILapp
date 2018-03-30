@@ -25,11 +25,11 @@ public class ExpandableListData {
 
         List<String> logic = new ArrayList<>();
         logic.add("CONTIAMO INSIEME");
-        logic.add("CUCINA CON PATTY");
+        logic.add("CUCINA CON NOSCO");
 
-        expandableListDetail.put("LOGICA", logic);
-        expandableListDetail.put("LETTERE E NUMERI", numbers);
         expandableListDetail.put("OGGETTI E COLORI", objects);
+        expandableListDetail.put("LETTERE E NUMERI", numbers);
+        expandableListDetail.put("LOGICA", logic);
 
         return expandableListDetail;
     }

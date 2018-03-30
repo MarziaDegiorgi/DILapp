@@ -32,6 +32,7 @@ class CommonActivity {
     }
 
     ArrayList<String> getList(String[] array) {
+
         return new ArrayList<>(Arrays.asList(array));
     }
 
