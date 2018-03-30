@@ -217,19 +217,10 @@ public class GamePresenter implements IGame.Presenter {
 
         } else {
             if (!multipleElement) {
-                if (readTag.equals(currentElement)) {
-                    Log.i(CLASS, "[CheckAnswer][SingleItem][Correct] " + readTag);
-                    this.correctAnswer();
-                } else {
-                    String shapeElement = currentElement.replace("shape", "");
-                    Log.i("shape element", shapeElement);
-                    if (readTag.equals(shapeElement)) {
-                        Log.i(CLASS, "[CheckAnswer][SingleItem][Correct][ShapeElement] " + readTag);
-                        this.correctAnswer();
-                    } else {
-                        Log.i(CLASS, "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: " + currentElement);
-                        this.wrongAnswer();
-                    }
+                if(currentElement.contains("_")){
+                    check("_"+readTag);
+                }else {
+                    check(readTag);
                 }
             } else {
                 if (numberOfElements > 1) {
@@ -289,6 +280,23 @@ public class GamePresenter implements IGame.Presenter {
                     activityInterface.setSubItemAnimation(currentSubElement);
                 }
             },1500);
+        }
+    }
+
+    private void check(String readTag){
+        if (readTag.equals(currentElement)) {
+            Log.i(CLASS, "[CheckAnswer][SingleItem][Correct] " + readTag);
+            this.correctAnswer();
+        } else {
+            String shapeElement = currentElement.replace("shape", "");
+            Log.i("shape element", shapeElement);
+            if (readTag.equals(shapeElement)) {
+                Log.i(CLASS, "[CheckAnswer][SingleItem][Correct][ShapeElement] " + readTag);
+                this.correctAnswer();
+            } else {
+                Log.i(CLASS, "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: " + currentElement);
+                this.wrongAnswer();
+            }
         }
     }
 
@@ -354,7 +362,7 @@ public class GamePresenter implements IGame.Presenter {
      *  Check if an element is composed by multiple objects and set the flag variables
      */
     public void checkMultipleItems(){
-        if(currentElement.contains("_")){
+        if(currentElement.contains("_") && currentElement.length() > 2){
             multipleElement = true;
             subElementIndex = 1;
             numberOfElements = currentElement.length() - 1;
@@ -366,6 +374,7 @@ public class GamePresenter implements IGame.Presenter {
             numberOfElements=1;
             multipleElement = false;
             Log.i(CLASS, "[CheckMultipleItems][False] " + numberOfElements);
+            Log.i(CLASS, "[arrayLength]"+currentElement.length());
         }
     }
 

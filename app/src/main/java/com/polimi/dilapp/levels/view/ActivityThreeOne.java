@@ -39,7 +39,9 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
     String element;
     private CommonActivity common;
     GridView gridview;
+    GridView answerView;
     GridViewAdapter imageAdapter;
+    GridViewAdapter answerAdapter;
     MediaPlayer request;
 
     @Override
@@ -106,8 +108,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         }
 
         Log.i("[ACTIVITY_COUNT]", "number to count : "+ number);
-        initGridView(number);
-
+        setBlackboard(number);
         setAudioRequest();
     }
 
@@ -117,7 +118,28 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
      */
     @Override
     public void setSubItemAnimation(String currentSubElement) {
+        ImageView answerImage = findViewById(R.id.numberAnswer);
+        answerImage.setVisibility(View.INVISIBLE);
 
+        int resourceID = presenter.getResourceId("_"+ presenter.getCurrentReadTag() , R.drawable.class);
+        int audioId = presenter.getResourceId(AUDIO + "_"+ presenter.getCurrentReadTag(), R.raw.class);
+        request = MediaPlayer.create(this, audioId);
+
+        answerView = findViewById(R.id.answerView);
+        answerAdapter = new GridViewAdapter(this.getApplicationContext(), resourceID);
+        answerView.setAdapter(imageAdapter);
+
+        answerView.setVisibility(View.VISIBLE);
+
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+                presenter.setEnableNFC();
+                presenter.handleIntent(getIntent());
+            }
+        });
     }
 
     private void setAudioRequest(){
@@ -147,15 +169,22 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
     }
 
     /**
-     * Setting number of objects corresponding to the element required
-     * @param currentSubItem : current element
+     * In case of multiple object expected this method wait for the first element
+     * @param currentSubItem : current sub element
      */
     @Override
     public void initGridView(String currentSubItem) {
+
+        presenter.setEnableNFC();
+        presenter.handleIntent(getIntent());
+
+    }
+
+    private void setBlackboard(String numberOfElements) {
         //take "apples" as objects to show
         int resourceID = presenter.getResourceId("apple" , R.drawable.class);
 
-        int number = Integer.parseInt(currentSubItem);
+        int number = Integer.parseInt(numberOfElements);
 
         gridview = findViewById(R.id.objectView);
         imageAdapter = new GridViewAdapter(this.getApplicationContext(), resourceID);
@@ -167,36 +196,52 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
 
         gridview.setVisibility(View.VISIBLE);
 
-       Log.i("[ACTIVITY_COUNT]", " element: "+ element);
+        Log.i("[ACTIVITY_COUNT]", " element: "+ element);
     }
 
     @Override
     public void setVideoCorrectAnswer() {
-        ImageView answer = findViewById(R.id.numberAnswer);
         //audio response
-        int objectClaimedID = presenter.getResourceId(AUDIO + "_" + presenter.getCurrentReadTag(), R.raw.class);
+        int objectClaimedID = presenter.getResourceId(AUDIO + presenter.getCurrentElement(), R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
-
         final MediaPlayer correctAnswer = MediaPlayer.create(this, R.raw.request_correct_answer);
-        Animation rotate = AnimationUtils.loadAnimation(this.getApplicationContext(), R.anim.rotation);
+        final ImageView answer = findViewById(R.id.numberAnswer);
+        final Animation rotate = AnimationUtils.loadAnimation(this.getApplicationContext(), R.anim.rotation);
+
         int elementID = presenter.getResourceId("_"+ presenter.getCurrentReadTag(), R.drawable.class);
 
-        answer.setImageDrawable(getResources().getDrawable(elementID));
-        answer.setAnimation(rotate);
-        answer.setVisibility(View.VISIBLE);
-       answer.startAnimation(rotate);
+        if(presenter.getMultipleElement()){
+            imageAdapter.addImageResource(elementID);
+        }else {
+            answer.setImageDrawable(getResources().getDrawable(elementID));
+            answer.setAnimation(rotate);
+            answer.setVisibility(View.VISIBLE);
+            answer.startAnimation(rotate);
+        }
 
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
+                if(presenter.getMultipleElement()){
+                    disableAnswerGrid();
+                    int answerID = presenter.getResourceId(presenter.getCurrentElement(), R.drawable.class);
+                    //set final animation
+                    answer.setImageDrawable(getResources().getDrawable(answerID));
+                    answer.setAnimation(rotate);
+                    answer.setVisibility(View.VISIBLE);
+                    answer.startAnimation(rotate);
+                }
                 correctAnswer.start();
                 correctAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         mp.release();
                         disableViews();
+                        if(presenter.getMultipleElement()){
+
+                        }
                         presenter.chooseElement();
                     }
                 });
@@ -204,28 +249,24 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         });
     }
 
+    private void disableAnswerGrid() {
+        answerView.setVisibility(View.INVISIBLE);
+        answerAdapter.clearImageResources();
+    }
+
     @Override
     public void setVideoWrongAnswerToRepeat() {
 
-        int objectClaimedID = presenter.getResourceId(AUDIO + "_" + presenter.getCurrentReadTag(), R.raw.class);
-        request = MediaPlayer.create(this, objectClaimedID);
         final MediaPlayer wrongAnswer = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
 
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                            @Override
-                                            public void onCompletion(MediaPlayer mp) {
-                                                mp.release();
-                                                wrongAnswer.start();
-                                                wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                                    @Override
-                                                    public void onCompletion(MediaPlayer mp) {
-                                                        mp.release();
-                                                        setPresentationAnimation(presenter.getCurrentElement());
-                                                    }
-                                                });
-                                            }
-                                        });
+        wrongAnswer.start();
+        wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+            mp.release();
+            setPresentationAnimation(presenter.getCurrentElement());
+            }
+        });
     }
 
     @Override
@@ -235,9 +276,6 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                if(presenter.getNumberOfElements() > 0) {
-                    mp.release();
-                }else {
                     disableViews();
                     mp.release();
                     myHandler.postDelayed(new Runnable() {
@@ -246,7 +284,6 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
                             presenter.chooseElement();
                         }
                     },1800);
-                }
             }
         });
     }
