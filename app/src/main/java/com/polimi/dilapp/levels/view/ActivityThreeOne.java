@@ -118,8 +118,6 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
      */
     @Override
     public void setSubItemAnimation(String currentSubElement) {
-        ImageView answerImage = findViewById(R.id.numberAnswer);
-        answerImage.setVisibility(View.INVISIBLE);
 
         int resourceID = presenter.getResourceId("_"+ presenter.getCurrentReadTag() , R.drawable.class);
         int audioId = presenter.getResourceId(AUDIO + "_"+ presenter.getCurrentReadTag(), R.raw.class);
@@ -127,7 +125,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
 
         answerView = findViewById(R.id.answerView);
         answerAdapter = new GridViewAdapter(this.getApplicationContext(), resourceID);
-        answerView.setAdapter(imageAdapter);
+        answerView.setAdapter(answerAdapter);
 
         answerView.setVisibility(View.VISIBLE);
 
@@ -208,50 +206,64 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         final ImageView answer = findViewById(R.id.numberAnswer);
         final Animation rotate = AnimationUtils.loadAnimation(this.getApplicationContext(), R.anim.rotation);
 
-        int elementID = presenter.getResourceId("_"+ presenter.getCurrentReadTag(), R.drawable.class);
+        final int elementID = presenter.getResourceId(presenter.getCurrentElement(), R.drawable.class);
 
-        if(presenter.getMultipleElement()){
-            imageAdapter.addImageResource(elementID);
+        if(presenter.getMultipleElement()) {
+            int lastItemID = presenter.getResourceId(AUDIO + "_" + presenter.getCurrentReadTag(), R.raw.class);
+            int lastElementId= presenter.getResourceId("_"+presenter.getCurrentReadTag(),R.drawable.class);
+            answerAdapter.addImageResource(lastElementId);
+            MediaPlayer lastObject = MediaPlayer.create(this, lastItemID);
+            lastObject.start();
+            lastObject.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    mp.release();
+                    myHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                    answer.setImageDrawable(getResources().getDrawable(elementID));
+                    answer.setAnimation(rotate);
+                    answer.setVisibility(View.VISIBLE);
+                    answer.startAnimation(rotate);
+                    }
+                },1000);
+            }
+            });
         }else {
             answer.setImageDrawable(getResources().getDrawable(elementID));
             answer.setAnimation(rotate);
             answer.setVisibility(View.VISIBLE);
             answer.startAnimation(rotate);
         }
-
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        myHandler.postDelayed(new Runnable() {
             @Override
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-                if(presenter.getMultipleElement()){
-                    disableAnswerGrid();
-                    int answerID = presenter.getResourceId(presenter.getCurrentElement(), R.drawable.class);
-                    //set final animation
-                    answer.setImageDrawable(getResources().getDrawable(answerID));
-                    answer.setAnimation(rotate);
-                    answer.setVisibility(View.VISIBLE);
-                    answer.startAnimation(rotate);
-                }
-                correctAnswer.start();
-                correctAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void run() {
+                request.start();
+                request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
                         mp.release();
-                        disableViews();
-                        if(presenter.getMultipleElement()){
-
-                        }
-                        presenter.chooseElement();
+                        correctAnswer.start();
+                        correctAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                            @Override
+                            public void onCompletion(MediaPlayer mp) {
+                                mp.release();
+                                disableViews();
+                                presenter.chooseElement();
+                            }
+                        });
                     }
                 });
             }
-        });
+        },800);
     }
 
     private void disableAnswerGrid() {
         answerView.setVisibility(View.INVISIBLE);
         answerAdapter.clearImageResources();
+        if(presenter.getMultipleElement()){
+            disableAnswerGrid();
+        }
     }
 
     @Override
@@ -263,8 +275,13 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-            mp.release();
-            setPresentationAnimation(presenter.getCurrentElement());
+                mp.release();
+                if (presenter.getMultipleElement()) {
+                    presenter.setEnableNFC();
+                    presenter.handleIntent(getIntent());
+                } else {
+                    setPresentationAnimation(presenter.getCurrentElement());
+                }
             }
         });
     }
