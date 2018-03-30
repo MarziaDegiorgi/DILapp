@@ -95,6 +95,8 @@ public interface IGame {
         void setRecipeLevel();
         String getCurrentReadTag();
         String getCurrentElement();
+        int getEndTime();
+        void storeProgress();
 
         /**
          * This is called by the view once that the main animation of a multiple object is completed and

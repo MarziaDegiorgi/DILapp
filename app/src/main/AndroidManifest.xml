@@ -92,6 +92,9 @@
         <activity android:name=".levels.view.ActivityTwoThree" />
         <activity android:name=".levels.view.EndLevelScreen" />
         <activity android:name=".levels.view.ActivityThreeOne" />
+        <activity android:name=".report.ReportMainActivity"
+            android:hardwareAccelerated="true"/>
+        <activity android:name=".report.ReportSettingsActivity" />
         <activity android:name=".levels.view.ActivityThreeTwo" />
 
         <meta-data

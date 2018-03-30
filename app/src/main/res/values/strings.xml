@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DILapp</string>
+    <string name="app_name">Inter Nosco</string>
 
     <string name="play">Gioca</string>
     <string name="title_activity_one_one">ActivityOneOne</string>
@@ -17,6 +17,9 @@
     <string name="name_missing">Inserisci il tuo nome per creare l\'account!</string>
     <string name="birth_missing">Inserisci la tua data di nascita per creare l\'account!</string>
     <string name="fields_missing">Inserisci il tuo nome e la tua data di nascita per creare l\'account!</string>
+    <string name="progress_title">Progressi:</string>
+    <string name="progress_button">Specifiche per livello</string>
+    <string name="settings">Impostazioni</string>
 
 
 

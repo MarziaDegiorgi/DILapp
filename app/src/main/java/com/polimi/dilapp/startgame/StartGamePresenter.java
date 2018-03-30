@@ -18,6 +18,7 @@ import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.levels.view.ActivityTwoThree;
 import com.polimi.dilapp.levels.view.ActivityTwoTwo;
 import com.polimi.dilapp.main.CreateAccountActivity;
+import com.polimi.dilapp.report.ReportMainActivity;
 
 
 public class StartGamePresenter implements  IStartGame.Presenter {
@@ -57,7 +58,8 @@ public class StartGamePresenter implements  IStartGame.Presenter {
                 startGameView.getScreenContext().startActivity(intent);
                 break;
             case R.id.report:
-                //TODO: Start Report Activity
+                Intent report = new Intent(startGameView.getScreenContext(), ReportMainActivity.class);
+                startGameView.getScreenContext().startActivity(report);
                 break;
             case R.id.change_player:
                 resetCurrentPlayer();

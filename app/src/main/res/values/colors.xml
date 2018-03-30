@@ -10,5 +10,7 @@
     <color name="brawn">#CD5C5C</color>
     <color name="black">#000000</color>
     <color name="black_overlay">#66000000</color>
+    <color name="transparent">#80000000</color>
+    <color name="light_orange">#FFCCBC</color>
     <color name="background">#92faf3ce</color>
 </resources>
