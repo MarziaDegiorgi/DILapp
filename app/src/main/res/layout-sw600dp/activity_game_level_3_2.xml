@@ -170,21 +170,21 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView28"
+                android:id="@+id/answer11"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/tomato" />
 
             <ImageView
-                android:id="@+id/imageView27"
+                android:id="@+id/answer12"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/tomato" />
 
             <ImageView
-                android:id="@+id/imageView26"
+                android:id="@+id/answer13"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
