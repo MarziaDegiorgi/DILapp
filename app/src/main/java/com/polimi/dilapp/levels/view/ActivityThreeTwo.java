@@ -4,9 +4,12 @@ import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +35,8 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     String element;
     CommonActivity common;
     String object;
+    int counterID = 0;
+    private Handler myHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +74,16 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     @Override
     public void disableViews(){
-
+        String elementToDelete = presenter.getCurrentReadTag();
+        int elementID = presenter.getResourceId(elementToDelete, R.id.class);
+        Drawable elementDrawable = getResources().getDrawable(elementID);
+        for(int i=0; i<6; i++){
+            int imageToCheckId = presenter.getResourceId("imageView"+i, R.id.class);
+            final ImageView imageToCheck = findViewById(imageToCheckId);
+            if(imageToCheck.getDrawable().equals(elementDrawable)){
+                imageToCheck.setVisibility(View.INVISIBLE);
+            }
+        }
     }
 
     @Override
@@ -140,25 +154,43 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         int size = temporalArray.size();
         for(int i = 0; i<size; i++){
             String temporalElement = temporalArray.get(i);
-
+            int claimedImageView = presenter.getResourceId("imageView"+ i, R.id.class);
+            final ImageView image = findViewById(claimedImageView);
+            image.setVisibility(View.VISIBLE);
+            int claimedDrawableID = presenter.getResourceId(temporalElement, R.id.class);
+            image.setImageDrawable(getResources().getDrawable(claimedDrawableID));
         }
     }
 
     @Override
     public void setVideoCorrectAnswer(){
-        disableViews();
         setLionHeadAnimation();
-        String correctElement = presenter.getCurrentElement().replace("shape", "");
-        int resourceID = presenter.getResourceId(correctElement, R.drawable.class);
-        final ImageView image = findViewById(R.id.animation_box_answer);
-        image.setVisibility(View.VISIBLE);
-        image.setImageDrawable(getResources().getDrawable(resourceID));
-        image.setVisibility(View.VISIBLE);
+       String correctElement = presenter.getCurrentReadTag();
+       int resourceID = presenter.getResourceId(correctElement, R.drawable.class);
+       int imageID = presenter.getResourceId("answer"+ counterID, R.id.class);
+       counterID ++;
+       final ImageView image = findViewById(imageID);
+       image.setImageDrawable(getResources().getDrawable(resourceID));
+       image.setVisibility(View.VISIBLE);
+       disableViews();
+       MediaPlayer request = MediaPlayer.create(ActivityThreeTwo.this, R.raw.request_correct_answer);
+       request.start();
 
-        Animation animationCorrect = AnimationUtils.loadAnimation(ActivityThreeTwo.this, R.anim.bounce);
-        image.setAnimation(animationCorrect);
-        image.startAnimation(animationCorrect);
-        common.setVideoCorrectAnswer(image, this);
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                stopLionHeadAnimation();
+                mp.release();
+                //delay the choose of the next element of 1 sec
+                myHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.chooseElement();
+                    }
+                },1000);
+            }
+        });
+
     }
 
     @Override
@@ -167,16 +199,21 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         image.clearAnimation();
         image.setVisibility(View.INVISIBLE);
         setLionHeadAnimation();
-        common.setVideoWrongAnswerToRepeat(this);
+        setPresentationAnimation(presenter.getCurrentSequenceElement());
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
         setLionHeadAnimation();
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.clearAnimation();
-        image.setVisibility(View.INVISIBLE);
-        common.setVideoWrongAnswerAndGoOn(this);
+        MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                presenter.chooseElement();
+                mp.release();
+            }
+        });
     }
 
     @Override

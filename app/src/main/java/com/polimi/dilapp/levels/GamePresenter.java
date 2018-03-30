@@ -171,25 +171,29 @@ public class GamePresenter implements IGame.Presenter {
         if(colourLevel){
             chooseColour();
         } else {
-            newTurnStarted = false;
-            if (tempArray.isEmpty()) {
-                Log.i(CLASS, "Array is Empty -> Starting a new Turn");
-                startNewTurn();
+            if (recipeLevel) {
+            chooseRecipe();
             } else {
-                if (object != null) {
-                    int index = tempArray.indexOf(object);
-                    if (index > 0) {
-                        for (int i = index-1; i >= 0; i--) {
-                            tempArray.remove(i);
+                newTurnStarted = false;
+                if (tempArray.isEmpty()) {
+                    Log.i(CLASS, "Array is Empty -> Starting a new Turn");
+                    startNewTurn();
+                } else {
+                    if (object != null) {
+                        int index = tempArray.indexOf(object);
+                        if (index > 0) {
+                            for (int i = index - 1; i >= 0; i--) {
+                                tempArray.remove(i);
+                            }
                         }
+                        DatabaseInitializer.setObjectCurrentPlayer(db, null);
                     }
-                    DatabaseInitializer.setObjectCurrentPlayer(db, null);
+                    currentElement = tempArray.get(0);
+                    tempArray.remove(0);
+                    Log.i(CLASS, "Choose next element -> " + currentElement);
+                    this.checkMultipleItems();
+                    askCurrentElement();
                 }
-                currentElement = tempArray.get(0);
-                tempArray.remove(0);
-                Log.i(CLASS, "Choose next element -> " + currentElement);
-                this.checkMultipleItems();
-                askCurrentElement();
             }
         }
     }
@@ -218,43 +222,55 @@ public class GamePresenter implements IGame.Presenter {
             }
 
         } else {
-            if (!multipleElement) {
-                if(currentElement.contains("_")){
-                    check("_"+readTag);
-                }else {
-                    check(readTag);
+
+            if (recipeLevel) {
+                if(tempArray.contains(readTag)){
+                    tempArray.remove(readTag);
+                    Log.i(CLASS, "[CheckAnswer][RecipeItem][Correct] " + readTag);
+                    this.correctAnswerRecipe();
+                } else {
+                    Log.i(CLASS, "[CheckAnswer][RecipeItem][Wrong] " + readTag + ", current element: " + currentElement);
+                    this.wrongAnswerRecipe();
                 }
             } else {
-                if (numberOfElements > 1) {
-                    // Correct answer
-                    if (readTag.equals(currentSubElement)) {
-                        this.updateSubItem();
+                if (!multipleElement) {
+                    if (currentElement.contains("_")) {
+                        check("_" + readTag);
                     } else {
-                        totalAttempts++;
-                        if (counter < 2) {
-                            counter++;
-                            activityInterface.setVideoWrongAnswerToRepeat();
-                        } else {
-                            counter = 0;
-                            //ask the next sub item
-                            this.updateSubItem();
-                            activityInterface.setVideoWrongAnswerAndGoOn();
-                        }
+                        check(readTag);
                     }
                 } else {
-                    if (readTag.equals(currentSubElement)) {
-                        subElementIndex = 1;
-                        Log.i(CLASS, "[CheckAnswer][lastSubItem]" + currentSubElement);
-                        this.correctAnswer();
-                    } else {
-                        totalAttempts++;
-                        if (counter < 2) {
-                            counter++;
-                            activityInterface.setVideoWrongAnswerToRepeat();
+                    if (numberOfElements > 1) {
+                        // Correct answer
+                        if (readTag.equals(currentSubElement)) {
+                            this.updateSubItem();
                         } else {
-                            counter = 0;
-                            numberOfElements=0;
-                            activityInterface.setVideoWrongAnswerAndGoOn();
+                            totalAttempts++;
+                            if (counter < 2) {
+                                counter++;
+                                activityInterface.setVideoWrongAnswerToRepeat();
+                            } else {
+                                counter = 0;
+                                //ask the next sub item
+                                this.updateSubItem();
+                                activityInterface.setVideoWrongAnswerAndGoOn();
+                            }
+                        }
+                    } else {
+                        if (readTag.equals(currentSubElement)) {
+                            subElementIndex = 1;
+                            Log.i(CLASS, "[CheckAnswer][lastSubItem]" + currentSubElement);
+                            this.correctAnswer();
+                        } else {
+                            totalAttempts++;
+                            if (counter < 2) {
+                                counter++;
+                                activityInterface.setVideoWrongAnswerToRepeat();
+                            } else {
+                                counter = 0;
+                                numberOfElements = 0;
+                                activityInterface.setVideoWrongAnswerAndGoOn();
+                            }
                         }
                     }
                 }
@@ -346,6 +362,35 @@ public class GamePresenter implements IGame.Presenter {
             startNewTurn();
         }
     }
+
+    private void correctAnswerRecipe(){
+        counter = 0;
+        correctAnswers++;
+        totalAttempts++;
+        int size = tempArray.size();
+        if(size == 0)
+        {
+            counter = 0;
+            startNewTurn();
+        } else{
+                activityInterface.setVideoCorrectAnswer();
+        }
+    }
+
+
+    private void wrongAnswerRecipe(){
+        totalAttempts++;
+        if (counter < 6) {
+            counter++;
+            activityInterface.setVideoWrongAnswerToRepeat();
+        } else {
+            counter = 0;
+            startNewTurn();
+        }
+    }
+
+
+
     /**
      * Update the correct answer calling the view to the correspondent video
      */
@@ -383,6 +428,12 @@ public class GamePresenter implements IGame.Presenter {
     private void chooseColour(){
         newTurnStarted = false;
         Log.i(CLASS, "Ask current colour element" );
+        activityInterface.setPresentationAnimation(currentSequenceElement);
+    }
+
+    private void chooseRecipe(){
+        newTurnStarted = false;
+        Log.i(CLASS, "Ask current recipe element" );
         activityInterface.setPresentationAnimation(currentSequenceElement);
     }
 
