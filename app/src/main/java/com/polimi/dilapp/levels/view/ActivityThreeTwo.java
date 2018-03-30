@@ -195,9 +195,6 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
-        ImageView image = findViewById(R.id.animation_box_answer);
-        image.clearAnimation();
-        image.setVisibility(View.INVISIBLE);
         setLionHeadAnimation();
         setPresentationAnimation(presenter.getCurrentSequenceElement());
     }
