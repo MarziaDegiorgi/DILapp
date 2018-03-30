@@ -38,7 +38,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         Intent intent = getIntent();
         object = intent.getStringExtra("object");
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.activity_game);
+        setContentView(R.layout.activity_game_level_3_2);
 
         //set up the presenter and pass it to the common activity view
         presenter = new GamePresenter(this);
