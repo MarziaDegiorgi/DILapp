@@ -19,34 +19,6 @@
         tools:layout_editor_absoluteX="395dp"
         tools:layout_editor_absoluteY="237dp" />
 
-    <ImageView
-        android:id="@+id/blackboardAnswer"
-        android:layout_width="348dp"
-        android:layout_height="266dp"
-        android:contentDescription="TODO"
-        android:scaleType="fitCenter"
-        android:layout_marginEnd="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintHorizontal_bias="0.988"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.261"
-        app:srcCompat="@drawable/blackboard_answer" />
-
-    <ImageView
-        android:id="@+id/numberAnswer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="TODO"
-        android:scaleType="fitCenter"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@id/blackboardAnswer"
-        app:layout_constraintEnd_toEndOf="@drawable/blackboard_answer"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@drawable/blackboard_answer"
-        app:layout_constraintTop_toTopOf="@id/blackboardAnswer"
-        app:layout_constraintVertical_bias="0.261" />
 
     <LinearLayout
         android:id="@+id/verticalLayout"
@@ -74,6 +46,38 @@
             android:stretchMode="columnWidth"
             android:visibility="invisible" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="348dp"
+        android:layout_height="266dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.984"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.289"
+        android:background="@drawable/blackboard_answer">
+
+        <ImageView
+            android:id="@+id/numberAnswer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="TODO"
+            android:scaleType="fitCenter"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.278" />
     </LinearLayout>
 
     <VideoView

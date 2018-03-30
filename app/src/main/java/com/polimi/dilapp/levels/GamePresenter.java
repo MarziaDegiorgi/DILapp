@@ -300,7 +300,6 @@ public class GamePresenter implements IGame.Presenter {
         correctAnswers++;
         totalAttempts++;
         activityInterface.setVideoCorrectAnswer();
-        activityInterface.disableViews();
     }
 
     private void correctAnswerColour(){
@@ -308,7 +307,6 @@ public class GamePresenter implements IGame.Presenter {
         counterColourSession ++;
         correctAnswers++;
         totalAttempts++;
-        activityInterface.disableViews();
         int size = tempArray.size();
         if(size == counterColourSession)
         {

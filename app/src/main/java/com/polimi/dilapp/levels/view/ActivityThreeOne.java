@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -105,6 +107,8 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
 
         Log.i("[ACTIVITY_COUNT]", "number to count : "+ number);
         initGridView(number);
+
+        setAudioRequest();
     }
 
     /**
@@ -168,7 +172,26 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setVideoCorrectAnswer() {
+        ImageView answer = findViewById(R.id.numberAnswer);
+        //audio response
+        MediaPlayer request = MediaPlayer.create(this, R.raw.request_correct_answer);
+        Animation rotate = AnimationUtils.loadAnimation(this.getApplicationContext(), R.anim.rotation);
+        int elementID = presenter.getResourceId("_"+ presenter.getCurrentReadTag(), R.drawable.class);
 
+        answer.setImageDrawable(getResources().getDrawable(elementID));
+        answer.setAnimation(rotate);
+        answer.setVisibility(View.VISIBLE);
+       answer.startAnimation(rotate);
+
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                disableViews();
+                mp.release();
+                presenter.chooseElement();
+            }
+        });
     }
 
     @Override
@@ -183,17 +206,26 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setRepeatOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityTwoThree");
+        intent.putExtra("ButtonName", "Ripeti");
+        startActivity(intent);
     }
 
     @Override
     public void setGoOnOrExitScreen() {
-
+        Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
+        intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityTwoFour");
+        intent.putExtra("ButtonName", "Avanti");
+        startActivity(intent);
     }
 
     @Override
     public void disableViews() {
-
+        ImageView answer =  findViewById(R.id.numberAnswer);
+        gridview.setVisibility(View.INVISIBLE);
+        imageAdapter.clearImageResources();
+        common.disableView(answer);
     }
 
     @Override
