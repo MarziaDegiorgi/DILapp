@@ -174,7 +174,10 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
     public void setVideoCorrectAnswer() {
         ImageView answer = findViewById(R.id.numberAnswer);
         //audio response
-        MediaPlayer request = MediaPlayer.create(this, R.raw.request_correct_answer);
+        int objectClaimedID = presenter.getResourceId(AUDIO + "_" + presenter.getCurrentReadTag(), R.raw.class);
+        request = MediaPlayer.create(this, objectClaimedID);
+
+        final MediaPlayer correctAnswer = MediaPlayer.create(this, R.raw.request_correct_answer);
         Animation rotate = AnimationUtils.loadAnimation(this.getApplicationContext(), R.anim.rotation);
         int elementID = presenter.getResourceId("_"+ presenter.getCurrentReadTag(), R.drawable.class);
 
@@ -187,9 +190,16 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                disableViews();
                 mp.release();
-                presenter.chooseElement();
+                correctAnswer.start();
+                correctAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        mp.release();
+                        disableViews();
+                        presenter.chooseElement();
+                    }
+                });
             }
         });
     }
@@ -197,11 +207,48 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
     @Override
     public void setVideoWrongAnswerToRepeat() {
 
+        int objectClaimedID = presenter.getResourceId(AUDIO + "_" + presenter.getCurrentReadTag(), R.raw.class);
+        request = MediaPlayer.create(this, objectClaimedID);
+        final MediaPlayer wrongAnswer = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
+
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                            @Override
+                                            public void onCompletion(MediaPlayer mp) {
+                                                mp.release();
+                                                wrongAnswer.start();
+                                                wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                                    @Override
+                                                    public void onCompletion(MediaPlayer mp) {
+                                                        mp.release();
+                                                        setPresentationAnimation(presenter.getCurrentElement());
+                                                    }
+                                                });
+                                            }
+                                        });
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
-
+        request = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                if(presenter.getNumberOfElements() > 0) {
+                    mp.release();
+                }else {
+                    disableViews();
+                    mp.release();
+                    myHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            presenter.chooseElement();
+                        }
+                    },1800);
+                }
+            }
+        });
     }
 
     @Override
