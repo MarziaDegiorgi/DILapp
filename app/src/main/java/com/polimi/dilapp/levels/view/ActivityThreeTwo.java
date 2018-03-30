@@ -122,7 +122,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     }
 
     private void setLionHeadAnimation(){
-        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game_3);
         lionHeadImage.setVisibility(View.VISIBLE);
         Animation animationLionHead = AnimationUtils.loadAnimation(ActivityThreeTwo.this, R.anim.lion_rotation_waiting);
         lionHeadImage.setAnimation(animationLionHead);
@@ -130,15 +130,15 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     }
 
     private void stopLionHeadAnimation(){
-        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game_3);
         lionHeadImage.setVisibility(View.VISIBLE);
         lionHeadImage.clearAnimation();
     }
 
     public void setWaitingAnimation(){
-        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
-        ImageView lionTaleImage = findViewById(R.id.tale_game);
-        ImageView lionBodyImage = findViewById(R.id.lion_body_game);
+        ImageView lionHeadImage = findViewById(R.id.lion_head_game_3);
+        ImageView lionTaleImage = findViewById(R.id.tale_game_3);
+        ImageView lionBodyImage = findViewById(R.id.lion_body_game_3);
         lionBodyImage.setVisibility(View.VISIBLE);
         lionTaleImage.setVisibility(View.VISIBLE);
         lionHeadImage.setVisibility(View.VISIBLE);
