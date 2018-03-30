@@ -1,5 +1,6 @@
 package com.polimi.dilapp.levels.view;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -43,7 +44,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         //set up the presenter and pass it to the common activity view
         presenter = new GamePresenter(this);
         common = new CommonActivity(presenter);
-
+        presenter.setRecipeLevel();
         setupSequence();
 
         boolean availability = presenter.checkNfcAvailability();
@@ -80,16 +81,12 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     @Override
     public void setPresentationAnimation(String currentElement){
         element = currentElement;
-        int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationBegin = AnimationUtils.loadAnimation(ActivityThreeTwo.this, R.anim.rotation);
         setLionHeadAnimation();
-        common.startMainAnimation(this,animationBegin,resourceID,this);
-
         setAudioRequest();
     }
 
     private void setAudioRequest(){
-        int objectClaimedID = presenter.getResourceId("request_shape", R.raw.class);
+        int objectClaimedID = presenter.getResourceId("request_recipe_element", R.raw.class);
         request = MediaPlayer.create(ActivityThreeTwo.this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
@@ -107,19 +104,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
 
     public void setAnimationBoxExtra(){
-        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
-        animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityThreeTwo.this, R.anim.move_half_rotate);
-        animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
-        animationViewExtra.setAnimation(extraAnimation);
-        animationViewExtra.startAnimation(extraAnimation);
 
-        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
-        animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityThreeTwo.this, R.anim.move_half_rotate);
-        animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
-        animationViewExtraTwo.setAnimation(extraAnimationTwo);
-        animationViewExtraTwo.startAnimation(extraAnimationTwo);
     }
 
     private void setLionHeadAnimation(){
@@ -137,8 +122,6 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     }
 
     public void setWaitingAnimation(){
-        int resourceID = presenter.getResourceId(element, R.drawable.class);
-        Animation animationWait = AnimationUtils.loadAnimation(ActivityThreeTwo.this, R.anim.waiting_rotation);
         ImageView lionHeadImage = findViewById(R.id.lion_head_game);
         ImageView lionTaleImage = findViewById(R.id.tale_game);
         ImageView lionBodyImage = findViewById(R.id.lion_body_game);
@@ -150,7 +133,15 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         lionTaleImage.setAnimation(animationLionWait);
         lionTaleImage.setVisibility(View.VISIBLE);
         lionTaleImage.startAnimation(animationLionWait);
-        common.startMainAnimation(this,animationWait,resourceID,this);
+    }
+
+    private void setupViewItems(List<String> arrayList){
+        List<String> temporalArray = arrayList;
+        int size = temporalArray.size();
+        for(int i = 0; i<size; i++){
+            String temporalElement = temporalArray.get(i);
+
+        }
     }
 
     @Override
@@ -213,15 +204,11 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     @Override
     public ArrayList<String> getSessionArray(int vectorID) {
-        /*String[] sessionFruitVector = getResources().getStringArray(vectorID);
-        if(vectorID == R.array.all_shapes_items){
-            return common.getPartialArray(sessionFruitVector);
-        }else {
-            List<String> array = new ArrayList<>(Arrays.asList(sessionFruitVector));
-            Collections.sort(array);
-            return (ArrayList<String>) array;
-        }*/
-        return null;
+        String[] sessionFruitVector = getResources().getStringArray(vectorID);
+        List<String> array = new ArrayList<>(Arrays.asList(sessionFruitVector));
+        Collections.sort(array);
+        setupViewItems(array);
+        return (ArrayList<String>) array;
     }
 
     @Override

@@ -65,9 +65,10 @@ public class GamePresenter implements IGame.Presenter {
     private boolean newSessionStarted;
     private boolean newTurnStarted;
     private boolean gameEnded;
-    private boolean colourLevel = false;
+    private boolean colourLevel;
     private boolean actionDetected;
-    private boolean enableNFC = false;
+    private boolean enableNFC;
+    private boolean recipeLevel;
 
    public GamePresenter(IGame.View view){
 
@@ -76,6 +77,7 @@ public class GamePresenter implements IGame.Presenter {
        Log.i("Activity interface", String.valueOf(activityInterface));
        this.multipleElement = false;
        this.numberOfElements = 1;
+       recipeLevel = false;
        gameStarted = false;
        newSessionStarted = false;
        actionDetected = false;
@@ -629,6 +631,11 @@ public class GamePresenter implements IGame.Presenter {
     @Override
     public void setEnableNFC() {
         enableNFC = true;
+    }
+
+    @Override
+    public void setRecipeLevel() {
+        recipeLevel = true;
     }
 
     @Override
