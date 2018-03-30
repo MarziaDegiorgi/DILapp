@@ -887,25 +887,25 @@ public class GamePresenter implements IGame.Presenter {
                     db.childReportDao().setErrorsPotato(currentPlayer, 1);
                     break;
                 case "_0":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsZero(currentPlayer, 1);
                 case "_1":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsOne(currentPlayer, 1);
                 case "_2":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsTwo(currentPlayer, 1);
                 case "_3":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsThree(currentPlayer, 1);
                 case "_4":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsFour(currentPlayer, 1);
                 case "_5":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsFive(currentPlayer, 1);
                 case "_6":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsSix(currentPlayer, 1);
                 case "_7":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsSeven(currentPlayer, 1);
                 case "_8":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsEight(currentPlayer, 1);
                 case "_9":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
+                    db.childReportDao().setErrorsNine(currentPlayer, 1);
                 default:
                     break;
 
