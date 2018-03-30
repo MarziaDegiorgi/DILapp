@@ -61,7 +61,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     }
 
     private void setupSequence(){
-        String[] recipes = getResources().getStringArray(R.array.shapes);
+        String[] recipes = getResources().getStringArray(R.array.recipes);
         recipeSequence = common.getList(recipes);
 
     }
