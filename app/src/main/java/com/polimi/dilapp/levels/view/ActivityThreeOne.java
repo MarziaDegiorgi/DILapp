@@ -101,6 +101,8 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
     @Override
     public void setPresentationAnimation(String currentElement) {
         String number;
+        common.enableKiteAnimationBackground(this, ActivityThreeOne.this);
+        common.enableLionBackground(this);
         if(presenter.getNumberOfElements()>1){
             number = currentElement.substring(1,3);
         }else {
@@ -122,6 +124,8 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         int resourceID = presenter.getResourceId("_"+ presenter.getCurrentReadTag() , R.drawable.class);
         int audioId = presenter.getResourceId(AUDIO + "_"+ presenter.getCurrentReadTag(), R.raw.class);
         request = MediaPlayer.create(this, audioId);
+        final AppCompatActivity activity = this;
+        final Context context = ActivityThreeOne.this;
 
         answerView = findViewById(R.id.answerView);
         answerAdapter = new GridViewAdapter(this.getApplicationContext(), resourceID);
@@ -134,6 +138,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
+                common.enableLionHeadAnimation(context, activity);
                 presenter.setEnableNFC();
                 presenter.handleIntent(getIntent());
             }
@@ -144,6 +149,8 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
 
         int resourceId = presenter.getResourceId("request_count_object", R.raw.class);
         request = MediaPlayer.create(this, resourceId);
+        final AppCompatActivity activity = this;
+        final Context context = ActivityThreeOne.this;
 
         myHandler.postDelayed(new Runnable() {
             @Override
@@ -157,6 +164,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
                             presenter.notifyFirstSubElement();
                         } else {
                             mp.release();
+                            common.enableLionHeadAnimation(context, activity);
                             presenter.setEnableNFC();
                             presenter.handleIntent(getIntent());
                         }
@@ -204,6 +212,8 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         request = MediaPlayer.create(this, objectClaimedID);
         final MediaPlayer correctAnswer = MediaPlayer.create(this, R.raw.request_correct_answer);
         final ImageView answer = findViewById(R.id.numberAnswer);
+        final AppCompatActivity activity = this;
+
         final Animation rotate = AnimationUtils.loadAnimation(this.getApplicationContext(), R.anim.rotation);
 
         final int elementID = presenter.getResourceId(presenter.getCurrentElement(), R.drawable.class);
@@ -248,6 +258,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
                             @Override
                             public void onCompletion(MediaPlayer mp) {
                                 mp.release();
+                                common.disableLionHeadAnimation(activity);
                                 disableViews();
                                 presenter.chooseElement();
                             }

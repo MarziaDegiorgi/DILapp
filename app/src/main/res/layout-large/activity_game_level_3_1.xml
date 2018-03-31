@@ -20,8 +20,8 @@
 
     <ImageView
         android:id="@+id/tale_game"
-        android:layout_width="185dp"
-        android:layout_height="163dp"
+        android:layout_width="540dp"
+        android:layout_height="540dp"
         android:layout_alignParentStart="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,8 +31,8 @@
 
     <ImageView
         android:id="@+id/lion_body_game"
-        android:layout_width="173dp"
-        android:layout_height="167dp"
+        android:layout_width="580dp"
+        android:layout_height="568dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,8 +44,8 @@
 
     <ImageView
         android:id="@+id/lion_head_game"
-        android:layout_width="155dp"
-        android:layout_height="154dp"
+        android:layout_width="520dp"
+        android:layout_height="516dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/lion_body"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,11 +64,11 @@
         android:layout_marginTop="32dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.828"
+        app:layout_constraintHorizontal_bias="0.103"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516"
+        app:layout_constraintVertical_bias="0.255"
         tools:layout_constraintBottom_creator="1"
         tools:layout_constraintLeft_creator="1"
         tools:layout_constraintRight_creator="1"
@@ -183,12 +183,6 @@
             android:visibility="invisible" />
     </LinearLayout>
 
-    <VideoView
-        android:id="@+id/video_box"
-        android:visibility="visible"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        />
+
 
 </android.support.constraint.ConstraintLayout>
