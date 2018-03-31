@@ -91,7 +91,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.rotation);
-        setLionHeadAnimation();
+        common.enableLionHeadAnimation(ActivityOneOne.this, this);
         common.startMainAnimation(this,animationBegin,resourceID,this);
 
         setAudioRequest();
@@ -99,15 +99,18 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     private void setAudioRequest(){
         int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
+        final AppCompatActivity activity = this;
+        final Context context = ActivityOneOne.this;
+
         request = MediaPlayer.create(ActivityOneOne.this, objectClaimedID);
         request.start();
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                setAnimationBoxExtra();
-                stopLionHeadAnimation();
+                common.enableKiteAnimationBackground(activity, context);
+                common.disableLionHeadAnimation(activity);
                 setWaitingAnimation();
-                stopLionHeadAnimation();
+                common.disableLionHeadAnimation(activity);
                 mp.release();
                 presenter.setEnableNFC();
                 presenter.handleIntent(getIntent());
@@ -115,52 +118,12 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         });
     }
 
-
-    public void setAnimationBoxExtra(){
-        ImageView animationViewExtra = findViewById(R.id.animation_box_two);
-        animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimation = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.move);
-        animationViewExtra.setImageDrawable(getResources().getDrawable(R.drawable.kite));
-        animationViewExtra.setAnimation(extraAnimation);
-        animationViewExtra.startAnimation(extraAnimation);
-
-        ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
-        animationViewExtra.setVisibility(View.VISIBLE);
-        Animation extraAnimationTwo = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.move);
-        animationViewExtraTwo.setImageDrawable(getResources().getDrawable(R.drawable.kite));
-        animationViewExtraTwo.setAnimation(extraAnimationTwo);
-        animationViewExtraTwo.startAnimation(extraAnimationTwo);
-    }
-
-    private void setLionHeadAnimation(){
-        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
-        lionHeadImage.setVisibility(View.VISIBLE);
-        Animation animationLionHead = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.lion_rotation_waiting);
-        lionHeadImage.setAnimation(animationLionHead);
-        lionHeadImage.startAnimation(animationLionHead);
-    }
-
-    private void stopLionHeadAnimation(){
-        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
-        lionHeadImage.setVisibility(View.VISIBLE);
-        lionHeadImage.clearAnimation();
-    }
-
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
         Animation animationWait = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.waiting_rotation);
 
-        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
-        ImageView lionTaleImage = findViewById(R.id.tale_game);
-        ImageView lionBodyImage = findViewById(R.id.lion_body_game);
-        lionBodyImage.setVisibility(View.VISIBLE);
-        lionTaleImage.setVisibility(View.VISIBLE);
-        lionHeadImage.setVisibility(View.VISIBLE);
-
-        Animation animationLionWait = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.tale_rotation);
-        lionTaleImage.setAnimation(animationLionWait);
-        lionTaleImage.setVisibility(View.VISIBLE);
-        lionTaleImage.startAnimation(animationLionWait);
+        common.enableLionBackground(this);
+        common.enableLionTailAnimation(this, ActivityOneOne.this);
 
         common.startMainAnimation(this,animationWait,resourceID,this);
     }
@@ -168,25 +131,24 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoCorrectAnswer(){
         disableViews();
-        setLionHeadAnimation();
+        common.enableLionHeadAnimation(ActivityOneOne.this, this);
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        common.setVideoCorrectAnswer(image, this);
-
+        common.setCorrectAnswer(image, this);
     }
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
         disableViews();
-        setLionHeadAnimation();
-        common.setVideoWrongAnswerToRepeat(this);
+        common.enableLionHeadAnimation(ActivityOneOne.this, this);
+        common.setWrongAnswerToRepeat(this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
         disableViews();
-        setLionHeadAnimation();
-        common.setVideoWrongAnswerAndGoOn( this);
+        common.enableLionHeadAnimation(ActivityOneOne.this, this);
+        common.setWrongAnswerAndGoOn( this);
     }
 
     @Override
@@ -212,29 +174,23 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public ArrayList<String> getSessionArray(int vectorID) {
+    public List<String> getSessionArray(int vectorID) {
         String[] sessionFruitVector = getResources().getStringArray(vectorID);
         if(vectorID == R.array.all_fruits_items){
             return common.getPartialArray(sessionFruitVector);
         }else {
             List<String> array = new ArrayList<>(Arrays.asList(sessionFruitVector));
             Collections.sort(array);
-            return (ArrayList<String>) array;
+            return array;
         }
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        presenter.onDestroy();
-    }
 
     @Override
     public Class getApplicationClass(){
 
         return this.getClass();
     }
-
 
     @Override
     public Context getScreenContext() {
@@ -252,6 +208,12 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     protected void onPause() {
         presenter.stopForegroundDispatch();
         super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
     //onNewIntent let us stay in the same activity after reading a TAG

@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -151,26 +152,26 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
         int imageID = presenter.getResourceId(element, R.drawable.class);
         Animation answerAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_and_bounce);
 
-        image.setImageDrawable(this.getResources().getDrawable(imageID));
+        image.setImageDrawable(ContextCompat.getDrawable(ActivityTwoTwo.this ,imageID));
         image.setAnimation(answerAnimation);
         image.setVisibility(View.VISIBLE);
         image.startAnimation(answerAnimation);
 
-        common.setVideoCorrectAnswer(image, this);
+        common.setCorrectAnswer(image, this);
     }
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
         disableViews();
 
-        common.setVideoWrongAnswerToRepeat(this);
+        common.setWrongAnswerToRepeat(ActivityTwoTwo.this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
         disableViews();
 
-        common.setVideoWrongAnswerAndGoOn( this);
+        common.setWrongAnswerAndGoOn( ActivityTwoTwo.this);
     }
 
     @Override

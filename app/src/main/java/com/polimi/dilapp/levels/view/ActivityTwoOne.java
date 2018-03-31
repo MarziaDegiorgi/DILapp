@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +17,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.GridViewAdapter;
 import com.polimi.dilapp.levels.IGame;
@@ -90,7 +90,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
         final ImageView image = findViewById(R.id.animation_box);
         image.setVisibility(View.VISIBLE);
-        image.setImageDrawable(getResources().getDrawable(resourceID));
+        image.setImageDrawable(ContextCompat.getDrawable(ActivityTwoOne.this,resourceID));
         image.setVisibility(View.VISIBLE);
 
         image.setAnimation(animationBegin);
@@ -113,7 +113,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         int resourceID = presenter.getResourceId("_"+currentSubItem, R.drawable.class);
 
         ImageView image = findViewById(R.id.image_box_multiple_elements);
-        image.setImageDrawable(getResources().getDrawable(elementID));
+        image.setImageDrawable(ContextCompat.getDrawable(ActivityTwoOne.this,elementID));
         gridview = findViewById(R.id.gridView);
         imageAdapter = new GridViewAdapter(this, resourceID);
         gridview.setAdapter(imageAdapter);
@@ -172,6 +172,8 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     private void setAudioRequest(final ImageView image){
         int objectClaimedID = presenter.getResourceId("request_" + element, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
+        final  AppCompatActivity activity = this;
+
         myHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -186,7 +188,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
                         } else {
                             setWaitingAnimation();
                             mp.release();
-                            stopLionHeadAnimation();
+                            common.disableLionHeadAnimation(activity);
                             presenter.setEnableNFC();
                             presenter.handleIntent(getIntent());
                         }
@@ -232,19 +234,19 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         ImageView mainImage = findViewById(R.id.animation_box);
         mainImage.clearAnimation();
 
-        setLionHeadAnimation();
+        common.enableLionHeadAnimation(ActivityTwoOne.this, this);
 
         int resourceID = presenter.getResourceId(element, R.drawable.class);
 
         final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.setImageDrawable(getResources().getDrawable(resourceID));
+        image.setImageDrawable(ContextCompat.getDrawable(ActivityTwoOne.this,resourceID));
         image.setVisibility(View.VISIBLE);
 
-        Animation animationCorrect = AnimationUtils.loadAnimation(this.getApplicationContext(), R.anim.bounce);
+        Animation animationCorrect = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.bounce);
         image.setAnimation(animationCorrect);
         image.startAnimation(animationCorrect);
-        common.setVideoCorrectAnswer(image, this);
+        common.setCorrectAnswer(image, ActivityTwoOne.this);
     }
 
     @Override
@@ -253,26 +255,19 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
         ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.getResources().getDrawable(R.drawable.not_correct_answer);
-        setLionHeadAnimation();
 
-        common.setVideoWrongAnswerToRepeat(this.getApplicationContext());
-    }
+        image.setImageDrawable(ContextCompat.getDrawable(ActivityTwoOne.this,R.drawable.not_correct_answer ));
 
-    private void setLionHeadAnimation(){
-        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
-        lionHeadImage.setVisibility(View.VISIBLE);
-        Animation animationLionHead = AnimationUtils.loadAnimation(ActivityTwoOne.this, R.anim.lion_rotation_waiting);
-        lionHeadImage.setAnimation(animationLionHead);
-        lionHeadImage.startAnimation(animationLionHead);
+        common.enableLionHeadAnimation(ActivityTwoOne.this, this);
+        common.setWrongAnswerToRepeat(ActivityTwoOne.this);
     }
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
-        MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
-        request.start();
-        setLionHeadAnimation();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        MediaPlayer wrongAnswer = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
+        wrongAnswer.start();
+        common.enableLionHeadAnimation(ActivityTwoOne.this, this);
+        wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 if(presenter.getNumberOfElements() > 0) {
@@ -356,16 +351,8 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         presenter.handleIntent(intent);
     }
 
-    public List<String> getSequence(){
-        return numberSequence;
-    }
-
     public IGame.Presenter getPresenter(){
         return presenter;
-    }
-
-    public CommonActivity getCommonActivity(){
-        return common;
     }
 
     @Override
@@ -383,11 +370,5 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         super.onSaveInstanceState(savedInstanceState);
         Log.i("[ACTIVITY 21]", "I'm calling storeCurrentPlayer");
 
-    }
-
-    private void stopLionHeadAnimation(){
-        ImageView lionHeadImage = findViewById(R.id.lion_head_game);
-        lionHeadImage.setVisibility(View.VISIBLE);
-        lionHeadImage.clearAnimation();
     }
 }

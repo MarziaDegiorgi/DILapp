@@ -4,9 +4,11 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
@@ -36,6 +38,12 @@ class CommonActivity {
         return new ArrayList<>(Arrays.asList(array));
     }
 
+    /**
+     * Start the introductory video of each level
+     * @param uri video to start
+     * @param sequence of object in the actual level
+     * @param activity to which it refer
+     */
    void startIntro(Uri uri, final List<String> sequence, AppCompatActivity activity){
        VideoView video = activity.findViewById(R.id.video_box);
        video.setVideoURI(uri);
@@ -65,21 +73,28 @@ class CommonActivity {
         });
     }
 
+    /**
+     * Start the main video of each session contained within a level
+     * @param activity to refer
+     * @param animation to use
+     * @param resourceID of the image
+     * @param context of the activity
+     */
     void startMainAnimation(AppCompatActivity activity, Animation animation, int resourceID, Context context){
 
         ImageView image = activity.findViewById(R.id.animation_box);
         image.setVisibility(View.VISIBLE);
-        image.setImageDrawable(context.getResources().getDrawable(resourceID));
+        image.setImageDrawable(ContextCompat.getDrawable(context, resourceID));
         image.setVisibility(View.VISIBLE);
         image.setAnimation(animation);
         image.startAnimation(animation);
     }
 
     /**
-     *  Set video in given context in case of not correct answer in order then to repeat the request
+     *  Set response in given context in case of not correct answer in order then to repeat the request
      * @param context of the activity
      */
-    void setVideoWrongAnswerToRepeat(Context context){
+    void setWrongAnswerToRepeat(Context context){
 
         MediaPlayer request = MediaPlayer.create(context, R.raw.request_wrong_answer_repeat);
         request.start();
@@ -92,10 +107,10 @@ class CommonActivity {
         });
     }
     /**
-     *  Set video in given context in case of not correct answer in order then to go on
+     *  Set response in given context in case of not correct answer in order then to go on
      * @param context of the activity
      */
-    void setVideoWrongAnswerAndGoOn(Context context){
+    void setWrongAnswerAndGoOn(Context context){
         MediaPlayer request = MediaPlayer.create(context, R.raw.request_wrong_answer_go_on);
         request.start();
 
@@ -108,10 +123,11 @@ class CommonActivity {
             }
         });
     }
+
     /**
      *  Disable the ImageView received as parameter
      *  and reset the image view
-     * @param imageView
+     * @param imageView to clear by all animation
      */
     void disableView(ImageView imageView){
         imageView.clearAnimation();
@@ -120,12 +136,11 @@ class CommonActivity {
     }
 
     /**
-     *  Set the correct answer video and then pass to the next element calling the presenter
+     *  Set the correct answer response and then pass to the next element calling the presenter
      * @param context of the activity
-     * @param image
+     * @param image to set as response
      */
-
-    void setVideoCorrectAnswer(final ImageView image, Context context){
+    void setCorrectAnswer(final ImageView image, Context context){
         image.setVisibility(View.VISIBLE);
         //audio response
         MediaPlayer request = MediaPlayer.create(context, R.raw.request_correct_answer);
@@ -152,16 +167,97 @@ class CommonActivity {
 
     /**
      *  Return the partial ArrayList<String> of the array received as parameter.
-     *      * @param array of the Activity
-     *
+     *   @param array of the Activity     *
      */
-
     ArrayList<String> getPartialArray(String[] array){
         List<String> completeArray = new ArrayList<>(Arrays.asList(array));
         Collections.sort(completeArray);
         int startIndex = 0;
         int endIndex = completeArray.size() / 4;
         return new ArrayList<>(completeArray.subList(startIndex, endIndex));
+    }
+
+    /**
+     * Visualize The Lion in the background of the game
+     * @param activity of referrence
+     */
+    void enableLionBackground(AppCompatActivity activity){
+        ImageView lionHeadImage = activity.findViewById(R.id.lion_head_game);
+        ImageView lionTailImage = activity.findViewById(R.id.tale_game);
+        ImageView lionBodyImage = activity.findViewById(R.id.lion_body_game);
+
+        lionBodyImage.setVisibility(View.VISIBLE);
+        lionTailImage.setVisibility(View.VISIBLE);
+        lionHeadImage.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Enable the head animation of the lion in the background
+     * @param context of the activity
+     * @param activity of referrence
+     */
+    void enableLionHeadAnimation(Context context, AppCompatActivity activity){
+        ImageView lionHeadImage = activity.findViewById(R.id.lion_head_game);
+
+        lionHeadImage.setVisibility(View.VISIBLE);
+        Animation animationLionHead = AnimationUtils.loadAnimation(context, R.anim.lion_rotation_waiting);
+        lionHeadImage.setAnimation(animationLionHead);
+        lionHeadImage.startAnimation(animationLionHead);
+    }
+
+    /**
+     * Enable the tail animation of the lion in the background
+     * @param context of the activity
+     * @param activity of referrence
+     */
+    void enableLionTailAnimation(AppCompatActivity activity, Context context){
+        ImageView lionTailImage = activity.findViewById(R.id.tale_game);
+
+        Animation animationLionWait = AnimationUtils.loadAnimation(context, R.anim.tale_rotation);
+        lionTailImage.setAnimation(animationLionWait);
+        lionTailImage.setVisibility(View.VISIBLE);
+        lionTailImage.startAnimation(animationLionWait);
+    }
+
+    /**
+     * Clear animation of the head
+     * @param activity of referrence
+     */
+    void disableLionHeadAnimation(AppCompatActivity activity){
+        ImageView lionHeadImage = activity.findViewById(R.id.lion_head_game);
+        lionHeadImage.setVisibility(View.VISIBLE);
+        lionHeadImage.clearAnimation();
+    }
+
+    /**
+     * Clear the animation of the tail
+     * @param activity of referrence
+     */
+   void disableLionTailAnimation(AppCompatActivity activity){
+       ImageView lionTailImage = activity.findViewById(R.id.tale_game);
+       lionTailImage.setVisibility(View.VISIBLE);
+       lionTailImage.clearAnimation();
+    }
+
+    /**
+     * Enable Kites animation in the background of the screen
+     * @param activity of referrence
+     * @param context of the activity
+     */
+    void enableKiteAnimationBackground(AppCompatActivity activity, Context context){
+        ImageView animationViewExtra = activity.findViewById(R.id.animation_box_two);
+        animationViewExtra.setVisibility(View.VISIBLE);
+        Animation extraAnimation = AnimationUtils.loadAnimation(context , R.anim.move);
+        animationViewExtra.setImageDrawable(ContextCompat.getDrawable(context ,R.drawable.kite));
+        animationViewExtra.setAnimation(extraAnimation);
+        animationViewExtra.startAnimation(extraAnimation);
+
+        ImageView animationViewExtraTwo = activity.findViewById(R.id.animation_box_three);
+        animationViewExtra.setVisibility(View.VISIBLE);
+        Animation extraAnimationTwo = AnimationUtils.loadAnimation(context, R.anim.move);
+        animationViewExtraTwo.setImageDrawable(ContextCompat.getDrawable(context ,R.drawable.kite));
+        animationViewExtraTwo.setAnimation(extraAnimationTwo);
+        animationViewExtraTwo.startAnimation(extraAnimationTwo);
     }
 
 }

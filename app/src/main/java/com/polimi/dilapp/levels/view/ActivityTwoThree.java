@@ -7,6 +7,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +17,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.GridViewAdapter;
 import com.polimi.dilapp.levels.IGame;
@@ -39,7 +39,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     MediaPlayer request;
     GridView gridview;
     GridViewAdapter imageAdapter;
-    final String AUDIO = "request_";
+    private final String AUDIO = "request_";
     Handler myHandler;
 
     @Override
@@ -90,7 +90,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         final ImageView image = findViewById(R.id.animation_box);
         image.setVisibility(View.VISIBLE);
-        image.setImageDrawable(getResources().getDrawable(resourceID));
+        image.setImageDrawable(ContextCompat.getDrawable(ActivityTwoThree.this,resourceID));
         image.setVisibility(View.VISIBLE);
 
         image.setAnimation(animationBegin);
@@ -134,7 +134,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
         //set up the image of the object required
         ImageView word = findViewById(R.id.image_box_multiple_elements);
-        word.setImageDrawable(getResources().getDrawable(wordID));
+        word.setImageDrawable(ContextCompat.getDrawable(ActivityTwoThree.this,wordID));
 
         //set up visibility of the gridview and the image
         gridview.setVisibility(View.VISIBLE);
@@ -209,7 +209,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         int imageId = presenter.getResourceId("img" + element, R.drawable.class);
         final ImageView image = findViewById(R.id.animation_box_answer);
         image.setVisibility(View.VISIBLE);
-        image.setImageDrawable(getResources().getDrawable(imageId));
+        image.setImageDrawable(ContextCompat.getDrawable(ActivityTwoThree.this,imageId));
         image.setVisibility(View.VISIBLE);
 
         //select the animation response
@@ -234,10 +234,10 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         }
 
         //audio response
-        MediaPlayer request = MediaPlayer.create(this, R.raw.request_correct_answer);
+        MediaPlayer correctAnswer = MediaPlayer.create(this, R.raw.request_correct_answer);
         image.startAnimation(animation);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        correctAnswer.start();
+        correctAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 image.clearAnimation();
@@ -274,9 +274,9 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoWrongAnswerToRepeat() {
-        MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        MediaPlayer wrongAnswer = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
+        wrongAnswer.start();
+        wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
@@ -287,9 +287,9 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoWrongAnswerAndGoOn() {
-        MediaPlayer request = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        MediaPlayer wrongAnswer = MediaPlayer.create(this, R.raw.request_wrong_answer_go_on);
+        wrongAnswer.start();
+        wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 if(presenter.getNumberOfElements() > 0) {
@@ -382,6 +382,6 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         presenter.storeCurrentPlayer(savedInstanceState);
         super.onSaveInstanceState(savedInstanceState);
         Log.i("[ACTIVITY 23]", "I'm calling storeCurrentPlayer");
-        Log.i("[ACTIVITY 23]", "SavedInstaceState "+String.valueOf(savedInstanceState));
+        Log.i("[ACTIVITY 23]", "SavedInstaceState "+ String.valueOf(savedInstanceState));
     }
 }
