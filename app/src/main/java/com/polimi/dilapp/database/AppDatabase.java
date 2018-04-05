@@ -7,7 +7,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-@Database(entities = {ChildEntity.class, ChildReportEntity.class}, version = 2)
+@Database(entities = {ChildEntity.class, ReportOneOneEntity.class, ReportOneTwoEntity.class, ReportOneThreeEntity.class,
+ReportTwoOneEntity.class, ReportTwoTwoEntity.class, ReportTwoThreeEntity.class}, version = 4)
 @TypeConverters({Converters.class})
 
 public abstract class AppDatabase extends RoomDatabase {
@@ -15,7 +16,12 @@ public abstract class AppDatabase extends RoomDatabase {
     private static AppDatabase INSTANCE;
 
     public abstract ChildDao childDao();
-    public abstract ChildReportDao childReportDao();
+    public abstract ReportOneOneDao reportOneOneDao();
+    public abstract ReportOneTwoDao reportOneTwoDao();
+    public abstract ReportOneThreeDao reportOneThreeDao();
+    public abstract ReportTwoOneDao reportTwoOneDao();
+    public abstract ReportTwoTwoDao reportTwoTwoDao();
+    public abstract ReportTwoThreeDao reportTwoThreeDao();
 
     public static AppDatabase getAppDatabase(Context context) {
         if (INSTANCE == null) {

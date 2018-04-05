@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:theme="@style/PopUpMenuStyle"
-    android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:theme="@style/PopUpMenuStyle" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,7 +71,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/progress_title"
+            android:text="@string/error_title"
             android:textStyle="bold"
             android:textSize="20sp"
             android:layout_marginBottom="10dp"/>
@@ -84,12 +81,4 @@
             android:layout_height="200dip"
             android:id="@+id/graph" />
     </LinearLayout>
-    <Button
-        android:id="@+id/spec_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/progress_button"
-        android:layout_gravity="center"
-        android:background="@color/light_orange"
-        android:padding="10dp"/>
 </LinearLayout>

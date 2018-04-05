@@ -19,6 +19,7 @@ import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,7 +46,11 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         setContentView(R.layout.activity_game);
 
         //set up the presenter and pass it to the common activity view
-        presenter = new GamePresenter(this);
+        try {
+            presenter = new GamePresenter(this);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         common = new CommonActivity(presenter);
         presenter.setColourLevel();
         setupSequence();
@@ -259,6 +264,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     public void onBackPressed()
     {
         super.onBackPressed();
+        presenter.getEndTime();
         presenter.setObjectCurrentPlayer();
         presenter.setSubStringCurrentPlayer();
         startActivity(new Intent(ActivityOneTwo.this, StartGameActivity.class));

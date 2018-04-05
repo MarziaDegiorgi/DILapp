@@ -26,6 +26,12 @@ public interface ChildDao {
     @Query("SELECT id FROM child WHERE currentPlayer = :t")
     int getCurrentPlayer(Boolean t);
 
+    @Query("SELECT name FROM child WHERE currentPlayer = :t")
+    String getNameCurrentPlayer(Boolean t);
+
+    @Query("SELECT birth FROM child WHERE currentPlayer = :t")
+    String getBirthCurrentPlayer(Boolean t);
+
     @Query("SELECT level FROM child WHERE currentPlayer = :t")
     int getLevelCurrentPlayer(Boolean t);
 
@@ -43,6 +49,18 @@ public interface ChildDao {
 
     @Query("UPDATE child SET subString = :subString WHERE currentPlayer = :t")
     void setSubStringCurrentPlayer(String subString, Boolean t);
+
+    @Query("SELECT progress FROM child WHERE id = :id")
+    String getProgress(int id);
+
+    @Query("UPDATE child SET progress = :progress WHERE id = :id")
+    void setProgress(int id, String progress);
+
+    @Query("SELECT progressDate FROM child WHERE id = :id")
+    String getProgressDate(int id);
+
+    @Query("UPDATE child SET progressDate = :progressDate WHERE id = :id")
+    void setProgressDate(int id, String progressDate);
 
     @Insert(onConflict = IGNORE)
     void insertChild(ChildEntity child);

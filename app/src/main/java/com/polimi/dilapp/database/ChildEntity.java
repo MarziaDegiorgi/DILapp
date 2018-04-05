@@ -32,6 +32,12 @@ public class ChildEntity {
     @ColumnInfo(name = "subString")
     private String subString;
 
+    @ColumnInfo(name="progress")
+    private String progress;
+
+    @ColumnInfo(name="progressDate")
+    private String progressDate;
+
 
     //Name
     public String getName() {
@@ -77,5 +83,19 @@ public class ChildEntity {
     public void setSubString(String subString) { this.subString = subString; }
 
 
+    public String getProgress() {
+        return progress;
+    }
 
+    public void setProgress(String progress) {
+        this.progress = progress;
+    }
+
+    public String getProgressDate() {
+        return progressDate;
+    }
+
+    public void setProgressDate(String progressDate) {
+        this.progressDate = progressDate;
+    }
 }

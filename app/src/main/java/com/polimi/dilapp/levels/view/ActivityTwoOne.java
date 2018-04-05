@@ -22,6 +22,7 @@ import com.polimi.dilapp.levels.GridViewAdapter;
 import com.polimi.dilapp.levels.IGame;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -51,7 +52,11 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_game);
 
-        presenter = new GamePresenter(this);
+        try {
+            presenter = new GamePresenter(this);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         common = new CommonActivity(presenter);
         myHandler = new Handler();
 
@@ -359,6 +364,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     public void onBackPressed()
     {
         super.onBackPressed();
+        presenter.getEndTime();
         presenter.setObjectCurrentPlayer();
         presenter.setSubStringCurrentPlayer();
         startActivity(new Intent(ActivityTwoOne.this, StartGameActivity.class));

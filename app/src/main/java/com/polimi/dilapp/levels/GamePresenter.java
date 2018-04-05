@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,8 +25,12 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -72,9 +77,12 @@ public class GamePresenter implements IGame.Presenter {
     private boolean recipeLevel;
     private ArrayList<String> errorList;
     private ArrayList<Float> progressList;
+    private ArrayList<Date> dateList;
     private int currentPlayer;
+    private Boolean flagSaveNewLevel = true;
+    private int level;
 
-    public GamePresenter(IGame.View view){
+    public GamePresenter(IGame.View view) throws ParseException {
        this.activityInterface = view;
        subElementIndex = 1;
        Log.i("Activity interface", String.valueOf(activityInterface));
@@ -92,6 +100,8 @@ public class GamePresenter implements IGame.Presenter {
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
        currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
        progressList = DatabaseInitializer.getProgress(db, currentPlayer);
+       dateList = DatabaseInitializer.getProgressDate(db, currentPlayer);
+       level = 0;
    }
 
    @Override
@@ -318,6 +328,7 @@ public class GamePresenter implements IGame.Presenter {
                 Log.i(CLASS, "[CheckAnswer][SingleItem][Correct][ShapeElement] " + readTag);
                 this.correctAnswer();
             } else {
+                Log.i(CLASS, "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: " + currentElement);
                 Log.i(CLASS, "[CheckAnswer][SingleItem][Wrong] " + readTag + ", current element: " + currentElement);
                 this.wrongAnswer(currentElement);
             }
@@ -627,7 +638,7 @@ public class GamePresenter implements IGame.Presenter {
 
         @Override
         public void setLevelCurrentPlayer(){
-            int level;
+            int oldLevel = DatabaseInitializer.getLevelCurrentPlayer(db);
             Log.e("Activity interface ", activityInterface.getString());
             switch (activityInterface.getString()){
                 case "ActivityOneOne":
@@ -666,22 +677,32 @@ public class GamePresenter implements IGame.Presenter {
                     Log.e("Switch ", "default");
                     break;
             }
-            Log.e("[GamePresenterLevel]", String.valueOf(level));
-            DatabaseInitializer.setLevelCurrentPlayer(db, level);
-            Log.e("[GamePresenterLevel]", String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
+            Log.e("[GamePresenterLevel]", "New level: " + String.valueOf(level));
+            if(level >= oldLevel) {
+                flagSaveNewLevel = true;
+                DatabaseInitializer.setLevelCurrentPlayer(db, level);
+                Log.e("[GamePresenterLevel]", "New level stored in the db: " + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(db)));
+            }else {
+                flagSaveNewLevel = false;
+                Log.e("[GamePresenterLevel]", "No new level stored in the db.");
+            }
         }
 
 
         @Override
         public void setObjectCurrentPlayer(){
-            DatabaseInitializer.setObjectCurrentPlayer(db, currentElement);
-            Log.i(CLASS, "I'm saving "+currentElement+" in the database.");
+            if(flagSaveNewLevel) {
+                DatabaseInitializer.setObjectCurrentPlayer(db, currentElement);
+                Log.i(CLASS, "I'm saving " + currentElement + " in the database.");
+            }
         }
 
     @Override
     public void setSubStringCurrentPlayer(){
-        DatabaseInitializer.setSubStringCurrentPlayer(db, currentSequenceElement);
-        Log.i(CLASS, "I'm saving "+currentSequenceElement+" in the database.");
+            if(flagSaveNewLevel) {
+                DatabaseInitializer.setSubStringCurrentPlayer(db, currentSequenceElement);
+                Log.i(CLASS, "I'm saving " + currentSequenceElement + " in the database.");
+            }
     }
         public void setColourLevel(){
             colourLevel = true;
@@ -691,6 +712,7 @@ public class GamePresenter implements IGame.Presenter {
     public void setEnableNFC() {
         enableNFC = true;
     }
+
 
     @Override
     public void setRecipeLevel() {
@@ -753,164 +775,364 @@ public class GamePresenter implements IGame.Presenter {
             return endTime;
     }
     @Override
-    public void storeProgress(){
-        int actualTime = endTime - initTime - adjustment;
-        float progress = correctAnswers/actualTime;
-        progressList.add(progress);
-        DatabaseInitializer.setProgress(db, currentPlayer, progressList);
-        for(String error : errorList){
-            switch (error){
-                case "a":
-                    db.childReportDao().setErrorsA(currentPlayer, 1);
-                    break;
-                case "b":
-                    db.childReportDao().setErrorsB(currentPlayer, 1);
-                    break;
-                case "c":
-                    db.childReportDao().setErrorsC(currentPlayer, 1);
-                    break;
-                case "d":
-                    db.childReportDao().setErrorsD(currentPlayer, 1);
-                    break;
-                case "e":
-                    db.childReportDao().setErrorsE(currentPlayer, 1);
-                    break;
-                case "f":
-                    db.childReportDao().setErrorsF(currentPlayer, 1);
-                    break;
-                case "g":
-                    db.childReportDao().setErrorsG(currentPlayer, 1);
-                    break;
-                case "h":
-                    db.childReportDao().setErrorsH(currentPlayer, 1);
-                    break;
-                case "i":
-                    db.childReportDao().setErrorsI(currentPlayer, 1);
-                    break;
-                case "l":
-                    db.childReportDao().setErrorsL(currentPlayer, 1);
-                    break;
-                case "m":
-                    db.childReportDao().setErrorsM(currentPlayer, 1);
-                    break;
-                case "n":
-                    db.childReportDao().setErrorsN(currentPlayer, 1);
-                    break;
-                case "o":
-                    db.childReportDao().setErrorsO(currentPlayer, 1);
-                    break;
-                case "p":
-                    db.childReportDao().setErrorsP(currentPlayer, 1);
-                    break;
-                case "q":
-                    db.childReportDao().setErrorsQ(currentPlayer, 1);
-                    break;
-                case "r":
-                    db.childReportDao().setErrorsR(currentPlayer, 1);
-                    break;
-                case "s":
-                    db.childReportDao().setErrorsS(currentPlayer, 1);
-                    break;
-                case "t":
-                    db.childReportDao().setErrorsT(currentPlayer, 1);
-                    break;
-                case "u":
-                    db.childReportDao().setErrorsU(currentPlayer, 1);
-                    break;
-                case "v":
-                    db.childReportDao().setErrorsV(currentPlayer, 1);
-                    break;
-                case "z":
-                    db.childReportDao().setErrorsZ(currentPlayer, 1);
-                    break;
-                case "banana":
-                    db.childReportDao().setErrorsBanana(currentPlayer, 1);
-                    break;
-                case "lemon":
-                    db.childReportDao().setErrorsLemon(currentPlayer, 1);
-                    break;
-                case "corn":
-                    db.childReportDao().setErrorsCorn(currentPlayer, 1);
-                    break;
-                case "grapefruit":
-                    db.childReportDao().setErrorsGrapefruit(currentPlayer, 1);
-                    break;
-                case "watermelon":
-                    db.childReportDao().setErrorsWatermelon(currentPlayer, 1);
-                    break;
-                case "strawberry":
-                    db.childReportDao().setErrorsStrawberry(currentPlayer, 1);
-                    break;
-                case "apple":
-                    db.childReportDao().setErrorsApple(currentPlayer, 1);
-                    break;
-                case "pepper":
-                    db.childReportDao().setErrorsPepper(currentPlayer, 1);
-                    break;
-                case "tomato":
-                    db.childReportDao().setErrorsTomato(currentPlayer, 1);
-                    break;
-                case "orange":
-                    db.childReportDao().setErrorsOrange(currentPlayer, 1);
-                    break;
-                case "carrot":
-                    db.childReportDao().setErrorsCarrot(currentPlayer, 1);
-                    break;
-                case "onion":
-                    db.childReportDao().setErrorsOnion(currentPlayer, 1);
-                    break;
-                case "tangerine":
-                    db.childReportDao().setErrorsTangerine(currentPlayer, 1);
-                    break;
-                case "eggplant":
-                    db.childReportDao().setErrorsEggplant(currentPlayer, 1);
-                    break;
-                case "asparagus":
-                    db.childReportDao().setErrorsAsparagus(currentPlayer, 1);
-                    break;
-                case "broccoli":
-                    db.childReportDao().setErrorsBroccoli(currentPlayer, 1);
-                    break;
-                case "cucumber":
-                    db.childReportDao().setErrorsCucumber(currentPlayer, 1);
-                    break;
-                case "pear":
-                    db.childReportDao().setErrorsPear(currentPlayer, 1);
-                    break;
-                case "greenpea":
-                    db.childReportDao().setErrorsGreenpea(currentPlayer, 1);
-                    break;
-                case "fennel":
-                    db.childReportDao().setErrorsFennel(currentPlayer, 1);
-                    break;
-                case "potato":
-                    db.childReportDao().setErrorsPotato(currentPlayer, 1);
-                    break;
-                case "_0":
-                    db.childReportDao().setErrorsZero(currentPlayer, 1);
-                case "_1":
-                    db.childReportDao().setErrorsOne(currentPlayer, 1);
-                case "_2":
-                    db.childReportDao().setErrorsTwo(currentPlayer, 1);
-                case "_3":
-                    db.childReportDao().setErrorsThree(currentPlayer, 1);
-                case "_4":
-                    db.childReportDao().setErrorsFour(currentPlayer, 1);
-                case "_5":
-                    db.childReportDao().setErrorsFive(currentPlayer, 1);
-                case "_6":
-                    db.childReportDao().setErrorsSix(currentPlayer, 1);
-                case "_7":
-                    db.childReportDao().setErrorsSeven(currentPlayer, 1);
-                case "_8":
-                    db.childReportDao().setErrorsEight(currentPlayer, 1);
-                case "_9":
-                    db.childReportDao().setErrorsNine(currentPlayer, 1);
-                default:
-                    break;
+    public void storeProgress() {
+        Log.i("[GAME PRESENTER]", "Init time: " + initTime);
+        Log.i("[GAME PRESENTER]", "End time: " + endTime);
+        Log.i("[GAME PRESENTER]", "Adjustment: " + adjustment);
+        Log.i("[GAME PRESENTER]", "Correct answers: " + correctAnswers);
 
+
+        Log.i("[GAME PRESENTER]", "Old list of progresses: " + progressList);
+        Log.i("[GAME PRESENTER]", "Old list of dates: " + dateList);
+
+        int actualTime = endTime - initTime - adjustment;
+        float progress = (float) correctAnswers * 10 / actualTime;
+        if (progress != 0.0) {
+            if(dateList.size()>0) {
+                if (!DateUtils.isToday(dateList.get(dateList.size() - 1).getTime())) {
+                    Date c = Calendar.getInstance().getTime();
+                    dateList.add(c);
+                    DatabaseInitializer.setProgressDate(db, currentPlayer, dateList);
+                    Log.i("[GAME PRESENTER]", "I'm saving the date " + c);
+                    progressList.add(progress);
+                    Log.i("[GAME PRESENTER]", "Storing a new progress: " + progress);
+                } else {
+                    float lastProgress = progressList.remove(progressList.size() - 1);
+                    float newProgress = (lastProgress + progress) / 2;
+                    progressList.add(newProgress);
+                    Log.i("[GAME PRESENTER]", "Storing a new progress: " + newProgress);
+                }
+            }else{
+                Date c = Calendar.getInstance().getTime();
+                dateList.add(c);
+                DatabaseInitializer.setProgressDate(db, currentPlayer, dateList);
+                Log.i("[GAME PRESENTER]", "I'm saving the date " + c);
+                progressList.add(progress);
+                Log.i("[GAME PRESENTER]", "Storing a new progress: " + progress);
             }
         }
-    }
+
+            if (errorList != null) {
+            DatabaseInitializer.setProgress(db, currentPlayer, progressList);
+            for (String error : errorList) {
+            Log.i("[GAME PRESENTER]", "New list of progresses: " + progressList);
+            if (level == 11) {
+                        switch (error) {
+                            case "banana":
+                                db.reportOneOneDao().setErrorsBanana(currentPlayer, 1);
+                                Log.i("[GAME PRESENTER]", "Storing a new error: " + progress);
+                                break;
+                            case "lemon":
+                                db.reportOneOneDao().setErrorsLemon(currentPlayer, 1);
+                                break;
+                            case "corn":
+                                db.reportOneOneDao().setErrorsCorn(currentPlayer, 1);
+                                break;
+                            case "grapefruit":
+                                db.reportOneOneDao().setErrorsGrapefruit(currentPlayer, 1);
+                                break;
+                            case "watermelon":
+                                db.reportOneOneDao().setErrorsWatermelon(currentPlayer, 1);
+                                break;
+                            case "strawberry":
+                                db.reportOneOneDao().setErrorsStrawberry(currentPlayer, 1);
+                                break;
+                            case "apple":
+                                db.reportOneOneDao().setErrorsApple(currentPlayer, 1);
+                                break;
+                            case "pepper":
+                                db.reportOneOneDao().setErrorsPepper(currentPlayer, 1);
+                                break;
+                            case "tomato":
+                                db.reportOneOneDao().setErrorsTomato(currentPlayer, 1);
+                                break;
+                            case "orange":
+                                db.reportOneOneDao().setErrorsOrange(currentPlayer, 1);
+                                break;
+                            case "carrot":
+                                db.reportOneOneDao().setErrorsCarrot(currentPlayer, 1);
+                                break;
+                            case "onion":
+                                db.reportOneOneDao().setErrorsOnion(currentPlayer, 1);
+                                break;
+                            case "tangerine":
+                                db.reportOneOneDao().setErrorsTangerine(currentPlayer, 1);
+                                break;
+                            case "eggplant":
+                                db.reportOneOneDao().setErrorsEggplant(currentPlayer, 1);
+                                break;
+                            case "asparagus":
+                                db.reportOneOneDao().setErrorsAsparagus(currentPlayer, 1);
+                                break;
+                            case "broccoli":
+                                db.reportOneOneDao().setErrorsBroccoli(currentPlayer, 1);
+                                break;
+                            case "cucumber":
+                                db.reportOneOneDao().setErrorsCucumber(currentPlayer, 1);
+                                break;
+                            case "pear":
+                                db.reportOneOneDao().setErrorsPear(currentPlayer, 1);
+                                break;
+                            case "greenpea":
+                                db.reportOneOneDao().setErrorsGreenpea(currentPlayer, 1);
+                                break;
+                            case "fennel":
+                                db.reportOneOneDao().setErrorsFennel(currentPlayer, 1);
+                                break;
+                            case "potato":
+                                db.reportOneOneDao().setErrorsPotato(currentPlayer, 1);
+                                break;
+                        }
+                    }
+                    if (level == 12) {
+                        switch (error) {
+                            case "yellow":
+                                db.reportOneTwoDao().setErrorsYellow(currentPlayer, 1);
+                            case "orangec":
+                                db.reportOneTwoDao().setErrorsOrangec(currentPlayer, 1);
+                            case "violet":
+                                db.reportOneTwoDao().setErrorsViolet(currentPlayer, 1);
+                            case "green":
+                                db.reportOneTwoDao().setErrorsGreen(currentPlayer, 1);
+                            case "white":
+                                db.reportOneTwoDao().setErrorsWhite(currentPlayer, 1);
+                            case "brown":
+                                db.reportOneTwoDao().setErrorsBrown(currentPlayer, 1);
+                        }
+                    }
+                    if (level == 13) {
+                        switch (error) {
+                            case "banana":
+                                db.reportOneThreeDao().setErrorsBanana(currentPlayer, 1);
+                                break;
+                            case "lemon":
+                                db.reportOneThreeDao().setErrorsLemon(currentPlayer, 1);
+                                break;
+                            case "corn":
+                                db.reportOneThreeDao().setErrorsCorn(currentPlayer, 1);
+                                break;
+                            case "grapefruit":
+                                db.reportOneThreeDao().setErrorsGrapefruit(currentPlayer, 1);
+                                break;
+                            case "watermelon":
+                                db.reportOneThreeDao().setErrorsWatermelon(currentPlayer, 1);
+                                break;
+                            case "strawberry":
+                                db.reportOneThreeDao().setErrorsStrawberry(currentPlayer, 1);
+                                break;
+                            case "apple":
+                                db.reportOneThreeDao().setErrorsApple(currentPlayer, 1);
+                                break;
+                            case "pepper":
+                                db.reportOneThreeDao().setErrorsPepper(currentPlayer, 1);
+                                break;
+                            case "tomato":
+                                db.reportOneThreeDao().setErrorsTomato(currentPlayer, 1);
+                                break;
+                            case "orange":
+                                db.reportOneThreeDao().setErrorsOrange(currentPlayer, 1);
+                                break;
+                            case "carrot":
+                                db.reportOneThreeDao().setErrorsCarrot(currentPlayer, 1);
+                                break;
+                            case "onion":
+                                db.reportOneThreeDao().setErrorsOnion(currentPlayer, 1);
+                                break;
+                            case "tangerine":
+                                db.reportOneThreeDao().setErrorsTangerine(currentPlayer, 1);
+                                break;
+                            case "eggplant":
+                                db.reportOneThreeDao().setErrorsEggplant(currentPlayer, 1);
+                                break;
+                            case "asparagus":
+                                db.reportOneThreeDao().setErrorsAsparagus(currentPlayer, 1);
+                                break;
+                            case "broccoli":
+                                db.reportOneThreeDao().setErrorsBroccoli(currentPlayer, 1);
+                                break;
+                            case "cucumber":
+                                db.reportOneThreeDao().setErrorsCucumber(currentPlayer, 1);
+                                break;
+                            case "pear":
+                                db.reportOneThreeDao().setErrorsPear(currentPlayer, 1);
+                                break;
+                            case "greenpea":
+                                db.reportOneThreeDao().setErrorsGreenpea(currentPlayer, 1);
+                                break;
+                            case "fennel":
+                                db.reportOneThreeDao().setErrorsFennel(currentPlayer, 1);
+                                break;
+                            case "potato":
+                                db.reportOneThreeDao().setErrorsPotato(currentPlayer, 1);
+                                break;
+                        }
+                    }
+                    if (level == 21) {
+                        switch (error) {
+                            case "_0":
+                                db.reportTwoOneDao().setErrorsZero(currentPlayer, 1);
+                            case "_1":
+                                db.reportTwoOneDao().setErrorsOne(currentPlayer, 1);
+                            case "_2":
+                                db.reportTwoOneDao().setErrorsTwo(currentPlayer, 1);
+                            case "_3":
+                                db.reportTwoOneDao().setErrorsThree(currentPlayer, 1);
+                            case "_4":
+                                db.reportTwoOneDao().setErrorsFour(currentPlayer, 1);
+                            case "_5":
+                                db.reportTwoOneDao().setErrorsFive(currentPlayer, 1);
+                            case "_6":
+                                db.reportTwoOneDao().setErrorsSix(currentPlayer, 1);
+                            case "_7":
+                                db.reportTwoOneDao().setErrorsSeven(currentPlayer, 1);
+                            case "_8":
+                                db.reportTwoOneDao().setErrorsEight(currentPlayer, 1);
+                            case "_9":
+                                db.reportTwoOneDao().setErrorsNine(currentPlayer, 1);
+                        }
+                    }
+                    if (level == 22) {
+                        switch (error) {
+                            case "a":
+                                db.reportTwoTwoDao().setErrorsA(currentPlayer, 1);
+                                break;
+                            case "b":
+                                db.reportTwoTwoDao().setErrorsB(currentPlayer, 1);
+                                break;
+                            case "c":
+                                db.reportTwoTwoDao().setErrorsC(currentPlayer, 1);
+                                break;
+                            case "d":
+                                db.reportTwoTwoDao().setErrorsD(currentPlayer, 1);
+                                break;
+                            case "e":
+                                db.reportTwoTwoDao().setErrorsE(currentPlayer, 1);
+                                break;
+                            case "f":
+                                db.reportTwoTwoDao().setErrorsF(currentPlayer, 1);
+                                break;
+                            case "g":
+                                db.reportTwoTwoDao().setErrorsG(currentPlayer, 1);
+                                break;
+                            case "h":
+                                db.reportTwoTwoDao().setErrorsH(currentPlayer, 1);
+                                break;
+                            case "i":
+                                db.reportTwoTwoDao().setErrorsI(currentPlayer, 1);
+                                break;
+                            case "l":
+                                db.reportTwoTwoDao().setErrorsL(currentPlayer, 1);
+                                break;
+                            case "m":
+                                db.reportTwoTwoDao().setErrorsM(currentPlayer, 1);
+                                break;
+                            case "n":
+                                db.reportTwoTwoDao().setErrorsN(currentPlayer, 1);
+                                break;
+                            case "o":
+                                db.reportTwoTwoDao().setErrorsO(currentPlayer, 1);
+                                break;
+                            case "p":
+                                db.reportTwoTwoDao().setErrorsP(currentPlayer, 1);
+                                break;
+                            case "q":
+                                db.reportTwoTwoDao().setErrorsQ(currentPlayer, 1);
+                                break;
+                            case "r":
+                                db.reportTwoTwoDao().setErrorsR(currentPlayer, 1);
+                                break;
+                            case "s":
+                                db.reportTwoTwoDao().setErrorsS(currentPlayer, 1);
+                                break;
+                            case "t":
+                                db.reportTwoTwoDao().setErrorsT(currentPlayer, 1);
+                                break;
+                            case "u":
+                                db.reportTwoTwoDao().setErrorsU(currentPlayer, 1);
+                                break;
+                            case "v":
+                                db.reportTwoTwoDao().setErrorsV(currentPlayer, 1);
+                                break;
+                            case "z":
+                                db.reportTwoTwoDao().setErrorsZ(currentPlayer, 1);
+                                break;
+                        }
+                    }
+                    if (level == 23) {
+                        switch (error) {
+                            case "a":
+                                db.reportTwoThreeDao().setErrorsA(currentPlayer, 1);
+                                break;
+                            case "b":
+                                db.reportTwoThreeDao().setErrorsB(currentPlayer, 1);
+                                break;
+                            case "c":
+                                db.reportTwoThreeDao().setErrorsC(currentPlayer, 1);
+                                break;
+                            case "d":
+                                db.reportTwoThreeDao().setErrorsD(currentPlayer, 1);
+                                break;
+                            case "e":
+                                db.reportTwoThreeDao().setErrorsE(currentPlayer, 1);
+                                break;
+                            case "f":
+                                db.reportTwoThreeDao().setErrorsF(currentPlayer, 1);
+                                break;
+                            case "g":
+                                db.reportTwoThreeDao().setErrorsG(currentPlayer, 1);
+                                break;
+                            case "h":
+                                db.reportTwoThreeDao().setErrorsH(currentPlayer, 1);
+                                break;
+                            case "i":
+                                db.reportTwoThreeDao().setErrorsI(currentPlayer, 1);
+                                break;
+                            case "l":
+                                db.reportTwoThreeDao().setErrorsL(currentPlayer, 1);
+                                break;
+                            case "m":
+                                db.reportTwoThreeDao().setErrorsM(currentPlayer, 1);
+                                break;
+                            case "n":
+                                db.reportTwoThreeDao().setErrorsN(currentPlayer, 1);
+                                break;
+                            case "o":
+                                db.reportTwoThreeDao().setErrorsO(currentPlayer, 1);
+                                break;
+                            case "p":
+                                db.reportTwoThreeDao().setErrorsP(currentPlayer, 1);
+                                break;
+                            case "q":
+                                db.reportTwoThreeDao().setErrorsQ(currentPlayer, 1);
+                                break;
+                            case "r":
+                                db.reportTwoThreeDao().setErrorsR(currentPlayer, 1);
+                                break;
+                            case "s":
+                                db.reportTwoThreeDao().setErrorsS(currentPlayer, 1);
+                                break;
+                            case "t":
+                                db.reportTwoThreeDao().setErrorsT(currentPlayer, 1);
+                                break;
+                            case "u":
+                                db.reportTwoThreeDao().setErrorsU(currentPlayer, 1);
+                                break;
+                            case "v":
+                                db.reportTwoThreeDao().setErrorsV(currentPlayer, 1);
+                                break;
+                            case "z":
+                                db.reportTwoThreeDao().setErrorsZ(currentPlayer, 1);
+                                break;
+                        }
+                        //TODO: add remaining levels
+                    } else {
+                        switch (error) {
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+        }
 
 }

@@ -96,6 +96,8 @@
             android:hardwareAccelerated="true"/>
         <activity android:name=".report.ReportSettingsActivity" />
         <activity android:name=".levels.view.ActivityThreeTwo" />
+        <activity android:name=".report.ReportSpecActivity"
+            android:hardwareAccelerated="true"/>
 
         <meta-data
             android:name="preloaded_fonts"

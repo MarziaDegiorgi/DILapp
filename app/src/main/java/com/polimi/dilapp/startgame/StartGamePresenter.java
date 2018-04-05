@@ -14,6 +14,8 @@ import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.levels.view.ActivityOneThree;
 import com.polimi.dilapp.levels.view.ActivityOneTwo;
+import com.polimi.dilapp.levels.view.ActivityThreeOne;
+import com.polimi.dilapp.levels.view.ActivityThreeTwo;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.levels.view.ActivityTwoThree;
 import com.polimi.dilapp.levels.view.ActivityTwoTwo;
@@ -134,18 +136,14 @@ public class StartGamePresenter implements  IStartGame.Presenter {
                 activity23.putExtra("object", object);
                 startGameView.getScreenContext().startActivity(activity23);
                 break;
-            /*case 31:
+            case 31:
                 Intent activity31 = new Intent(startGameView.getScreenContext(), ActivityThreeOne.class);
                 startGameView.getScreenContext().startActivity(activity31);
                 break;
-                case 32:
+            case 32:
                 Intent activity32 = new Intent(startGameView.getScreenContext(), ActivityThreeTwo.class);
                 startGameView.getScreenContext().startActivity(activity32);
                 break;
-                case 33:
-                Intent activity33 = new Intent(startGameView.getScreenContext(), ActivityThreeThree.class);
-                startGameView.getScreenContext().startActivity(activity33);
-                break;*/
             default: Log.e(this.toString(),"ERROR: Invalid level");
             break;
         }
