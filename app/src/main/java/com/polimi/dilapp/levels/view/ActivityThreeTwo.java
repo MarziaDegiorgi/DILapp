@@ -85,7 +85,8 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         for(int i=0; i<6; i++){
             int imageToCheckId = presenter.getResourceId("imageView"+i, R.id.class);
             final ImageView imageToCheck = findViewById(imageToCheckId);
-            if(imageToCheck.getDrawable().equals(elementDrawable)){
+            Drawable drawableToCheck = imageToCheck.getDrawable();
+            if(drawableToCheck.getConstantState().equals(elementDrawable.getConstantState())){
                 imageToCheck.setVisibility(View.INVISIBLE);
             }
         }
@@ -177,7 +178,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
        final ImageView image = findViewById(imageID);
        image.setImageDrawable(getResources().getDrawable(resourceID));
        image.setVisibility(View.VISIBLE);
-       disableViews();
+       //disableViews();
        MediaPlayer request = MediaPlayer.create(ActivityThreeTwo.this, R.raw.request_correct_answer);
        request.start();
 

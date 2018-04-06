@@ -107,7 +107,7 @@
             android:text="Ingredienti"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="30dp"
+            android:textSize="30sp"
             android:textStyle="italic" />
 
         <ImageView
@@ -225,7 +225,7 @@
         android:layout_width="208dp"
         android:layout_height="196dp"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/lion_body"
+        android:layout_alignTop="@+id/lion_body_game_3"
         android:layout_marginBottom="188dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.309"

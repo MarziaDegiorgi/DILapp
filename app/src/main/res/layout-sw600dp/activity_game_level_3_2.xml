@@ -134,12 +134,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="148dp"
-            android:layout_marginTop="123dp"
+            android:layout_marginEnd="145dp"
+            android:layout_marginTop="95dp"
             android:text="Ingredienti"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="50dp"
+            android:textSize="50sp"
             android:textStyle="italic" />
 
         <ImageView
@@ -255,7 +255,7 @@
         android:layout_width="311dp"
         android:layout_height="303dp"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/lion_body"
+        android:layout_alignTop="@+id/lion_body_game_3"
         android:layout_marginBottom="300dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.321"
@@ -265,11 +265,10 @@
 
     <VideoView
         android:id="@+id/video_box"
-        android:visibility="visible"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        />
+        android:visibility="visible" />
 
 
 </android.support.constraint.ConstraintLayout>
