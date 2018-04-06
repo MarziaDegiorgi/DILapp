@@ -31,7 +31,9 @@ import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -112,7 +114,12 @@ public class GamePresenterTest {
         when(iGame.getSessionArray(any(int.class))).thenReturn(currentSessionArray);
 
 
-        gamePresenter = new GamePresenter(iGame);
+
+        try {
+            gamePresenter = new GamePresenter(iGame);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -270,10 +277,9 @@ public class GamePresenterTest {
     public void wrongAnswerElseTest() {
         int total = gamePresenter.getTotalAttempts();
         total++;
-
         gamePresenter.setCounter(2);
         try {
-            Whitebox.invokeMethod(gamePresenter, "wrongAnswer");
+            Whitebox.invokeMethod(gamePresenter, "wrongAnswer", "carrot");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -288,10 +294,9 @@ public class GamePresenterTest {
         int counter = gamePresenter.getCounter();
         counter++;
         total++;
-
         gamePresenter.setCounter(0);
         try {
-            Whitebox.invokeMethod(gamePresenter, "wrongAnswer");
+            Whitebox.invokeMethod(gamePresenter, "wrongAnswer", "carrot");
         } catch (Exception e) {
             e.printStackTrace();
         }

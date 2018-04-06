@@ -422,6 +422,7 @@ public class GamePresenter implements IGame.Presenter {
             counter = 0;
             activityInterface.setVideoWrongAnswerAndGoOn();
         }
+
     }
 
     /**
@@ -752,6 +753,9 @@ public class GamePresenter implements IGame.Presenter {
         }
         void setCounter(int i){
             counter = i;
+        }
+        List<String> getErrorList(){
+        return errorList;
         }
 
         IGame.View getActivityInterface(){

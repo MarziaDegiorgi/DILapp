@@ -1,198 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/kitchen_background">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         >
 
+
         <ImageView
             android:id="@+id/parchment"
-            android:layout_width="620dp"
+            android:layout_width="460dp"
             android:layout_height="match_parent"
 
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="12dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:srcCompat="@drawable/parchment" />
 
         <TableLayout
-            android:layout_width="437dp"
-            android:layout_height="397dp"
+            android:layout_width="333dp"
+            android:layout_height="219dp"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="85dp"
-            app:layout_constraintHorizontal_bias="0.915"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
+            android:layout_marginBottom="139dp"
+            android:layout_marginEnd="50dp">
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="168dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/imageView0"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:layout_constraintHorizontal_bias="0.825"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:layout_editor_absoluteY="79dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="111dp"
+                        android:layout_weight="1" />
 
                     <ImageView
                         android:id="@+id/imageView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:layout_constraintHorizontal_bias="0.825"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:layout_editor_absoluteY="79dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="111dp"
+                        android:layout_weight="1" />
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:layout_constraintHorizontal_bias="0.825"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:layout_editor_absoluteY="79dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="111dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
-
             </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <TableRow android:layout_width="wrap_content">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:layout_constraintHorizontal_bias="0.825"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:layout_editor_absoluteY="79dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="111dp"
+                        android:layout_weight="1" />
 
                     <ImageView
                         android:id="@+id/imageView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:layout_constraintHorizontal_bias="0.825"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:layout_editor_absoluteY="79dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="111dp"
+                        android:layout_weight="1" />
 
                     <ImageView
                         android:id="@+id/imageView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:layout_constraintHorizontal_bias="0.825"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:layout_editor_absoluteY="79dp" />
-                </LinearLayout>
+                        android:layout_width="match_parent"
+                        android:layout_height="111dp"
+                        android:layout_weight="1" />
 
+                </LinearLayout>
             </TableRow>
 
         </TableLayout>
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp" />
-
         <TextView
             android:id="@+id/title"
-            android:layout_width="294dp"
+            android:layout_width="213dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:layout_marginEnd="145dp"
-            android:layout_marginTop="95dp"
+            android:layout_marginEnd="112dp"
+            android:layout_marginTop="85dp"
             android:text="Ingredienti"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="50sp"
+            android:textSize="40sp"
             android:textStyle="italic" />
 
         <ImageView
             android:id="@+id/dish"
-            android:layout_width="617dp"
-            android:layout_height="194dp"
+            android:layout_width="495dp"
+            android:layout_height="169dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="11dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
             app:srcCompat="@drawable/dish" />
 
         <TableRow
-        android:layout_width="211dp"
-        android:layout_height="93dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="105dp"
-        android:layout_marginStart="200dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/answer0"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                 />
-
-            <ImageView
-                android:id="@+id/answer1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                />
-
-            <ImageView
-                android:id="@+id/answer2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                 />
-        </LinearLayout>
-    </TableRow>
-
-        <TableRow
-            android:layout_width="253dp"
-            android:layout_height="107dp"
+            android:layout_width="162dp"
+            android:layout_height="51dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="53dp"
-            android:layout_marginStart="180dp">
+            android:layout_marginBottom="75dp"
+            android:layout_marginStart="172dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/answer0"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/answer1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/answer2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="162dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="40dp"
+            android:layout_marginStart="165dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -203,22 +165,19 @@
                     android:id="@+id/answer3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:id="@+id/answer4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                     />
+                    android:layout_weight="1" />
 
                 <ImageView
                     android:id="@+id/answer5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    />
+                    android:layout_weight="1" />
             </LinearLayout>
         </TableRow>
 
@@ -226,49 +185,44 @@
 
     <ImageView
         android:id="@+id/tale_game_3"
-        android:layout_width="320dp"
-        android:layout_height="276dp"
+        android:layout_width="265dp"
+        android:layout_height="217dp"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="316dp"
+        android:layout_marginBottom="228dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.325"
+        app:layout_constraintHorizontal_bias="0.303"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/tale" />
 
     <ImageView
         android:id="@+id/lion_body_game_3"
-        android:layout_width="427dp"
-        android:layout_height="366dp"
+        android:layout_width="278dp"
+        android:layout_height="267dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
 
-        android:layout_marginBottom="280dp"
+        android:layout_marginBottom="204dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.296"
+        app:layout_constraintHorizontal_bias="0.29"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/lion_body" />
 
     <ImageView
         android:id="@+id/lion_head_game_3"
-        android:layout_width="311dp"
-        android:layout_height="303dp"
+        android:layout_width="214dp"
+        android:layout_height="199dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/lion_body_game_3"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="228dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintHorizontal_bias="0.305"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@drawable/lion_head" />
 
-    <VideoView
-        android:id="@+id/video_box"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:visibility="visible" />
+
 
 
 </android.support.constraint.ConstraintLayout>
