@@ -38,6 +38,12 @@ public class ChildEntity {
     @ColumnInfo(name="progressDate")
     private String progressDate;
 
+    @ColumnInfo(name="correctAnswer")
+    private String correctAnswer;
+
+    @ColumnInfo(name="time")
+    private String time;
+
 
     //Name
     public String getName() {
@@ -97,5 +103,21 @@ public class ChildEntity {
 
     public void setProgressDate(String progressDate) {
         this.progressDate = progressDate;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
+    }
+
+    public void setCorrectAnswer(String correctAnswer) {
+        this.correctAnswer = correctAnswer;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

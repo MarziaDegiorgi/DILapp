@@ -78,6 +78,8 @@ public class GamePresenter implements IGame.Presenter {
     private ArrayList<String> errorList;
     private ArrayList<Float> progressList;
     private ArrayList<Date> dateList;
+    private ArrayList<Integer> correctAnswersList;
+    private ArrayList<Integer> timeList;
     private int currentPlayer;
     private Boolean flagSaveNewLevel = true;
     private int level;
@@ -101,6 +103,8 @@ public class GamePresenter implements IGame.Presenter {
        currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
        progressList = DatabaseInitializer.getProgress(db, currentPlayer);
        dateList = DatabaseInitializer.getProgressDate(db, currentPlayer);
+       correctAnswersList = DatabaseInitializer.getCorrectAnswer(db, currentPlayer);
+       timeList = DatabaseInitializer.getTime(db, currentPlayer);
        level = 0;
    }
 
@@ -791,7 +795,7 @@ public class GamePresenter implements IGame.Presenter {
 
         int actualTime = endTime - initTime - adjustment;
         float progress = (float) correctAnswers * 10 / actualTime;
-        if (progress != 0.0) {
+        if (progress != 0.0 || (progress == 0.0 && errorList.size()>0)) {
             if(dateList.size()>0) {
                 if (!DateUtils.isToday(dateList.get(dateList.size() - 1).getTime())) {
                     Date c = Calendar.getInstance().getTime();
@@ -799,12 +803,31 @@ public class GamePresenter implements IGame.Presenter {
                     DatabaseInitializer.setProgressDate(db, currentPlayer, dateList);
                     Log.i("[GAME PRESENTER]", "I'm saving the date " + c);
                     progressList.add(progress);
+                    DatabaseInitializer.setProgress(db, currentPlayer, progressList);
                     Log.i("[GAME PRESENTER]", "Storing a new progress: " + progress);
+                    correctAnswersList.add(correctAnswers);
+                    DatabaseInitializer.setCorrectAnswer(db, currentPlayer, correctAnswersList);
+                    timeList.add(actualTime);
+                    DatabaseInitializer.setTime(db, currentPlayer, timeList);
                 } else {
-                    float lastProgress = progressList.remove(progressList.size() - 1);
-                    float newProgress = (lastProgress + progress) / 2;
+                    int lastCorrectAnswer = correctAnswersList.get(correctAnswersList.size()-1);
+                    correctAnswersList.remove(correctAnswersList.size()-1);
+                    int newCorrectAnswer = lastCorrectAnswer+correctAnswers;
+                    Log.i("[GAME PRESENTER]", "New correct answer is "+ newCorrectAnswer);
+                    int lastTime = timeList.get(timeList.size()-1);
+                    timeList.remove(timeList.size()-1);
+                    int newTime = lastTime + actualTime;
+                    Log.i("[GAME PRESENTER]", "New time is "+ newTime);
+                    progressList.remove(progressList.size() - 1);
+                    float newProgress = (float) (newCorrectAnswer*10)/newTime;
+                    Log.i("[GAME PRESENTER]", "New progress is "+ newProgress);
                     progressList.add(newProgress);
                     Log.i("[GAME PRESENTER]", "Storing a new progress: " + newProgress);
+                    DatabaseInitializer.setProgress(db, currentPlayer, progressList);
+                    correctAnswersList.add(newCorrectAnswer);
+                    DatabaseInitializer.setCorrectAnswer(db, currentPlayer, correctAnswersList);
+                    timeList.add(newTime);
+                    DatabaseInitializer.setTime(db, currentPlayer, timeList);
                 }
             }else{
                 Date c = Calendar.getInstance().getTime();
@@ -813,10 +836,14 @@ public class GamePresenter implements IGame.Presenter {
                 Log.i("[GAME PRESENTER]", "I'm saving the date " + c);
                 progressList.add(progress);
                 Log.i("[GAME PRESENTER]", "Storing a new progress: " + progress);
+                DatabaseInitializer.setProgress(db, currentPlayer, progressList);
+                correctAnswersList.add(correctAnswers);
+                DatabaseInitializer.setCorrectAnswer(db, currentPlayer, correctAnswersList);
+                timeList.add(actualTime);
+                DatabaseInitializer.setTime(db, currentPlayer, timeList);
             }
         }
-
-            if (errorList != null) {
+            /*if (errorList != null) {
             DatabaseInitializer.setProgress(db, currentPlayer, progressList);
             for (String error : errorList) {
             Log.i("[GAME PRESENTER]", "New list of progresses: " + progressList);
@@ -1136,7 +1163,6 @@ public class GamePresenter implements IGame.Presenter {
                         }
                     }
                 }
-            }
+            }*/
         }
-
 }
