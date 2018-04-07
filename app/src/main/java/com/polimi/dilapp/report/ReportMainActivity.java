@@ -91,18 +91,6 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         correctAnswerList = DatabaseInitializer.getCorrectAnswer(db,currentPlayer);
         timeList = DatabaseInitializer.getTime(db, currentPlayer);
 
-
-/*        Date today = Calendar.getInstance().getTime();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        Date yesterday = cal.getTime();
-        cal.add(Calendar.DATE, -2);
-        Date dayBeforeYesterday = cal.getTime();
-        cal.add(Calendar.DATE, -3);
-        Date twoDaysBeforeYesterday = cal.getTime();*/
-
-
-
         try {
             dateList = DatabaseInitializer.getProgressDate(db, currentPlayer);
         } catch (ParseException e) {
@@ -140,13 +128,13 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMaxY(max);
         graph.getViewport().setMinY(0.0f);
-        graph.getViewport().setXAxisBoundsManual(true);
-        graph.getViewport().setMaxX(dateList.get(dateList.size()-1).getTime());
-        graph.getViewport().setMinX(dateList.get(0).getTime());
+        if(dateList.size()>0) {
+            graph.getViewport().setXAxisBoundsManual(true);
+            graph.getViewport().setMaxX(dateList.get(dateList.size() - 1).getTime());
+            graph.getViewport().setMinX(dateList.get(0).getTime());
+        }
         graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
-        graph.getGridLabelRenderer().setHumanRounding(true);
-        graph.getViewport().calcCompleteRange();
         Log.i("[REPORT MAIN]", "DateList size: " + String.valueOf(dateList.size()));
         Log.i("[REPORT MAIN]", "DateList: " + dateList);
         graph.getViewport().setScrollable(true); // enables horizontal scrolling

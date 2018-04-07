@@ -830,15 +830,22 @@ public class GamePresenter implements IGame.Presenter {
                     DatabaseInitializer.setTime(db, currentPlayer, timeList);
                 }
             }else{
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.DATE, -1);
+                Date dayBefore = cal.getTime();
+                dateList.add(dayBefore);
                 Date c = Calendar.getInstance().getTime();
                 dateList.add(c);
                 DatabaseInitializer.setProgressDate(db, currentPlayer, dateList);
                 Log.i("[GAME PRESENTER]", "I'm saving the date " + c);
+                progressList.add(0.0f);
                 progressList.add(progress);
                 Log.i("[GAME PRESENTER]", "Storing a new progress: " + progress);
                 DatabaseInitializer.setProgress(db, currentPlayer, progressList);
+                correctAnswersList.add(0);
                 correctAnswersList.add(correctAnswers);
                 DatabaseInitializer.setCorrectAnswer(db, currentPlayer, correctAnswersList);
+                timeList.add(0);
                 timeList.add(actualTime);
                 DatabaseInitializer.setTime(db, currentPlayer, timeList);
             }
