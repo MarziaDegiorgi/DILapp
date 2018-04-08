@@ -1,7 +1,11 @@
 package com.polimi.dilapp.report;
 
+import android.app.Dialog;
+import android.arch.persistence.room.Database;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,10 +32,13 @@ import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
+import com.polimi.dilapp.main.NewAccountActivity;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
 import java.io.IOException;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +52,8 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
     private AppDatabase db;
     private ArrayList<Float> progressList;
     private ArrayList<Date> dateList;
+    private ArrayList<Integer> correctAnswerList;
+    private ArrayList<Integer> timeList;
     private int numProgressInterest = 50;
     private  int currentPlayer;
 
@@ -78,34 +87,15 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         });
 
         presenter = new ReportMainPresenter(this);
-        //progressList = DatabaseInitializer.getProgress(db, currentPlayer);
+        progressList = DatabaseInitializer.getProgress(db, currentPlayer);
+        correctAnswerList = DatabaseInitializer.getCorrectAnswer(db,currentPlayer);
+        timeList = DatabaseInitializer.getTime(db, currentPlayer);
 
-progressList = new ArrayList<>();
-dateList = new ArrayList<>();
-        progressList.add(0.3f);
-        progressList.add(0.5f);
-        progressList.add(0.8f);
-        progressList.add(0.6f);
-
-        Date today = Calendar.getInstance().getTime();
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        Date yesterday = cal.getTime();
-        cal.add(Calendar.DATE, -2);
-        Date dayBeforeYesterday = cal.getTime();
-        cal.add(Calendar.DATE, -3);
-        Date twoDaysBeforeYesterday = cal.getTime();
-
-
-        dateList.add(twoDaysBeforeYesterday);
-        dateList.add(dayBeforeYesterday);
-        dateList.add(yesterday);
-        dateList.add(today);
-        /*try {
+        try {
             dateList = DatabaseInitializer.getProgressDate(db, currentPlayer);
         } catch (ParseException e) {
             e.printStackTrace();
-        }*/
+        }
         Log.i("[REPORT MAIN]","Progress list :"+ progressList);
         Log.i("[REPORT MAIN]","Date list :"+ dateList);
 
@@ -131,15 +121,18 @@ dateList = new ArrayList<>();
                 SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
                 String date= df.format(dataPoint.getX());
                 double f = dataPoint.getY();
-                DecimalFormat dec = new DecimalFormat("#.##");
-                String value = dec.format(f);
-                Toast.makeText(getApplicationContext(), "Data: "+date+"\n"+"Punteggio: "+ value, Toast.LENGTH_SHORT).show();
+                showDataPoint(date, String.valueOf(f));
             }
         });
         series.setDrawDataPoints(true);
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMaxY(max);
         graph.getViewport().setMinY(0.0f);
+        if(dateList.size()>0) {
+            graph.getViewport().setXAxisBoundsManual(true);
+            graph.getViewport().setMaxX(dateList.get(dateList.size() - 1).getTime());
+            graph.getViewport().setMinX(dateList.get(0).getTime());
+        }
         graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         Log.i("[REPORT MAIN]", "DateList size: " + String.valueOf(dateList.size()));
@@ -154,6 +147,39 @@ dateList = new ArrayList<>();
         inflater.inflate(R.menu.actions_report, popup.getMenu());
         popup.show();
     }
+
+    private void showDataPoint(String date, String value){
+        final Dialog dialog = new Dialog(ReportMainActivity.this);
+        dialog.setContentView(R.layout.pop_up);
+        String actualCorrectAnswer = "";
+        String actualTime = "";
+        for(int i = 0; i<correctAnswerList.size(); i++){
+            if(((float) (correctAnswerList.get(i)*10) / timeList.get(i)) == Double.parseDouble(value)) {
+                actualCorrectAnswer = String.valueOf(correctAnswerList.get(i));
+                actualTime = String.valueOf(timeList.get(i));
+            }
+        }
+        TextView tv = (TextView)dialog.findViewById(R.id.textView);
+        StringBuilder sb = new StringBuilder();
+        sb.append("\bData: \b");
+        sb.append(date);
+        sb.append("\n\bRisposte esatte: \b");
+        sb.append(actualCorrectAnswer);
+        sb.append("\n\bTempo impiegato: \b");
+        sb.append(actualTime);
+        sb.append(" secondi");
+        tv.setText(sb.toString());
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button close = (Button)dialog.findViewById(R.id.close);
+        close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
 
     public void onClickMenuItem (MenuItem item) {
         presenter.onItemMenuSelected(item);

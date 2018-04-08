@@ -62,6 +62,18 @@ public interface ChildDao {
     @Query("UPDATE child SET progressDate = :progressDate WHERE id = :id")
     void setProgressDate(int id, String progressDate);
 
+    @Query("SELECT correctAnswer FROM child WHERE id = :id")
+    String getCorrectAnswer(int id);
+
+    @Query("UPDATE child SET correctAnswer = :correctAnswer WHERE id = :id")
+    void setCorrectAnswer(int id, String correctAnswer);
+
+    @Query("SELECT time FROM child WHERE id = :id")
+    String getTime(int id);
+
+    @Query("UPDATE child SET time = :time WHERE id = :id")
+    void setTime(int id, String time);
+
     @Insert(onConflict = IGNORE)
     void insertChild(ChildEntity child);
 

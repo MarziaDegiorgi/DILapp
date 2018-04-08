@@ -204,6 +204,55 @@ public class DatabaseInitializer {
         db.childDao().setProgressDate(id, sb.toString());
     }
 
+    public static ArrayList<Integer> getCorrectAnswer(AppDatabase db, int id){
+        String stringCorrectAnswer = db.childDao().getCorrectAnswer(id);
+        ArrayList<Integer> correctAnswers = new ArrayList<>();
+        if (stringCorrectAnswer != null) {
+            String[] listProgress = stringCorrectAnswer.split(",");
+            for(String element : listProgress){
+                if(!element.equals("")) {
+                    int ca = Integer.valueOf(element);
+                    correctAnswers.add(ca);
+                }
+            }
+        }
+        return correctAnswers;
+    }
+    public static void setCorrectAnswer(AppDatabase db, int id, ArrayList<Integer> newCorrectAnswers){
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < newCorrectAnswers.size(); i++){
+            String s = Integer.toString(newCorrectAnswers.get(i));
+            sb.append(s);
+            sb.append(",");
+        }
+        db.childDao().setCorrectAnswer(id, sb.toString());
+    }
+
+    public static ArrayList<Integer> getTime(AppDatabase db, int id){
+        String stringTime = db.childDao().getTime(id);
+        ArrayList<Integer> time = new ArrayList<>();
+        if (stringTime != null) {
+            String[] listProgress = stringTime.split(",");
+            for(String element : listProgress){
+                if(!element.equals("")) {
+                    int ca = Integer.valueOf(element);
+                    time.add(ca);
+                }
+            }
+        }
+        return time;
+    }
+    public static void setTime(AppDatabase db, int id, ArrayList<Integer> newTime){
+        StringBuilder sb = new StringBuilder();
+
+        for(int i = 0; i < newTime.size(); i++){
+            String s = Integer.toString(newTime.get(i));
+            sb.append(s);
+            sb.append(",");
+        }
+        db.childDao().setTime(id, sb.toString());
+    }
 
     public static DataPoint[] getAllErrorsOneOne(AppDatabase db) {
         DataPoint[] data = new DataPoint[21];
