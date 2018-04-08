@@ -32,7 +32,11 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
     @Override
     public void initData() {
         listItems = (HashMap<String, List<String>>) ExpandableListData.getData();
-        listTitles = new ArrayList<>(listItems.keySet());
+        listTitles = new ArrayList<>();
+        listTitles.add("OGGETTI E COLORI");
+        listTitles.add("LETTERE E NUMERI");
+        listTitles.add("LOGICA");
+
         CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(levelMapView.getContext(), listTitles, listItems);
         levelMapView.showAdapter(adapter);
     }
@@ -76,19 +80,12 @@ public class LevelMapPresenter implements  ILevelMap.Presenter{
                 break;
             default:break;
         }
-        Toast.makeText(
-                levelMapView.getContext().getApplicationContext(),
-                listTitles.get(mainCategoryPosition)
-                    + " -> "
-                    + listItems.get(
-                            listTitles.get(mainCategoryPosition)).get(subcategoryPosition),
-                Toast.LENGTH_SHORT
-                ).show();
     }
 
     @Override
     public void onClickBack() {
         Intent intent = new Intent(levelMapView.getContext(), StartGameActivity.class);
         levelMapView.getContext().startActivity(intent);
+        levelMapView = null;
     }
 }

@@ -11,7 +11,12 @@ import java.util.Map;
 public class ExpandableListData {
 
     public static Map<String, List<String>> getData() {
-        HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+        HashMap<String, List<String>> expandableListDetail = new HashMap<>();
+        List<String> parents = new ArrayList<>();
+
+        parents.add("OGGETTI E COLORI");
+        parents.add("LETTERE E NUMERI");
+        parents.add("LOGICA");
 
         List<String> objects = new ArrayList<>();
         objects.add("NOMI");
@@ -27,9 +32,9 @@ public class ExpandableListData {
         logic.add("CONTIAMO INSIEME");
         logic.add("CUCINA CON NOSCO");
 
-        expandableListDetail.put("OGGETTI E COLORI", objects);
-        expandableListDetail.put("LETTERE E NUMERI", numbers);
-        expandableListDetail.put("LOGICA", logic);
+        expandableListDetail.put(parents.get(0), objects);
+        expandableListDetail.put(parents.get(1), numbers);
+        expandableListDetail.put(parents.get(2), logic);
 
         return expandableListDetail;
     }
