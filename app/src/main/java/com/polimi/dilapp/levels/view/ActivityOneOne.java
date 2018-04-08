@@ -205,12 +205,12 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-        //presenter.setupForegroundDispatch();
+        presenter.setupForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
-        //presenter.stopForegroundDispatch();
+        presenter.stopForegroundDispatch();
         super.onPause();
     }
 
