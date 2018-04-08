@@ -33,12 +33,16 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         db = AppDatabase.getAppDatabase(this);
         presenter = new StartGamePresenter(this);
+
         setContentView(R.layout.activity_startgame);
         Bundle extras = getIntent().getExtras();
         Button playButton = findViewById(R.id.playButton);
+
         int currentPlayerId = -1;
+
         if (extras != null) {
             Log.i("[STARTGAME ACTIVITY] ", "Intent extra is "+ extras.getInt(EXTRA_MESSAGE));
             currentPlayerId = extras.getInt(EXTRA_MESSAGE);
@@ -96,6 +100,21 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
        pearImage.startAnimation(animationLeft);
    }
 
+    /**
+     * Disable animations
+     */
+    private void clearAnimations() {
+        ImageView carrotImage = findViewById(R.id.carrot);
+        ImageView appleImage = findViewById(R.id.apple);
+        ImageView pearImage = findViewById(R.id.pear);
+        Button playButton = findViewById(R.id.playButton);
+
+        // Clear animations
+        playButton.clearAnimation();
+        carrotImage.clearAnimation();
+        appleImage.clearAnimation();
+        pearImage.clearAnimation();
+    }
 
     /**
      *  Display a popup menu when the menu button is clicked
@@ -138,9 +157,11 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
 
     @Override
     public void onDestroy() {
+        this.clearAnimations();
+        presenter = null;
+        db = null;
         super.onDestroy();
     }
-
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -148,7 +169,6 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         if (intent != null)
             setIntent(intent);
         Bundle extras = getIntent().getExtras();
-        Button playButton = findViewById(R.id.playButton);
         int currentPlayerId = -1;
         if (extras != null) {
             Log.i("[STARTGAME ACTIVITY] ", "Intent extra is "+ extras.getInt(EXTRA_MESSAGE));
@@ -158,4 +178,6 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         }
 
     }
+
+
 }

@@ -488,7 +488,9 @@ public class GamePresenter implements IGame.Presenter {
 
     @Override
     public void onDestroy() {
+
         activityInterface = null;
+
     }
 
     @Override

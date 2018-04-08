@@ -260,4 +260,9 @@ class CommonActivity {
         animationViewExtraTwo.startAnimation(extraAnimationTwo);
     }
 
+    void onDestroy() {
+        myHandler = null;
+        presenter = null;
+    }
+
 }

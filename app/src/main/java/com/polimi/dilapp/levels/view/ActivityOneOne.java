@@ -55,13 +55,14 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         common = new CommonActivity(presenter);
 
         setupSequence();
+        setupVideoIntro();
 
-       boolean availability = presenter.checkNfcAvailability();
+       /*boolean availability = presenter.checkNfcAvailability();
         if (availability) {
             setupVideoIntro();
         }else{
             finish();
-        }
+        }*/
     }
 
     private void setupSequence(){
@@ -129,7 +130,6 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
         common.enableLionBackground(this);
         common.enableLionTailAnimation(this, ActivityOneOne.this);
-
         common.startMainAnimation(this,animationWait,resourceID,this);
     }
 
@@ -190,7 +190,6 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         }
     }
 
-
     @Override
     public Class getApplicationClass(){
 
@@ -206,12 +205,12 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setupForegroundDispatch();
+        //presenter.setupForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
-        presenter.stopForegroundDispatch();
+        //presenter.stopForegroundDispatch();
         super.onPause();
     }
 
@@ -219,6 +218,9 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+        common.onDestroy();
+        presenter = null;
+        common = null;
     }
 
     //onNewIntent let us stay in the same activity after reading a TAG
@@ -240,12 +242,18 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     public void onBackPressed()
     {
         super.onBackPressed();
+        this.disableViews();
         presenter.getEndTime();
         presenter.setObjectCurrentPlayer();
         presenter.setSubStringCurrentPlayer();
+        if(request != null ){
+            request.release();
+            request=null;
+        }
         startActivity(new Intent(ActivityOneOne.this, StartGameActivity.class));
         finish();
     }
+
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         presenter.storeCurrentPlayer(savedInstanceState);

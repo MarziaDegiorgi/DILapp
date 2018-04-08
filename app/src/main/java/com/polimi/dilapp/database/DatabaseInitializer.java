@@ -92,7 +92,7 @@ public class DatabaseInitializer {
                return null;
            }
            // Calculate inSampleSize
-           options.inSampleSize = calculateInSampleSize(options, 500, 500);
+           options.inSampleSize = calculateInSampleSize(options, 400, 400);
            options.inJustDecodeBounds = false;
 
            // Decode bitmap with inSampleSize set
@@ -103,7 +103,6 @@ public class DatabaseInitializer {
        }else {
            return null;
        }
-
     }
 
     public static ChildEntity getChildById (AppDatabase db, int id) {
