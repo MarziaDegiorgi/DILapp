@@ -31,8 +31,6 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     StartGamePresenter(IStartGame.View view){
         this.startGameView = view;
         db = AppDatabase.getAppDatabase(startGameView.getScreenContext());
-        //TODO: get the current child from the model
-
     }
 
     @Override
@@ -43,7 +41,9 @@ public class StartGamePresenter implements  IStartGame.Presenter {
 
     @Override
     public void onDestroy() {
+
         startGameView = null;
+        db = null;
     }
 
     @Override
@@ -94,7 +94,7 @@ public class StartGamePresenter implements  IStartGame.Presenter {
         return DatabaseInitializer.getLevelCurrentPlayer(db);
     }
 
-    public String getObjectCurrentPlayer(){
+    private String getObjectCurrentPlayer(){
         return DatabaseInitializer.getObjectCurrentPlayer(db);
     }
 
@@ -166,15 +166,11 @@ public class StartGamePresenter implements  IStartGame.Presenter {
         DatabaseInitializer.setLevelCurrentPlayer(db, level);
         DatabaseInitializer.setObjectCurrentPlayer(db, object);
         DatabaseInitializer.setSubStringCurrentPlayer(db, subString);
-
-
-
     }
+
     @Override
     public void resetCurrentPlayer() {
         DatabaseInitializer.resetCurrentPlayer(db);
         Log.i("[STARTGAME PRESENTER]", " I'm resetting the current player");
     }
-
-
 }

@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.VideoView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -57,12 +58,12 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         setupSequence();
         setupVideoIntro();
 
-       /*boolean availability = presenter.checkNfcAvailability();
+       boolean availability = presenter.checkNfcAvailability();
         if (availability) {
             setupVideoIntro();
         }else{
             finish();
-        }*/
+        }
     }
 
     private void setupSequence(){
@@ -81,6 +82,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView animationViewExtra = findViewById(R.id.animation_box_two);
         ImageView animationViewExtraTwo = findViewById(R.id.animation_box_three);
+
         common.disableView(imageToHide);
         common.disableView(animationViewExtra);
         common.disableView(animationViewExtraTwo);
@@ -114,12 +116,11 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
             @Override
             public void onCompletion(MediaPlayer mp) {
                 common.enableKiteAnimationBackground(activity, context);
-                common.disableLionHeadAnimation(activity);
-                setWaitingAnimation();
-                common.disableLionHeadAnimation(activity);
                 mp.release();
+                setWaitingAnimation();
                 presenter.setEnableNFC();
                 presenter.handleIntent(getIntent());
+
             }
         });
     }
@@ -131,6 +132,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         common.enableLionBackground(this);
         common.enableLionTailAnimation(this, ActivityOneOne.this);
         common.startMainAnimation(this,animationWait,resourceID,this);
+
     }
 
     @Override
@@ -205,12 +207,12 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.setupForegroundDispatch();
+       presenter.setupForegroundDispatch();
     }
 
     @Override
     protected void onPause() {
-        presenter.stopForegroundDispatch();
+      presenter.stopForegroundDispatch();
         super.onPause();
     }
 
@@ -243,6 +245,8 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     {
         super.onBackPressed();
         this.disableViews();
+        common.disableKiteExtraView(this);
+        common.disableLionExtraView(this);
         presenter.getEndTime();
         presenter.setObjectCurrentPlayer();
         presenter.setSubStringCurrentPlayer();

@@ -20,8 +20,8 @@
 
     <ImageView
         android:id="@+id/tale_game"
-        android:layout_width="540dp"
-        android:layout_height="540dp"
+        android:layout_width="420dp"
+        android:layout_height="440dp"
         android:layout_alignParentStart="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,8 +31,8 @@
 
     <ImageView
         android:id="@+id/lion_body_game"
-        android:layout_width="580dp"
-        android:layout_height="568dp"
+        android:layout_width="420dp"
+        android:layout_height="450dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -44,8 +44,8 @@
 
     <ImageView
         android:id="@+id/lion_head_game"
-        android:layout_width="520dp"
-        android:layout_height="516dp"
+        android:layout_width="390dp"
+        android:layout_height="416dp"
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/lion_body"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -123,10 +123,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="348dp"
-        android:layout_height="266dp"
+        android:layout_width="270dp"
+        android:layout_height="240dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
@@ -155,10 +155,10 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="348dp"
-        android:layout_height="266dp"
-        android:layout_marginBottom="0dp"
-        android:layout_marginEnd="0dp"
+        android:layout_width="280dp"
+        android:layout_height="220dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="2dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"

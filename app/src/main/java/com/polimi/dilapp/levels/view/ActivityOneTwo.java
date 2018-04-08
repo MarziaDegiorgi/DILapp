@@ -228,6 +228,8 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+        presenter = null;
+        common = null;
     }
 
     @Override
@@ -264,6 +266,12 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     public void onBackPressed()
     {
         super.onBackPressed();
+        disableViews();
+        if(request != null){
+            request.release();
+            request = null;
+        }
+        common.onDestroy();
         presenter.getEndTime();
         presenter.setObjectCurrentPlayer();
         presenter.setSubStringCurrentPlayer();
@@ -275,6 +283,5 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         presenter.storeCurrentPlayer(savedInstanceState);
         super.onSaveInstanceState(savedInstanceState);
         Log.i("[ACTIVITY 12]", "I'm calling storeCurrentPlayer");
-
     }
 }

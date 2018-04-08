@@ -260,6 +260,20 @@ class CommonActivity {
         animationViewExtraTwo.startAnimation(extraAnimationTwo);
     }
 
+    void disableKiteExtraView(AppCompatActivity activity){
+        ImageView animationViewExtra = activity.findViewById(R.id.animation_box_two);
+        ImageView animationViewExtraTwo = activity.findViewById(R.id.animation_box_three);
+        animationViewExtra.clearAnimation();
+        animationViewExtraTwo.clearAnimation();
+        animationViewExtra.setImageDrawable(null);
+        animationViewExtraTwo.setImageDrawable(null);
+    }
+
+    void disableLionExtraView(AppCompatActivity activity){
+        disableLionHeadAnimation(activity);
+        disableLionTailAnimation(activity);
+    }
+
     void onDestroy() {
         myHandler = null;
         presenter = null;

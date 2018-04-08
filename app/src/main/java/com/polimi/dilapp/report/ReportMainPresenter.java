@@ -35,5 +35,10 @@ public class ReportMainPresenter extends AppCompatActivity implements IReport.Pr
             }
         }
 
+        @Override
+    public void onDestroy(){
+        activityInterface = null;
+        }
+
 
 }

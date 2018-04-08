@@ -10,5 +10,6 @@ public interface IReport {
     }
     interface Presenter{
         void onItemMenuSelected(MenuItem item);
+        void onDestroy();
     }
 }

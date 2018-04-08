@@ -72,7 +72,6 @@ public class GamePresenter implements IGame.Presenter {
     private boolean newTurnStarted;
     private boolean gameEnded;
     private boolean colourLevel;
-    private boolean actionDetected;
     private boolean enableNFC;
     private boolean recipeLevel;
     private ArrayList<String> errorList;
@@ -93,8 +92,7 @@ public class GamePresenter implements IGame.Presenter {
        recipeLevel = false;
        gameStarted = false;
        newSessionStarted = false;
-       actionDetected = false;
-       newTurnStarted = false;
+        newTurnStarted = false;
        gameEnded = false;
        enableNFC = false;
        colourLevel = false;
@@ -188,6 +186,7 @@ public class GamePresenter implements IGame.Presenter {
     public void chooseElement(){
         String object = DatabaseInitializer.getObjectCurrentPlayer(db);
         subElementIndex = 1;
+
         if(colourLevel){
             chooseColour();
         } else {
@@ -432,7 +431,7 @@ public class GamePresenter implements IGame.Presenter {
     /**
      *  Check if an element is composed by multiple objects and set the flag variables
      */
-    public void checkMultipleItems(){
+    private void checkMultipleItems(){
         if(currentElement.contains("_") && currentElement.length() > 2){
             multipleElement = true;
             subElementIndex = 1;
@@ -494,7 +493,7 @@ public class GamePresenter implements IGame.Presenter {
     public void onDestroy() {
 
         activityInterface = null;
-
+        nfcAdapter = null;
     }
 
     @Override

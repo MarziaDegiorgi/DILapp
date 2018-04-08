@@ -62,20 +62,25 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
     public void onCreate(Bundle onSavedInstanceState) {
         super.onCreate(onSavedInstanceState);
         setContentView(R.layout.activity_main_report);
+
         db = AppDatabase.getAppDatabase(this);
         currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
         CircleImageView circleImageView = findViewById(R.id.profile_image);
         BitmapDrawable drawable = null;
+
         try {
             drawable = new BitmapDrawable(getResources(), DatabaseInitializer.getChildPhoto(getContentResolver(), DatabaseInitializer.getChildById(db, currentPlayer)));
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         circleImageView.setImageDrawable(drawable);
+
         TextView name = findViewById(R.id.name);
         name.setText(DatabaseInitializer.getNameCurrentPlayer(db));
         TextView birth = findViewById(R.id.date_of_birth);
         birth.setText(DatabaseInitializer.getBirthCurrentPlayer(db));
+
         Button button = findViewById(R.id.spec_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +104,7 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         Log.i("[REPORT MAIN]","Progress list :"+ progressList);
         Log.i("[REPORT MAIN]","Date list :"+ dateList);
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        GraphView graph = findViewById(R.id.graph);
         DataPoint[] data = new DataPoint[progressList.size()];
         LineGraphSeries<DataPoint> series;
         //TODO: check dimension on progressList
@@ -128,7 +133,7 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMaxY(max);
         graph.getViewport().setMinY(0.0f);
-        if(dateList.size()>0) {
+        if(!dateList.isEmpty()) {
             graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMaxX(dateList.get(dateList.size() - 1).getTime());
             graph.getViewport().setMinX(dateList.get(0).getTime());
@@ -159,7 +164,7 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
                 actualTime = String.valueOf(timeList.get(i));
             }
         }
-        TextView tv = (TextView)dialog.findViewById(R.id.textView);
+        TextView tv = dialog.findViewById(R.id.textView);
         StringBuilder sb = new StringBuilder();
         sb.append("\bData: \b");
         sb.append(date);
@@ -170,7 +175,7 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         sb.append(" secondi");
         tv.setText(sb.toString());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        Button close = (Button)dialog.findViewById(R.id.close);
+        Button close = dialog.findViewById(R.id.close);
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,7 +185,6 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         dialog.show();
     }
 
-
     public void onClickMenuItem (MenuItem item) {
         presenter.onItemMenuSelected(item);
     }
@@ -189,6 +193,19 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
     public void onBackPressed()
     {
         super.onBackPressed();
+
+        CircleImageView circleImageView = findViewById(R.id.profile_image);
+        GraphView graph = findViewById(R.id.graph);
+        circleImageView.setImageDrawable(null);
+        graph.removeAllSeries();
+        presenter = null;
+        progressList = null;
+        correctAnswerList = null;
+        timeList = null;
+        dateList = null;
+        db=null;
+
+
         startActivity(new Intent(ReportMainActivity.this, StartGameActivity.class));
         finish();
     }

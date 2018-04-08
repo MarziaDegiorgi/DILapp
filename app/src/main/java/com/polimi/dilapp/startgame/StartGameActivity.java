@@ -49,13 +49,9 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
             Log.i("[StartGameActivity]", "Current Player Level" + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
         }
-        int currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
-        int levelCurrentPlayer = DatabaseInitializer.getLevelCurrentPlayer(db);
-        String objectCurrentPlayer = DatabaseInitializer.getObjectCurrentPlayer(db);
-        String subStringCurrentPlayer = DatabaseInitializer.getSubStringCurrentPlayer(db);
-        if(currentPlayer != 0 &&  levelCurrentPlayer != 0 && objectCurrentPlayer != null){
-            presenter.setCurrentPlayer(currentPlayer, levelCurrentPlayer, objectCurrentPlayer, subStringCurrentPlayer);
-        }
+
+        this.initCurrentPlayer();
+
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,16 +60,24 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             }
         });
 
-       List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
+        startAnimation();
+    }
+
+    private void initCurrentPlayer() {
+        int currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
+        int levelCurrentPlayer = DatabaseInitializer.getLevelCurrentPlayer(db);
+        String objectCurrentPlayer = DatabaseInitializer.getObjectCurrentPlayer(db);
+        String subStringCurrentPlayer = DatabaseInitializer.getSubStringCurrentPlayer(db);
+        if(currentPlayer != 0 &&  levelCurrentPlayer != 0 && objectCurrentPlayer != null){
+            presenter.setCurrentPlayer(currentPlayer, levelCurrentPlayer, objectCurrentPlayer, subStringCurrentPlayer);
+        }
+
+        List<ChildEntity> list = DatabaseInitializer.getListOfChildren(AppDatabase.getAppDatabase(getApplicationContext()));
         if(!list.isEmpty()) {
             for (ChildEntity child : list) {
                 Log.i("Player " + child.getName() + "(" + child.getId() + ") ", child.getCurrentPlayer().toString());
             }
         }
-        // Set up the presenter
-        presenter = new StartGamePresenter(this);
-
-        startAnimation();
     }
 
     /**
@@ -86,10 +90,10 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
        Button playButton = findViewById(R.id.playButton);
 
        // Load animations
-       final Animation animationBounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
-       final Animation animationRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_right);
-       final Animation animationLeft = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_left);
-       final Animation animationLeftAndRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.lion_rotation);
+       Animation animationBounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
+       Animation animationRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_right);
+       Animation animationLeft = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_left);
+       Animation animationLeftAndRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.lion_rotation);
        // Add the personilized interpolator for "animationBounce"
        presenter.onInit(animationBounce);
 
@@ -158,9 +162,11 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     @Override
     public void onDestroy() {
         this.clearAnimations();
+        presenter.onDestroy();
+        super.onDestroy();
         presenter = null;
         db = null;
-        super.onDestroy();
+        Log.i ("[START GAME]", "On Destroy");
     }
 
     @Override
