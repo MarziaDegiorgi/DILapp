@@ -107,7 +107,18 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
         public void onBackPressed()
         {
             super.onBackPressed();
+
             startActivity(new Intent(ReportSpecActivity.this, ReportMainActivity.class));
+
+            CircleImageView circleImageView = findViewById(R.id.profile_image);
+            GraphView graph = findViewById(R.id.graph);
+            circleImageView.setImageDrawable(null);
+            graph.removeAllSeries();
+
+            errorList = null;
+            db= null;
+            presenter = null;
+
             finish();
         }
 

@@ -61,7 +61,7 @@ public class GridViewAdapter extends BaseAdapter {
                 convertView = LayoutInflater.from(context).inflate(R.layout.multiple_item_view, null);
             }
 
-            gridView = (ImageView) convertView.findViewById(R.id.imageGridView);
+            gridView = convertView.findViewById(R.id.imageGridView);
 
             // Set the content of the image based on the provided URI
             int imageId = this.images_id.get(position);
