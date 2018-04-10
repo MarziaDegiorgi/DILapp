@@ -296,6 +296,116 @@ public class DatabaseInitializer {
         return data;
     }
 
+    public static DataPoint[] getAllErrorsOneTwo(AppDatabase db) {
+        DataPoint[] data = new DataPoint[7];
+        int idCurrentPlayer = db.childDao().getCurrentPlayer(true);
+        data[0] = new DataPoint (1, db.reportOneTwoDao().getErrorsYellow(idCurrentPlayer));
+        data[1] = new DataPoint (2, db.reportOneTwoDao().getErrorsRed(idCurrentPlayer));
+        data[2] = new DataPoint (3, db.reportOneTwoDao().getErrorsOrangec(idCurrentPlayer));
+        data[3] = new DataPoint (4, db.reportOneTwoDao().getErrorsViolet(idCurrentPlayer));
+        data[4] = new DataPoint (5, db.reportOneTwoDao().getErrorsGreen(idCurrentPlayer));
+        data[5] = new DataPoint (6, db.reportOneTwoDao().getErrorsWhite(idCurrentPlayer));
+        data[6] = new DataPoint (7, db.reportOneTwoDao().getErrorsBrown(idCurrentPlayer));
+        return data;
+    }
+
+    public static DataPoint[] getAllErrorsOneThree(AppDatabase db) {
+        DataPoint[] data = new DataPoint[21];
+        int idCurrentPlayer = db.childDao().getCurrentPlayer(true);
+        data[0] = new DataPoint (1, db.reportOneThreeDao().getErrorsApple(idCurrentPlayer));
+        data[1] = new DataPoint (2, db.reportOneThreeDao().getErrorsAsparagus(idCurrentPlayer));
+        data[2] = new DataPoint (3, db.reportOneThreeDao().getErrorsBanana(idCurrentPlayer));
+        data[3] = new DataPoint (4, db.reportOneThreeDao().getErrorsBroccoli(idCurrentPlayer));
+        data[4] = new DataPoint (5, db.reportOneThreeDao().getErrorsCarrot(idCurrentPlayer));
+        data[5] = new DataPoint (6, db.reportOneThreeDao().getErrorsCorn(idCurrentPlayer));
+        data[6] = new DataPoint (7, db.reportOneThreeDao().getErrorsCucumber(idCurrentPlayer));
+        data[7] = new DataPoint (8, db.reportOneThreeDao().getErrorsEggplant(idCurrentPlayer));
+        data[8] = new DataPoint (9, db.reportOneThreeDao().getErrorsFennel(idCurrentPlayer));
+        data[9] = new DataPoint (10, db.reportOneThreeDao().getErrorsGrapefruit(idCurrentPlayer));
+        data[10] = new DataPoint (11, db.reportOneThreeDao().getErrorsGreenpea(idCurrentPlayer));
+        data[11] = new DataPoint (12, db.reportOneThreeDao().getErrorsLemon(idCurrentPlayer));
+        data[12] = new DataPoint (13, db.reportOneThreeDao().getErrorsOnion(idCurrentPlayer));
+        data[13] = new DataPoint (14, db.reportOneThreeDao().getErrorsOrange(idCurrentPlayer));
+        data[14] = new DataPoint (15, db.reportOneThreeDao().getErrorsPear(idCurrentPlayer));
+        data[15] = new DataPoint (16, db.reportOneThreeDao().getErrorsPepper(idCurrentPlayer));
+        data[16] = new DataPoint (17, db.reportOneThreeDao().getErrorsPotato(idCurrentPlayer));
+        data[17] = new DataPoint (18, db.reportOneThreeDao().getErrorsStrawberry(idCurrentPlayer));
+        data[18] = new DataPoint (19, db.reportOneThreeDao().getErrorsTangerine(idCurrentPlayer));
+        data[19] = new DataPoint (20, db.reportOneThreeDao().getErrorsTomato(idCurrentPlayer));
+        data[20] = new DataPoint (21, db.reportOneThreeDao().getErrorsWatermelon(idCurrentPlayer));
+        return data;
+    }
+
+    public static DataPoint[] getAllErrorsTwoOne(AppDatabase db) {
+        DataPoint[] data = new DataPoint[10];
+        int idCurrentPlayer = db.childDao().getCurrentPlayer(true);
+        data[0] = new DataPoint (1, db.reportTwoOneDao().getErrorsZero(idCurrentPlayer));
+        data[1] = new DataPoint (2, db.reportTwoOneDao().getErrorsOne(idCurrentPlayer));
+        data[2] = new DataPoint (3, db.reportTwoOneDao().getErrorsTwo(idCurrentPlayer));
+        data[3] = new DataPoint (4, db.reportTwoOneDao().getErrorsThree(idCurrentPlayer));
+        data[4] = new DataPoint (5, db.reportTwoOneDao().getErrorsFour(idCurrentPlayer));
+        data[5] = new DataPoint (6, db.reportTwoOneDao().getErrorsFive(idCurrentPlayer));
+        data[6] = new DataPoint (7, db.reportTwoOneDao().getErrorsSix(idCurrentPlayer));
+        data[7] = new DataPoint (8, db.reportTwoOneDao().getErrorsSeven(idCurrentPlayer));
+        data[8] = new DataPoint (9, db.reportTwoOneDao().getErrorsEight(idCurrentPlayer));
+        data[9] = new DataPoint (10, db.reportTwoOneDao().getErrorsNine(idCurrentPlayer));
+        return data;
+    }
+
+    public static DataPoint[] getAllErrorsTwoTwo(AppDatabase db) {
+        DataPoint[] data = new DataPoint[21];
+        int idCurrentPlayer = db.childDao().getCurrentPlayer(true);
+        data[0] = new DataPoint (1, db.reportTwoTwoDao().getErrorsA(idCurrentPlayer));
+        data[1] = new DataPoint (2, db.reportTwoTwoDao().getErrorsB(idCurrentPlayer));
+        data[2] = new DataPoint (3, db.reportTwoTwoDao().getErrorsC(idCurrentPlayer));
+        data[3] = new DataPoint (4, db.reportTwoTwoDao().getErrorsD(idCurrentPlayer));
+        data[4] = new DataPoint (5, db.reportTwoTwoDao().getErrorsE(idCurrentPlayer));
+        data[5] = new DataPoint (6, db.reportTwoTwoDao().getErrorsF(idCurrentPlayer));
+        data[6] = new DataPoint (7, db.reportTwoTwoDao().getErrorsG(idCurrentPlayer));
+        data[7] = new DataPoint (8, db.reportTwoTwoDao().getErrorsH(idCurrentPlayer));
+        data[8] = new DataPoint (9, db.reportTwoTwoDao().getErrorsI(idCurrentPlayer));
+        data[9] = new DataPoint (10, db.reportTwoTwoDao().getErrorsL(idCurrentPlayer));
+        data[10] = new DataPoint (11, db.reportTwoTwoDao().getErrorsM(idCurrentPlayer));
+        data[11] = new DataPoint (12, db.reportTwoTwoDao().getErrorsN(idCurrentPlayer));
+        data[12] = new DataPoint (13, db.reportTwoTwoDao().getErrorsO(idCurrentPlayer));
+        data[13] = new DataPoint (14, db.reportTwoTwoDao().getErrorsP(idCurrentPlayer));
+        data[14] = new DataPoint (15, db.reportTwoTwoDao().getErrorsQ(idCurrentPlayer));
+        data[15] = new DataPoint (16, db.reportTwoTwoDao().getErrorsR(idCurrentPlayer));
+        data[16] = new DataPoint (17, db.reportTwoTwoDao().getErrorsS(idCurrentPlayer));
+        data[17] = new DataPoint (18, db.reportTwoTwoDao().getErrorsT(idCurrentPlayer));
+        data[18] = new DataPoint (19, db.reportTwoTwoDao().getErrorsU(idCurrentPlayer));
+        data[19] = new DataPoint (20, db.reportTwoTwoDao().getErrorsV(idCurrentPlayer));
+        data[20] = new DataPoint (21, db.reportTwoTwoDao().getErrorsZ(idCurrentPlayer));
+        return data;
+    }
+
+    public static DataPoint[] getAllErrorsTwoThree(AppDatabase db) {
+        DataPoint[] data = new DataPoint[21];
+        int idCurrentPlayer = db.childDao().getCurrentPlayer(true);
+        data[0] = new DataPoint (1, db.reportTwoThreeDao().getErrorsA(idCurrentPlayer));
+        data[1] = new DataPoint (2, db.reportTwoThreeDao().getErrorsB(idCurrentPlayer));
+        data[2] = new DataPoint (3, db.reportTwoThreeDao().getErrorsC(idCurrentPlayer));
+        data[3] = new DataPoint (4, db.reportTwoThreeDao().getErrorsD(idCurrentPlayer));
+        data[4] = new DataPoint (5, db.reportTwoThreeDao().getErrorsE(idCurrentPlayer));
+        data[5] = new DataPoint (6, db.reportTwoThreeDao().getErrorsF(idCurrentPlayer));
+        data[6] = new DataPoint (7, db.reportTwoThreeDao().getErrorsG(idCurrentPlayer));
+        data[7] = new DataPoint (8, db.reportTwoThreeDao().getErrorsH(idCurrentPlayer));
+        data[8] = new DataPoint (9, db.reportTwoThreeDao().getErrorsI(idCurrentPlayer));
+        data[9] = new DataPoint (10, db.reportTwoThreeDao().getErrorsL(idCurrentPlayer));
+        data[10] = new DataPoint (11, db.reportTwoThreeDao().getErrorsM(idCurrentPlayer));
+        data[11] = new DataPoint (12, db.reportTwoThreeDao().getErrorsN(idCurrentPlayer));
+        data[12] = new DataPoint (13, db.reportTwoThreeDao().getErrorsO(idCurrentPlayer));
+        data[13] = new DataPoint (14, db.reportTwoThreeDao().getErrorsP(idCurrentPlayer));
+        data[14] = new DataPoint (15, db.reportTwoThreeDao().getErrorsQ(idCurrentPlayer));
+        data[15] = new DataPoint (16, db.reportTwoThreeDao().getErrorsR(idCurrentPlayer));
+        data[16] = new DataPoint (17, db.reportTwoThreeDao().getErrorsS(idCurrentPlayer));
+        data[17] = new DataPoint (18, db.reportTwoThreeDao().getErrorsT(idCurrentPlayer));
+        data[18] = new DataPoint (19, db.reportTwoThreeDao().getErrorsU(idCurrentPlayer));
+        data[19] = new DataPoint (20, db.reportTwoThreeDao().getErrorsV(idCurrentPlayer));
+        data[20] = new DataPoint (21, db.reportTwoThreeDao().getErrorsZ(idCurrentPlayer));
+        return data;
+    }
+
     public static void setAllErrorsOneOne(AppDatabase db, ArrayList<String> errorList, int level){
         int currentPlayer = getCurrentPlayer(db);
         int oldErrors = 0;
@@ -394,177 +504,243 @@ public class DatabaseInitializer {
                         break;
                 }
             }
-            //TODO: add getter as for level 11
             if (level == 12) {
                 switch (error) {
                     case "yellow":
+                        oldErrors = db.reportOneTwoDao().getErrorsYellow(currentPlayer);
                         db.reportOneTwoDao().setErrorsYellow(currentPlayer, oldErrors+1);
                     case "orangec":
+                        oldErrors = db.reportOneTwoDao().getErrorsOrangec(currentPlayer);
                         db.reportOneTwoDao().setErrorsOrangec(currentPlayer, oldErrors+1);
                     case "violet":
+                        oldErrors = db.reportOneTwoDao().getErrorsViolet(currentPlayer);
                         db.reportOneTwoDao().setErrorsViolet(currentPlayer, oldErrors+1);
                     case "green":
+                        oldErrors = db.reportOneTwoDao().getErrorsGreen(currentPlayer);
                         db.reportOneTwoDao().setErrorsGreen(currentPlayer, oldErrors+1);
                     case "white":
+                        oldErrors = db.reportOneTwoDao().getErrorsWhite(currentPlayer);
                         db.reportOneTwoDao().setErrorsWhite(currentPlayer, oldErrors+1);
                     case "brown":
+                        oldErrors = db.reportOneTwoDao().getErrorsBrown(currentPlayer);
                         db.reportOneTwoDao().setErrorsBrown(currentPlayer, oldErrors+1);
+                    case "red":
+                        oldErrors = db.reportOneTwoDao().getErrorsRed(currentPlayer);
+                        db.reportOneTwoDao().setErrorsRed(currentPlayer, oldErrors+1);
                 }
             }
             if (level == 13) {
-                switch (error) {
-                    case "banana":
-                        db.reportOneThreeDao().setErrorsBanana(currentPlayer, oldErrors+1);
-                        break;
-                    case "lemon":
-                        db.reportOneThreeDao().setErrorsLemon(currentPlayer, oldErrors+1);
-                        break;
-                    case "corn":
-                        db.reportOneThreeDao().setErrorsCorn(currentPlayer, oldErrors+1);
-                        break;
-                    case "grapefruit":
-                        db.reportOneThreeDao().setErrorsGrapefruit(currentPlayer, oldErrors+1);
-                        break;
-                    case "watermelon":
-                        db.reportOneThreeDao().setErrorsWatermelon(currentPlayer, oldErrors+1);
-                        break;
-                    case "strawberry":
-                        db.reportOneThreeDao().setErrorsStrawberry(currentPlayer, oldErrors+1);
-                        break;
-                    case "apple":
-                        db.reportOneThreeDao().setErrorsApple(currentPlayer, oldErrors+1);
-                        break;
-                    case "pepper":
-                        db.reportOneThreeDao().setErrorsPepper(currentPlayer, oldErrors+1);
-                        break;
-                    case "tomato":
-                        db.reportOneThreeDao().setErrorsTomato(currentPlayer, oldErrors+1);
-                        break;
-                    case "orange":
-                        db.reportOneThreeDao().setErrorsOrange(currentPlayer, oldErrors+1);
-                        break;
-                    case "carrot":
-                        db.reportOneThreeDao().setErrorsCarrot(currentPlayer, oldErrors+1);
-                        break;
-                    case "onion":
-                        db.reportOneThreeDao().setErrorsOnion(currentPlayer, oldErrors+1);
-                        break;
-                    case "tangerine":
-                        db.reportOneThreeDao().setErrorsTangerine(currentPlayer, oldErrors+1);
-                        break;
-                    case "eggplant":
-                        db.reportOneThreeDao().setErrorsEggplant(currentPlayer, oldErrors+1);
-                        break;
-                    case "asparagus":
-                        db.reportOneThreeDao().setErrorsAsparagus(currentPlayer, oldErrors+1);
-                        break;
-                    case "broccoli":
-                        db.reportOneThreeDao().setErrorsBroccoli(currentPlayer, oldErrors+1);
-                        break;
-                    case "cucumber":
-                        db.reportOneThreeDao().setErrorsCucumber(currentPlayer, oldErrors+1);
-                        break;
-                    case "pear":
-                        db.reportOneThreeDao().setErrorsPear(currentPlayer, oldErrors+1);
-                        break;
-                    case "greenpea":
-                        db.reportOneThreeDao().setErrorsGreenpea(currentPlayer, oldErrors+1);
-                        break;
-                    case "fennel":
-                        db.reportOneThreeDao().setErrorsFennel(currentPlayer, oldErrors+1);
-                        break;
-                    case "potato":
-                        db.reportOneThreeDao().setErrorsPotato(currentPlayer, oldErrors+1);
-                        break;
-                }
+                switch (error){
+                case "banana":
+                    oldErrors = db.reportOneThreeDao().getErrorsBanana(currentPlayer);
+                    db.reportOneThreeDao().setErrorsBanana(currentPlayer, oldErrors+1);
+                    Log.i("[DB INITIALIZER]", "Storing a new error: " + error + " "+ db.reportOneThreeDao().getErrorsBanana(currentPlayer));
+                    break;
+                case "lemon":
+                    oldErrors = db.reportOneThreeDao().getErrorsLemon(currentPlayer);
+                    db.reportOneThreeDao().setErrorsLemon(currentPlayer, oldErrors+1);
+                    Log.i("[DB INITIALIZER]", "Storing a new error: " + error + " "+ db.reportOneThreeDao().getErrorsLemon(currentPlayer));
+                    break;
+                case "corn":
+                    oldErrors = db.reportOneThreeDao().getErrorsCorn(currentPlayer);
+                    db.reportOneThreeDao().setErrorsCorn(currentPlayer, oldErrors+1);
+                    Log.i("[DB INITIALIZER]", "Storing a new error: " + error + " "+ db.reportOneThreeDao().getErrorsCorn(currentPlayer));
+                    break;
+                case "grapefruit":
+                    oldErrors = db.reportOneThreeDao().getErrorsGrapefruit(currentPlayer);
+                    db.reportOneThreeDao().setErrorsGrapefruit(currentPlayer, oldErrors+1);
+                    Log.i("[DB INITIALIZER]", "Storing a new error: " + error + " "+ db.reportOneThreeDao().getErrorsGrapefruit(currentPlayer));
+                    break;
+                case "watermelon":
+                    oldErrors = db.reportOneThreeDao().getErrorsWatermelon(currentPlayer);
+                    db.reportOneThreeDao().setErrorsWatermelon(currentPlayer, oldErrors+1);
+                    Log.i("[DB INITIALIZER]", "Storing a new error: " + error + " "+ db.reportOneThreeDao().getErrorsWatermelon(currentPlayer));
+                    break;
+                case "strawberry":
+                    oldErrors = db.reportOneThreeDao().getErrorsStrawberry(currentPlayer);
+                    db.reportOneThreeDao().setErrorsStrawberry(currentPlayer, oldErrors+1);
+                    Log.i("[DB INITIALIZER]", "Storing a new error: " + error + " "+ db.reportOneThreeDao().getErrorsStrawberry(currentPlayer));
+                    break;
+                case "apple":
+                    oldErrors = db.reportOneThreeDao().getErrorsApple(currentPlayer);
+                    db.reportOneThreeDao().setErrorsApple(currentPlayer, oldErrors+1);
+                    break;
+                case "pepper":
+                    oldErrors = db.reportOneThreeDao().getErrorsPepper(currentPlayer);
+                    db.reportOneThreeDao().setErrorsPepper(currentPlayer, oldErrors+1);
+                    break;
+                case "tomato":
+                    oldErrors = db.reportOneThreeDao().getErrorsTomato(currentPlayer);
+                    db.reportOneThreeDao().setErrorsTomato(currentPlayer, oldErrors+1);
+                    break;
+                case "orange":
+                    oldErrors = db.reportOneThreeDao().getErrorsOrange(currentPlayer);
+                    db.reportOneThreeDao().setErrorsOrange(currentPlayer, oldErrors+1);
+                    break;
+                case "carrot":
+                    oldErrors = db.reportOneThreeDao().getErrorsCarrot(currentPlayer);
+                    db.reportOneThreeDao().setErrorsCarrot(currentPlayer, oldErrors+1);
+                    break;
+                case "onion":
+                    oldErrors = db.reportOneThreeDao().getErrorsOnion(currentPlayer);
+                    db.reportOneThreeDao().setErrorsOnion(currentPlayer, oldErrors+1);
+                    break;
+                case "tangerine":
+                    oldErrors = db.reportOneThreeDao().getErrorsTangerine(currentPlayer);
+                    db.reportOneThreeDao().setErrorsTangerine(currentPlayer, oldErrors+1);
+                    break;
+                case "eggplant":
+                    oldErrors = db.reportOneThreeDao().getErrorsEggplant(currentPlayer);
+                    db.reportOneThreeDao().setErrorsEggplant(currentPlayer, oldErrors+1);
+                    break;
+                case "asparagus":
+                    oldErrors = db.reportOneThreeDao().getErrorsAsparagus(currentPlayer);
+                    db.reportOneThreeDao().setErrorsAsparagus(currentPlayer, oldErrors+1);
+                    break;
+                case "broccoli":
+                    oldErrors = db.reportOneThreeDao().getErrorsBroccoli(currentPlayer);
+                    db.reportOneThreeDao().setErrorsBroccoli(currentPlayer, oldErrors+1);
+                    break;
+                case "cucumber":
+                    oldErrors = db.reportOneThreeDao().getErrorsCucumber(currentPlayer);
+                    db.reportOneThreeDao().setErrorsCucumber(currentPlayer, oldErrors+1);
+                    break;
+                case "pear":
+                    oldErrors = db.reportOneThreeDao().getErrorsPear(currentPlayer);
+                    db.reportOneThreeDao().setErrorsPear(currentPlayer, oldErrors+1);
+                    break;
+                case "greenpea":
+                    oldErrors = db.reportOneThreeDao().getErrorsGreenpea(currentPlayer);
+                    db.reportOneThreeDao().setErrorsGreenpea(currentPlayer, oldErrors+1);
+                    break;
+                case "fennel":
+                    oldErrors = db.reportOneThreeDao().getErrorsFennel(currentPlayer);
+                    db.reportOneThreeDao().setErrorsFennel(currentPlayer, oldErrors+1);
+                    break;
+                case "potato":
+                    oldErrors = db.reportOneThreeDao().getErrorsPotato(currentPlayer);
+                    db.reportOneThreeDao().setErrorsPotato(currentPlayer, oldErrors+1);
+                    break;
+            }
             }
             if (level == 21) {
                 switch (error) {
                     case "_0":
+                        oldErrors = db.reportTwoOneDao().getErrorsZero(currentPlayer);
                         db.reportTwoOneDao().setErrorsZero(currentPlayer, oldErrors+1);
                     case "_1":
+                        oldErrors = db.reportTwoOneDao().getErrorsOne(currentPlayer);
                         db.reportTwoOneDao().setErrorsOne(currentPlayer, oldErrors+1);
                     case "_2":
+                        oldErrors = db.reportTwoOneDao().getErrorsTwo(currentPlayer);
                         db.reportTwoOneDao().setErrorsTwo(currentPlayer, oldErrors+1);
                     case "_3":
+                        oldErrors = db.reportTwoOneDao().getErrorsThree(currentPlayer);
                         db.reportTwoOneDao().setErrorsThree(currentPlayer, oldErrors+1);
                     case "_4":
+                        oldErrors = db.reportTwoOneDao().getErrorsFour(currentPlayer);
                         db.reportTwoOneDao().setErrorsFour(currentPlayer, oldErrors+1);
                     case "_5":
+                        oldErrors = db.reportTwoOneDao().getErrorsFive(currentPlayer);
                         db.reportTwoOneDao().setErrorsFive(currentPlayer, oldErrors+1);
                     case "_6":
+                        oldErrors = db.reportTwoOneDao().getErrorsSix(currentPlayer);
                         db.reportTwoOneDao().setErrorsSix(currentPlayer, oldErrors+1);
                     case "_7":
+                        oldErrors = db.reportTwoOneDao().getErrorsSeven(currentPlayer);
                         db.reportTwoOneDao().setErrorsSeven(currentPlayer, oldErrors+1);
                     case "_8":
+                        oldErrors = db.reportTwoOneDao().getErrorsEight(currentPlayer);
                         db.reportTwoOneDao().setErrorsEight(currentPlayer, oldErrors+1);
                     case "_9":
+                        oldErrors = db.reportTwoOneDao().getErrorsNine(currentPlayer);
                         db.reportTwoOneDao().setErrorsNine(currentPlayer, oldErrors+1);
                 }
             }
             if (level == 22) {
                 switch (error) {
                     case "a":
+                        oldErrors = db.reportTwoTwoDao().getErrorsA(currentPlayer);
                         db.reportTwoTwoDao().setErrorsA(currentPlayer, oldErrors+1);
                         break;
                     case "b":
+                        oldErrors = db.reportTwoTwoDao().getErrorsB(currentPlayer);
                         db.reportTwoTwoDao().setErrorsB(currentPlayer, oldErrors+1);
                         break;
                     case "c":
+                        oldErrors = db.reportTwoTwoDao().getErrorsC(currentPlayer);
                         db.reportTwoTwoDao().setErrorsC(currentPlayer, oldErrors+1);
                         break;
                     case "d":
+                        oldErrors = db.reportTwoTwoDao().getErrorsD(currentPlayer);
                         db.reportTwoTwoDao().setErrorsD(currentPlayer, oldErrors+1);
                         break;
                     case "e":
+                        oldErrors = db.reportTwoTwoDao().getErrorsE(currentPlayer);
                         db.reportTwoTwoDao().setErrorsE(currentPlayer, oldErrors+1);
                         break;
                     case "f":
+                        oldErrors = db.reportTwoTwoDao().getErrorsF(currentPlayer);
                         db.reportTwoTwoDao().setErrorsF(currentPlayer, oldErrors+1);
                         break;
                     case "g":
+                        oldErrors = db.reportTwoTwoDao().getErrorsG(currentPlayer);
                         db.reportTwoTwoDao().setErrorsG(currentPlayer, oldErrors+1);
                         break;
                     case "h":
+                        oldErrors = db.reportTwoTwoDao().getErrorsH(currentPlayer);
                         db.reportTwoTwoDao().setErrorsH(currentPlayer, oldErrors+1);
                         break;
                     case "i":
+                        oldErrors = db.reportTwoTwoDao().getErrorsI(currentPlayer);
                         db.reportTwoTwoDao().setErrorsI(currentPlayer, oldErrors+1);
                         break;
                     case "l":
+                        oldErrors = db.reportTwoTwoDao().getErrorsL(currentPlayer);
                         db.reportTwoTwoDao().setErrorsL(currentPlayer, oldErrors+1);
                         break;
                     case "m":
+                        oldErrors = db.reportTwoTwoDao().getErrorsM(currentPlayer);
                         db.reportTwoTwoDao().setErrorsM(currentPlayer, oldErrors+1);
                         break;
                     case "n":
+                        oldErrors = db.reportTwoTwoDao().getErrorsN(currentPlayer);
                         db.reportTwoTwoDao().setErrorsN(currentPlayer, oldErrors+1);
                         break;
                     case "o":
+                        oldErrors = db.reportTwoTwoDao().getErrorsO(currentPlayer);
                         db.reportTwoTwoDao().setErrorsO(currentPlayer, oldErrors+1);
                         break;
                     case "p":
+                        oldErrors = db.reportTwoTwoDao().getErrorsP(currentPlayer);
                         db.reportTwoTwoDao().setErrorsP(currentPlayer, oldErrors+1);
                         break;
                     case "q":
+                        oldErrors = db.reportTwoTwoDao().getErrorsQ(currentPlayer);
                         db.reportTwoTwoDao().setErrorsQ(currentPlayer, oldErrors+1);
                         break;
                     case "r":
+                        oldErrors = db.reportTwoTwoDao().getErrorsR(currentPlayer);
                         db.reportTwoTwoDao().setErrorsR(currentPlayer, oldErrors+1);
                         break;
                     case "s":
+                        oldErrors = db.reportTwoTwoDao().getErrorsS(currentPlayer);
                         db.reportTwoTwoDao().setErrorsS(currentPlayer, oldErrors+1);
                         break;
                     case "t":
+                        oldErrors = db.reportTwoTwoDao().getErrorsT(currentPlayer);
                         db.reportTwoTwoDao().setErrorsT(currentPlayer, oldErrors+1);
                         break;
                     case "u":
+                        oldErrors = db.reportTwoTwoDao().getErrorsU(currentPlayer);
                         db.reportTwoTwoDao().setErrorsU(currentPlayer, oldErrors+1);
                         break;
                     case "v":
+                        oldErrors = db.reportTwoTwoDao().getErrorsV(currentPlayer);
                         db.reportTwoTwoDao().setErrorsV(currentPlayer, oldErrors+1);
                         break;
                     case "z":
+                        oldErrors = db.reportTwoTwoDao().getErrorsZ(currentPlayer);
                         db.reportTwoTwoDao().setErrorsZ(currentPlayer, oldErrors+1);
                         break;
                 }
@@ -572,66 +748,87 @@ public class DatabaseInitializer {
             if (level == 23) {
                 switch (error) {
                     case "a":
+                        oldErrors = db.reportTwoThreeDao().getErrorsA(currentPlayer);
                         db.reportTwoThreeDao().setErrorsA(currentPlayer, oldErrors+1);
                         break;
                     case "b":
+                        oldErrors = db.reportTwoThreeDao().getErrorsB(currentPlayer);
                         db.reportTwoThreeDao().setErrorsB(currentPlayer, oldErrors+1);
                         break;
                     case "c":
+                        oldErrors = db.reportTwoThreeDao().getErrorsC(currentPlayer);
                         db.reportTwoThreeDao().setErrorsC(currentPlayer, oldErrors+1);
                         break;
                     case "d":
+                        oldErrors = db.reportTwoThreeDao().getErrorsD(currentPlayer);
                         db.reportTwoThreeDao().setErrorsD(currentPlayer, oldErrors+1);
                         break;
                     case "e":
+                        oldErrors = db.reportTwoThreeDao().getErrorsE(currentPlayer);
                         db.reportTwoThreeDao().setErrorsE(currentPlayer, oldErrors+1);
                         break;
                     case "f":
+                        oldErrors = db.reportTwoThreeDao().getErrorsF(currentPlayer);
                         db.reportTwoThreeDao().setErrorsF(currentPlayer, oldErrors+1);
                         break;
                     case "g":
+                        oldErrors = db.reportTwoThreeDao().getErrorsG(currentPlayer);
                         db.reportTwoThreeDao().setErrorsG(currentPlayer, oldErrors+1);
                         break;
                     case "h":
+                        oldErrors = db.reportTwoThreeDao().getErrorsH(currentPlayer);
                         db.reportTwoThreeDao().setErrorsH(currentPlayer, oldErrors+1);
                         break;
                     case "i":
+                        oldErrors = db.reportTwoThreeDao().getErrorsI(currentPlayer);
                         db.reportTwoThreeDao().setErrorsI(currentPlayer, oldErrors+1);
                         break;
                     case "l":
+                        oldErrors = db.reportTwoThreeDao().getErrorsL(currentPlayer);
                         db.reportTwoThreeDao().setErrorsL(currentPlayer, oldErrors+1);
                         break;
                     case "m":
+                        oldErrors = db.reportTwoThreeDao().getErrorsM(currentPlayer);
                         db.reportTwoThreeDao().setErrorsM(currentPlayer, oldErrors+1);
                         break;
                     case "n":
+                        oldErrors = db.reportTwoThreeDao().getErrorsN(currentPlayer);
                         db.reportTwoThreeDao().setErrorsN(currentPlayer, oldErrors+1);
                         break;
                     case "o":
+                        oldErrors = db.reportTwoThreeDao().getErrorsO(currentPlayer);
                         db.reportTwoThreeDao().setErrorsO(currentPlayer, oldErrors+1);
                         break;
                     case "p":
+                        oldErrors = db.reportTwoThreeDao().getErrorsP(currentPlayer);
                         db.reportTwoThreeDao().setErrorsP(currentPlayer, oldErrors+1);
                         break;
                     case "q":
+                        oldErrors = db.reportTwoThreeDao().getErrorsQ(currentPlayer);
                         db.reportTwoThreeDao().setErrorsQ(currentPlayer, oldErrors+1);
                         break;
                     case "r":
+                        oldErrors = db.reportTwoThreeDao().getErrorsR(currentPlayer);
                         db.reportTwoThreeDao().setErrorsR(currentPlayer, oldErrors+1);
                         break;
                     case "s":
+                        oldErrors = db.reportTwoThreeDao().getErrorsS(currentPlayer);
                         db.reportTwoThreeDao().setErrorsS(currentPlayer, oldErrors+1);
                         break;
                     case "t":
+                        oldErrors = db.reportTwoThreeDao().getErrorsT(currentPlayer);
                         db.reportTwoThreeDao().setErrorsT(currentPlayer, oldErrors+1);
                         break;
                     case "u":
+                        oldErrors = db.reportTwoThreeDao().getErrorsU(currentPlayer);
                         db.reportTwoThreeDao().setErrorsU(currentPlayer, oldErrors+1);
                         break;
                     case "v":
+                        oldErrors = db.reportTwoThreeDao().getErrorsV(currentPlayer);
                         db.reportTwoThreeDao().setErrorsV(currentPlayer, oldErrors+1);
                         break;
                     case "z":
+                        oldErrors = db.reportTwoThreeDao().getErrorsZ(currentPlayer);
                         db.reportTwoThreeDao().setErrorsZ(currentPlayer, oldErrors+1);
                         break;
                 }

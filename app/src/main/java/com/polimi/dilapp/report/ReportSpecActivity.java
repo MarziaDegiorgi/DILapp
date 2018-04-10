@@ -52,6 +52,8 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
             setContentView(R.layout.activity_main_report);
             db = AppDatabase.getAppDatabase(this);
             currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
+            TextView title = findViewById(R.id.title_graph);
+            title.setText(R.string.error_title);
             CircleImageView circleImageView = findViewById(R.id.profile_image);
             BitmapDrawable drawable = null;
             try {
@@ -73,11 +75,14 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
             int level = intent.getIntExtra("level", 0);
             int max = 0;
             int size = 0;
+            String type;
             List<String> objects = new ArrayList<>();
+            String[] listOfObjects;
             switch (level){
                 case 11:
                     size = 22;
-                    String[] listOfObjects = getResources().getStringArray(R.array.fruits_it);
+                    type = "l'oggetto";
+                    listOfObjects = getResources().getStringArray(R.array.fruits_it);
                     objects = Arrays.asList(listOfObjects);
                     errorList = DatabaseInitializer.getAllErrorsOneOne(db);
                     for(DataPoint s : errorList ){
@@ -86,7 +91,78 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
                                 max = y.intValue() + 3;
                             }
                         }
+                        break;
+                case 12:
+                    size = 8;
+                    type = "il colore";
+                    listOfObjects = getResources().getStringArray(R.array.colors_it);
+                    objects = Arrays.asList(listOfObjects);
+                    errorList = DatabaseInitializer.getAllErrorsOneTwo(db);
+                    for(DataPoint s : errorList ){
+                        if (s.getY() > max) {
+                            Double y = s.getY();
+                            max = y.intValue() + 3;
+                        }
                     }
+                    break;
+                case 13:
+                    size = 22;
+                    type = "l'oggetto";
+                    listOfObjects = getResources().getStringArray(R.array.fruits_it);
+                    objects = Arrays.asList(listOfObjects);
+                    errorList = DatabaseInitializer.getAllErrorsOneThree(db);
+                    for(DataPoint s : errorList ){
+                        if (s.getY() > max) {
+                            Double y = s.getY();
+                            max = y.intValue() + 3;
+                        }
+                    }
+                    break;
+                case 21:
+                    size = 11;
+                    type = "il numero";
+                    listOfObjects = getResources().getStringArray(R.array.all_numbers_items);
+                    objects = Arrays.asList(listOfObjects);
+                    errorList = DatabaseInitializer.getAllErrorsTwoOne(db);
+                    for(DataPoint s : errorList ){
+                        if (s.getY() > max) {
+                            Double y = s.getY();
+                            max = y.intValue() + 3;
+                        }
+                    }
+                    break;
+                case 22:
+                    size = 21;
+                    type = "la lettera";
+                    listOfObjects = getResources().getStringArray(R.array.all_letters_items);
+                    objects = Arrays.asList(listOfObjects);
+                    errorList = DatabaseInitializer.getAllErrorsTwoTwo(db);
+                    for(DataPoint s : errorList ){
+                        if (s.getY() > max) {
+                            Double y = s.getY();
+                            max = y.intValue() + 3;
+                        }
+                    }
+                    break;
+                case 23:
+                    size = 21;
+                    type = "la lettera";
+                    listOfObjects = getResources().getStringArray(R.array.all_letters_items);
+                    objects = Arrays.asList(listOfObjects);
+                    errorList = DatabaseInitializer.getAllErrorsTwoThree(db);
+                    for(DataPoint s : errorList ){
+                        if (s.getY() > max) {
+                            Double y = s.getY();
+                            max = y.intValue() + 3;
+                        }
+                    }
+                    break;
+                default:
+                    size= 23;
+                    type = "l'oggetto";
+            }
+
+
         GraphView graph = (GraphView) findViewById(R.id.graph);
             if(errorList!= null) {
                 BarGraphSeries<DataPoint> series = new BarGraphSeries<>(errorList);
@@ -100,14 +176,17 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
                 graph.getViewport().setXAxisBoundsManual(true);
                 graph.getViewport().setMaxX(size);
                 graph.getViewport().setMinX(0.0);
+                graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
+                graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
                 final List<String> finalObjects = objects;
+                final String finalType = type;
                 series.setOnDataPointTapListener(new OnDataPointTapListener() {
                     @Override
                     public void onTap(Series series, DataPointInterface dataPoint) {
 
                         Double x = dataPoint.getX();
                         Double y = dataPoint.getY();
-                        showDataPoint(finalObjects.get(x.intValue() - 1), String.valueOf(y.intValue()));
+                        showDataPoint(finalObjects.get(x.intValue() - 1), String.valueOf(y.intValue()), finalType);
                     }
                 });
                 series.setValueDependentColor(new ValueDependentColor<DataPoint>() {
@@ -117,7 +196,7 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
                     }
                 });
 
-                series.setSpacing(30);
+                series.setSpacing(10);
             }
         }
 
@@ -137,7 +216,7 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
         {
             super.onBackPressed();
 
-            startActivity(new Intent(ReportSpecActivity.this, ReportMainActivity.class));
+            startActivity(new Intent(ReportSpecActivity.this, ReportLevelMapActivity.class));
 
             CircleImageView circleImageView = findViewById(R.id.profile_image);
             GraphView graph = findViewById(R.id.graph);
@@ -151,7 +230,7 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
             finish();
         }
 
-    private void showDataPoint(String object, String numberOfErrors){
+    private void showDataPoint(String object, String numberOfErrors, String type){
         final Dialog dialog = new Dialog(ReportSpecActivity.this);
         dialog.setContentView(R.layout.pop_up);
         TextView tv = dialog.findViewById(R.id.textView);
@@ -159,8 +238,14 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
         sb.append(DatabaseInitializer.getChildById(db, currentPlayer).getName());
         sb.append(" non ha riconosciuto per ");
         sb.append(numberOfErrors);
-        sb.append(" volte l'oggetto ");
-        sb.append(object);
+        if(numberOfErrors.equals(String.valueOf(1))){
+            sb.append(" volta ");
+        }else {
+            sb.append(" volte ");
+        }
+        sb.append(type);
+        sb.append(" ");
+        sb.append(object.toUpperCase());
         tv.setText(sb.toString());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button close = dialog.findViewById(R.id.close);

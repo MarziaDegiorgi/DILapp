@@ -35,8 +35,14 @@ public interface ReportOneTwoDao {
     @Query("SELECT brown FROM reportOneTwo WHERE id = :id")
     int getErrorsBrown(int id);
 
+    @Query("SELECT red FROM reportOneTwo WHERE id = :id")
+    int getErrorsRed(int id);
+
     @Query("UPDATE reportOneTwo SET yellow = :number WHERE id = :id")
     void setErrorsYellow(int id, int number);
+
+    @Query("UPDATE reportOneTwo SET red = :number WHERE id = :id")
+    void setErrorsRed(int id, int number);
 
     @Query("UPDATE reportOneTwo SET orangec = :number WHERE id = :id")
     void setErrorsOrangec(int id, int number);

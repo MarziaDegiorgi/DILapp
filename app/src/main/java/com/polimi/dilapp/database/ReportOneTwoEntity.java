@@ -16,6 +16,9 @@ public class ReportOneTwoEntity {
     @ColumnInfo(name= "yellow")
     private int yellow;
 
+    @ColumnInfo(name= "red")
+    private int red;
+
     @ColumnInfo(name= "orangec")
     private int orangec;
 
@@ -98,5 +101,13 @@ public class ReportOneTwoEntity {
 
     public void setProgress(String progress) {
         this.progress = progress;
+    }
+
+    public int getRed() {
+        return red;
+    }
+
+    public void setRed(int red) {
+        this.red = red;
     }
 }

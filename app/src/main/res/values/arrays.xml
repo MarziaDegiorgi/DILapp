@@ -227,6 +227,16 @@
         <item>brown</item>
     </string-array>
 
+    <string-array name="colors_it">
+        <item>giallo</item>
+        <item>rosso</item>
+        <item>arancione</item>
+        <item>viola</item>
+        <item>verde</item>
+        <item>bianco</item>
+        <item>marrone</item>
+    </string-array>
+
     <string-array name="all_fruits_items">
         <item>banana</item>
         <item>lemon</item>

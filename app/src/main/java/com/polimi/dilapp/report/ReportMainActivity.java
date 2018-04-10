@@ -87,8 +87,8 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ReportMainActivity.this, ReportLevelMapActivity.class);
-                intent.putExtra("level", DatabaseInitializer.getLevelCurrentPlayer(db));
                 startActivity(intent);
+                finish();
             }
         });
 
