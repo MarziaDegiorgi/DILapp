@@ -21,7 +21,12 @@
     <string name="progress_button">Specifiche per livello</string>
     <string name="settings">Impostazioni</string>
     <string name="error_title">Errori:</string>
-
+    <string name="settings_text">Abilita reportistica automatica</string>
+<string name="insert">Inserisci qui la tua email:</string>
+    <string name="confirm_email">Conferma email</string>
+    <string name="modify_email">Modifica email</string>
+    <string name="email_error">Email non valida</string>
+    <string name="description">Descrizione...</string>
 
 
 

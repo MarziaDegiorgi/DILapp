@@ -6,6 +6,7 @@ import android.view.MenuItem;
 public interface IReport {
 
     interface View{
+        Context getContext();
 
     }
     interface Presenter{

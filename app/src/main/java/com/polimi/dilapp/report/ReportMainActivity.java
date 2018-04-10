@@ -2,6 +2,7 @@ package com.polimi.dilapp.report;
 
 import android.app.Dialog;
 import android.arch.persistence.room.Database;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -208,6 +209,11 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
 
         startActivity(new Intent(ReportMainActivity.this, StartGameActivity.class));
         finish();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
 

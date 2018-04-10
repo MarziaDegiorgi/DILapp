@@ -11,24 +11,20 @@ import android.view.MenuItem;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levelmap.LevelMapActivity;
 
-public class ReportMainPresenter extends AppCompatActivity implements IReport.Presenter{
-    private IReport.View activityInterface;
+public class ReportMainPresenter implements IReport.Presenter{
+    private IReport.View view;
 
-    public ReportMainPresenter(IReport.View view){
-        activityInterface = view;
+    ReportMainPresenter(IReport.View view){
+        this.view = view;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     public void onItemMenuSelected(MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.settings:
-                    Intent intent = new Intent(this, ReportSettingsActivity.class);
-                    this.startActivity(intent);
+                    Intent intent = new Intent(view.getContext(), ReportSettingsActivity.class);
+                    view.getContext().startActivity(intent);
                     break;
                 default:
                     break;
@@ -36,8 +32,8 @@ public class ReportMainPresenter extends AppCompatActivity implements IReport.Pr
         }
 
         @Override
-    public void onDestroy(){
-        activityInterface = null;
+    public void onDestroy() {
+            view = null;
         }
 
 
