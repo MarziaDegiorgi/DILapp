@@ -56,7 +56,6 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         common = new CommonActivity(presenter);
 
         setupSequence();
-        setupVideoIntro();
 
        boolean availability = presenter.checkNfcAvailability();
         if (availability) {

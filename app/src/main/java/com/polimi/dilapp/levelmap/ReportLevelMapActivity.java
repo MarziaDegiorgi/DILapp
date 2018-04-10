@@ -2,23 +2,20 @@ package com.polimi.dilapp.levelmap;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ExpandableListView;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.database.AppDatabase;
 
 
-public class LevelMapActivity extends AppCompatActivity implements ILevelMap.View {
+public class ReportLevelMapActivity extends AppCompatActivity implements ILevelMap.View {
 
-   ILevelMap.Presenter presenter;
-   ExpandableListView listView;
-
+    ILevelMap.Presenter presenter;
+    ExpandableListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +23,15 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
 
 
         setContentView(R.layout.activity_levelmap_view);
+        RelativeLayout layout = (RelativeLayout) findViewById(R.id.layout);
+        layout.setBackgroundColor(getResources().getColor(R.color.light_orange));
         listView = findViewById(R.id.expandableListView);
+
+
 
         // Set up the presenter
         presenter = new LevelMapPresenter(this);
         presenter.initData();
-
-        startAnimation();
-    }
-
-    private void startAnimation() {
-
-        ImageView kiteAnimation = findViewById(R.id.kite_animation);
-        kiteAnimation.setVisibility(View.VISIBLE);
-        Animation extraAnimation = AnimationUtils.loadAnimation(LevelMapActivity.this, R.anim.move);
-        kiteAnimation.setImageDrawable(getResources().getDrawable(R.drawable.kite));
-        kiteAnimation.setAnimation(extraAnimation);
-        kiteAnimation.startAnimation(extraAnimation);
     }
 
     @Override
@@ -63,9 +52,8 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
         });
     }
 
-    @Override
     public String getString() {
-        return "LevelMapActivity";
+        return "ReportLevelMapActivity";
     }
 
     public void goBack(View view) {

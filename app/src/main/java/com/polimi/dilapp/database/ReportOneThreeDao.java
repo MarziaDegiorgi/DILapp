@@ -2,10 +2,21 @@ package com.polimi.dilapp.database;
 
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
+import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+
+import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
 @Dao
 public interface ReportOneThreeDao {
+
+    @Insert(onConflict = IGNORE)
+    void insertReport(ReportOneThreeEntity reportOneThreeEntity);
+
+    @Delete
+    void delete(ReportOneThreeEntity reportOneThreeEntity);
+
 
     @Query("SELECT banana FROM reportOneThree WHERE id = :id")
     int getErrorsBanana(int id);

@@ -17,6 +17,8 @@ public interface ILevelMap {
          * @param adapter created by the presenter
          */
         void showAdapter(CustomExpandableListAdapter adapter);
+
+        String getString();
     }
 
     interface Presenter {

@@ -32,7 +32,9 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingTop="10dp"
-        tools:context=".MainActivity">
+        tools:context=".MainActivity"
+        android:id="@+id/layout"
+        >
 
         <ExpandableListView
             android:id="@+id/expandableListView"

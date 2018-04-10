@@ -421,4 +421,28 @@
         <item>banana</item>
     </string-array>
 
+    <string-array name="fruits_it">
+        <item>mela</item>
+        <item>asparago</item>
+        <item>banana</item>
+        <item>broccoli</item>
+        <item>carota</item>
+        <item>granturco</item>
+        <item>cetriolo</item>
+        <item>melanzana</item>
+        <item>finocchio</item>
+        <item>pompelmo</item>
+        <item>piselli</item>
+        <item>limone</item>
+        <item>cipolla</item>
+        <item>arancia</item>
+        <item>pera</item>
+        <item>peperone</item>
+        <item>patata</item>
+        <item>fragola</item>
+        <item>mandarino</item>
+        <item>pomodoro</item>
+        <item>anguria</item>
+    </string-array>
+
 </resources>

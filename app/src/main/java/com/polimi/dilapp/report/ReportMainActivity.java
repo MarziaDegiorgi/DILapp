@@ -31,6 +31,7 @@ import com.jjoe64.graphview.series.Series;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
+import com.polimi.dilapp.levelmap.ReportLevelMapActivity;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.main.NewAccountActivity;
 import com.polimi.dilapp.startgame.StartGameActivity;
@@ -85,7 +86,7 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReportMainActivity.this, ReportSpecActivity.class);
+                Intent intent = new Intent(ReportMainActivity.this, ReportLevelMapActivity.class);
                 intent.putExtra("level", DatabaseInitializer.getLevelCurrentPlayer(db));
                 startActivity(intent);
             }
@@ -118,7 +119,6 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
                 max = progress + 0.5f;
             }
         }
-
         series = new LineGraphSeries<>(data);
         series.setOnDataPointTapListener(new OnDataPointTapListener() {
             @Override
@@ -133,8 +133,8 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         graph.getViewport().setYAxisBoundsManual(true);
         graph.getViewport().setMaxY(max);
         graph.getViewport().setMinY(0.0f);
+        graph.getViewport().setXAxisBoundsManual(true);
         if(!dateList.isEmpty()) {
-            graph.getViewport().setXAxisBoundsManual(true);
             graph.getViewport().setMaxX(dateList.get(dateList.size() - 1).getTime());
             graph.getViewport().setMinX(dateList.get(0).getTime());
         }
@@ -142,7 +142,7 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         graph.getGridLabelRenderer().setHorizontalLabelsVisible(false);
         Log.i("[REPORT MAIN]", "DateList size: " + String.valueOf(dateList.size()));
         Log.i("[REPORT MAIN]", "DateList: " + dateList);
-        graph.getViewport().setScrollable(true); // enables horizontal scrolling
+        //graph.getViewport().setScrollable(true); // enables horizontal scrolling
         graph.addSeries(series);
     }
 
