@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import static android.content.ContentValues.TAG;
@@ -594,21 +595,23 @@ public class GamePresenter implements IGame.Presenter {
 
         @Override
         protected void onPostExecute(final String result) {
+            final HashMap<String , IGame.View> view = new HashMap<>();
+            view.put( "0", activityInterface);
             if (enableNFC) {
                 if (result != null) {
                     //only for debug
                     enableNFC = false;
-                    Toast.makeText(activityInterface.getScreenContext(), result, Toast.LENGTH_LONG).show();
+                    Toast.makeText(view.get("0").getScreenContext(), result, Toast.LENGTH_LONG).show();
                     Log.i("[OnPostExecute]", "NFC Read result: " + result);
                     int tagID = getResourceId("nfc_sound", R.raw.class);
-                    MediaPlayer tag = MediaPlayer.create(activityInterface.getScreenContext(), tagID);
+                    MediaPlayer tag = MediaPlayer.create(view.get("0").getScreenContext(), tagID);
                     tag.start();
                     tag.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                         @Override
                         public void onCompletion(MediaPlayer mp) {
                             mp.release();
+                            view.clear();
                             checkAnswer(result);
-
                         }
                     });
                 }
