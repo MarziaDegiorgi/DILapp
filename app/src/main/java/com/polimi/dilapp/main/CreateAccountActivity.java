@@ -46,7 +46,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         final List<ChildEntity> listOfChildren = presenter.getListOfChildren();
 
         // recovering the instance state
-        if (listOfChildren.size() == 0) {
+        if (listOfChildren.isEmpty()) {
             mTextView.setText(R.string.create_account);
         } else {
             mTextView.setText(R.string.select_account);
@@ -54,8 +54,8 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         }
 
         //link to already existing account of children
-        LinearLayout account = (LinearLayout) findViewById(R.id.account);
-        LinearLayout layout = (LinearLayout) findViewById(R.id.listOfAccounts);
+        LinearLayout account = findViewById(R.id.account);
+        LinearLayout layout = findViewById(R.id.listOfAccounts);
 
         // get reference to LayoutInflater
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -63,8 +63,8 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
 
             //Creating copy of imagebutton by inflating it
             final LinearLayout box = (LinearLayout) inflater.inflate(R.layout.account_box, null);
-            final ImageButton btn = (ImageButton) box.findViewById(R.id.avatar);
-            TextView name = (TextView) box.findViewById(R.id.name);
+            final ImageButton btn = box.findViewById(R.id.avatar);
+            TextView name = box.findViewById(R.id.name);
             final ChildEntity temporaryChild = listOfChildren.get(i);
             final int temporaryChildId = temporaryChild.getId();
             btn.setId(temporaryChildId);
@@ -114,10 +114,9 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
 
         //link to the add button that enables the user to create a new account
         LinearLayout newBox = (LinearLayout) inflater.inflate(R.layout.account_box, null);
-        ImageButton newAccountButton = (ImageButton) newBox.findViewById(R.id.avatar);
+        ImageButton newAccountButton = newBox.findViewById(R.id.avatar);
         newBox.findViewById(R.id.name).setVisibility(View.GONE);
-        //TextView newName = (TextView) newBox.findViewById(R.id.name);
-        //newName.setText("Nuovo giocatore");
+
         newAccountButton.setImageDrawable(getDrawable(R.drawable.avatar_add));
         newAccountButton.setOnClickListener(new View.OnClickListener()
 

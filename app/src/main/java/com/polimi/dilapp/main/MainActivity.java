@@ -12,7 +12,6 @@ import android.widget.VideoView;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
-import com.squareup.leakcanary.LeakCanary;
 
 public class MainActivity extends AppCompatActivity implements IMain.View{
 
@@ -21,13 +20,6 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (LeakCanary.isInAnalyzerProcess(this.getApplication())) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this.getApplication());
-
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
