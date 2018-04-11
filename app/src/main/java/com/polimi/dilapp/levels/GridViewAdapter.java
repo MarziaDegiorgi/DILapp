@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.GridLayoutAnimationController;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -66,18 +67,26 @@ public class GridViewAdapter extends BaseAdapter {
             // Set the content of the image based on the provided URI
             int imageId = this.images_id.get(position);
 
+            int height = dpToPx(200);
+            int width = dpToPx(120);
+
+            // Image should be cropped towards the center
+            gridView.setLayoutParams(new GridView.LayoutParams(width,height));
+            gridView.setAdjustViewBounds(true);
+            gridView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+
             gridView.setVisibility(View.VISIBLE);
             gridView.setImageDrawable(context.getResources().getDrawable(imageId));
 
             //get last image in the gridView and set the animation effect
 
             Animation animationWait = AnimationUtils.loadAnimation(context, R.anim.blink);
+
             gridView.setAnimation(animationWait);
             gridView.startAnimation(animationWait);
 
-            // Image should be cropped towards the center
-            gridView.setAdjustViewBounds(true);
-            gridView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
 
             // Set Padding for images
             gridView.setPadding(0, 0, 1, 0);
