@@ -39,7 +39,7 @@ public class ReportLevelMapActivity extends AppCompatActivity implements ILevelM
 
         setContentView(R.layout.activity_levelmap_view);
         RelativeLayout layout = (RelativeLayout) findViewById(R.id.layout);
-        layout.setBackgroundColor(getResources().getColor(R.color.light_orange));
+        layout.setBackgroundResource(R.color.light_orange);
         listView = findViewById(R.id.expandableListView);
 
 
