@@ -74,6 +74,18 @@ public interface ChildDao {
     @Query("UPDATE child SET time = :time WHERE id = :id")
     void setTime(int id, String time);
 
+    @Query("UPDATE child SET repoEnabled = :t WHERE id = :id")
+    void enableAutoRepo(int id, Boolean t);
+
+    @Query("UPDATE child SET repoEnabled = :f WHERE id = :id")
+    void disableAutoRepo(int id, Boolean f);
+
+    @Query("SELECT email FROM child WHERE id = :id")
+    String getEmail(int id);
+
+    @Query("UPDATE child SET email = :email WHERE id = :id")
+    void setEmail(int id, String email);
+
     @Insert(onConflict = IGNORE)
     void insertChild(ChildEntity child);
 

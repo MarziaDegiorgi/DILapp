@@ -20,11 +20,12 @@ public interface ReportOneOneDao {
     @Insert(onConflict = IGNORE)
     void insertReport(ReportOneOneEntity reportOneOneEntity);
 
-    @Delete
-    void delete(ReportOneOneEntity reportOneOneEntity);
+    @Query("DELETE FROM reportOneOne WHERE id = :id")
+    void delete(int id);
 
     @Query("SELECT * FROM reportOneOne")
     List<ReportOneOneEntity> getAll();
+
 
     @Query("SELECT banana FROM reportOneOne WHERE id = :id")
     int getErrorsBanana(int id);

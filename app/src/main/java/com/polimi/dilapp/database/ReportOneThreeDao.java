@@ -14,9 +14,8 @@ public interface ReportOneThreeDao {
     @Insert(onConflict = IGNORE)
     void insertReport(ReportOneThreeEntity reportOneThreeEntity);
 
-    @Delete
-    void delete(ReportOneThreeEntity reportOneThreeEntity);
-
+    @Query("DELETE FROM reportOneThree WHERE id = :id")
+    void delete(int id);
 
     @Query("SELECT banana FROM reportOneThree WHERE id = :id")
     int getErrorsBanana(int id);

@@ -7,6 +7,9 @@ import android.widget.ExpandableListView;
 
 import com.polimi.dilapp.database.AppDatabase;
 
+import java.util.HashMap;
+import java.util.List;
+
 public interface ILevelMap {
     interface View{
 
@@ -19,14 +22,6 @@ public interface ILevelMap {
         void showAdapter(CustomExpandableListAdapter adapter);
 
         String getString();
-    }
-
-    interface Presenter {
-        /**
-         * Initialize the expandable list retrieving from the model the data and setting up the adapter
-         * then calls the view's method to link the adapter to the view
-         */
-       void initData();
 
         /**
          * When an item is selected the view notify the presenter with this method, that respond redirecting
@@ -36,12 +31,25 @@ public interface ILevelMap {
          * @param mainCategoryPosition main category clicked
          * @param subcategoryPosition sub category clicked
          */
-       void onItemSelected(ExpandableListView parent, int mainCategoryPosition, int subcategoryPosition);
+        void onItemSelected(ExpandableListView parent, int mainCategoryPosition, int subcategoryPosition);
 
         /**
          *  Called when click back
          */
         void onClickBack();
+    }
+
+    interface Presenter {
+        /**
+         * Initialize the expandable list retrieving from the model the data and setting up the adapter
+         * then calls the view's method to link the adapter to the view
+         */
+       void initData();
+
+       HashMap<String, List<String>> getListItems();
+
+       List<String> getListTitles();
+
 
 
     }

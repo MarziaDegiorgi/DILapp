@@ -125,6 +125,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         public void onClick (View v){
         Intent newAccountIntent = new Intent(getApplicationContext(), NewAccountActivity.class);
         startActivity(newAccountIntent);
+        finish();
     }
     });
 
@@ -175,6 +176,7 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
                 presenter.deletePlayer(childSelected);
                 Intent createAccountIntent = new Intent(getApplicationContext(), CreateAccountActivity.class);
                 startActivity(createAccountIntent);
+                finish();
             }
         }
         return true;

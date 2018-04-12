@@ -157,6 +157,32 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
                         }
                     }
                     break;
+                case 31:
+                    size = 21;
+                    type = "il numero";
+                    listOfObjects = getResources().getStringArray(R.array.all_numbers_items);
+                    objects = Arrays.asList(listOfObjects);
+                    errorList = DatabaseInitializer.getAllErrorsThreeOne(db);
+                    for(DataPoint s : errorList ){
+                        if (s.getY() > max) {
+                            Double y = s.getY();
+                            max = y.intValue() + 3;
+                        }
+                    }
+                    break;
+                case 32:
+                    size = 22;
+                    type = "l'oggetto";
+                    listOfObjects = getResources().getStringArray(R.array.fruits_it);
+                    objects = Arrays.asList(listOfObjects);
+                    errorList = DatabaseInitializer.getAllErrorsThreeTwo(db);
+                    for(DataPoint s : errorList ){
+                        if (s.getY() > max) {
+                            Double y = s.getY();
+                            max = y.intValue() + 3;
+                        }
+                    }
+                    break;
                 default:
                     size= 23;
                     type = "l'oggetto";

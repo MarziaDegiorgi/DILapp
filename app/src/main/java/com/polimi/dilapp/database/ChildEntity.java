@@ -44,6 +44,11 @@ public class ChildEntity {
     @ColumnInfo(name="time")
     private String time;
 
+    @ColumnInfo(name="repoEnabled")
+    private Boolean repoEnabled;
+
+    @ColumnInfo(name="email")
+    private String email;
 
     //Name
     public String getName() {
@@ -119,5 +124,21 @@ public class ChildEntity {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public Boolean getRepoEnabled() {
+        return repoEnabled;
+    }
+
+    public void setRepoEnabled(Boolean repoEnabled) {
+        this.repoEnabled = repoEnabled;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
