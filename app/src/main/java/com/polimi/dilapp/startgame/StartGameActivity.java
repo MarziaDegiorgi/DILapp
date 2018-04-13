@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,7 +29,6 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
 
     IStartGame.Presenter presenter;
     AppDatabase db;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +125,9 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
      * @param view view
      */
    public void showPopup(View view){
-       PopupMenu popup = new PopupMenu (this, view);
+       Context wrapper = new ContextThemeWrapper(this, R.style.PopUpMenuStyle);
+       PopupMenu popup = new PopupMenu(wrapper, view);
+
        MenuInflater inflater = popup.getMenuInflater();
        inflater.inflate(R.menu.actions, popup.getMenu());
        popup.show();
