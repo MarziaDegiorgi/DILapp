@@ -10,19 +10,13 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="popupMenuStyle">@style/PopUpMenuStyle</item>
-        <item name="myMenuStyle">@style/myMenuStyle</item>
-    </style>
 
-    <style name="myMenuStyle" parent="Widget.AppCompat.PopupMenu">
-        <item name="android:itemBackground">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">18sp</item>
     </style>
 
     <style name="PopUpMenuStyle" parent="Widget.AppCompat.PopupMenu">
         <item name="android:itemBackground">@android:color/transparent</item>
         <item name="android:background">@color/colorAccent</item>
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/brawn</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>

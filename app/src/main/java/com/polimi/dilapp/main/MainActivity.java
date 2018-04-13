@@ -84,5 +84,4 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
             presenter = new MainPresenter(this);}
         presenter.resetCurrentPlayer();
     }
-
 }
