@@ -67,8 +67,8 @@ public class GridViewAdapter extends BaseAdapter {
             // Set the content of the image based on the provided URI
             int imageId = this.images_id.get(position);
 
-            int height = dpToPx(200);
-            int width = dpToPx(120);
+            int height = dpToPx((int) context.getResources().getDimension(R.dimen.width));
+            int width = dpToPx((int) context.getResources().getDimension(R.dimen.height));
 
             // Image should be cropped towards the center
             gridView.setLayoutParams(new GridView.LayoutParams(width,height));
@@ -85,7 +85,6 @@ public class GridViewAdapter extends BaseAdapter {
 
             gridView.setAnimation(animationWait);
             gridView.startAnimation(animationWait);
-
 
 
             // Set Padding for images
