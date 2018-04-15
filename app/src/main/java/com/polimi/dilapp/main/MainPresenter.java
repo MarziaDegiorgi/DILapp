@@ -1,9 +1,13 @@
 package com.polimi.dilapp.main;
 
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.VideoView;
 
 import com.polimi.dilapp.R;
@@ -14,17 +18,14 @@ public class MainPresenter implements IMain.Presenter{
 
     private IMain.View mainView;
     private AppDatabase db;
+    private TextView[] dotsText;
+
     MainPresenter(IMain.View view){
 
         this.mainView= view;
         db = AppDatabase.getAppDatabase(mainView.getContext());
     }
 
-    @Override
-    public void startVideo(VideoView introVideoView, String packageName) {
-        introVideoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.intro));
-        introVideoView.start();
-    }
     @Override
     public void resumeCurrentPlayer(Bundle savedInstanceState) {
         DatabaseInitializer.setCurrentPlayer(db, savedInstanceState.getInt("current_player"));
@@ -46,6 +47,30 @@ public class MainPresenter implements IMain.Presenter{
     public void resetCurrentPlayer() {
         DatabaseInitializer.resetCurrentPlayer(db);
         Log.e("[MAIN PRESENTER]", " I'm resetting the current player");
+    }
+
+    @Override
+    public void addDotsIndicator(Context context, LinearLayout linearLayout, int position) {
+        dotsText = new TextView[3];
+        linearLayout.removeAllViews();
+        for(int i=0; i<dotsText.length; i++){
+            dotsText[i] = new TextView(context);
+            dotsText[i].setText(Html.fromHtml("&#8226"));
+            dotsText[i].setTextSize(35);
+            mainView.setColorCurrentDot(dotsText, position,false);
+            linearLayout.addView(dotsText[i]);
+        }
+
+        if(dotsText.length>0){
+            mainView.setColorCurrentDot(dotsText, position,true);
+
+        }
+
+    }
+
+    @Override
+    public int getDotsNumber() {
+        return dotsText.length;
     }
 
 

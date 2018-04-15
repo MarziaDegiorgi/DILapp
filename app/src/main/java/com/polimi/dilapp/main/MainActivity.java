@@ -2,13 +2,21 @@ package com.polimi.dilapp.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.polimi.dilapp.BuildConfig;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
@@ -16,6 +24,13 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 public class MainActivity extends AppCompatActivity implements IMain.View{
 
     IMain.Presenter presenter;
+
+    private ViewPager viewPager;
+    private LinearLayout dotsLayout;
+    private SlideAdapter slideAdapter;
+    private Button previous;
+    private Button next;
+    int currentPage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +41,52 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
             return;
         }
         setContentView(R.layout.activity_main);
-        VideoView introVideoView = findViewById(R.id.intro);
-
-        //Set up the presenter
         presenter = new MainPresenter(this);
-        presenter.startVideo(introVideoView, getPackageName());
+
+        checkFirstRun();
+
         Toast.makeText(this, "[MAIN ACTIVITY] " +
                         String.valueOf(DatabaseInitializer.getCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))),
                 Toast.LENGTH_LONG).show();
 
-        introVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class );
-                startActivity(intent);
-                finish();
-            }
-        });
     }
+
+    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            Log.i("[OnPageChange]", "called addDots");
+            presenter.addDotsIndicator(MainActivity.this, dotsLayout, position);
+            currentPage = position;
+
+            if(position==0){
+                next.setEnabled(false);
+                next.setVisibility(View.INVISIBLE);
+                next.setText("");
+
+            }else if(position == presenter.getDotsNumber()-1){
+                next.setEnabled(true);
+                next.setVisibility(View.VISIBLE);
+
+                next.setText("Fine");
+
+            } else {
+                next.setEnabled(true);
+                next.setVisibility(View.INVISIBLE);
+                next.setText("");
+
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
 
     // invoked when the activity may be temporarily destroyed, save the instance state here
     @Override
@@ -68,6 +112,14 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
     }
 
     @Override
+    public void setColorCurrentDot(TextView[] textView, int position, boolean current) {
+        if(current){
+            textView[position].setTextColor(getResources().getColor(R.color.colorAccent));
+        }
+    }
+
+
+    @Override
     protected void onResume() {
         super.onResume();
         if (presenter == null){
@@ -83,5 +135,58 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
         if (presenter == null){
             presenter = new MainPresenter(this);}
         presenter.resetCurrentPlayer();
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    private void checkFirstRun() {
+
+        final String PREFS_NAME = "MyPrefsFile";
+        final String PREF_VERSION_CODE_KEY = "version_code";
+        final int DOESNT_EXIST = -1;
+
+        // Get current version code
+        int currentVersionCode = BuildConfig.VERSION_CODE;
+
+        // Get saved version code
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        int savedVersionCode = prefs.getInt(PREF_VERSION_CODE_KEY, DOESNT_EXIST);
+
+        // Check for first run or upgrade
+        if (currentVersionCode == savedVersionCode) {
+            Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class );
+            startActivity(intent);
+
+        } else if (savedVersionCode == DOESNT_EXIST) {
+
+            next = (Button) findViewById(R.id.next);
+            viewPager =(ViewPager) findViewById(R.id.slide_view_pager);
+            dotsLayout = (LinearLayout) findViewById(R.id.dots);
+            slideAdapter = new SlideAdapter(this);
+
+            viewPager.setAdapter(slideAdapter);
+
+            presenter.addDotsIndicator(MainActivity.this, dotsLayout, 0);
+            viewPager.addOnPageChangeListener(viewListener);
+
+            next.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewPager.setCurrentItem(currentPage + 1);
+                    Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class );
+                    startActivity(intent);
+                }
+            });
+
+        } else if (currentVersionCode > savedVersionCode) {
+            Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class );
+            startActivity(intent);
+        }
+
+        // Update the shared preferences with the current version code
+        prefs.edit().putInt(PREF_VERSION_CODE_KEY, currentVersionCode).apply();
     }
 }
