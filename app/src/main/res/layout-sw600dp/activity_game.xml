@@ -89,8 +89,8 @@
 
         <ImageView
             android:id="@+id/animation_box_answer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="425dp"
+            android:layout_height="368dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="38dp"
@@ -111,8 +111,8 @@
 
         <ImageView
             android:id="@+id/animation_box"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="413dp"
+            android:layout_height="358dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_marginBottom="38dp"
