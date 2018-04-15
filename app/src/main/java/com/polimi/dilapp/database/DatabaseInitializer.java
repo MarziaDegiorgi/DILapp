@@ -107,7 +107,7 @@ public class DatabaseInitializer {
                return null;
            }
            // Calculate inSampleSize
-           options.inSampleSize = calculateInSampleSize(options, 400, 400);
+           options.inSampleSize = calculateInSampleSize(options, 200, 200);
            options.inJustDecodeBounds = false;
 
            // Decode bitmap with inSampleSize set
@@ -583,24 +583,32 @@ public class DatabaseInitializer {
                     case "yellow":
                         oldErrors = db.reportOneTwoDao().getErrorsYellow(currentPlayer);
                         db.reportOneTwoDao().setErrorsYellow(currentPlayer, oldErrors+1);
+                        break;
                     case "orangec":
                         oldErrors = db.reportOneTwoDao().getErrorsOrangec(currentPlayer);
                         db.reportOneTwoDao().setErrorsOrangec(currentPlayer, oldErrors+1);
+                        break;
                     case "violet":
                         oldErrors = db.reportOneTwoDao().getErrorsViolet(currentPlayer);
                         db.reportOneTwoDao().setErrorsViolet(currentPlayer, oldErrors+1);
+                        break;
                     case "green":
                         oldErrors = db.reportOneTwoDao().getErrorsGreen(currentPlayer);
                         db.reportOneTwoDao().setErrorsGreen(currentPlayer, oldErrors+1);
+                        break;
                     case "white":
                         oldErrors = db.reportOneTwoDao().getErrorsWhite(currentPlayer);
                         db.reportOneTwoDao().setErrorsWhite(currentPlayer, oldErrors+1);
+                        break;
                     case "brown":
                         oldErrors = db.reportOneTwoDao().getErrorsBrown(currentPlayer);
                         db.reportOneTwoDao().setErrorsBrown(currentPlayer, oldErrors+1);
+                        break;
                     case "red":
                         oldErrors = db.reportOneTwoDao().getErrorsRed(currentPlayer);
                         db.reportOneTwoDao().setErrorsRed(currentPlayer, oldErrors+1);
+                        break;
+                        default:break;
                 }
             }
             if (level == 13) {
@@ -695,6 +703,7 @@ public class DatabaseInitializer {
                     oldErrors = db.reportOneThreeDao().getErrorsPotato(currentPlayer);
                     db.reportOneThreeDao().setErrorsPotato(currentPlayer, oldErrors+1);
                     break;
+                    default:   break;
             }
             }
             if (level == 21) {
@@ -702,33 +711,45 @@ public class DatabaseInitializer {
                     case "_0":
                         oldErrors = db.reportTwoOneDao().getErrorsZero(currentPlayer);
                         db.reportTwoOneDao().setErrorsZero(currentPlayer, oldErrors+1);
+                        break;
                     case "_1":
                         oldErrors = db.reportTwoOneDao().getErrorsOne(currentPlayer);
                         db.reportTwoOneDao().setErrorsOne(currentPlayer, oldErrors+1);
+                        break;
                     case "_2":
                         oldErrors = db.reportTwoOneDao().getErrorsTwo(currentPlayer);
                         db.reportTwoOneDao().setErrorsTwo(currentPlayer, oldErrors+1);
+                        break;
                     case "_3":
                         oldErrors = db.reportTwoOneDao().getErrorsThree(currentPlayer);
                         db.reportTwoOneDao().setErrorsThree(currentPlayer, oldErrors+1);
+                        break;
                     case "_4":
                         oldErrors = db.reportTwoOneDao().getErrorsFour(currentPlayer);
                         db.reportTwoOneDao().setErrorsFour(currentPlayer, oldErrors+1);
+                        break;
                     case "_5":
                         oldErrors = db.reportTwoOneDao().getErrorsFive(currentPlayer);
                         db.reportTwoOneDao().setErrorsFive(currentPlayer, oldErrors+1);
+                        break;
                     case "_6":
                         oldErrors = db.reportTwoOneDao().getErrorsSix(currentPlayer);
                         db.reportTwoOneDao().setErrorsSix(currentPlayer, oldErrors+1);
+                        break;
                     case "_7":
                         oldErrors = db.reportTwoOneDao().getErrorsSeven(currentPlayer);
                         db.reportTwoOneDao().setErrorsSeven(currentPlayer, oldErrors+1);
+                        break;
                     case "_8":
                         oldErrors = db.reportTwoOneDao().getErrorsEight(currentPlayer);
                         db.reportTwoOneDao().setErrorsEight(currentPlayer, oldErrors+1);
+                        break;
                     case "_9":
                         oldErrors = db.reportTwoOneDao().getErrorsNine(currentPlayer);
                         db.reportTwoOneDao().setErrorsNine(currentPlayer, oldErrors+1);
+                        break;
+
+                    default: break;
                 }
             }
             if (level == 22) {
@@ -817,6 +838,7 @@ public class DatabaseInitializer {
                         oldErrors = db.reportTwoTwoDao().getErrorsZ(currentPlayer);
                         db.reportTwoTwoDao().setErrorsZ(currentPlayer, oldErrors+1);
                         break;
+                        default:break;
                 }
             }
             if (level == 23) {
@@ -905,6 +927,7 @@ public class DatabaseInitializer {
                         oldErrors = db.reportTwoThreeDao().getErrorsZ(currentPlayer);
                         db.reportTwoThreeDao().setErrorsZ(currentPlayer, oldErrors+1);
                         break;
+                        default:break;
                 }
             }
             if (level == 31) {
@@ -912,33 +935,44 @@ public class DatabaseInitializer {
                     case "_0":
                         oldErrors = db.reportThreeOneDao().getErrorsZero(currentPlayer);
                         db.reportThreeOneDao().setErrorsZero(currentPlayer, oldErrors+1);
+                        break;
                     case "_1":
                         oldErrors = db.reportThreeOneDao().getErrorsOne(currentPlayer);
                         db.reportThreeOneDao().setErrorsOne(currentPlayer, oldErrors+1);
+                        break;
                     case "_2":
                         oldErrors = db.reportThreeOneDao().getErrorsTwo(currentPlayer);
                         db.reportThreeOneDao().setErrorsTwo(currentPlayer, oldErrors+1);
+                        break;
                     case "_3":
                         oldErrors = db.reportThreeOneDao().getErrorsThree(currentPlayer);
                         db.reportThreeOneDao().setErrorsThree(currentPlayer, oldErrors+1);
+                        break;
                     case "_4":
                         oldErrors = db.reportThreeOneDao().getErrorsFour(currentPlayer);
                         db.reportThreeOneDao().setErrorsFour(currentPlayer, oldErrors+1);
+                        break;
                     case "_5":
                         oldErrors = db.reportThreeOneDao().getErrorsFive(currentPlayer);
                         db.reportThreeOneDao().setErrorsFive(currentPlayer, oldErrors+1);
+                        break;
                     case "_6":
                         oldErrors = db.reportThreeOneDao().getErrorsSix(currentPlayer);
                         db.reportThreeOneDao().setErrorsSix(currentPlayer, oldErrors+1);
+                        break;
                     case "_7":
                         oldErrors = db.reportThreeOneDao().getErrorsSeven(currentPlayer);
                         db.reportThreeOneDao().setErrorsSeven(currentPlayer, oldErrors+1);
+                        break;
                     case "_8":
                         oldErrors = db.reportThreeOneDao().getErrorsEight(currentPlayer);
                         db.reportThreeOneDao().setErrorsEight(currentPlayer, oldErrors+1);
+                        break;
                     case "_9":
                         oldErrors = db.reportThreeOneDao().getErrorsNine(currentPlayer);
                         db.reportThreeOneDao().setErrorsNine(currentPlayer, oldErrors+1);
+                        break;
+                        default:break;
                 }
                 if (level == 32) {
                     switch (error){
@@ -1032,14 +1066,10 @@ public class DatabaseInitializer {
                             oldErrors = db.reportThreeTwoDao().getErrorsPotato(currentPlayer);
                             db.reportThreeTwoDao().setErrorsPotato(currentPlayer, oldErrors+1);
                             break;
+                            default:break;
                     }
                 }
-            }else {
-                switch (error) {
-                    default:
-                        break;
-                }
+            }
             }
         }
     }
-}

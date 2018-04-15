@@ -25,7 +25,7 @@ public class ReportSpecPresenter extends AppCompatActivity implements IReportSpe
     public void onItemMenuSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings:
-                Intent intent = new Intent(this, ReportSettingsActivity.class);
+                Intent intent = new Intent(reportSpecActivity.getContext(), ReportSettingsActivity.class);
                 this.startActivity(intent);
                 finish();
                 break;

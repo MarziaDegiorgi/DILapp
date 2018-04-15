@@ -1,6 +1,7 @@
 package com.polimi.dilapp.report;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -189,7 +191,7 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
             }
 
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
+        GraphView graph = findViewById(R.id.graph);
             if(errorList!= null) {
                 BarGraphSeries<DataPoint> series = new BarGraphSeries<>(errorList);
                 graph.getGridLabelRenderer().setVerticalLabelsVisible(false);
@@ -227,7 +229,8 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
         }
 
         public void showPopup(View view){
-            PopupMenu popup = new PopupMenu (this, view);
+            Context wrapper = new ContextThemeWrapper(this, R.style.PopUpMenuStyle);
+            PopupMenu popup = new PopupMenu(wrapper, view);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.actions_report, popup.getMenu());
             popup.show();
@@ -237,24 +240,6 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
             presenter.onItemMenuSelected(item);
         }
 
-        @Override
-        public void onBackPressed()
-        {
-            super.onBackPressed();
-
-            startActivity(new Intent(ReportSpecActivity.this, ReportLevelMapActivity.class));
-
-            CircleImageView circleImageView = findViewById(R.id.profile_image);
-            GraphView graph = findViewById(R.id.graph);
-            circleImageView.setImageDrawable(null);
-            graph.removeAllSeries();
-
-            errorList = null;
-            db= null;
-            presenter = null;
-
-            finish();
-        }
 
     private void showDataPoint(String object, String numberOfErrors, String type){
         final Dialog dialog = new Dialog(ReportSpecActivity.this);
@@ -282,6 +267,30 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+
+        startActivity(new Intent(ReportSpecActivity.this, ReportLevelMapActivity.class));
+
+        CircleImageView circleImageView = findViewById(R.id.profile_image);
+        GraphView graph = findViewById(R.id.graph);
+        circleImageView.setImageDrawable(null);
+        graph.removeAllSeries();
+
+        errorList = null;
+        db= null;
+        presenter = null;
+
+        finish();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
     }
 
     }
