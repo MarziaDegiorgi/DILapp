@@ -38,11 +38,9 @@ public class ReportLevelMapActivity extends AppCompatActivity implements ILevelM
 
 
         setContentView(R.layout.activity_levelmap_view);
-        RelativeLayout layout = (RelativeLayout) findViewById(R.id.layout);
-        layout.setBackgroundResource(R.color.light_orange);
+        RelativeLayout layout = findViewById(R.id.layout);
+        layout.setBackgroundResource(R.color.colorAccentTransparent);
         listView = findViewById(R.id.expandableListView);
-
-
 
         // Set up the presenter
         presenter = new LevelMapPresenter(this);

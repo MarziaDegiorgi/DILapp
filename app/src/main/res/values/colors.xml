@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#f49939</color>
+    <color name="background_semi_transparent">#84c8e7e7</color>
     <color name="colorPrimaryDark">#e93c3c</color>
     <color name="colorAccent">#fbdfaa</color>
+    <color name="colorAccentTransparent">#8dfbdfaa</color>
     <color name="backGroundColor">#FFFFFF</color>
     <color name="blue">#1C8ADB</color>
     <color name="white">#FFFFFF</color>
@@ -10,7 +12,7 @@
     <color name="brawn">#CD5C5C</color>
     <color name="black">#000000</color>
     <color name="black_overlay">#66000000</color>
-    <color name="transparent">#80000000</color>
+    <color name="transparent">#00f9f7f7</color>
     <color name="light_orange">#FFCCBC</color>
     <color name="background">#92faf3ce</color>
     <color name="lighter_orange">#ffe1d8</color>
