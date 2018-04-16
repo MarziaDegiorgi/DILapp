@@ -12,9 +12,11 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
 import com.polimi.dilapp.startgame.StartGameActivity;
@@ -262,6 +264,21 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         presenter.storeCurrentPlayer(savedInstanceState);
         super.onSaveInstanceState(savedInstanceState);
         Log.i("[ACTIVITY 11]", "I'm calling storeCurrentPlayer");
+
+    }
+
+    @Override
+    public void sendEmail(String email, String subject){
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{email});
+        i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+        i.putExtra(Intent.EXTRA_TEXT   , "body of email");
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(ActivityOneOne.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

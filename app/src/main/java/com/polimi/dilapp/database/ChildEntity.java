@@ -45,7 +45,7 @@ public class ChildEntity {
     private String time;
 
     @ColumnInfo(name="repoEnabled")
-    private Boolean repoEnabled;
+    private String repoEnabled;
 
     @ColumnInfo(name="email")
     private String email;
@@ -126,19 +126,19 @@ public class ChildEntity {
         this.time = time;
     }
 
-    public Boolean getRepoEnabled() {
-        return repoEnabled;
-    }
-
-    public void setRepoEnabled(Boolean repoEnabled) {
-        this.repoEnabled = repoEnabled;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getRepoEnabled() {
+        return repoEnabled;
+    }
+
+    public void setRepoEnabled(String repoEnabled) {
+        this.repoEnabled = repoEnabled;
     }
 }

@@ -75,10 +75,13 @@ public interface ChildDao {
     void setTime(int id, String time);
 
     @Query("UPDATE child SET repoEnabled = :t WHERE id = :id")
-    void enableAutoRepo(int id, Boolean t);
+    void enableAutoRepo(int id, String t);
 
     @Query("UPDATE child SET repoEnabled = :f WHERE id = :id")
-    void disableAutoRepo(int id, Boolean f);
+    void disableAutoRepo(int id, String f);
+
+    @Query("SELECT repoEnabled FROM child WHERE id = :id")
+    String isAutoRepoEnabled(int id);
 
     @Query("SELECT email FROM child WHERE id = :id")
     String getEmail(int id);

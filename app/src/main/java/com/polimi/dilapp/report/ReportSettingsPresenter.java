@@ -54,58 +54,70 @@ public class ReportSettingsPresenter extends AppCompatActivity implements IRepor
 
 @Override
     public void setAutoRepo(Button confirm, LinearLayout edit){
-    edit.setVisibility(View.VISIBLE);
     final EditText emailValidate = (EditText) edit.findViewById(R.id.edit_box);
-    checkRepo(confirm, emailValidate);
-
+    if(isAutoRepoEnabled()){
+        edit.setVisibility(View.VISIBLE);
+        checkRepo(confirm, emailValidate);
+    }else{
+        edit.setVisibility(View.GONE);
+    }
     }
 
-    private void checkRepo(final Button confirm, final EditText emailValidate){
-        if (!DatabaseInitializer.isEmailSet(db)) {
-            confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final String email = emailValidate.getText().toString();
-                    if (isEmailValid(email)) {
-                        Log.i("[REPO SETTINGS]", "It's valid");
-                        emailValidate.setText(email);
-                        emailValidate.setClickable(false);
-                        emailValidate.setEnabled(false);
-                        emailValidate.setBackgroundResource(R.color.gray);
-                        emailValidate.setTextColor(ContextCompat.getColor(activityInterface.getContext(), R.color.dark_gray));
-                        confirm.setText(R.string.modify_email);
-                        DatabaseInitializer.enableAutoRepo(db);
-                        DatabaseInitializer.setEmail(db, email);
-                    } else {
-                        Log.i("[REPO SETTINGS]", "It's not valid");
-                        Toast.makeText(getApplicationContext(), "Indirizzo email non valido",
-                                Toast.LENGTH_LONG).show();
-                    }
-                }
-            });
-        }else{
-            Log.i("[REPO SETTINGS]", "I'm in else");
-            emailValidate.setText(DatabaseInitializer.getEmail(db));
-            emailValidate.setClickable(false);
-            emailValidate.setEnabled(false);
-            emailValidate.setBackgroundResource(R.color.gray);
-            emailValidate.setTextColor(ContextCompat.getColor(activityInterface.getContext(), R.color.dark_gray));
-            confirm.setText(R.string.modify_email);
-            confirm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i("[REPO SETTINGS]", "I'm in onClick else");
-                    emailValidate.setClickable(true);
-                    emailValidate.setEnabled(true);
-                    emailValidate.setBackgroundResource(R.color.light_orange);
-                    emailValidate.setTextColor(ContextCompat.getColor(activityInterface.getContext(), R.color.black));
-                    confirm.setText(R.string.confirm_email);
-                }
-            });
 
+    public void checkRepo(final Button confirm, final EditText emailValidate){
+        if (!DatabaseInitializer.isEmailSet(db)) {
+            emailtoSet(confirm, emailValidate);
+        }else {
+            Log.i("[REPO SETTINGS]", "I'm in else");
+            emailAlreadySet(confirm, emailValidate);
         }
     }
+    public void emailtoSet(final Button confirm, final EditText emailValidate) {
+        emailValidate.setClickable(true);
+        emailValidate.setEnabled(true);
+        emailValidate.setBackgroundResource(R.color.light_orange);
+        emailValidate.setTextColor(ContextCompat.getColor(activityInterface.getContext(), R.color.black));
+        confirm.setText(R.string.confirm_email);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String email = emailValidate.getText().toString();
+                Log.i("[REPORT SETTING]", "Email "+ email);
+                if (isEmailValid(email)) {
+                    Log.i("[REPO SETTINGS]", "It's valid");
+                    DatabaseInitializer.setEmail(db, email);
+                    emailAlreadySet(confirm, emailValidate);
+                } else {
+                    Log.i("[REPO SETTINGS]", "It's not valid");
+                    Toast.makeText(activityInterface.getContext(), "Indirizzo email non valido",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
 
+        });
+    }
+
+    public void emailAlreadySet(final Button confirm, final EditText emailValidate){
+        emailValidate.setText(DatabaseInitializer.getEmail(db));
+        emailValidate.setClickable(false);
+        emailValidate.setEnabled(false);
+        emailValidate.setBackgroundResource(R.color.gray);
+        emailValidate.setTextColor(ContextCompat.getColor(activityInterface.getContext(), R.color.dark_gray));
+        confirm.setText(R.string.modify_email);
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("[REPO SETTINGS]", "I'm in onClick else");
+                emailValidate.setClickable(true);
+                emailValidate.setEnabled(true);
+                emailValidate.setBackgroundResource(R.color.light_orange);
+                emailValidate.setTextColor(ContextCompat.getColor(activityInterface.getContext(), R.color.black));
+                confirm.setText(R.string.confirm_email);
+                DatabaseInitializer.setEmail(db,null);
+                checkRepo(confirm, emailValidate);
+            }
+        });
+    }
 
 
     /**
@@ -119,5 +131,10 @@ public class ReportSettingsPresenter extends AppCompatActivity implements IRepor
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    @Override
+    public Boolean isAutoRepoEnabled(){
+        return DatabaseInitializer.isAutoRepoEnabled(db);
     }
 }

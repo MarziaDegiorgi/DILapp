@@ -856,16 +856,12 @@ public class GamePresenter implements IGame.Presenter {
                 DatabaseInitializer.setTime(db, currentPlayer, timeList);
             }
         }
-
             if (errorList.size()>0) {
-                Log.i("[GAME PRESENTER]", "List of OneoneReportEntity: "+db.reportOneOneDao().getAll());
-                for(ReportOneOneEntity e : db.reportOneOneDao().getAll()){
-                    Log.i("[GAME PRESENTER]", "OneoneReportEntity n°"+e.getId());
-                }
-                Log.i("[GAME PRESENTER]", "List of OneoneReportEntity: "+db.reportOneOneDao().getAll());
-                Log.i("[GAME PRESENTER]", "List of errors: " + errorList);
-                DatabaseInitializer.setAllErrorsOneOne(db, errorList, level);
+                DatabaseInitializer.setAllErrors(db, errorList, level);
+            }
+            if(DatabaseInitializer.isEmailSet(db)){
 
             }
         }
+
 }

@@ -81,6 +81,8 @@ public interface IGame {
          * disable all the image views in the activity
          */
         void disableViews();
+
+        void sendEmail(String email, String subject);
     }
 
     interface  Presenter {
@@ -204,5 +206,6 @@ public interface IGame {
          * @param savedInstanceState store the current player situation in the game
          */
         void storeCurrentPlayer(Bundle savedInstanceState);
+
     }
 }

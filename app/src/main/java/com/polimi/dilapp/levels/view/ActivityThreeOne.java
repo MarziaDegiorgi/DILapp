@@ -346,6 +346,11 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
     }
 
     @Override
+    public void sendEmail(String email, String subject) {
+
+    }
+
+    @Override
     public List<String> getSessionArray(int vectorID) {
 
         String[] sessionCountVector = getResources().getStringArray(vectorID);

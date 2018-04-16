@@ -15,5 +15,6 @@ public interface IReportSettings {
         void disableAutoRepo();
 
         void setAutoRepo(Button confirm, LinearLayout edit);
+        Boolean isAutoRepoEnabled();
     }
 }

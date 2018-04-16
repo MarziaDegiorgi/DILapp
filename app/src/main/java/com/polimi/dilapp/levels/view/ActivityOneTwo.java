@@ -87,6 +87,11 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public void sendEmail(String email, String subject) {
+
+    }
+
+    @Override
     public void setVideoView(int videoID){
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
         common.startMainVideo(uri, this);

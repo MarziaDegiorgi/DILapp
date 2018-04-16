@@ -116,6 +116,7 @@ public class DatabaseInitializer {
            inputstream.close();
            return bitmap;
        }else {
+           //TODO: put default profile image
            return null;
        }
     }
@@ -278,11 +279,24 @@ public class DatabaseInitializer {
     }
 
     public static void enableAutoRepo(AppDatabase db){
-        db.childDao().enableAutoRepo(getCurrentPlayer(db), true);
+        db.childDao().enableAutoRepo(getCurrentPlayer(db), "true");
     }
 
     public static void disableAutoRepo(AppDatabase db){
-        db.childDao().disableAutoRepo(getCurrentPlayer(db), false);
+        db.childDao().disableAutoRepo(getCurrentPlayer(db),"false");
+    }
+
+    public static Boolean isAutoRepoEnabled(AppDatabase db){
+        Boolean flag;
+        if(db.childDao().isAutoRepoEnabled(getCurrentPlayer(db)) == null){
+            db.childDao().disableAutoRepo(getCurrentPlayer(db), "false");
+        }
+        if(db.childDao().isAutoRepoEnabled(getCurrentPlayer(db)).equals("true")){
+            flag = true;
+        }else{
+            flag = false;
+        }
+        return flag;
     }
 
     public static Boolean isEmailSet(AppDatabase db){
@@ -480,7 +494,7 @@ public class DatabaseInitializer {
         return data;
     }
 
-    public static void setAllErrorsOneOne(AppDatabase db, ArrayList<String> errorList, int level){
+    public static void setAllErrors(AppDatabase db, ArrayList<String> errorList, int level){
         int currentPlayer = getCurrentPlayer(db);
         int oldErrors = 0;
         for (String error : errorList) {
