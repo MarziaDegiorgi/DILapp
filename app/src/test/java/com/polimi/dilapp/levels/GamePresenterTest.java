@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
@@ -26,6 +28,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -33,12 +37,12 @@ import org.powermock.reflect.Whitebox;
 
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -58,6 +62,7 @@ public class GamePresenterTest {
     @Mock
     private AppDatabase appDatabase;
 
+    @Mock
     private GamePresenter gamePresenter;
 
     @Mock
@@ -65,6 +70,12 @@ public class GamePresenterTest {
 
     @Mock
     private ArrayList<String> mockedArray;
+
+    @Mock
+    private String mockedString;
+
+    @Mock
+    private int mockedIntValue;
 
     @Mock
     private Toast toast;
@@ -87,6 +98,8 @@ public class GamePresenterTest {
     @Mock
     DatabaseInitializer databaseInitializer;
 
+    @Mock
+    Handler mockedHandler;
 
 
     @Before
@@ -102,6 +115,8 @@ public class GamePresenterTest {
         PowerMockito.mockStatic(Intent.class);
         PowerMockito.mockStatic(Toast.class);
         PowerMockito.mockStatic(AsyncTask.class);
+        PowerMockito.mockStatic(Handler.class);
+
         when(Log.i(any(String.class), any(String.class))).thenReturn(1);
         when(Log.e(any(String.class), any(String.class), any(Throwable.class))).thenReturn(1);
         when(AppDatabase.getAppDatabase(any(Context.class))).thenReturn(appDatabaseImpl);
@@ -109,10 +124,12 @@ public class GamePresenterTest {
         when(iGame.getString()).thenReturn("ActivityOneOne");
         when(SystemClock.elapsedRealtime()).thenReturn(longNumber);
         when(Toast.makeText(any(Context.class), any(String.class), any(int.class))).thenReturn(toast);
+        when(mockedHandler.sendMessageAtTime(any(Message.class), anyLong())).thenReturn(true);
+        when(mockedHandler.postDelayed(any(Runnable.class),anyLong())).thenReturn(true);
+
         //isTheCurrentSessionArrayEmpty
         ArrayList<String> currentSessionArray = new ArrayList<>();
         when(iGame.getSessionArray(any(int.class))).thenReturn(currentSessionArray);
-
 
 
         try {
@@ -253,6 +270,7 @@ public class GamePresenterTest {
     }
 
     @Test
+    @Ignore
     public void correctAnswerTest() {
         int total = gamePresenter.getTotalAttempts();
         int correct = gamePresenter.getCorrectAnswers();
@@ -327,25 +345,61 @@ public class GamePresenterTest {
         Assert.assertEquals(true, check);
     }
 
-    //TODO: cover checkAnswer() [Marzia]
     @Test
-    @Ignore
     public void checkAnswerTest() {
+        String currentElement = "_peperone";
+        String currentSubElement= "e";
+        int numberOfElements = 8;
 
+        try {
+            Whitebox.invokeMethod(gamePresenter, "checkMultipleItems", currentElement);
+            Whitebox.invokeMethod(gamePresenter, "checkAnswer", "p" );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        numberOfElements--;
+
+        assertEquals(numberOfElements, gamePresenter.getNumberOfElements());
+        assertEquals(currentSubElement, gamePresenter.getCurrentSubElement());
     }
 
+    @Test
+    public void isMultipleItemTest() {
+       String currentElement = "_mela";
+        try {
+            Whitebox.invokeMethod(gamePresenter, "checkMultipleItems", currentElement);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       assertTrue(gamePresenter.getMultipleElement());
+    }
 
     @Test
-    @Ignore
-    public void checkMultipleItemsTest() {
-        ArrayList<String> multipleItems = new ArrayList<>();
-        multipleItems.add("_mela");
+    public void isNotMultipleItemTest() {
+        String currentElement = "ahcbjdckjernkjnvkerqvlkrnvlnrvjnrekjsssnjvqe";
+        try {
+            Whitebox.invokeMethod(gamePresenter, "checkMultipleItems", currentElement);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertFalse(gamePresenter.getMultipleElement());
+    }
 
-        gamePresenter.startGame(multipleItems);
-        gamePresenter.chooseElement();
-       //TODO: SOLVE PROBLEM OF RETURN NULL
-        assertEquals("m", gamePresenter.getCurrentSubElement());
-        assertEquals(4, gamePresenter.getNumberOfElements());
+    @Test
+    public void singleSubElementTest() {
+        String currentElement = "_1";
+        try {
+            Whitebox.invokeMethod(gamePresenter, "checkMultipleItems", currentElement);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        assertFalse(gamePresenter.getMultipleElement());
+    }
+
+    @Test
+    public void checkSubElementTest() {
+
     }
 
     @Test

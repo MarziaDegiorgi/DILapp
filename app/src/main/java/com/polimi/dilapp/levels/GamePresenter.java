@@ -106,6 +106,7 @@ public class GamePresenter implements IGame.Presenter {
        correctAnswersList = DatabaseInitializer.getCorrectAnswer(db, currentPlayer);
        timeList = DatabaseInitializer.getTime(db, currentPlayer);
        level = 0;
+       errorList = new ArrayList<>();
    }
 
    @Override
@@ -212,7 +213,7 @@ public class GamePresenter implements IGame.Presenter {
                     currentElement = tempArray.get(0);
                     tempArray.remove(0);
                     Log.i(CLASS, "Choose next element -> " + currentElement);
-                    this.checkMultipleItems();
+                    this.checkMultipleItems(currentElement);
                     askCurrentElement();
                 }
             }
@@ -433,7 +434,8 @@ public class GamePresenter implements IGame.Presenter {
     /**
      *  Check if an element is composed by multiple objects and set the flag variables
      */
-    private void checkMultipleItems(){
+    private void checkMultipleItems(String currentElement){
+        this.currentElement = currentElement;
         if(currentElement.contains("_") && currentElement.length() > 2){
             multipleElement = true;
             subElementIndex = 1;
