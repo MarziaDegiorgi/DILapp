@@ -267,16 +267,7 @@ public class GamePresenter implements IGame.Presenter {
                         if (readTag.equals(currentSubElement)) {
                             this.updateSubItem();
                         } else {
-                            totalAttempts++;
-                            if (counter < 2) {
-                                counter++;
-                                activityInterface.setVideoWrongAnswerToRepeat();
-                            } else {
-                                counter = 0;
-                                //ask the next sub item
-                                this.updateSubItem();
-                                activityInterface.setVideoWrongAnswerAndGoOn();
-                            }
+                          verifyTotalAttempts();
                         }
                     } else {
                         if (readTag.equals(currentSubElement)) {
@@ -284,19 +275,32 @@ public class GamePresenter implements IGame.Presenter {
                             Log.i(CLASS, "[CheckAnswer][lastSubItem]" + currentSubElement);
                             this.correctAnswer();
                         } else {
-                            totalAttempts++;
-                            if (counter < 2) {
-                                counter++;
-                                activityInterface.setVideoWrongAnswerToRepeat();
-                            } else {
-                                counter = 0;
-                                numberOfElements = 0;
-                                activityInterface.setVideoWrongAnswerAndGoOn();
-                            }
+                           verifyTotalAttempts();
                         }
                     }
                 }
             }
+        }
+    }
+
+    /**
+     * Verify the number of time that the answer was not correct
+     * and update the total attempts and the counter setting up the correct interface response
+     */
+    private void verifyTotalAttempts(){
+        totalAttempts++;
+        if (counter < 2) {
+            counter++;
+            activityInterface.setVideoWrongAnswerToRepeat();
+        } else {
+            counter = 0;
+            //ask the next sub item
+            if(numberOfElements>1) {
+                this.updateSubItem();
+            }else {
+                numberOfElements =0;
+            }
+            activityInterface.setVideoWrongAnswerAndGoOn();
         }
     }
 
@@ -314,12 +318,7 @@ public class GamePresenter implements IGame.Presenter {
             //Display correct result
             numberOfElements--;
             Log.i(CLASS, "[CheckAnswer][CallingNewItem]" + currentSubElement);
-            myHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    activityInterface.setSubItemAnimation(currentSubElement);
-                }
-            },1500);
+            activityInterface.setSubItemAnimation(currentSubElement);
         }
     }
 
@@ -401,7 +400,6 @@ public class GamePresenter implements IGame.Presenter {
         }
     }
 
-
     private void wrongAnswerRecipe(){
         totalAttempts++;
         if (counter < 6) {
@@ -412,8 +410,6 @@ public class GamePresenter implements IGame.Presenter {
             startNewTurn();
         }
     }
-
-
 
     /**
      * Update the correct answer calling the view to the correspondent video

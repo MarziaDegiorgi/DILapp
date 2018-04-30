@@ -7,7 +7,6 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.os.Message;
 import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
@@ -21,15 +20,12 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 import junit.framework.Assert;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -42,7 +38,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.powermock.api.mockito.PowerMockito.when;
@@ -50,6 +45,7 @@ import static org.powermock.api.mockito.PowerMockito.when;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({Log.class, AppDatabase.class, SystemClock.class, Toast.class, NfcAdapter.class, Intent.class, AsyncTask.class, DatabaseInitializer.class})
 public class GamePresenterTest {
+
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
 
@@ -98,9 +94,6 @@ public class GamePresenterTest {
     @Mock
     DatabaseInitializer databaseInitializer;
 
-    @Mock
-    Handler mockedHandler;
-
 
     @Before
     public void test() {
@@ -124,8 +117,7 @@ public class GamePresenterTest {
         when(iGame.getString()).thenReturn("ActivityOneOne");
         when(SystemClock.elapsedRealtime()).thenReturn(longNumber);
         when(Toast.makeText(any(Context.class), any(String.class), any(int.class))).thenReturn(toast);
-        when(mockedHandler.sendMessageAtTime(any(Message.class), anyLong())).thenReturn(true);
-        when(mockedHandler.postDelayed(any(Runnable.class),anyLong())).thenReturn(true);
+
 
         //isTheCurrentSessionArrayEmpty
         ArrayList<String> currentSessionArray = new ArrayList<>();
@@ -270,7 +262,6 @@ public class GamePresenterTest {
     }
 
     @Test
-    @Ignore
     public void correctAnswerTest() {
         int total = gamePresenter.getTotalAttempts();
         int correct = gamePresenter.getCorrectAnswers();
@@ -346,7 +337,7 @@ public class GamePresenterTest {
     }
 
     @Test
-    public void checkAnswerTest() {
+    public void checkCorrectAnswerMultipleItemTest() throws Exception {
         String currentElement = "_peperone";
         String currentSubElement= "e";
         int numberOfElements = 8;
@@ -362,6 +353,27 @@ public class GamePresenterTest {
 
         assertEquals(numberOfElements, gamePresenter.getNumberOfElements());
         assertEquals(currentSubElement, gamePresenter.getCurrentSubElement());
+
+        verify(iGame, Mockito.times(1)).setSubItemAnimation(currentSubElement);
+    }
+
+    @Test
+    public void checkWrongAnswerMultipleItem(){
+        String currentElement = "_peperone";
+        String currentSubElement= "p";
+        int numberOfElements = 8;
+
+        try {
+            Whitebox.invokeMethod(gamePresenter, "checkMultipleItems", currentElement);
+            Whitebox.invokeMethod(gamePresenter, "checkAnswer", "e" );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(currentSubElement, gamePresenter.getCurrentSubElement());
+        assertEquals(numberOfElements, gamePresenter.getNumberOfElements());
+
+        verify(iGame, Mockito.times(1)).setVideoWrongAnswerToRepeat();
     }
 
     @Test
@@ -399,7 +411,19 @@ public class GamePresenterTest {
 
     @Test
     public void checkSubElementTest() {
+    String currentSubElement ="1";
+    String currentElement="_12";
 
+    try {
+            Whitebox.invokeMethod(gamePresenter, "checkMultipleItems", currentElement);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    gamePresenter.notifyFirstSubElement();
+
+    assertEquals(currentSubElement, gamePresenter.getCurrentSubElement());
+    verify(iGame, Mockito.times(1)).initGridView(currentSubElement);
     }
 
     @Test
@@ -408,13 +432,12 @@ public class GamePresenterTest {
         Assert.assertEquals(null, gamePresenter.getActivityInterface());
     }
 
+
     //TODO: check setLevelCurrentPlayer(); [Giuli]
     @Test
     public void setLevelCurrentPlayerTest() {
 
         when(gamePresenter.getActivityInterface().getString()).thenReturn("ActivityOneOne");
         gamePresenter.setLevelCurrentPlayer();
-
-
     }
 }
