@@ -3,18 +3,21 @@ package com.polimi.dilapp.levels.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TableRow;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -38,10 +41,10 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     private CommonActivity common;
     String element;
     MediaPlayer request;
-    GridView gridview;
-    GridViewAdapter imageAdapter;
+    TableRow table;
     private final String AUDIO = "request_";
     Handler myHandler;
+    int num_column;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,8 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setPresentationAnimation(String currentElement) {
+        //new element required
+        num_column = 1;
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
 
@@ -114,35 +119,70 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public void setSubItemAnimation(String currentSubElement){
-        int resourceID = presenter.getResourceId(currentSubElement, R.drawable.class);
+    public void setSubItemAnimation(final String currentSubElement){
+        final int resourceID = presenter.getResourceId(currentSubElement, R.drawable.class);
+        num_column++;
+        final ImageView subItemImage = getImageView();
+        if(subItemImage!=null) {
+            subItemImage.setImageDrawable(ContextCompat.getDrawable(this, resourceID));
+        }
 
-        gridview.setVisibility(View.VISIBLE);
-        imageAdapter.addImageResource(resourceID);
-        imageAdapter.notifyDataSetChanged();
+        myHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //set subItem audio request
+                requestSubItem(currentSubElement);
+                if(subItemImage != null){
+                    subItemImage.setVisibility(View.VISIBLE);
+                    startAnimationSubItem(subItemImage);
+                }
+            }
+        }, 1500);
+    }
 
-        //set subItem audio request
-        requestSubItem(currentSubElement);
+    private ImageView getImageView(){
+        ImageView columnView;
+
+        switch (num_column){
+            case 1:
+                columnView = findViewById(R.id.column_1);
+                break;
+            case 2:
+                columnView = findViewById(R.id.column_2);
+                break;
+            case 3:
+               columnView = findViewById(R.id.column_3);
+                break;
+            case 4:
+                columnView = findViewById(R.id.column_4);
+                break;
+            default:
+                columnView = null;
+                break;
+        }
+        return columnView;
     }
 
     @Override
-    public void initGridView(String currentSubItem) {
+    public void initTableView(String currentSubItem) {
         //resource of the first sub element required
         int resourceID = presenter.getResourceId(currentSubItem, R.drawable.class);
         //resource of the element required
         int wordID = presenter.getResourceId(element, R.drawable.class);
 
-        //set up the gridView with the adapter
-        gridview = findViewById(R.id.gridView);
-        imageAdapter = new GridViewAdapter(this, resourceID);
-        gridview.setAdapter(imageAdapter);
+        //set up the table and the first column(sub element required)
+        if(table == null) {
+            table = findViewById(R.id.table);
+        }
+        table.setVisibility(View.VISIBLE);
+        ImageView firstSubElement = findViewById(R.id.column_1);
+        firstSubElement.setImageDrawable(ContextCompat.getDrawable(ActivityTwoThree.this, resourceID));
+        firstSubElement.setVisibility(View.VISIBLE);
+        this.startAnimationSubItem(firstSubElement);
 
-        //set up the image of the object required
+        //set up the image of the current element required
         ImageView word = findViewById(R.id.image_box_multiple_elements);
         word.setImageDrawable(ContextCompat.getDrawable(ActivityTwoThree.this,wordID));
-
-        //set up visibility of the gridview and the image
-        gridview.setVisibility(View.VISIBLE);
         word.setVisibility(View.VISIBLE);
 
         //audio request
@@ -157,6 +197,13 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
                 presenter.handleIntent(getIntent());
             }
         });
+    }
+
+    private void startAnimationSubItem(ImageView image){
+        Animation animationWait = AnimationUtils.loadAnimation(this, R.anim.blink);
+        animationWait.setRepeatCount(4);
+        image.setAnimation(animationWait);
+        image.startAnimation(animationWait);
     }
 
     private void setAudioRequest(final ImageView image){
@@ -209,6 +256,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     @Override
     public void setVideoCorrectAnswer() {
         disableViews();
+        num_column= 1;
 
         //takes image associated with the word
         int imageId = presenter.getResourceId("img" + element, R.drawable.class);
@@ -261,6 +309,8 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         //set subItem audio request
         int objectClaimedID = presenter.getResourceId(AUDIO + currentSubElement, R.raw.class);
         request = MediaPlayer.create(this, objectClaimedID);
+
+        final ImageView imageCurrentSubItem = getImageView();
         myHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -268,6 +318,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
                 request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
+                        startAnimationSubItem(imageCurrentSubItem);
                         mp.release();
                         presenter.setEnableNFC();
                         presenter.handleIntent(getIntent());
@@ -318,13 +369,21 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         ImageView imageToHide = findViewById(R.id.animation_box);
         ImageView requestObject = findViewById(R.id.image_box_multiple_elements);
         ImageView answerBox = findViewById(R.id.animation_box_answer);
-
-        gridview.setVisibility(View.INVISIBLE);
-        imageAdapter.clearImageResources();
+        ImageView column1 = findViewById(R.id.column_1);
+        ImageView column2 = findViewById(R.id.column_2);
+        ImageView column3 = findViewById(R.id.column_3);
+        ImageView column4 = findViewById(R.id.column_4);
 
         this.disableImageView(answerBox);
         this.disableImageView(imageToHide);
         this.disableImageView(requestObject);
+
+        this.disableImageView(column1);
+        this.disableImageView(column2);
+        this.disableImageView(column3);
+        this.disableImageView(column4);
+
+        table.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -395,4 +454,5 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         Log.i("[ACTIVITY 23]", "I'm calling storeCurrentPlayer");
         Log.i("[ACTIVITY 23]", "SavedInstaceState "+ String.valueOf(savedInstanceState));
     }
+
 }

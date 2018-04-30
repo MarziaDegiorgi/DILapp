@@ -70,7 +70,6 @@ public class GridViewAdapter extends BaseAdapter {
             gridView.setAdjustViewBounds(true);
             gridView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-
             gridView.setVisibility(View.VISIBLE);
             gridView.setImageDrawable(context.getResources().getDrawable(imageId));
 
@@ -80,8 +79,6 @@ public class GridViewAdapter extends BaseAdapter {
 
             gridView.setAnimation(animationWait);
             gridView.startAnimation(animationWait);
-
-
 
             // Set Padding for images
             gridView.setPadding(0, 0, 1, 0);
@@ -95,6 +92,10 @@ public class GridViewAdapter extends BaseAdapter {
 
     public void clearImageResources() {
         this.images_id.clear();
+    }
+
+    public void animateLastImage() {
+
     }
 
 }

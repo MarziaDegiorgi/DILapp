@@ -152,32 +152,48 @@
             tools:layout_constraintLeft_creator="1"
             tools:layout_constraintRight_creator="1"
             tools:layout_constraintTop_creator="1" />
+
+            <TableRow
+                android:id="@+id/table"
+               android:layout_alignParentTop="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible">
+                <ImageView
+                    android:id="@+id/column_1"
+                    android:visibility="invisible"
+                    android:scaleType="fitCenter"
+                    android:layout_width="140dp"
+                    android:layout_height="160dp"
+                    android:contentDescription="TODO" />
+                <ImageView
+                    android:id="@+id/column_2"
+                    android:scaleType="fitCenter"
+                    android:visibility="invisible"
+                    android:layout_width="140dp"
+                    android:layout_height="160dp"
+                    android:contentDescription="TODO" />
+                <ImageView
+                    android:id="@+id/column_3"
+                    android:scaleType="fitCenter"
+                    android:visibility="invisible"
+                    android:layout_width="140dp"
+                    android:layout_height="160dp"
+                    android:contentDescription="TODO" />
+                <ImageView
+                    android:id="@+id/column_4"
+                    android:scaleType="fitCenter"
+                    android:visibility="invisible"
+                    android:layout_width="140dp"
+                    android:layout_height="160dp"
+                    android:contentDescription="TODO" />
+            </TableRow>
     </RelativeLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <GridView
-            android:id="@+id/gridView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="40dp"
-            android:layout_marginEnd="40dp"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="50dp"
-            android:columnWidth="125dp"
-            android:gravity="center"
-            android:numColumns="4"
-            android:stretchMode="columnWidth"
-            android:visibility="invisible" />
-
-    </LinearLayout>
-
-    <VideoView
+   <VideoView
         android:id="@+id/video_box"
         android:visibility="visible"
         android:layout_height="match_parent"

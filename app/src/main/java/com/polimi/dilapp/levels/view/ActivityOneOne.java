@@ -238,7 +238,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public void initGridView(String currentSubItem) {
+    public void initTableView(String currentSubItem) {
         //NOT USED
     }
     @Override

@@ -75,7 +75,7 @@ public interface IGame {
          * Init the Gridview in the activity for multiple objects
          * @param currentSubItem of the sequence
          */
-        void initGridView(String currentSubItem);
+        void initTableView(String currentSubItem);
 
         /**
          * disable all the image views in the activity

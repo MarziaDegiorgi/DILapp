@@ -184,7 +184,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
      * @param currentSubItem : current sub element
      */
     @Override
-    public void initGridView(String currentSubItem) {
+    public void initTableView(String currentSubItem) {
 
         presenter.setEnableNFC();
         presenter.handleIntent(getIntent());

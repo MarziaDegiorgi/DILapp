@@ -244,7 +244,6 @@ public class GamePresenter implements IGame.Presenter {
             }
 
         } else {
-
             if (recipeLevel) {
                 if(tempArray.contains(readTag)){
                     tempArray.remove(readTag);
@@ -261,7 +260,7 @@ public class GamePresenter implements IGame.Presenter {
                     } else {
                         check(readTag);
                     }
-                } else {
+                }else {
                     if (numberOfElements > 1) {
                         // Correct answer
                         if (readTag.equals(currentSubElement)) {
@@ -462,7 +461,7 @@ public class GamePresenter implements IGame.Presenter {
 
     @Override
     public void notifyFirstSubElement(){
-        activityInterface.initGridView(currentSubElement);
+        activityInterface.initTableView(currentSubElement);
     }
 
     @SuppressWarnings("rawtypes")
