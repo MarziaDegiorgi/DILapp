@@ -366,7 +366,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         common.disableView(imageToHide);
         common.disableView(imageAnswer);
         common.disableView(imageBoxMultipleItem);
-
     }
 
     @Override

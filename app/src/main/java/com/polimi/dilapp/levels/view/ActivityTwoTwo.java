@@ -252,6 +252,10 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
         presenter.getEndTime();
         presenter.setObjectCurrentPlayer();
         presenter.setSubStringCurrentPlayer();
+        if(request != null){
+            request.release();
+            request = null;
+        }
         startActivity(new Intent(ActivityTwoTwo.this, StartGameActivity.class));
         finish();
     }
