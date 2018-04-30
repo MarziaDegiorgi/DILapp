@@ -749,6 +749,7 @@ public class GamePresenter implements IGame.Presenter {
         boolean getNewTurnStarted(){
             return newTurnStarted;
         }
+        boolean isTheNfcEnabled() {return enableNFC;}
         int getTotalAttempts(){
             return totalAttempts;
         }
@@ -764,10 +765,15 @@ public class GamePresenter implements IGame.Presenter {
         List<String> getErrorList(){
         return errorList;
         }
-
+        void setTotalAttempts(int i){totalAttempts = i;}
+        void setCurrentElement(String string){currentElement = string;}
+        void setCorrectAnswers(int i) { correctAnswers = i;}
+        void setCounterColourSession(int i){counterColourSession = i;}
+        void setTempArray(ArrayList<String> array) {tempArray = array;}
         IGame.View getActivityInterface(){
             return activityInterface;
         }
+        int getCounterColourSession(){return counterColourSession;}
 
     @Override
     public void storeCurrentPlayer(Bundle savedInstanceState) {
