@@ -39,7 +39,6 @@ public class CreateAccountActivity extends AppCompatActivity implements ICreateA
         setContentView(R.layout.activity_createaccount);
         TextView mTextView = findViewById(R.id.createAccount);
 
-
         //Set up the presenter
         presenter = new CreateAccountPresenter(this);
 

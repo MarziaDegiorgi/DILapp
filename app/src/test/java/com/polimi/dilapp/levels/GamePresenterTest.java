@@ -68,12 +68,6 @@ public class GamePresenterTest {
     private ArrayList<String> mockedArray;
 
     @Mock
-    private String mockedString;
-
-    @Mock
-    private int mockedIntValue;
-
-    @Mock
     private Toast toast;
 
     @Mock
@@ -359,8 +353,7 @@ public class GamePresenterTest {
     @Test
     public void notifyFirstSubElementTest() {
         gamePresenter.notifyFirstSubElement();
-        //TODO: fix the problem @Marzia
-        //verify(iGame, Mockito.times(1)).initGridView(gamePresenter.getCurrentSubElement());
+        verify(iGame, Mockito.times(1)).initTableView(gamePresenter.getCurrentSubElement());
     }
 
     //Here we test checkNfcAvailability()
@@ -598,8 +591,7 @@ public class GamePresenterTest {
     gamePresenter.notifyFirstSubElement();
 
     assertEquals(currentSubElement, gamePresenter.getCurrentSubElement());
-    //TODO:fix the problem @Marzia
-    //verify(iGame, Mockito.times(1)).initGridView(currentSubElement);
+    verify(iGame, Mockito.times(1)).initTableView(currentSubElement);
     }
 
 
@@ -987,18 +979,5 @@ public class GamePresenterTest {
         verify(iGame, Mockito.times(1)).setPresentationAnimation(gamePresenter.getCurrentSequenceElement());
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

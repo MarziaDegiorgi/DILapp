@@ -40,6 +40,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         setContentView(R.layout.activity_startgame);
         Bundle extras = getIntent().getExtras();
         Button playButton = findViewById(R.id.playButton);
+        Button menuButton = findViewById(R.id.menuButton);
 
         int currentPlayerId = -1;
 
@@ -57,6 +58,13 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             public void onClick(View v) {
                 presenter.onPlayButtonPressed();
                 finish();
+            }
+        });
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPopup(v);
             }
         });
 
@@ -134,7 +142,8 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
    }
 
     public void onClickMenuItem (MenuItem item) {
-     presenter.onItemMenuSelected(item);
+
+       presenter.onItemMenuSelected(item);
    }
 
 

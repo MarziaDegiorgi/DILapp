@@ -35,7 +35,6 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
    ILevelMap.Presenter presenter;
    ExpandableListView listView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
