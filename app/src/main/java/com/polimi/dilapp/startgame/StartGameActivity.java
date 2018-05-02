@@ -33,11 +33,11 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_startgame);
 
         db = AppDatabase.getAppDatabase(this);
         presenter = new StartGamePresenter(this);
 
-        setContentView(R.layout.activity_startgame);
         Bundle extras = getIntent().getExtras();
         Button playButton = findViewById(R.id.playButton);
         Button menuButton = findViewById(R.id.menuButton);
@@ -102,8 +102,6 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
        Animation animationRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_right);
        Animation animationLeft = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_left);
        Animation animationLeftAndRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.lion_rotation);
-       // Add the personilized interpolator for "animationBounce"
-       presenter.onInit(animationBounce);
 
        // Start animations
        playButton.startAnimation(animationBounce);

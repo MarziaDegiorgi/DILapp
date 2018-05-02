@@ -21,12 +21,6 @@ public interface IStartGame {
     interface  Presenter {
 
         /**
-         *  Called to initialize custom animations
-         * @param animation passed
-         */
-        void onInit(Animation animation);
-
-        /**
          * Called when the view is destroyed
          */
         void onDestroy();

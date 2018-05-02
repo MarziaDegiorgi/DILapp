@@ -34,12 +34,6 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     }
 
     @Override
-    public void onInit(Animation animation) {
-        BounceInterpolator interpolator = new BounceInterpolator(0.7, 10);
-        animation.setInterpolator(interpolator);
-    }
-
-    @Override
     public void onDestroy() {
 
         startGameView = null;
