@@ -163,6 +163,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         image.setVisibility(View.INVISIBLE);
         common.enableLionHeadAnimation(ActivityOneThree.this, this);
         common.setWrongAnswerToRepeat(ActivityOneThree.this);
+        //TODO: Add audio "wrong_answer_to_repeat_shape"
     }
 
     @Override

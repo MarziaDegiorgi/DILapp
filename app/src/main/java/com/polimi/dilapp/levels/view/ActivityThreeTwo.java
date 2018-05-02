@@ -208,6 +208,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     public void setVideoWrongAnswerToRepeat() {
         setLionHeadAnimation();
         setPresentationAnimation(presenter.getCurrentSequenceElement());
+        //TODO: Add audio "wrong_answer_to_repeat_recipe"
     }
 
     @Override

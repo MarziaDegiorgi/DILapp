@@ -1,23 +1,5 @@
 package com.polimi.dilapp.levelmap;
 
-
-import android.app.Activity;
-import android.content.Intent;
-import android.widget.ExpandableListView;
-import android.widget.Toast;
-
-import com.polimi.dilapp.levels.view.ActivityOneOne;
-import com.polimi.dilapp.levels.view.ActivityOneThree;
-import com.polimi.dilapp.levels.view.ActivityOneTwo;
-import com.polimi.dilapp.levels.view.ActivityThreeOne;
-import com.polimi.dilapp.levels.view.ActivityThreeTwo;
-import com.polimi.dilapp.levels.view.ActivityTwoOne;
-import com.polimi.dilapp.levels.view.ActivityTwoThree;
-import com.polimi.dilapp.levels.view.ActivityTwoTwo;
-import com.polimi.dilapp.report.ReportMainActivity;
-import com.polimi.dilapp.report.ReportSpecActivity;
-import com.polimi.dilapp.startgame.StartGameActivity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -285,7 +285,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
     @Override
     public void setVideoWrongAnswerToRepeat() {
 
-        final MediaPlayer wrongAnswer = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
+        final MediaPlayer wrongAnswer = MediaPlayer.create(this, R.raw.wrong_answer_to_repeat_count);
 
         wrongAnswer.start();
         wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

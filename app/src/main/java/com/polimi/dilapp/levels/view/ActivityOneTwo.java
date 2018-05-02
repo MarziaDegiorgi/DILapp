@@ -162,7 +162,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     public void setVideoWrongAnswerToRepeat() {
         disableViews();
         common.enableLionHeadAnimation(ActivityOneTwo.this, this);
-        MediaPlayer wrongAnswer = MediaPlayer.create(this, R.raw.request_wrong_answer_repeat);
+        MediaPlayer wrongAnswer = MediaPlayer.create(this, R.raw.wrong_answer_to_repeat_color);
         wrongAnswer.start();
         wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
