@@ -21,6 +21,8 @@
         android:layout_height="100dp"
         android:text="@string/settings_text"
         android:padding="20dp"
+        android:clickable="true"
+        android:focusable="true"
       android:thumbTint="@color/colorPrimaryDark"/>
 
     <TextView
