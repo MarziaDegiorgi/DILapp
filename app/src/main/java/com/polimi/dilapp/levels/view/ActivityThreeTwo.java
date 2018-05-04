@@ -79,17 +79,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     @Override
     public void disableViews(){
-        String elementToDelete = presenter.getCurrentReadTag();
-        int elementID = presenter.getResourceId(elementToDelete, R.drawable.class);
-        Drawable elementDrawable = getResources().getDrawable(elementID);
-        for(int i=0; i<6; i++){
-            int imageToCheckId = presenter.getResourceId("imageView"+i, R.id.class);
-            final ImageView imageToCheck = findViewById(imageToCheckId);
-            Drawable drawableToCheck = imageToCheck.getDrawable();
-            if(drawableToCheck.getConstantState().equals(elementDrawable.getConstantState())){
-                imageToCheck.setVisibility(View.INVISIBLE);
-            }
-        }
+        //NOT USED
     }
 
     @Override
@@ -117,7 +107,6 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                setAnimationBoxExtra();
                 stopLionHeadAnimation();
                 setWaitingAnimation();
                 mp.release();
@@ -127,9 +116,19 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         });
     }
 
-
-    public void setAnimationBoxExtra(){
-
+    private void disableImage(String element){
+        for(int i=0; i<6; i++){
+            int imageToCheckId = presenter.getResourceId("imageView"+i, R.id.class);
+            final ImageView imageToCheck = findViewById(imageToCheckId);
+            String stringToCheck = (String) imageToCheck.getTag();
+            Log.i("tag", stringToCheck);
+            Log.i("element", element);
+            if(stringToCheck.equals(element)){
+                imageToCheck.setVisibility(View.INVISIBLE);
+                imageToCheck.setTag("none");
+                i = 7;
+            }
+        }
     }
 
     private void setLionHeadAnimation(){
@@ -170,6 +169,8 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
             image.setVisibility(View.VISIBLE);
             int claimedDrawableID = presenter.getResourceId(temporalElement, R.drawable.class);
             image.setImageDrawable(getResources().getDrawable(claimedDrawableID));
+            image.setTag(temporalElement);
+            Log.i("[Tag]",(String) image.getTag());
         }
     }
 
@@ -183,7 +184,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
        final ImageView image = findViewById(imageID);
        image.setImageDrawable(getResources().getDrawable(resourceID));
        image.setVisibility(View.VISIBLE);
-       //disableViews();
+       disableImage(correctElement);
        MediaPlayer request = MediaPlayer.create(ActivityThreeTwo.this, R.raw.request_correct_answer);
        request.start();
 
