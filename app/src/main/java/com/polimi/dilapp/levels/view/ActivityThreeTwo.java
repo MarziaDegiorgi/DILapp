@@ -243,12 +243,19 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setGoOnOrExitScreen() {
-        //TODO: DA SOSTITUIRE START GAME CON L'ACTIVITY DI FINE GIOCO
-        Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
-        intent.putExtra("Activity","com.polimi.dilapp.levels.startgame.StartGameActivity");
-        intent.putExtra("ButtonName", "Avanti");
-        startActivity(intent);
-
+        //TODO: PUT THE RIGHT VIDEO NAME
+        MediaPlayer request = MediaPlayer.create(this, R.raw.intro);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
+                intent.putExtra("Activity","com.polimi.dilapp.levels.startgame.StartGameActivity");
+                intent.putExtra("ButtonName", "Avanti");
+                startActivity(intent);
+                mp.release();
+            }
+        });
     }
 
     @Override
