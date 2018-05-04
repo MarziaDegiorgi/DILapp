@@ -207,8 +207,15 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     @Override
     public void setVideoWrongAnswerToRepeat() {
         setLionHeadAnimation();
-        setPresentationAnimation(presenter.getCurrentSequenceElement());
-        //TODO: Add audio "wrong_answer_to_repeat_recipe"
+        MediaPlayer request = MediaPlayer.create(ActivityThreeTwo.this, R.raw.wrong_answer_to_repeat_recipe);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                setPresentationAnimation(presenter.getCurrentSequenceElement());
+                mp.release();
+            }
+        });
     }
 
     @Override

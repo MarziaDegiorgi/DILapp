@@ -162,8 +162,15 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         image.clearAnimation();
         image.setVisibility(View.INVISIBLE);
         common.enableLionHeadAnimation(ActivityOneThree.this, this);
-        common.setWrongAnswerToRepeat(ActivityOneThree.this);
-        //TODO: Add audio "wrong_answer_to_repeat_shape"
+        MediaPlayer request = MediaPlayer.create(ActivityOneThree.this, R.raw.wrong_answer_to_repeat_shape);
+        request.start();
+        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                presenter.askCurrentElement();
+                mp.release();
+            }
+        });
     }
 
     @Override
