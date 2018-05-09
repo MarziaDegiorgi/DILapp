@@ -1,11 +1,11 @@
 package com.polimi.dilapp.levels;
 
-import android.app.Activity;
+
 import android.content.Context;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
-import android.nfc.Tag;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.Log;
@@ -71,23 +71,14 @@ public class GamePresenterTest {
     private Toast toast;
 
     @Mock
-    private Tag tag;
-
-    @Mock
     private NfcAdapter nfcAdapter;
 
     @Mock
-    private Intent intent;
+    private Bundle savedInstanceState;
+
 
     @Mock
-    private GamePresenter.NdefReaderTask ndefReaderTask;
-
-    @Mock
-    private Activity activity;
-
-    @Mock
-    DatabaseInitializer databaseInitializer;
-
+    private DatabaseInitializer databaseInitializer;
 
     @Before
     public void test() {
@@ -103,6 +94,7 @@ public class GamePresenterTest {
         PowerMockito.mockStatic(Toast.class);
         PowerMockito.mockStatic(AsyncTask.class);
         PowerMockito.mockStatic(Handler.class);
+        PowerMockito.mockStatic(Bundle.class);
 
         when(Log.i(any(String.class), any(String.class))).thenReturn(1);
         when(Log.e(any(String.class), any(String.class), any(Throwable.class))).thenReturn(1);
@@ -175,7 +167,7 @@ public class GamePresenterTest {
     //Here we test startNewTurn with empty sequence
     @Test
     public void isTheGameEnded() {
-        ArrayList<String> emptySequence = new ArrayList<String>();
+        ArrayList<String> emptySequence = new ArrayList<>();
         emptySequence.add("test");
         gamePresenter.startGame(emptySequence);
         try {
@@ -198,7 +190,7 @@ public class GamePresenterTest {
 
     @Test
     public void isTheNewTurnStarted() {
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -221,7 +213,7 @@ public class GamePresenterTest {
     //Here we test chooseElement();
     @Test
     public void isTheNewElementChosen() {
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -234,7 +226,7 @@ public class GamePresenterTest {
 
     @Test
     public void isTheNewColoredElementChosen() {
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -252,7 +244,7 @@ public class GamePresenterTest {
 
     @Test
     public void isTheNewRecipeElementChosen() {
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -270,7 +262,7 @@ public class GamePresenterTest {
 
     @Test
     public void noMoreElementsInTheTempArray() {
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -374,7 +366,7 @@ public class GamePresenterTest {
     //Here we test checkAnswer()for basic items
     @Test
     public void checkAnswerBasicItemTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -400,7 +392,7 @@ public class GamePresenterTest {
     //Here we test checkAnswer() for color items
     @Test
     public void checkAnswerCorrectColorItemTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("yellow");
         notEmptySequence.add("red");
         gamePresenter.startGame(notEmptySequence);
@@ -426,7 +418,7 @@ public class GamePresenterTest {
 
     @Test
     public void checkAnswerWrongColorItemTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("yellow");
         notEmptySequence.add("red");
         gamePresenter.startGame(notEmptySequence);
@@ -453,7 +445,7 @@ public class GamePresenterTest {
     //Here we test checkAnswer() for recipe items
     @Test
     public void checkAnswerCorrectRecipeItemTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("apple");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -479,7 +471,7 @@ public class GamePresenterTest {
 
     @Test
     public void checkAnswerWrongRecipeItemTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("apple");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -505,7 +497,7 @@ public class GamePresenterTest {
 
     //Here we test checkAnswer() for multiple items
     @Test
-    public void checkCorrectAnswerMultipleItemTest() throws Exception {
+    public void checkCorrectAnswerMultipleItemTest() {
         String currentElement = "_peperone";
         String currentSubElement= "e";
         int numberOfElements = 8;
@@ -605,7 +597,7 @@ public class GamePresenterTest {
     //Here we test verifyTotalAttempts() for single items
     @Test
     public void verifyTotalAttemptsIfTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -627,7 +619,7 @@ public class GamePresenterTest {
 
     @Test
     public void verifyTotalAttemptsElseTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -650,7 +642,7 @@ public class GamePresenterTest {
     //Here we test check()
     @Test
     public void checkBasicTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -672,7 +664,7 @@ public class GamePresenterTest {
 
     @Test
     public void checkWrongAndShapeTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemonshape");
         notEmptySequence.add("carrotshape");
         gamePresenter.startGame(notEmptySequence);
@@ -694,7 +686,7 @@ public class GamePresenterTest {
 
     @Test
     public void checkWrongBasicTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemon");
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
@@ -717,7 +709,7 @@ public class GamePresenterTest {
 
     @Test
     public void checkWrongShapeTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("lemonshape");
         notEmptySequence.add("carrotshape");
         gamePresenter.startGame(notEmptySequence);
@@ -740,7 +732,7 @@ public class GamePresenterTest {
     //Here we test correctAnswerColor()
     @Test
     public void correctAnswerColorIfTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("red");
         gamePresenter.startGame(notEmptySequence);
 
@@ -764,7 +756,7 @@ public class GamePresenterTest {
 
     @Test
     public void correctAnswerColorElseContinueTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("violet");
         gamePresenter.startGame(notEmptySequence);
 
@@ -783,7 +775,7 @@ public class GamePresenterTest {
 
     @Test
     public void correctAnswerColorElseNewTurnTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("red");
         gamePresenter.startGame(notEmptySequence);
 
@@ -809,7 +801,7 @@ public class GamePresenterTest {
     //Here we test wrongAnswerColour()
     @Test
     public void wrongAnswerColourIfTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("red");
         gamePresenter.startGame(notEmptySequence);
 
@@ -832,7 +824,7 @@ public class GamePresenterTest {
 
     @Test
     public void wrongAnswerColourElseTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("red");
         gamePresenter.startGame(notEmptySequence);
 
@@ -860,11 +852,11 @@ public class GamePresenterTest {
     //Here we test correctAnswerRecipe()
     @Test
     public void correctAnswerRecipeIfTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("white");
         gamePresenter.startGame(notEmptySequence);
 
-        ArrayList<String> emptySequence = new ArrayList<String>();
+        ArrayList<String> emptySequence = new ArrayList<>();
         gamePresenter.setTempArray(emptySequence);
         try {
             Whitebox.invokeMethod(gamePresenter, "correctAnswerRecipe");
@@ -882,11 +874,11 @@ public class GamePresenterTest {
 
     @Test
     public void correctAnswerRecipeElseTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("white");
         gamePresenter.startGame(notEmptySequence);
 
-        ArrayList<String> sequence = new ArrayList<String>();
+        ArrayList<String> sequence = new ArrayList<>();
         sequence.add("apple");
         sequence.add("lemon");
         gamePresenter.setTempArray(sequence);
@@ -904,7 +896,7 @@ public class GamePresenterTest {
     //Here we test wrongAnswerRecipe()
     @Test
     public void wrongAnswerRecipeIfTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("white");
         gamePresenter.startGame(notEmptySequence);
         gamePresenter.setCounter(5);
@@ -922,7 +914,7 @@ public class GamePresenterTest {
 
     @Test
     public void wrongAnswerRecipeElseTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("white");
         gamePresenter.startGame(notEmptySequence);
         gamePresenter.setCounter(6);
@@ -947,7 +939,7 @@ public class GamePresenterTest {
     //Here we test chooseColour()
     @Test
     public void chooseColourTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("white");
         gamePresenter.startGame(notEmptySequence);
 
@@ -965,7 +957,7 @@ public class GamePresenterTest {
     //Here we test chooseRecipe()
     @Test
     public void chooseRecipeTest(){
-        ArrayList<String> notEmptySequence = new ArrayList<String>();
+        ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("white");
         gamePresenter.startGame(notEmptySequence);
 
@@ -980,4 +972,84 @@ public class GamePresenterTest {
 
     }
 
+    //Here we test setLevelCurrentPlayer()
+    @Test
+    public void setLevelCurrentPlayerIfTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        when(DatabaseInitializer.getLevelCurrentPlayer(any(AppDatabase.class))).thenReturn(11);
+        when(iGame.getString()).thenReturn("ActivityOneOne");
+
+       gamePresenter.setLevelCurrentPlayer();
+       assertEquals(true, gamePresenter.getSavedNewLevel());
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setLevelCurrentPlayer(appDatabase, 11);
+    }
+
+    @Test
+    public void setLevelCurrentPlayerElseTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        when(DatabaseInitializer.getLevelCurrentPlayer(any(AppDatabase.class))).thenReturn(21);
+        when(iGame.getString()).thenReturn("ActivityOneOne");
+
+        gamePresenter.setLevelCurrentPlayer();
+        assertEquals(false, gamePresenter.getSavedNewLevel());
+    }
+
+    //Here we test setObjectCurrentPlayer()
+    @Test
+    public void setObjectCurrentPlayerTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        gamePresenter.setCurrentElement("banana");
+        gamePresenter.setFlagSaveNewLevel(true);
+        gamePresenter.setObjectCurrentPlayer();
+
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setObjectCurrentPlayer(appDatabase,"banana");
+    }
+
+    //Here we test setSubsringCurrentPlayer()
+    @Test
+    public void setSubstringCurrentPlayerTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        gamePresenter.setCurrentSequenceElement("apple");
+        gamePresenter.setFlagSaveNewLevel(true);
+        gamePresenter.setSubStringCurrentPlayer();
+
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setSubStringCurrentPlayer(appDatabase, "apple");
+    }
+
+    //Here we test storeCurrentPlayer()
+    @Test
+    public void storeCurrentPlayerTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        gamePresenter.storeCurrentPlayer(savedInstanceState);
+
+        verify(savedInstanceState, Mockito.times(1)).putInt("current_player", DatabaseInitializer.getCurrentPlayer(appDatabase));
+        verify(savedInstanceState, Mockito.times(1)).putInt("level", DatabaseInitializer.getLevelCurrentPlayer(appDatabase));
+        verify(savedInstanceState, Mockito.times(1)).putString("object", DatabaseInitializer.getObjectCurrentPlayer(appDatabase));
+        verify(savedInstanceState, Mockito.times(1)).putString("subString", DatabaseInitializer.getSubStringCurrentPlayer(appDatabase));
+
+    }
+
+    //Here we test storeProgress()
+    @Test
+    public void storeProgress(){
+
+    }
 }

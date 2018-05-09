@@ -22,12 +22,10 @@ import android.widget.Toast;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.database.ReportOneOneEntity;
 
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -45,8 +43,7 @@ public class GamePresenter implements IGame.Presenter {
     private int totalAttempts=0;
     private int counter = 0;
     private int counterColourSession = 0;
-
-    Handler myHandler;
+    private boolean executed = false;
 
     private NfcAdapter nfcAdapter;
     private List<String> currentSequence;
@@ -64,7 +61,7 @@ public class GamePresenter implements IGame.Presenter {
     private int adjustment = 0;
     private IGame.View activityInterface;
     private String currentSequenceElement;
-    private boolean multipleElement = false;
+    private boolean multipleElement;
     private int numberOfElements;
     private AppDatabase db;
     private String currentReadTag;
@@ -98,7 +95,7 @@ public class GamePresenter implements IGame.Presenter {
        gameEnded = false;
        enableNFC = false;
        colourLevel = false;
-       myHandler = new Handler();
+        Handler myHandler = new Handler();
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
        currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
        progressList = DatabaseInitializer.getProgress(db, currentPlayer);
@@ -515,6 +512,7 @@ public class GamePresenter implements IGame.Presenter {
             if (MIME_TEXT_PLAIN.equals(type)) {
                 Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 new NdefReaderTask().execute(tag);
+                executed = true;
                 Log.i("[HandleIntent]:", "Tag Detected" + type);
             } else {
                 Log.i("Wrong mime type: " , type);
@@ -526,6 +524,7 @@ public class GamePresenter implements IGame.Presenter {
             for (String tech : techList) {
                 if (searchedTech.equals(tech)) {
                     new NdefReaderTask().execute(tag);
+                    executed = true;
                 }
             }
             Log.i("[HandleIntent]:", "Action Detected" + action);
@@ -762,9 +761,6 @@ public class GamePresenter implements IGame.Presenter {
         void setCounter(int i){
             counter = i;
         }
-        List<String> getErrorList(){
-        return errorList;
-        }
         void setTotalAttempts(int i){totalAttempts = i;}
         void setCurrentElement(String string){currentElement = string;}
         void setCorrectAnswers(int i) { correctAnswers = i;}
@@ -774,7 +770,9 @@ public class GamePresenter implements IGame.Presenter {
             return activityInterface;
         }
         int getCounterColourSession(){return counterColourSession;}
-
+        boolean getSavedNewLevel(){return flagSaveNewLevel;}
+        void setFlagSaveNewLevel(boolean value){flagSaveNewLevel = value;}
+        void setCurrentSequenceElement(String element){currentSequenceElement = element;}
     @Override
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", currentPlayer);
