@@ -761,9 +761,9 @@ public class GamePresenter implements IGame.Presenter {
         void setCounter(int i){
             counter = i;
         }
-        void setTotalAttempts(int i){totalAttempts = i;}
+        void setTotalAttempts(){totalAttempts = 0;}
         void setCurrentElement(String string){currentElement = string;}
-        void setCorrectAnswers(int i) { correctAnswers = i;}
+        void setCorrectAnswers() { correctAnswers = 0;}
         void setCounterColourSession(int i){counterColourSession = i;}
         void setTempArray(ArrayList<String> array) {tempArray = array;}
         IGame.View getActivityInterface(){
@@ -771,8 +771,8 @@ public class GamePresenter implements IGame.Presenter {
         }
         int getCounterColourSession(){return counterColourSession;}
         boolean getSavedNewLevel(){return flagSaveNewLevel;}
-        void setFlagSaveNewLevel(boolean value){flagSaveNewLevel = value;}
-        void setCurrentSequenceElement(String element){currentSequenceElement = element;}
+        void setFlagSaveNewLevel(){flagSaveNewLevel = true;}
+        void setCurrentSequenceElement(){currentSequenceElement = "apple";}
     @Override
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", currentPlayer);

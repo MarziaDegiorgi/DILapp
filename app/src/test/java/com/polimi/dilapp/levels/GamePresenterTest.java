@@ -602,7 +602,7 @@ public class GamePresenterTest {
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
 
-        gamePresenter.setTotalAttempts(0);
+        gamePresenter.setTotalAttempts();
 
         gamePresenter.setCounter(1);
 
@@ -624,7 +624,7 @@ public class GamePresenterTest {
         notEmptySequence.add("carrot");
         gamePresenter.startGame(notEmptySequence);
 
-        gamePresenter.setTotalAttempts(0);
+        gamePresenter.setTotalAttempts();
 
         gamePresenter.setCounter(2);
 
@@ -736,8 +736,8 @@ public class GamePresenterTest {
         notEmptySequence.add("red");
         gamePresenter.startGame(notEmptySequence);
 
-        gamePresenter.setTotalAttempts(0);
-        gamePresenter.setCorrectAnswers(0);
+        gamePresenter.setTotalAttempts();
+        gamePresenter.setCorrectAnswers();
         gamePresenter.setCounterColourSession(5);
 
         try {
@@ -760,8 +760,8 @@ public class GamePresenterTest {
         notEmptySequence.add("violet");
         gamePresenter.startGame(notEmptySequence);
 
-        gamePresenter.setTotalAttempts(0);
-        gamePresenter.setCorrectAnswers(0);
+        gamePresenter.setTotalAttempts();
+        gamePresenter.setCorrectAnswers();
         gamePresenter.setCounterColourSession(0);
 
         try {
@@ -779,8 +779,8 @@ public class GamePresenterTest {
         notEmptySequence.add("red");
         gamePresenter.startGame(notEmptySequence);
 
-        gamePresenter.setTotalAttempts(0);
-        gamePresenter.setCorrectAnswers(0);
+        gamePresenter.setTotalAttempts();
+        gamePresenter.setCorrectAnswers();
         gamePresenter.setCounterColourSession(3);
 
         try {
@@ -974,7 +974,7 @@ public class GamePresenterTest {
 
     //Here we test setLevelCurrentPlayer()
     @Test
-    public void setLevelCurrentPlayerIfTest(){
+    public void setLevelCurrentPlayerOneOneTest(){
         ArrayList<String> notEmptySequence = new ArrayList<>();
         notEmptySequence.add("white");
         gamePresenter.startGame(notEmptySequence);
@@ -984,6 +984,111 @@ public class GamePresenterTest {
 
        gamePresenter.setLevelCurrentPlayer();
        assertEquals(true, gamePresenter.getSavedNewLevel());
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setLevelCurrentPlayer(appDatabase, 11);
+    }
+
+    @Test
+    public void setLevelCurrentPlayerOneTwoTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        when(DatabaseInitializer.getLevelCurrentPlayer(any(AppDatabase.class))).thenReturn(11);
+        when(iGame.getString()).thenReturn("ActivityOneTwo");
+
+        gamePresenter.setLevelCurrentPlayer();
+        assertEquals(true, gamePresenter.getSavedNewLevel());
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setLevelCurrentPlayer(appDatabase, 11);
+    }
+
+    @Test
+    public void setLevelCurrentPlayerOneThreeTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        when(DatabaseInitializer.getLevelCurrentPlayer(any(AppDatabase.class))).thenReturn(11);
+        when(iGame.getString()).thenReturn("ActivityOneThree");
+
+        gamePresenter.setLevelCurrentPlayer();
+        assertEquals(true, gamePresenter.getSavedNewLevel());
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setLevelCurrentPlayer(appDatabase, 11);
+    }
+
+    @Test
+    public void setLevelCurrentPlayerTwoOneTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        when(DatabaseInitializer.getLevelCurrentPlayer(any(AppDatabase.class))).thenReturn(11);
+        when(iGame.getString()).thenReturn("ActivityTwoOne");
+
+        gamePresenter.setLevelCurrentPlayer();
+        assertEquals(true, gamePresenter.getSavedNewLevel());
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setLevelCurrentPlayer(appDatabase, 11);
+    }
+
+    @Test
+    public void setLevelCurrentPlayerTwoTwoTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        when(DatabaseInitializer.getLevelCurrentPlayer(any(AppDatabase.class))).thenReturn(11);
+        when(iGame.getString()).thenReturn("ActivityTwoTwo");
+
+        gamePresenter.setLevelCurrentPlayer();
+        assertEquals(true, gamePresenter.getSavedNewLevel());
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setLevelCurrentPlayer(appDatabase, 11);
+    }
+
+    @Test
+    public void setLevelCurrentPlayerTwoThreeTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        when(DatabaseInitializer.getLevelCurrentPlayer(any(AppDatabase.class))).thenReturn(11);
+        when(iGame.getString()).thenReturn("ActivityTwoThree");
+
+        gamePresenter.setLevelCurrentPlayer();
+        assertEquals(true, gamePresenter.getSavedNewLevel());
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setLevelCurrentPlayer(appDatabase, 11);
+    }
+
+    @Test
+    public void setLevelCurrentPlayerThreeOneTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        when(DatabaseInitializer.getLevelCurrentPlayer(any(AppDatabase.class))).thenReturn(11);
+        when(iGame.getString()).thenReturn("ActivityThreeOne");
+
+        gamePresenter.setLevelCurrentPlayer();
+        assertEquals(true, gamePresenter.getSavedNewLevel());
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setLevelCurrentPlayer(appDatabase, 11);
+    }
+
+    @Test
+    public void setLevelCurrentPlayerThreeTwoTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        when(DatabaseInitializer.getLevelCurrentPlayer(any(AppDatabase.class))).thenReturn(11);
+        when(iGame.getString()).thenReturn("ActivityThreeTwo");
+
+        gamePresenter.setLevelCurrentPlayer();
+        assertEquals(true, gamePresenter.getSavedNewLevel());
         verify(databaseInitializer, Mockito.times(1));
         DatabaseInitializer.setLevelCurrentPlayer(appDatabase, 11);
     }
@@ -1009,7 +1114,7 @@ public class GamePresenterTest {
         gamePresenter.startGame(notEmptySequence);
 
         gamePresenter.setCurrentElement("banana");
-        gamePresenter.setFlagSaveNewLevel(true);
+        gamePresenter.setFlagSaveNewLevel();
         gamePresenter.setObjectCurrentPlayer();
 
         verify(databaseInitializer, Mockito.times(1));
@@ -1023,8 +1128,8 @@ public class GamePresenterTest {
         notEmptySequence.add("white");
         gamePresenter.startGame(notEmptySequence);
 
-        gamePresenter.setCurrentSequenceElement("apple");
-        gamePresenter.setFlagSaveNewLevel(true);
+        gamePresenter.setCurrentSequenceElement();
+        gamePresenter.setFlagSaveNewLevel();
         gamePresenter.setSubStringCurrentPlayer();
 
         verify(databaseInitializer, Mockito.times(1));
@@ -1050,6 +1155,6 @@ public class GamePresenterTest {
     //Here we test storeProgress()
     @Test
     public void storeProgress(){
-
+        
     }
 }
