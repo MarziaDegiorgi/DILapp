@@ -91,11 +91,11 @@ public class GamePresenter implements IGame.Presenter {
        recipeLevel = false;
        gameStarted = false;
        newSessionStarted = false;
-        newTurnStarted = false;
+       newTurnStarted = false;
        gameEnded = false;
        enableNFC = false;
        colourLevel = false;
-        Handler myHandler = new Handler();
+       Handler myHandler = new Handler();
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
        currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
        progressList = DatabaseInitializer.getProgress(db, currentPlayer);
@@ -763,7 +763,7 @@ public class GamePresenter implements IGame.Presenter {
         }
         void setTotalAttempts(){totalAttempts = 0;}
         void setCurrentElement(String string){currentElement = string;}
-        void setCorrectAnswers() { correctAnswers = 0;}
+        void setCorrectAnswers(int i) { correctAnswers = i;}
         void setCounterColourSession(int i){counterColourSession = i;}
         void setTempArray(ArrayList<String> array) {tempArray = array;}
         IGame.View getActivityInterface(){
@@ -773,6 +773,11 @@ public class GamePresenter implements IGame.Presenter {
         boolean getSavedNewLevel(){return flagSaveNewLevel;}
         void setFlagSaveNewLevel(){flagSaveNewLevel = true;}
         void setCurrentSequenceElement(){currentSequenceElement = "apple";}
+        void setInitTime(){initTime = 0;}
+        void setEndTime(){endTime = 4;}
+        void setErrorList(ArrayList<String> list){errorList = list;}
+        void setDateList(ArrayList<Date> list){dateList = list;}
+
     @Override
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", currentPlayer);
@@ -789,6 +794,8 @@ public class GamePresenter implements IGame.Presenter {
         storeProgress();
             return endTime;
     }
+
+
     @Override
     public void storeProgress() {
         Log.i("[GAME PRESENTER]", "Init time: " + initTime);

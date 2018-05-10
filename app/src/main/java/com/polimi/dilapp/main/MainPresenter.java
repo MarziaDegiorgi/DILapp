@@ -20,6 +20,7 @@ public class MainPresenter implements IMain.Presenter{
     private AppDatabase db;
     private TextView[] dotsText;
 
+
     MainPresenter(IMain.View view){
 
         this.mainView= view;
@@ -35,6 +36,7 @@ public class MainPresenter implements IMain.Presenter{
         Log.i("Current player: ", String.valueOf(DatabaseInitializer.getCurrentPlayer(db)));
 
     }
+
     @Override
     public void storeCurrentPlayer(Bundle savedInstanceState) {
         savedInstanceState.putInt("current_player", DatabaseInitializer.getCurrentPlayer(db));

@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -33,17 +34,20 @@ import org.powermock.reflect.Whitebox;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Log.class, AppDatabase.class, SystemClock.class, Toast.class, NfcAdapter.class, Intent.class, AsyncTask.class, DatabaseInitializer.class})
+@PrepareForTest({Log.class, AppDatabase.class, SystemClock.class, Toast.class, NfcAdapter.class, Intent.class, AsyncTask.class, DatabaseInitializer.class, DateUtils.class})
 public class GamePresenterTest {
 
     @Rule
@@ -68,6 +72,9 @@ public class GamePresenterTest {
     private ArrayList<String> mockedArray;
 
     @Mock
+    private ArrayList<Integer> intArray;
+
+    @Mock
     private Toast toast;
 
     @Mock
@@ -76,9 +83,22 @@ public class GamePresenterTest {
     @Mock
     private Bundle savedInstanceState;
 
+    @Mock
+    private Date date;
 
     @Mock
     private DatabaseInitializer databaseInitializer;
+
+    @Mock
+    private ArrayList<Date> datelist;
+
+    @Mock
+    private ArrayList<Float> progressList;
+
+    @Mock
+    private ArrayList<Integer> intList;
+
+
 
     @Before
     public void test() {
@@ -95,6 +115,8 @@ public class GamePresenterTest {
         PowerMockito.mockStatic(AsyncTask.class);
         PowerMockito.mockStatic(Handler.class);
         PowerMockito.mockStatic(Bundle.class);
+        PowerMockito.mockStatic(DateUtils.class);
+        PowerMockito.mockStatic(Calendar.class);
 
         when(Log.i(any(String.class), any(String.class))).thenReturn(1);
         when(Log.e(any(String.class), any(String.class), any(Throwable.class))).thenReturn(1);
@@ -737,7 +759,7 @@ public class GamePresenterTest {
         gamePresenter.startGame(notEmptySequence);
 
         gamePresenter.setTotalAttempts();
-        gamePresenter.setCorrectAnswers();
+        gamePresenter.setCorrectAnswers(0);
         gamePresenter.setCounterColourSession(5);
 
         try {
@@ -761,7 +783,7 @@ public class GamePresenterTest {
         gamePresenter.startGame(notEmptySequence);
 
         gamePresenter.setTotalAttempts();
-        gamePresenter.setCorrectAnswers();
+        gamePresenter.setCorrectAnswers(0);
         gamePresenter.setCounterColourSession(0);
 
         try {
@@ -780,7 +802,7 @@ public class GamePresenterTest {
         gamePresenter.startGame(notEmptySequence);
 
         gamePresenter.setTotalAttempts();
-        gamePresenter.setCorrectAnswers();
+        gamePresenter.setCorrectAnswers(0);
         gamePresenter.setCounterColourSession(3);
 
         try {
@@ -1153,8 +1175,42 @@ public class GamePresenterTest {
     }
 
     //Here we test storeProgress()
+    //TODO: TEST STOREPROGRESS()
+/*
     @Test
-    public void storeProgress(){
-        
-    }
+    public void storeProgressIfIfTest(){
+
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("carrot");
+        list.add("apple");
+
+        ArrayList<Date> dateList = new ArrayList<>();
+        dateList.add(new Date(11/ 2 /2016));
+        dateList.add(new Date(12/ 2 /2016));
+
+        when(Calendar.getInstance().getTime()).thenReturn(date);
+        when(DateUtils.isToday(any(Long.class))).thenReturn(false);
+
+        gamePresenter.setInitTime();
+        gamePresenter.setEndTime();
+        gamePresenter.setErrorList(list);
+        gamePresenter.setDateList(dateList);
+
+        gamePresenter.storeProgress();
+
+
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setProgressDate(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), datelist);
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setProgress(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), progressList);
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setCorrectAnswer(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.setTime(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
+
+    }*/
 }
