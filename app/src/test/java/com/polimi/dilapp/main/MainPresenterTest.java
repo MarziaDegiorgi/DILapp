@@ -103,6 +103,4 @@ public class MainPresenterTest {
         verify(databaseInitializer, Mockito.times(1)).resetCurrentPlayer(appDatabase);
     }
 
-    
-
     }
