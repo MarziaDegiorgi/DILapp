@@ -1175,8 +1175,8 @@ public class GamePresenterTest {
     }
 
     //Here we test storeProgress()
-    //TODO: TEST STOREPROGRESS()
-/*
+    //TODO: TEST REMAINING BRANCHES OF STOREPROGRESS()
+
     @Test
     public void storeProgressIfIfTest(){
 
@@ -1203,14 +1203,45 @@ public class GamePresenterTest {
         gamePresenter.storeProgress();
 
 
-        verify(databaseInitializer, Mockito.times(1));
+        verify(databaseInitializer, Mockito.times(4));
         DatabaseInitializer.setProgressDate(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), datelist);
-        verify(databaseInitializer, Mockito.times(1));
         DatabaseInitializer.setProgress(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), progressList);
-        verify(databaseInitializer, Mockito.times(1));
         DatabaseInitializer.setCorrectAnswer(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
-        verify(databaseInitializer, Mockito.times(1));
         DatabaseInitializer.setTime(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
 
-    }*/
+    }
+
+    @Test
+    public void storeProgressElseTest(){
+
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("carrot");
+        list.add("apple");
+
+        ArrayList<Date> dateList = new ArrayList<>();
+
+
+        when(Calendar.getInstance().getTime()).thenReturn(date);
+        when(DateUtils.isToday(any(Long.class))).thenReturn(true);
+
+        gamePresenter.setInitTime();
+        gamePresenter.setEndTime();
+        gamePresenter.setErrorList(list);
+        gamePresenter.setDateList(dateList);
+
+        gamePresenter.storeProgress();
+
+
+        verify(databaseInitializer, Mockito.times(4));
+        DatabaseInitializer.setProgress(appDatabase,DatabaseInitializer.getCurrentPlayer(appDatabase) , progressList);
+        DatabaseInitializer.setProgressDate(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), dateList);
+        DatabaseInitializer.setCorrectAnswer(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
+        DatabaseInitializer.setTime(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
+    }
+
+
 }
