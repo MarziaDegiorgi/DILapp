@@ -1175,7 +1175,7 @@ public class GamePresenterTest {
     }
 
     //Here we test storeProgress()
-    //TODO: TEST REMAINING BRANCHES OF STOREPROGRESS()
+    //TODO: TEST THE REMAINING BRANCH OF STOREPROGRESS()
 
     @Test
     public void storeProgressIfIfTest(){
