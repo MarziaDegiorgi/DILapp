@@ -65,6 +65,12 @@ public class StartGameTest {
     @Mock
     private Bundle savedInstanceState;
 
+    @Mock
+    private int num;
+
+    @Mock
+    private String string;
+
 
     //Here we test OnDestroy()
     @Test
@@ -133,8 +139,26 @@ public class StartGameTest {
 
 
     //Here we test setCurrentPlayer()
-    //Here we test resetCurrentPlayer()
+    @Test
+    public void setCurrenPlayertTest(){
+        startGamePresenter.setCurrentPlayer(DatabaseInitializer.getCurrentPlayer(appDatabase),num, string,string);
 
+        DatabaseInitializer.setCurrentPlayer(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase));
+        DatabaseInitializer.setLevelCurrentPlayer(appDatabase, num);
+        DatabaseInitializer.setObjectCurrentPlayer(appDatabase, string);
+        DatabaseInitializer.setSubStringCurrentPlayer(appDatabase, string);
+    }
+
+    //Here we test resetCurrentPlayer()
+    @Test
+    public void resetCurrentPlayerTest(){
+        startGamePresenter.resetCurrentPlayer();
+
+        verify(databaseInitializer, Mockito.times(1));
+        DatabaseInitializer.resetCurrentPlayer(appDatabase);
+
+
+    }
 
 
 }
