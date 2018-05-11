@@ -88,7 +88,7 @@ public class StartGamePresenter implements  IStartGame.Presenter {
         return DatabaseInitializer.getLevelCurrentPlayer(db);
     }
 
-    private String getObjectCurrentPlayer(){
+    public String getObjectCurrentPlayer(){
         return DatabaseInitializer.getObjectCurrentPlayer(db);
     }
 
@@ -167,4 +167,7 @@ public class StartGamePresenter implements  IStartGame.Presenter {
         DatabaseInitializer.resetCurrentPlayer(db);
         Log.i("[STARTGAME PRESENTER]", " I'm resetting the current player");
     }
+
+    IStartGame.View getStartGameView(){return startGameView;}
+    AppDatabase getAppDatabase(){return db;}
 }
