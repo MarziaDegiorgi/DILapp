@@ -72,6 +72,7 @@ public class ReportSettingsPresenter extends AppCompatActivity implements IRepor
             emailAlreadySet(confirm, emailValidate);
         }
     }
+
     public void emailtoSet(final Button confirm, final EditText emailValidate) {
         emailValidate.setClickable(true);
         emailValidate.setEnabled(true);

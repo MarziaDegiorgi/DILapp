@@ -2,6 +2,7 @@ package com.polimi.dilapp.startgame;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -25,7 +26,7 @@ import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({AppDatabase.class, Bundle.class, DatabaseInitializer.class, Log.class})
+@PrepareForTest({AppDatabase.class, Bundle.class, DatabaseInitializer.class, Log.class, Intent.class})
 public class StartGameTest {
 
     @Before
@@ -34,6 +35,7 @@ public class StartGameTest {
         PowerMockito.mockStatic(Bundle.class);
         PowerMockito.mockStatic(DatabaseInitializer.class);
         PowerMockito.mockStatic(Log.class);
+        PowerMockito.mockStatic(Intent.class);
 
 
         when(Log.i(any(String.class), any(String.class))).thenReturn(1);
@@ -159,6 +161,4 @@ public class StartGameTest {
 
 
     }
-
-
 }

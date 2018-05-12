@@ -37,4 +37,8 @@ public class ReportMainPresenter implements IReport.Presenter{
         }
 
 
+    public IReport.View getView() {
+        return view;
+    }
+
 }
