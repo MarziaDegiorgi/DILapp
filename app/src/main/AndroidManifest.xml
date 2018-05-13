@@ -6,7 +6,8 @@
         android:normalScreens="true" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="27" />
+    android:maxSdkVersion="27" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.NFC" />
     <uses-feature
         android:name="android.hardware.nfc"
@@ -14,13 +15,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logolion"
+        android:icon="@mipmap/logo_red_vector"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:hardwareAccelerated="false"
         android:largeHeap="true"
+        android:hardwareAccelerated="true"
         >
         <activity android:name=".main.MainActivity"
             android:noHistory="true"
@@ -94,11 +95,14 @@
         <activity android:name=".levels.view.ActivityThreeOne" />
         <activity android:name=".report.ReportMainActivity"
             android:hardwareAccelerated="true"/>
-        <activity android:name=".report.ReportSettingsActivity" />
+        <activity android:name=".report.ReportSettingsActivity"
+            android:hardwareAccelerated="true"/>
         <activity android:name=".levels.view.ActivityThreeTwo" />
         <activity android:name=".report.ReportSpecActivity"
             android:hardwareAccelerated="true"/>
-        <activity android:name=".levelmap.ReportLevelMapActivity" />
+        <activity android:name=".levelmap.ReportLevelMapActivity"
+            android:hardwareAccelerated="true"/>
+
 
         <meta-data
             android:name="preloaded_fonts"

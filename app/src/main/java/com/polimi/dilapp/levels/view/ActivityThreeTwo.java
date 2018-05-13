@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -83,8 +84,12 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     }
 
     @Override
-    public void sendEmail(String email, String subject) {
-
+    public void sendEmail(Intent i) {
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(ActivityThreeTwo.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

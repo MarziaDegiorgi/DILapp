@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -377,7 +378,6 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         this.disableImageView(answerBox);
         this.disableImageView(imageToHide);
         this.disableImageView(requestObject);
-
         this.disableImageView(column1);
         this.disableImageView(column2);
         this.disableImageView(column3);
@@ -387,8 +387,12 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     }
 
     @Override
-    public void sendEmail(String email, String subject) {
-
+    public void sendEmail(Intent i) {
+        try {
+            startActivity(Intent.createChooser(i, "Send mail..."));
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(ActivityTwoThree.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

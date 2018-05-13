@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -867,9 +868,25 @@ public class GamePresenter implements IGame.Presenter {
             if (errorList.size()>0) {
                 DatabaseInitializer.setAllErrors(db, errorList, level);
             }
-            if(DatabaseInitializer.isEmailSet(db)){
+            //if(DatabaseInitializer.isAutoRepoEnabled(db)){
+        /*Log.i("[GAME PRESENTER]", "Sending email...");
+        Intent i = new Intent(Intent.ACTION_SENDTO);
+        i.setData(Uri.parse("mailto:"));
+        i.setType("message/rfc822");
+                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{DatabaseInitializer.getEmail(db)});
+                i.putExtra(Intent.EXTRA_SUBJECT, "INTERNOSCO - I progressi di "+ DatabaseInitializer.getNameCurrentPlayer(db));
+                i.putExtra(Intent.EXTRA_TEXT   , DatabaseInitializer.getNameCurrentPlayer(db) + " ha identificato correttamente "+ correctAnswers+ " oggetti in "+ actualTime + " minuti.");
+                activityInterface.sendEmail(i);
+            }*/
+        Log.i("[GAME PRESENTER]", "Sending email...");
 
-            }
+
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
+            emailIntent.setData(Uri.parse("mailto:" + "giulialeonardi13@gmail.com"));
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "My email's subject");
+            emailIntent.putExtra(Intent.EXTRA_TEXT, "My email's body");
+            activityInterface.sendEmail(emailIntent);
+
+
         }
-
 }

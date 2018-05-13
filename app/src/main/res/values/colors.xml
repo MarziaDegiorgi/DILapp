@@ -18,4 +18,5 @@
     <color name="lighter_orange">#ffe1d8</color>
     <color name= "gray">#efefef</color>
     <color name= "dark_gray">#c5b4b4</color>
+    <color name= "dark_red">#BB010F</color>
 </resources>

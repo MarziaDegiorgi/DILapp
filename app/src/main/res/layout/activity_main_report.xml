@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -71,6 +70,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/report"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
@@ -96,14 +96,22 @@
             android:layout_height="200dip"
             />
 
+
     </LinearLayout>
 
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="70dp"
+    android:orientation="horizontal"
+    android:layout_gravity="center"
+    android:padding="10dp"
+
+    >
     <Button
         android:id="@+id/spec_button"
         style="@android:style/Widget.DeviceDefault.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:background="@drawable/roundedbutton"
         android:backgroundTint="@color/colorPrimaryDark"
         android:padding="10dp"
@@ -111,6 +119,14 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="20sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:layout_marginStart="30dp"/>
 
+    <ImageView
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/share_icon"/>
 </LinearLayout>
+</LinearLayout>
+

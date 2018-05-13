@@ -216,6 +216,14 @@ public class DatabaseInitializer {
         return progress;
     }
 
+    public static Date getLastProgressDate(AppDatabase db, int id) throws ParseException {
+        ArrayList<Date> dates = getProgressDate(db, id);
+        if(dates.size() != 0){
+            return dates.get(dates.size()-1);
+        }else{
+            return null;
+        }
+    }
     public static void setProgressDate(AppDatabase db, int id, ArrayList<Date> newProgress){
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         StringBuilder sb = new StringBuilder();
@@ -242,6 +250,16 @@ public class DatabaseInitializer {
         }
         return correctAnswers;
     }
+
+    public static int getLastCorrectAnswer(AppDatabase db, int id) throws ParseException {
+        ArrayList<Integer> correctAnswers = getCorrectAnswer(db, id);
+        if(correctAnswers.size() != 0){
+            return correctAnswers.get(correctAnswers.size()-1);
+        }else{
+            return -1;
+        }
+    }
+
     public static void setCorrectAnswer(AppDatabase db, int id, ArrayList<Integer> newCorrectAnswers){
         StringBuilder sb = new StringBuilder();
 
@@ -266,6 +284,15 @@ public class DatabaseInitializer {
             }
         }
         return time;
+    }
+
+    public static int getLastTimePlayed(AppDatabase db, int id){
+       ArrayList<Integer> timeArray = getTime(db, id);
+       if(timeArray.size() != 0){
+           return timeArray.get(timeArray.size()-1);
+       }else{
+        return -1;
+       }
     }
     public static void setTime(AppDatabase db, int id, ArrayList<Integer> newTime){
         StringBuilder sb = new StringBuilder();

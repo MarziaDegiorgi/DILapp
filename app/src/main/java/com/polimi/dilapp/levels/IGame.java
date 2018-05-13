@@ -82,7 +82,7 @@ public interface IGame {
          */
         void disableViews();
 
-        void sendEmail(String email, String subject);
+        void sendEmail(Intent i);
     }
 
     interface  Presenter {
