@@ -1,12 +1,17 @@
 package com.polimi.dilapp.report;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.media.MediaCodec;
+import android.provider.ContactsContract;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.AppDatabase_Impl;
 import com.polimi.dilapp.database.ChildDao;
@@ -20,6 +25,7 @@ import java.util.regex.Pattern;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.stubbing.Answer;
@@ -33,7 +39,7 @@ import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({AppDatabase.class, Log.class, DatabaseInitializer.class, Pattern.class, Matcher.class})
+@PrepareForTest({AppDatabase.class, Log.class, DatabaseInitializer.class, Pattern.class, Matcher.class, ContextCompat.class})
 public class ReportSettingsPresenterTest {
 
     @Before
@@ -43,6 +49,7 @@ public class ReportSettingsPresenterTest {
         PowerMockito.mockStatic(Log.class);
         PowerMockito.mockStatic(DatabaseInitializer.class);
         PowerMockito.mockStatic(Pattern.class);
+        PowerMockito.mockStatic(ContextCompat.class);
         PowerMockito.mockStatic(Matcher.class);
 
         when(Log.i(any(String.class), any(String.class))).thenReturn(1);
@@ -68,6 +75,9 @@ public class ReportSettingsPresenterTest {
     private ChildDao childDao;
 
     @Mock
+    private Color color;
+
+    @Mock
     private String string;
 
     @Mock
@@ -86,7 +96,16 @@ public class ReportSettingsPresenterTest {
     private EditText editText;
 
     @Mock
+    private int num;
+
+    @Mock
     private LinearLayout linearLayout;
+
+    @Mock
+    private Context context;
+
+    @Mock
+    private ContextCompat contextCompat;
 
     //Here we test enableAutoRepo()
   /* @Test
@@ -148,21 +167,25 @@ public class ReportSettingsPresenterTest {
 
     //Here we test checkRepo()
    /* @Test
-    public void checkRepoTest(){
+   /* public void checkRepoTest(){
+        when(DatabaseInitializer.getEmail(appDatabase)).thenReturn(string);
+        when(ContextCompat.getColor(view.getContext(), num)).thenReturn(num);
        when(DatabaseInitializer.isEmailSet(appDatabase)).thenReturn(true);
 
        reportSettingsPresenter.checkRepo(button, editText);
 
        verify(reportSettingsPresenter, Mockito.times(1)).emailAlreadySet(button, editText);
     }
-*/
+
 
    //Here we test setAutoRepo()
-   /* @Test
+   @Test
     public void setAutoRepoTest(){
-
+        when(DatabaseInitializer.getEmail(appDatabase)).thenReturn(string);
+        when(ContextCompat.getColor(view.getContext(), num)).thenReturn(num);
 
         when(reportSettingsPresenter.isAutoRepoEnabled()).thenReturn(true);
+
         reportSettingsPresenter.setAutoRepo(button, linearLayout);
 
         verify(reportSettingsPresenter, Mockito.times(1)).checkRepo(button, editText);
@@ -170,4 +193,50 @@ public class ReportSettingsPresenterTest {
 
 
 
+   //Here we test emailToCheck()
+    @Test
+    public void emailToCheckTest(){
+        when(DatabaseInitializer.getEmail(appDatabase)).thenReturn(string);
+        when(ContextCompat.getColor(view.getContext(), num)).thenReturn(num);
+
+        reportSettingsPresenter.emailtoSet(button, editText);
+
+
+        verify(editText, Mockito.times(1)).setClickable(true);
+        verify(editText, Mockito.times(1)).setEnabled(true);
+        verify(editText, Mockito.times(1)).setTextColor(num);
+        verify(editText, Mockito.times(1)).setBackgroundColor(num);
+
+        verify(button, Mockito.times(1)).setOnClickListener(any(View.OnClickListener.class));
+
+
+        verify(databaseInitializer,Mockito.times(1));
+        DatabaseInitializer.setEmail(appDatabase, string);
+
+        //TODO: try to test the if brach: the problem is that I'm not able to mock the internal call to isEmail valid,
+        //from the manual: final things cannot be verified/stubbed
+    }
+
+
+
+    //Here we test emailAlreadySet()
+    @Test
+    public void emailAlreadySetTest(){
+
+        when(DatabaseInitializer.getEmail(appDatabase)).thenReturn(string);
+        when(ContextCompat.getColor(view.getContext(), num)).thenReturn(num);
+
+        reportSettingsPresenter.emailAlreadySet(button, editText);
+
+        verify(editText, Mockito.times(1)).setClickable(false);
+        verify(editText, Mockito.times(1)).setEnabled(false);
+        //verify(editText, Mockito.times(1)).setTextColor(num);
+        verify(editText, Mockito.times(1)).setText(null);
+
+        verify(button, Mockito.times(1)).setOnClickListener(any(View.OnClickListener.class));
+
+        verify(databaseInitializer,Mockito.times(1));
+        DatabaseInitializer.setEmail(appDatabase, string);
+
+    }
 }
