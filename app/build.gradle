@@ -57,6 +57,9 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     implementation 'com.itextpdf:itextg:5.5.10'
 
+
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
+
 }
 
 

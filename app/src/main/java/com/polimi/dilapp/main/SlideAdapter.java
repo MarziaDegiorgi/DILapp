@@ -25,9 +25,9 @@ public class SlideAdapter extends PagerAdapter {
 
     //Arrays
     public int[] slide_images = {
-            R.drawable.apple,
-            R.drawable.pear,
-            R.drawable.carrot
+            R.raw.repo_gif,
+            R.raw.repo_gif,
+            R.raw.repo_gif
     };
 
     public String[] slide_texts= {
@@ -53,6 +53,7 @@ public class SlideAdapter extends PagerAdapter {
         View view = layoutInflater.inflate(R.layout.slide_layout, container, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.icon_slide);
         TextView textView = view.findViewById(R.id.text_slide);
+
 
         imageView.setImageResource(slide_images[position]);
         textView.setText(slide_texts[position]);
