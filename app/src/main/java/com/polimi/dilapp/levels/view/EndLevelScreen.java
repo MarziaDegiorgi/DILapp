@@ -28,11 +28,7 @@ public class EndLevelScreen extends AppCompatActivity {
 
         setContentView(R.layout.end_level_screen);
 
-        Animation animationOne = AnimationUtils.loadAnimation(EndLevelScreen.this, R.anim.jump_and_rotate);
-        ImageView imageOne = findViewById(R.id.imageOne);
-        imageOne.setVisibility(View.VISIBLE);
-        imageOne.setAnimation(animationOne);
-        imageOne.startAnimation(animationOne);
+
 
         Animation animationTwo = AnimationUtils.loadAnimation(EndLevelScreen.this, R.anim.half_rotation_right);
         ImageView imageTwo = findViewById(R.id.imageTwo);
@@ -44,6 +40,11 @@ public class EndLevelScreen extends AppCompatActivity {
         imageThree.setVisibility(View.VISIBLE);
         imageThree.setAnimation(animationTwo);
         imageThree.startAnimation(animationTwo);
+
+        ImageView imageOne = findViewById(R.id.imageOne);
+        imageOne.setVisibility(View.VISIBLE);
+        imageOne.setAnimation(animationTwo);
+        imageOne.startAnimation(animationTwo);
 
         Button nextButton = findViewById(R.id.nextButton);
         nextButton.setText(buttonName);

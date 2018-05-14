@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:background="@color/transparent">
 
-
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/icon_slide"
         android:layout_width="wrap_content"

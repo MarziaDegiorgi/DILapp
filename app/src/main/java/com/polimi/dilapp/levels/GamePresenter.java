@@ -656,6 +656,7 @@ public class GamePresenter implements IGame.Presenter {
             }else{
                 Log.i("[NFC] ", "not enabled");
             }
+            cancel(true);
         }
     }
         private void setTimeParameter(){
