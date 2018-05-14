@@ -53,7 +53,7 @@ public class MainPresenter implements IMain.Presenter{
 
     @Override
     public void addDotsIndicator(Context context, LinearLayout linearLayout, int position) {
-        dotsText = new TextView[3];
+        dotsText = new TextView[4];
         linearLayout.removeAllViews();
         for(int i=0; i<dotsText.length; i++){
             dotsText[i] = new TextView(context);

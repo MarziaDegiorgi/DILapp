@@ -59,7 +59,7 @@ public class GamePresenter implements IGame.Presenter {
     private int endTime;
     private int totaltime;
     //TODO set adjustments: they are the approximated lenght in seconds of the videos of the activity
-    private int adjustment = 0;
+    private int adjustment;
     private IGame.View activityInterface;
     private String currentSequenceElement;
     private boolean multipleElement;
@@ -105,6 +105,7 @@ public class GamePresenter implements IGame.Presenter {
        timeList = DatabaseInitializer.getTime(db, currentPlayer);
        level = 0;
        errorList = new ArrayList<>();
+       setAdjustment();
    }
 
    @Override
@@ -454,6 +455,48 @@ public class GamePresenter implements IGame.Presenter {
         newTurnStarted = false;
         Log.i(CLASS, "Ask current recipe element" );
         activityInterface.setPresentationAnimation(currentSequenceElement);
+    }
+
+    private void setAdjustment(){
+        Log.i("[GAME PRESENTER]", " setting adjustment");
+        switch (activityInterface.getString()){
+            case "ActivityOneOne":
+                adjustment = 0;
+                Log.e("[Adjustment] ", String.valueOf(adjustment));
+                break;
+            case "ActivityOneTwo":
+                adjustment = 0;
+                Log.e("[Adjustment] ", String.valueOf(adjustment));
+                break;
+            case "ActivityOneThree":
+                adjustment = 0;
+                Log.e("[Adjustment] ", String.valueOf(adjustment));
+                break;
+            case "ActivityTwoOne":
+                adjustment = 0;
+                Log.e("[Adjustment] ", String.valueOf(adjustment));
+                break;
+            case "ActivityTwoTwo":
+                adjustment = 0;
+                Log.e("[Adjustment] ", String.valueOf(adjustment));
+                break;
+            case "ActivityTwoThree":
+                adjustment = 0;
+                Log.e("[Adjustment] ", String.valueOf(adjustment));
+                break;
+            case "ActivityThreeOne":
+                adjustment = 0;
+                Log.e("[Adjustment] ", String.valueOf(adjustment));
+                break;
+            case "ActivityThreeTwo":
+                adjustment = 0;
+                Log.e("[Adjustment] ", String.valueOf(adjustment));
+                break;
+            default:
+                adjustment = 0;
+                Log.e("[Adjustment] ", String.valueOf(adjustment));
+                break;
+        }
     }
 
     @Override

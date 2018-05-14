@@ -25,15 +25,17 @@ public class SlideAdapter extends PagerAdapter {
 
     //Arrays
     public int[] slide_images = {
+            R.raw.intro_gif,
+            R.raw.nfc_gif,
             R.raw.repo_gif,
-            R.raw.repo_gif,
-            R.raw.repo_gif
+            R.raw.share_gif
     };
 
     public String[] slide_texts= {
-            "SLIDE1",
-            "SLIDE2",
-            "SLIDE3"
+            "SLIDE 1",
+            "SLIDE 2",
+            "SLIDE 3",
+            "SLIDE 4"
     };
 
 
