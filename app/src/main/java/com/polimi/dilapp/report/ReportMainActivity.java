@@ -3,6 +3,7 @@ package com.polimi.dilapp.report;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.arch.persistence.room.Database;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -92,6 +93,10 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         super.onCreate(onSavedInstanceState);
         setContentView(R.layout.activity_main_report);
         shareButton = findViewById(R.id.share_button);
+
+        getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
+                WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
@@ -181,9 +186,14 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProgressDialog progress = new ProgressDialog(getContext());
+                progress.setTitle("Caricamento reportistica");
+                progress.setMessage("Creazione del PDF in corso...");
+                progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+                progress.show();
                 LinearLayout v1 = findViewById(R.id.child_credentials);
                 LinearLayout v2 = findViewById(R.id.report);
-                presenter.takeScreenshot(v1, v2);
+                presenter.takeScreenshot(v1, v2, progress);
             }
         });
     }
