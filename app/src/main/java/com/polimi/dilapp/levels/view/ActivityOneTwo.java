@@ -296,4 +296,6 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         super.onSaveInstanceState(savedInstanceState);
         Log.i("[ACTIVITY 12]", "I'm calling storeCurrentPlayer");
     }
+
+
 }

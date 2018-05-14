@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
@@ -14,19 +16,45 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
+import com.polimi.dilapp.emailSender.Mail;
+import com.polimi.dilapp.report.ReportMainActivity;
+import com.polimi.dilapp.report.ReportMainPresenter;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -51,6 +79,7 @@ public class GamePresenter implements IGame.Presenter {
     private String currentElement;
     private String currentSubElement;
     private int subElementIndex ;
+    private String currentDate;
 
     private static final String MIME_TEXT_PLAIN = "text/plain";
     private List<String> tempArray;
@@ -96,7 +125,6 @@ public class GamePresenter implements IGame.Presenter {
        gameEnded = false;
        enableNFC = false;
        colourLevel = false;
-       Handler myHandler = new Handler();
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
        currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
        progressList = DatabaseInitializer.getProgress(db, currentPlayer);
@@ -105,6 +133,9 @@ public class GamePresenter implements IGame.Presenter {
        timeList = DatabaseInitializer.getTime(db, currentPlayer);
        level = 0;
        errorList = new ArrayList<>();
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        currentDate = sdf.format(currentTime);
        setAdjustment();
    }
 
@@ -852,8 +883,8 @@ public class GamePresenter implements IGame.Presenter {
 
         int actualTime = endTime - initTime - adjustment;
         float progress = (float) correctAnswers * 10 / actualTime;
-        if (progress != 0.0 || (progress == 0.0 && errorList.size()>0)) {
-            if(dateList.size()>0) {
+        if (progress != 0.0 || (progress == 0.0 && errorList.size() > 0)) {
+            if (dateList.size() > 0) {
                 if (!DateUtils.isToday(dateList.get(dateList.size() - 1).getTime())) {
                     Date c = Calendar.getInstance().getTime();
                     dateList.add(c);
@@ -867,17 +898,17 @@ public class GamePresenter implements IGame.Presenter {
                     timeList.add(actualTime);
                     DatabaseInitializer.setTime(db, currentPlayer, timeList);
                 } else {
-                    int lastCorrectAnswer = correctAnswersList.get(correctAnswersList.size()-1);
-                    correctAnswersList.remove(correctAnswersList.size()-1);
-                    int newCorrectAnswer = lastCorrectAnswer+correctAnswers;
-                    Log.i("[GAME PRESENTER]", "New correct answer is "+ newCorrectAnswer);
-                    int lastTime = timeList.get(timeList.size()-1);
-                    timeList.remove(timeList.size()-1);
+                    int lastCorrectAnswer = correctAnswersList.get(correctAnswersList.size() - 1);
+                    correctAnswersList.remove(correctAnswersList.size() - 1);
+                    int newCorrectAnswer = lastCorrectAnswer + correctAnswers;
+                    Log.i("[GAME PRESENTER]", "New correct answer is " + newCorrectAnswer);
+                    int lastTime = timeList.get(timeList.size() - 1);
+                    timeList.remove(timeList.size() - 1);
                     int newTime = lastTime + actualTime;
-                    Log.i("[GAME PRESENTER]", "New time is "+ newTime);
+                    Log.i("[GAME PRESENTER]", "New time is " + newTime);
                     progressList.remove(progressList.size() - 1);
-                    float newProgress = (float) (newCorrectAnswer*10)/newTime;
-                    Log.i("[GAME PRESENTER]", "New progress is "+ newProgress);
+                    float newProgress = (float) (newCorrectAnswer * 10) / newTime;
+                    Log.i("[GAME PRESENTER]", "New progress is " + newProgress);
                     progressList.add(newProgress);
                     Log.i("[GAME PRESENTER]", "Storing a new progress: " + newProgress);
                     DatabaseInitializer.setProgress(db, currentPlayer, progressList);
@@ -886,7 +917,7 @@ public class GamePresenter implements IGame.Presenter {
                     timeList.add(newTime);
                     DatabaseInitializer.setTime(db, currentPlayer, timeList);
                 }
-            }else{
+            } else {
                 Calendar cal = Calendar.getInstance();
                 cal.add(Calendar.DATE, -1);
                 Date dayBefore = cal.getTime();
@@ -907,28 +938,176 @@ public class GamePresenter implements IGame.Presenter {
                 DatabaseInitializer.setTime(db, currentPlayer, timeList);
             }
         }
-            if (errorList.size()>0) {
-                DatabaseInitializer.setAllErrors(db, errorList, level);
-            }
-            //if(DatabaseInitializer.isAutoRepoEnabled(db)){
-        /*Log.i("[GAME PRESENTER]", "Sending email...");
-        Intent i = new Intent(Intent.ACTION_SENDTO);
-        i.setData(Uri.parse("mailto:"));
-        i.setType("message/rfc822");
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{DatabaseInitializer.getEmail(db)});
-                i.putExtra(Intent.EXTRA_SUBJECT, "INTERNOSCO - I progressi di "+ DatabaseInitializer.getNameCurrentPlayer(db));
-                i.putExtra(Intent.EXTRA_TEXT   , DatabaseInitializer.getNameCurrentPlayer(db) + " ha identificato correttamente "+ correctAnswers+ " oggetti in "+ actualTime + " minuti.");
-                activityInterface.sendEmail(i);
-            }*/
-        Log.i("[GAME PRESENTER]", "Sending email...");
-
-
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO);
-            emailIntent.setData(Uri.parse("mailto:" + "giulialeonardi13@gmail.com"));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "My email's subject");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "My email's body");
-            activityInterface.sendEmail(emailIntent);
-
-
+        if (errorList.size() > 0) {
+            DatabaseInitializer.setAllErrors(db, errorList, level);
         }
+        if(DatabaseInitializer.isAutoRepoEnabled(db)) {
+            new SendEmailTask().execute();
+        }
+    }
+
+
+    private class SendEmailTask extends AsyncTask<Object, Object, Object> {
+        @Override
+        protected Object doInBackground(Object... arg0) {
+            final Mail m = new Mail("internosco.team@gmail.com", "internoscoteam");
+            String email = DatabaseInitializer.getEmail(db);
+            String[] toArr = {email};
+            m.setTo(toArr);
+            m.setFrom("internosco.team@gmail.com");
+            m.setSubject("Reportistica di "+ DatabaseInitializer.getNameCurrentPlayer(db)+" del "+currentDate);
+            try {
+                String string;
+                if(errorList.size() != 0) {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(DatabaseInitializer.getNameCurrentPlayer(db)+
+                            " non ha riconosciuto i seguenti oggetti: ");
+                    for (int i = 0; i < errorList.size(); i++) {
+                        String s = errorList.get(i);
+                        switch (errorList.get(i)){
+                            case "asparagus":
+                                s = "asparago";
+                                break;
+                            case "apple":
+                                s = "mela";
+                                break;
+                            case "banana":
+                                s = "banana";
+                                break;
+                            case "broccoli":
+                                s = "broccoli";
+                                break;
+                            case "lemon":
+                                s = "limone";
+                                break;
+                            case "corn":
+                                s = "mais";
+                                break;
+                            case "grapefruit":
+                                s = "pompelmo";
+                                break;
+                            case "watermelon":
+                                s = "anguria";
+                                break;
+                            case "strawberry":
+                                s = "fragola";
+                                break;
+                            case "pepper":
+                                s = "peperone";
+                                break;
+                            case "tomato":
+                                s = "pomodoro";
+                                break;
+                            case "orange":
+                                s = "arancia";
+                                break;
+                            case "carrot":
+                                s = "carota";
+                                break;
+                            case "onion":
+                                s = "cipolla";
+                                break;
+                            case "tangerine":
+                                s = "mandarino";
+                                break;
+                            case "eggplant":
+                                s = "melanzana";
+                                break;
+                            case "cucumber":
+                                s = "cetriolo";
+                                break;
+                            case "pear":
+                                s = "pera";
+                                break;
+                            case "greenpea":
+                                s = "piselli";
+                                break;
+                            case "fennel":
+                                s = "cetriolo";
+                                break;
+                            case "potato":
+                                s = "patata";
+                                break;
+
+                                default:
+                                    break;
+
+                        }
+                        sb.append(s);
+                        if(i != errorList.size()-1){
+                        sb.append(",");
+                        }else{
+                            sb.append(".");
+
+                        }
+                    }
+                    string = sb.toString();
+                }else{
+                    string = "";
+                }
+                String error;
+                StringBuilder sb1 = new StringBuilder();
+                if(errorList.size() == 1){
+                    sb1.append("errore.");
+                }else{
+                    sb1.append("errori.");
+                }
+                error = sb1.toString();
+                m.setBody("\n\nGentile genitore, \n\nti informiamo che "+DatabaseInitializer.getNameCurrentPlayer(db) + " ha giocato con Internosco per " + convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayer)) +
+                        ", collezionando un totale di " + DatabaseInitializer.getLastCorrectAnswer(db, currentPlayer) + " risposte esatte e "+errorList.size()+ error + "\n" +string + "\n Per vedere i grafici con l'andamento dei progressi e degli errori di "+
+                        DatabaseInitializer.getNameCurrentPlayer(db)+ " consulta la sezione \"Reportistica\" dell'applicazione." +"\n\n\n\nQuesta email è stata generata " +
+                        "automaticamente dal sistema: per non ricevere più aggiornamenti in tempo reale sui progressi di "+ DatabaseInitializer.getNameCurrentPlayer(db)+
+                " disabilita la reportistica automatica sulle impostazioni dell'app.\n\n\n\nIl team di Internosco");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            try {
+                if(m.send()) {
+                    Log.i("[GAME PRESENTER]","Email sent successfully");
+                } else {
+                    Log.i("[GAME PRESENTER]","Email not sent");
+                }
+            } catch(Exception e) {
+                Log.e("MailApp", "Could not send email", e);
+            }            return "executed";
+        }
+
+
+
+    }
+
+
+    private String convertMillis(int sec){
+        ArrayList<Integer> converted = new ArrayList<>();
+        int hours = sec / 3600;
+        int minutes = (sec % 3600) / 60;
+        int seconds = sec % 60;
+        converted.add(hours);
+        converted.add(minutes);
+        converted.add(seconds);
+
+        StringBuilder sb = new StringBuilder();
+        if(converted.get(0) != 0) {
+            if(converted.get(0) == 1){
+                sb.append(converted.get(0) + " ore");
+                sb.append(", ");
+            }else {
+                sb.append(converted.get(0) + " ore");
+                sb.append(", ");
+            }
+        }else if(converted.get(1) != 0){
+            if(converted.get(1) == 1){
+                sb.append(converted.get(1)+" minuto e ");
+            }else{
+                sb.append(converted.get(1)+" minuti e ");
+            }
+        }
+        if(converted.get(2) == 1){
+            sb.append(converted.get(2)+" secondo");
+        }else{
+            sb.append(converted.get(2)+" secondi");
+        }
+        return sb.toString();
+    }
+
 }

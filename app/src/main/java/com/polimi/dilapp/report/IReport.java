@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
+import com.polimi.dilapp.emailSender.Mail;
+
 public interface IReport {
 
     interface View{

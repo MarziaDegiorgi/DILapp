@@ -344,4 +344,6 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         Log.i("[ACTIVITY 32]", "I'm calling storeCurrentPlayer");
 
     }
+
+
 }

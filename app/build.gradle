@@ -57,6 +57,9 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     implementation 'com.itextpdf:itextg:5.5.10'
+    implementation files('src/main/java/libs/activation.jar')
+    implementation files('src/main/java/libs/additionnal.jar')
+    implementation files('src/main/java/libs/mail.jar')
 
 
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'

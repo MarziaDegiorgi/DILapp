@@ -273,4 +273,6 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
         Log.i("[ACTIVITY 22]", "I'm calling storeCurrentPlayer");
 
     }
+
+
 }

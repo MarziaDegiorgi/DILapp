@@ -288,4 +288,6 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         Log.i("[ACTIVITY 13]", "I'm calling storeCurrentPlayer");
 
     }
+
+
 }

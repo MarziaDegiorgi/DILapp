@@ -56,6 +56,7 @@ import com.jjoe64.graphview.series.Series;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
+import com.polimi.dilapp.emailSender.Mail;
 import com.polimi.dilapp.levelmap.ReportLevelMapActivity;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.main.NewAccountActivity;
@@ -86,6 +87,7 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
     private int numProgressInterest = 50;
     private int currentPlayer;
     private ImageView shareButton;
+    private String currentDate;
 
 
     @Override
@@ -99,6 +101,9 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
                 WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        currentDate = sdf.format(currentTime);
 
         db = AppDatabase.getAppDatabase(this);
         currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
@@ -211,11 +216,11 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         final Dialog dialog = new Dialog(ReportMainActivity.this);
         dialog.setContentView(R.layout.pop_up);
         String actualCorrectAnswer = "";
-        String actualTime = "";
+        int actualTime = 0;
         for (int i = 0; i < correctAnswerList.size(); i++) {
             if (((float) (correctAnswerList.get(i) * 10) / timeList.get(i)) == Double.parseDouble(value)) {
                 actualCorrectAnswer = String.valueOf(correctAnswerList.get(i));
-                actualTime = String.valueOf(timeList.get(i));
+                actualTime = timeList.get(i);
             }
         }
         TextView tv = dialog.findViewById(R.id.textView);
@@ -225,8 +230,7 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         sb.append("\n\bRisposte esatte: \b");
         sb.append(actualCorrectAnswer);
         sb.append("\n\bTempo impiegato: \b");
-        sb.append(actualTime);
-        sb.append(" secondi");
+        sb.append(convertMillis(actualTime));
         tv.setText(sb.toString());
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         Button close = dialog.findViewById(R.id.close);
@@ -237,6 +241,40 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
             }
         });
         dialog.show();
+    }
+
+
+    private String convertMillis(int sec){
+        ArrayList<Integer> converted = new ArrayList<>();
+        int hours = sec / 3600;
+        int minutes = (sec % 3600) / 60;
+        int seconds = sec % 60;
+        converted.add(hours);
+        converted.add(minutes);
+        converted.add(seconds);
+
+        StringBuilder sb = new StringBuilder();
+        if(converted.get(0) != 0) {
+            if(converted.get(0) == 1){
+                sb.append(converted.get(0) + " ore");
+                sb.append(", ");
+            }else {
+                sb.append(converted.get(0) + " ore");
+                sb.append(", ");
+            }
+        }else if(converted.get(1) != 0){
+            if(converted.get(1) == 1){
+                sb.append(converted.get(1)+" minuto e ");
+            }else{
+                sb.append(converted.get(1)+" minuti e ");
+            }
+        }
+        if(converted.get(2) == 1){
+            sb.append(converted.get(2)+" secondo");
+        }else{
+            sb.append(converted.get(2)+" secondi");
+        }
+        return sb.toString();
     }
 
     public void onClickMenuItem(MenuItem item) {
@@ -268,25 +306,27 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
     }
 
     @Override
-    public void openPdf(){
+    public void openPdf() {
         File pdfDir = new File(Environment.getExternalStoragePublicDirectory
                 (Environment.DIRECTORY_DOWNLOADS), "Internosco");
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        Uri uri = Uri.fromFile(new File(pdfDir,  "report.pdf"));
+        Uri uri = Uri.fromFile(new File(pdfDir, "report.pdf"));
         intent.setDataAndType(uri, "application/pdf");
         intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
 
     @Override
-    public void sharePdf(){
+    public void sharePdf() {
         File pdfDir = new File(Environment.getExternalStoragePublicDirectory
                 (Environment.DIRECTORY_DOWNLOADS), "Internosco");
         Intent email = new Intent(Intent.ACTION_SEND);
-        email.putExtra(Intent.EXTRA_EMAIL, "receiver_email_address");
-        email.putExtra(Intent.EXTRA_SUBJECT, "subject");
-        email.putExtra(Intent.EXTRA_TEXT, "email body");
-        Uri uri = Uri.fromFile(new File(pdfDir,  "report.pdf"));
+        String emailParent = DatabaseInitializer.getEmail(db);
+        if(emailParent != null){
+        email.putExtra(Intent.EXTRA_EMAIL, emailParent);
+        }
+        email.putExtra(Intent.EXTRA_SUBJECT, "Reportistica di "+ DatabaseInitializer.getNameCurrentPlayer(db)+" del "+currentDate);
+        Uri uri = Uri.fromFile(new File(pdfDir, "report.pdf"));
         email.putExtra(Intent.EXTRA_STREAM, uri);
         email.setType("application/pdf");
         email.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -295,18 +335,5 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
 
 
 
-    /**
-     * This method converts device specific pixels to density independent pixels.
-     *
-     * @param px A value in px (pixels) unit. Which we need to convert into db
-     * @param context Context to get resources and device specific display metrics
-     * @return A float value to represent dp equivalent to px value
-     */
-    public static float convertPixelsToDp(float px, Context context){
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = px / ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return dp;
-    }
 }
 

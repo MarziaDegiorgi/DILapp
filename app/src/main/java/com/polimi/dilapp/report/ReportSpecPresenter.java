@@ -26,7 +26,7 @@ public class ReportSpecPresenter extends AppCompatActivity implements IReportSpe
         switch (item.getItemId()) {
             case R.id.settings:
                 Intent intent = new Intent(reportSpecActivity.getContext(), ReportSettingsActivity.class);
-                this.startActivity(intent);
+                reportSpecActivity.getContext().startActivity(intent);
                 finish();
                 break;
             default:

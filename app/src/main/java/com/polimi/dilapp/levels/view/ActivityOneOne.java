@@ -13,8 +13,6 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -87,6 +85,11 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         common.disableView(imageToHide);
         common.disableView(animationViewExtra);
         common.disableView(animationViewExtraTwo);
+    }
+
+    @Override
+    public void sendEmail(Intent i) {
+
     }
 
     @Override
@@ -255,7 +258,6 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
             request.release();
             request=null;
         }
-
         startActivity(new Intent(ActivityOneOne.this, StartGameActivity.class));
         finish();
     }
@@ -268,12 +270,4 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     }
 
-    @Override
-    public void sendEmail(Intent i){
-        try {
-            startActivity(Intent.createChooser(i, "Send mail..."));
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(ActivityOneOne.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-        }
-    }
 }
