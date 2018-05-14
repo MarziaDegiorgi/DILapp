@@ -12,7 +12,7 @@
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="50dp"
         android:contentDescription="@string/logo"
         android:src="@drawable/logo_red_vector" />
 
@@ -22,20 +22,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/welcomeImage"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="60dp"
         android:layout_centerVertical="true"
         android:fontFamily="@font/carter_one"
         android:gravity="center"
         android:text="@string/select_account"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="30sp"
+        android:textSize="25sp"
         />
     <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/createAccount"
-        android:layout_marginVertical="30dp"
+        android:layout_marginVertical="10dp"
         android:layout_centerHorizontal="true">
 
     <LinearLayout

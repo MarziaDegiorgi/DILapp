@@ -48,13 +48,22 @@
 
     <Button
         android:id="@+id/form_button"
-        android:layout_gravity="center"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/roundedbutton"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="@string/form_button_label"
-        android:layout_marginVertical="50dp"
-        android:layout_width="130dip"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textSize="20sp"
         android:textColor="@color/white"
-        android:background="@color/colorPrimaryDark"
+        android:layout_marginVertical="50dp"
+        android:layout_gravity="center"
         />
 
 </LinearLayout>

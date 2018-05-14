@@ -143,17 +143,20 @@ public class ReportMainPresenter implements IReport.Presenter{
             document.add( Chunk.NEWLINE );
 
             String par = "";
-            convertMillis(DatabaseInitializer.getLastTimePlayed(db, DatabaseInitializer.getCurrentPlayer(db)));
-            String date = sdf.format(DatabaseInitializer.getLastProgressDate(db, currentPlayerId));
+            int lastTimePlayed = DatabaseInitializer.getLastTimePlayed(db, DatabaseInitializer.getCurrentPlayer(db));
+            Date lastProgressDate = DatabaseInitializer.getLastProgressDate(db, currentPlayerId);
             if(DatabaseInitializer.getLastProgressDate(db, currentPlayerId)  == null){
                 par = "\n\n"+DatabaseInitializer.getNameCurrentPlayer(db)+" non ha ancora mai giocato con Internosco.";
-            }
-            else if(date.equals(currentDate)){
-                par = "\n\nOggi, "+ currentDate+", "+DatabaseInitializer.getNameCurrentPlayer(db)+" ha giocato con Internosco per "+ convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayerId))+
-                ", collezionando un totale di "+DatabaseInitializer.getLastCorrectAnswer(db, currentPlayerId)+" risposte esatte.";
-            }else{
-                par = "\n\nL'ultimo accesso di "+ DatabaseInitializer.getNameCurrentPlayer(db)+" è stato il giorno "+ date +". "+ DatabaseInitializer.getNameCurrentPlayer(db)+" ha giocato per "+ convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayerId))+
-                " collezionando un totale di "+ DatabaseInitializer.getLastCorrectAnswer(db, currentPlayerId)+" risposte esatte.";
+            }else {
+                convertMillis(lastTimePlayed);
+                String date = sdf.format(lastProgressDate);
+                if (date.equals(currentDate)) {
+                    par = "\n\nOggi, " + currentDate + ", " + DatabaseInitializer.getNameCurrentPlayer(db) + " ha giocato con Internosco per " + convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayerId)) +
+                            ", collezionando un totale di " + DatabaseInitializer.getLastCorrectAnswer(db, currentPlayerId) + " risposte esatte.";
+                } else {
+                    par = "\n\nL'ultimo accesso di " + DatabaseInitializer.getNameCurrentPlayer(db) + " è stato il giorno " + date + ". " + DatabaseInitializer.getNameCurrentPlayer(db) + " ha giocato per " + convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayerId)) +
+                            " collezionando un totale di " + DatabaseInitializer.getLastCorrectAnswer(db, currentPlayerId) + " risposte esatte.";
+                }
             }
             document.add( Chunk.NEWLINE );
             document.add( Chunk.NEWLINE );

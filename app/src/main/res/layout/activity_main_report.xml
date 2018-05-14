@@ -105,6 +105,7 @@
     android:orientation="horizontal"
     android:layout_gravity="center"
     android:padding="10dp"
+    android:layout_marginHorizontal="20dp"
 
     >
     <Button
@@ -114,13 +115,16 @@
         android:layout_height="wrap_content"
         android:background="@drawable/roundedbutton"
         android:backgroundTint="@color/colorPrimaryDark"
-        android:padding="10dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         android:text="@string/progress_button"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="20sp"
         android:textColor="@color/white"
-        android:layout_marginStart="30dp"/>
+        />
 
     <ImageView
         android:id="@+id/share_button"
