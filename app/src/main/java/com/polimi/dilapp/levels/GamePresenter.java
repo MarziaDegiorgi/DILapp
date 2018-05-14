@@ -112,7 +112,6 @@ public class GamePresenter implements IGame.Presenter {
        String subString = DatabaseInitializer.getSubStringCurrentPlayer(db);
        //current system time in seconds
         setLevelCurrentPlayer();
-        Toast.makeText(activityInterface.getScreenContext(), "Level current player: "+DatabaseInitializer.getLevelCurrentPlayer(db), Toast.LENGTH_LONG).show();
         initTime = (int) (SystemClock.elapsedRealtime()/1000);
         Log.i("[INIT_TIME]:", String.valueOf(initTime));
         currentSequence = sequence;
@@ -598,7 +597,6 @@ public class GamePresenter implements IGame.Presenter {
                 if (result != null) {
                     //only for debug
                     enableNFC = false;
-                    Toast.makeText(view.get("0").getScreenContext(), result, Toast.LENGTH_LONG).show();
                     Log.i("[OnPostExecute]", "NFC Read result: " + result);
                     int tagID = getResourceId("nfc_sound", R.raw.class);
                     MediaPlayer tag = MediaPlayer.create(view.get("0").getScreenContext(), tagID);

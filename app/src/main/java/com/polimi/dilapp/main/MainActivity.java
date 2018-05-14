@@ -47,10 +47,6 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
 
         checkFirstRun();
 
-        Toast.makeText(this, "[MAIN ACTIVITY] " +
-                        String.valueOf(DatabaseInitializer.getCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))),
-                Toast.LENGTH_LONG).show();
-
     }
 
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
@@ -126,8 +122,7 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
         super.onResume();
         if (presenter == null){
             presenter = new MainPresenter(this);
-            Toast.makeText(this, String.valueOf(DatabaseInitializer.getCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))),
-                    Toast.LENGTH_LONG).show();
+
         }
     }
 
