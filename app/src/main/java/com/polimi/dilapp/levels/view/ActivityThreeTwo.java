@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -45,6 +46,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         object = intent.getStringExtra("object");
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_game_level_3_2);
 

@@ -13,6 +13,7 @@ import android.view.ContextThemeWrapper;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
         public void onCreate(Bundle onSavedInstanceState) {
             super.onCreate(onSavedInstanceState);
             setContentView(R.layout.activity_main_report);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             db = AppDatabase.getAppDatabase(this);
             currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
             TextView title = findViewById(R.id.title_graph);

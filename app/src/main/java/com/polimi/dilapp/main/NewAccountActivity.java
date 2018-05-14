@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -48,6 +49,7 @@ public class NewAccountActivity extends AppCompatActivity implements INewAccount
     @Override
         protected void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             setContentView(R.layout.activity_newaccount);
             edit_name = (EditText)findViewById(R.id.edit_name);
             edit_birth = (EditText)findViewById(R.id.edit_birth);

@@ -92,7 +92,7 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         super.onCreate(onSavedInstanceState);
         setContentView(R.layout.activity_main_report);
         shareButton = findViewById(R.id.share_button);
-
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
 
         db = AppDatabase.getAppDatabase(this);
