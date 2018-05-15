@@ -138,4 +138,11 @@ public class ReportSettingsPresenter extends AppCompatActivity implements IRepor
     public Boolean isAutoRepoEnabled(){
         return DatabaseInitializer.isAutoRepoEnabled(db);
     }
+
+    @Override
+    public void checkAutoReport(){
+        if(DatabaseInitializer.getEmail(db) == null){
+            DatabaseInitializer.disableAutoRepo(db);
+        }
+    }
 }

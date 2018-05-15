@@ -65,8 +65,6 @@ public class ReportMainPresenter implements IReport.Presenter{
     private AppDatabase db;
     private int currentPlayerId;
     private ProgressDialog progress;
-    private String reportPath;
-
     ReportMainPresenter(IReport.View view){
         this.view = view;
         db = AppDatabase.getAppDatabase(view.getContext());
@@ -206,14 +204,14 @@ public class ReportMainPresenter implements IReport.Presenter{
                 Log.i("REPORT MAIN", "The external storage isn't writable");
             }
 
-//Create a directory for your PDF
+            //Create a directory for your PDF
             File pdfDir = new File(Environment.getExternalStoragePublicDirectory
                     (Environment.DIRECTORY_DOWNLOADS), "Internosco");
             if (!pdfDir.exists()) {
                 pdfDir.mkdir();
             }
 
-//Now create the name of your PDF file that you will generate
+            //Now create the name of your PDF file that you will generate
             File pdfFile = new File(pdfDir, "report.pdf");
 
 
@@ -291,16 +289,8 @@ public class ReportMainPresenter implements IReport.Presenter{
                 p3.setAlignment(Paragraph.ALIGN_RIGHT);
                 document.add(p3);
                 document.close();
-                //view.openPdf();
-                if(progress != null) {
-                    progressDismiss();
-                    view.sharePdf();
-                }else{
-                    File file = File.createTempFile("report_" + DatabaseInitializer.getNameCurrentPlayer(db).toLowerCase() + "_" + currentDate, ".pdf");
-                    reportPath = file.getPath();
-                    PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(file.getPath()));
-
-                }
+                progressDismiss();
+                view.sharePdf();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -318,6 +308,7 @@ public class ReportMainPresenter implements IReport.Presenter{
     private void progressDismiss(){
         progress.dismiss();
     }
+
 }
 
 

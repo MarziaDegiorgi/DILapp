@@ -1,12 +1,15 @@
 package com.polimi.dilapp.report;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -15,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -32,29 +37,43 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levelmap.ReportLevelMapActivity;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ReportSpecActivity extends AppCompatActivity implements IReportSpec.View{
-        private IReportSpec.Presenter presenter;
+public class ReportSpecActivity extends AppCompatActivity implements IReport.View{
+        private IReport.Presenter presenter;
         private AppDatabase db;
-        private int numProgressInterest = 50;
         private  int currentPlayer;
         private DataPoint[] errorList;
+        private String currentDate;
+        private ImageView shareButton;
+
 
 
 
     @Override
         public void onCreate(Bundle onSavedInstanceState) {
             super.onCreate(onSavedInstanceState);
-            setContentView(R.layout.activity_main_report);
+        presenter = new ReportSpecPresenter(this);
+        setContentView(R.layout.activity_main_report);
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-            db = AppDatabase.getAppDatabase(this);
+            shareButton = findViewById(R.id.share_button);
+
+
+        Date currentTime = Calendar.getInstance().getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        currentDate = sdf.format(currentTime);
+
+
+        db = AppDatabase.getAppDatabase(this);
             currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
             TextView title = findViewById(R.id.title_graph);
             title.setText(R.string.error_title);
@@ -72,8 +91,6 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
             birth.setText(DatabaseInitializer.getBirthCurrentPlayer(db));
         Button button = findViewById(R.id.spec_button);
         button.setVisibility(View.GONE);
-
-            presenter = new ReportSpecPresenter(this);
 
             Intent intent = getIntent();
             int level = intent.getIntExtra("level", 0);
@@ -228,6 +245,20 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
 
                 series.setSpacing(10);
             }
+
+        shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ProgressDialog progress = new ProgressDialog(getContext());
+                progress.setTitle("Caricamento reportistica");
+                progress.setMessage("Creazione del PDF in corso...");
+                progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+                progress.show();
+                LinearLayout v1 = findViewById(R.id.child_credentials);
+                LinearLayout v2 = findViewById(R.id.report);
+                presenter.takeScreenshot(v1, v2, progress);
+            }
+        });
         }
 
         public void showPopup(View view){
@@ -282,7 +313,6 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
         GraphView graph = findViewById(R.id.graph);
         circleImageView.setImageDrawable(null);
         graph.removeAllSeries();
-
         errorList = null;
         db= null;
         presenter = null;
@@ -295,4 +325,33 @@ public class ReportSpecActivity extends AppCompatActivity implements IReportSpec
         return this;
     }
 
+    @Override
+    public void openPdf() {
+        File pdfDir = new File(Environment.getExternalStoragePublicDirectory
+                (Environment.DIRECTORY_DOWNLOADS), "Internosco");
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        Uri uri = Uri.fromFile(new File(pdfDir, "report.pdf"));
+        intent.setDataAndType(uri, "application/pdf");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        startActivity(intent);
     }
+
+    @Override
+    public void sharePdf() {
+        File pdfDir = new File(Environment.getExternalStoragePublicDirectory
+                (Environment.DIRECTORY_DOWNLOADS), "Internosco");
+        Intent email = new Intent(Intent.ACTION_SEND);
+        String emailParent = DatabaseInitializer.getEmail(db);
+        if(emailParent != null){
+            email.putExtra(Intent.EXTRA_EMAIL, emailParent);
+        }
+        email.putExtra(Intent.EXTRA_SUBJECT, "Reportistica di "+ DatabaseInitializer.getNameCurrentPlayer(db)+" del "+currentDate);
+        Uri uri = Uri.fromFile(new File(pdfDir, "report.pdf"));
+        email.putExtra(Intent.EXTRA_STREAM, uri);
+        email.setType("application/pdf");
+        email.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(email);
+    }
+
+
+}

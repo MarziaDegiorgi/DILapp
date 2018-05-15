@@ -16,5 +16,8 @@ public interface IReportSettings {
 
         void setAutoRepo(Button confirm, LinearLayout edit);
         Boolean isAutoRepoEnabled();
+
+        void checkAutoReport();
+
     }
 }

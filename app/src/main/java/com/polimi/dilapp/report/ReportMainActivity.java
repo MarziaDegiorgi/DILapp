@@ -295,7 +295,6 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         timeList = null;
         dateList = null;
         db = null;
-
         startActivity(new Intent(ReportMainActivity.this, StartGameActivity.class));
         finish();
     }
