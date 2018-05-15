@@ -77,7 +77,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         startAnimation();
         android.nfc.NfcAdapter mNfcAdapter= android.nfc.NfcAdapter.getDefaultAdapter(this);
 
-        if (!mNfcAdapter.isEnabled()) {
+       if (mNfcAdapter==null || !mNfcAdapter.isEnabled()) {
 
             AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
             alertbox.setMessage("Abilita il tuo NFC per iniziare a giocare");

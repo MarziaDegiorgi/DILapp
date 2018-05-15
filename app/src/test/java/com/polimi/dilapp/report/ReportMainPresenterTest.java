@@ -55,7 +55,7 @@ public class ReportMainPresenterTest {
     public void onDestroyTest(){
         reportMainPresenter.onDestroy();
 
-        Assert.assertEquals(null, reportMainPresenter.getView());
+        Assert.assertEquals(null, reportMainPresenter.getClass());
     }
 
 }
