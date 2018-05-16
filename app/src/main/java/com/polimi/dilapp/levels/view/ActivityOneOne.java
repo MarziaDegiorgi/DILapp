@@ -213,36 +213,28 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-        if(request != null && request.isPlaying()){
-            request.start();
-        }
        presenter.setupForegroundDispatch();
 
-
-        NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
+        /*NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
         adapter.enableReaderMode(this,
                 new NfcAdapter.ReaderCallback() {
-            @Override
-            public void onTagDiscovered(final Tag tag) {
-                // do something
-            }
-            },
+                    @Override
+                    public void onTagDiscovered(final Tag tag) {
+                        // do something
+                    }
+                },
                 NfcAdapter.FLAG_READER_NFC_A |
                         NfcAdapter.FLAG_READER_NFC_B |
                         NfcAdapter.FLAG_READER_NFC_F |
                         NfcAdapter.FLAG_READER_NFC_V |
                         NfcAdapter.FLAG_READER_NFC_BARCODE |
                         NfcAdapter.FLAG_READER_NO_PLATFORM_SOUNDS,
-                null);
-
+                null);*/
     }
 
     @Override
     protected void onPause() {
       presenter.stopForegroundDispatch();
-      if(request!=null && request.isPlaying()){
-          request.pause();
-      }
         super.onPause();
     }
 
