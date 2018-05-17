@@ -4,6 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/DILapp.iml" filepath="$PROJECT_DIR$/DILapp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:/Users/Gianfranco/AndroidStudioProjects/DILapp/activation/activation.iml" filepath="C:/Users/Gianfranco/AndroidStudioProjects/DILapp/activation/activation.iml" />
+      <module fileurl="file://C:/Users/Gianfranco/AndroidStudioProjects/DILapp/additionnal/additionnal.iml" filepath="C:/Users/Gianfranco/AndroidStudioProjects/DILapp/additionnal/additionnal.iml" />
+      <module fileurl="file://C:/Users/Gianfranco/AndroidStudioProjects/DILapp/lib/lib.iml" filepath="C:/Users/Gianfranco/AndroidStudioProjects/DILapp/lib/lib.iml" />
     </modules>
   </component>
 </project>
