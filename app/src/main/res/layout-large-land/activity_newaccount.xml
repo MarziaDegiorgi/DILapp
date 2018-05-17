@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_land"
+        >
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6"
+        >
+    <ImageButton
+        android:id="@+id/avatar"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/avatar"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="30dp"
+        />
+<LinearLayout
+    android:id="@+id/form"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginVertical="70dp"
+    android:layout_marginRight="30dp"
+    android:orientation="vertical"
+    android:layout_toRightOf="@id/avatar">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/edit_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/birth"
+        tools:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/edit_birth"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:text="" />
+</LinearLayout>
+</RelativeLayout>
+
+    <Button
+        android:id="@+id/form_button"
+        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+        android:layout_width="268dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="50dp"
+        android:background="@drawable/roundedbutton"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:paddingBottom="10dp"
+        android:paddingEnd="20dp"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:text="@string/form_button_label"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/white"
+        android:textSize="35sp" />
+</LinearLayout>
+
