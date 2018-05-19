@@ -4,6 +4,7 @@ package com.polimi.dilapp.report;
 import android.arch.persistence.room.Database;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,6 +26,8 @@ import static com.polimi.dilapp.database.AppDatabase.getAppDatabase;
 public class ReportSettingsPresenter extends AppCompatActivity implements IReportSettings.Presenter{
     private IReportSettings.View activityInterface;
     private AppDatabase db;
+    @VisibleForTesting
+    public boolean enableReport;
 
 
     @Override
@@ -41,6 +44,7 @@ public class ReportSettingsPresenter extends AppCompatActivity implements IRepor
     @Override
     public void enableAutoRepo(String email){
         DatabaseInitializer.enableAutoRepo(db);
+        enableReport = true;
         Log.i("[REPORT SETTING]", "Current email "+DatabaseInitializer.getEmail(db));
         if(DatabaseInitializer.getEmail(db).equals("")){
             DatabaseInitializer.setEmail(db, email);
@@ -49,12 +53,13 @@ public class ReportSettingsPresenter extends AppCompatActivity implements IRepor
 
     @Override
     public void disableAutoRepo() {
+        enableReport = false;
         DatabaseInitializer.disableAutoRepo(db);
     }
 
 @Override
     public void setAutoRepo(Button confirm, LinearLayout edit){
-    final EditText emailValidate = (EditText) edit.findViewById(R.id.edit_box);
+    final EditText emailValidate = edit.findViewById(R.id.edit_box);
     if(isAutoRepoEnabled()){
         edit.setVisibility(View.VISIBLE);
         checkRepo(confirm, emailValidate);
@@ -142,7 +147,12 @@ public class ReportSettingsPresenter extends AppCompatActivity implements IRepor
     @Override
     public void checkAutoReport(){
         if(DatabaseInitializer.getEmail(db) == null){
+            enableReport=false;
             DatabaseInitializer.disableAutoRepo(db);
         }
+    }
+
+    public boolean getisReportEnabled(){
+        return enableReport;
     }
 }

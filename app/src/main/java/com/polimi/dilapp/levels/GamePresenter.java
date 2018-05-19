@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -75,7 +76,8 @@ public class GamePresenter implements IGame.Presenter {
     private boolean executed = false;
 
     private NfcAdapter nfcAdapter;
-    private List<String> currentSequence;
+    @VisibleForTesting
+    protected List<String> currentSequence;
     private String currentElement;
     private String currentSubElement;
     private int subElementIndex ;
@@ -102,7 +104,8 @@ public class GamePresenter implements IGame.Presenter {
     private boolean gameEnded;
     private boolean colourLevel;
     private boolean enableNFC;
-    private boolean recipeLevel;
+    @VisibleForTesting
+    protected boolean recipeLevel;
     private ArrayList<String> errorList;
     private ArrayList<Float> progressList;
     private ArrayList<Date> dateList;
@@ -715,6 +718,10 @@ public class GamePresenter implements IGame.Presenter {
             return multipleElement;
         }
 
+    public List<String> getCurrentSequence(){
+        return currentSequence;
+    }
+
         @Override
         public void setLevelCurrentPlayer(){
             int oldLevel = DatabaseInitializer.getLevelCurrentPlayer(db);
@@ -945,8 +952,8 @@ public class GamePresenter implements IGame.Presenter {
         }
     }
 
-
-    private class SendEmailTask extends AsyncTask<Object, Object, Object> {
+@VisibleForTesting
+   protected class SendEmailTask extends AsyncTask<Object, Object, Object> {
         @Override
         protected Object doInBackground(Object... arg0) {
             final Mail m = new Mail("internosco.team@gmail.com", "internoscoteam");
@@ -1075,8 +1082,8 @@ public class GamePresenter implements IGame.Presenter {
 
     }
 
-
-    private String convertMillis(int sec){
+@VisibleForTesting
+    protected String convertMillis(int sec){
         ArrayList<Integer> converted = new ArrayList<>();
         int hours = sec / 3600;
         int minutes = (sec % 3600) / 60;

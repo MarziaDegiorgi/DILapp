@@ -25,6 +25,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
@@ -36,6 +37,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -147,6 +149,21 @@ public class GamePresenterTest {
         currentSequence.add("a");
         gamePresenter.startGame(currentSequence);
         assertTrue(gamePresenter.isStarted());
+    }
+
+    @Test
+    public void startGameElseBranchTest(){
+        when(DatabaseInitializer.getSubStringCurrentPlayer((AppDatabase) any())).thenReturn("carota");
+
+        List<String> sequence = new ArrayList<>();
+        sequence.add("banana");
+        sequence.add("carota");
+        gamePresenter.startGame(sequence);
+
+        verify(databaseInitializer, Mockito.times(2));
+        DatabaseInitializer.setSubStringCurrentPlayer(appDatabase, null);
+        sequence.remove("carota");
+        assertEquals(gamePresenter.getCurrentSequence(), sequence);
     }
 
 
@@ -489,6 +506,18 @@ public class GamePresenterTest {
         }
         Assert.assertEquals(false, gamePresenter.isTheNfcEnabled());
 
+    }
+
+    @Test
+    public void setEnableNFCT(){
+        gamePresenter.setEnableNFC();
+        assertTrue(gamePresenter.isTheNfcEnabled());
+    }
+
+    @Test
+    public void setRecipeLevel(){
+        gamePresenter.setRecipeLevel();
+        assertTrue(gamePresenter.recipeLevel);
     }
 
     @Test
@@ -1242,6 +1271,5 @@ public class GamePresenterTest {
         DatabaseInitializer.setCorrectAnswer(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
         DatabaseInitializer.setTime(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
     }
-
 
 }

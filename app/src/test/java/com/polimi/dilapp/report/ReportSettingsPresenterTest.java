@@ -33,8 +33,11 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -107,35 +110,6 @@ public class ReportSettingsPresenterTest {
     @Mock
     private ContextCompat contextCompat;
 
-    //Here we test enableAutoRepo()
-  /* @Test
-    public void enableAutoRepoTest(){
- //non riesco a mockare getEmail.
-        when(DatabaseInitializer.getEmail(appDatabase)).thenReturn(string);
-        when(DatabaseInitializer.getEmail(appDatabase).equals(string)).thenReturn(false);
-        reportSettingsPresenter.enableAutoRepo(string);
-
-        verify(databaseInitializer, Mockito.times(1));
-        DatabaseInitializer.enableAutoRepo(appDatabase);
-
-    }
-
-    @Test
-    public void enableAutoRepoTestIf(){
-        //non riesco a mockare getEmail.
-        databaseInitializer = new DatabaseInitializer();
-        when(DatabaseInitializer.getEmail(appDatabase)).thenReturn(string);
-        when(DatabaseInitializer.getEmail(appDatabase).equals(string)).thenReturn(true);
-        reportSettingsPresenter.enableAutoRepo(string);
-
-        verify(databaseInitializer, Mockito.times(1));
-        DatabaseInitializer.enableAutoRepo(appDatabase);
-        DatabaseInitializer.setEmail(appDatabase, string);
-
-    }*/
-
-
-
     //Here we test disableAutoRepo()
    @Test
     public void disableAutoRepoTest(){
@@ -164,33 +138,18 @@ public class ReportSettingsPresenterTest {
         Assert.assertEquals(false, matcher.matches());
     }
 
-
-    //Here we test checkRepo()
-   /* @Test
-   /* public void checkRepoTest(){
-        when(DatabaseInitializer.getEmail(appDatabase)).thenReturn(string);
-        when(ContextCompat.getColor(view.getContext(), num)).thenReturn(num);
-       when(DatabaseInitializer.isEmailSet(appDatabase)).thenReturn(true);
-
-       reportSettingsPresenter.checkRepo(button, editText);
-
-       verify(reportSettingsPresenter, Mockito.times(1)).emailAlreadySet(button, editText);
+    @Test
+    public void checkRepoIfBranch(){
+        when(DatabaseInitializer.isEmailSet((AppDatabase)any())).thenReturn(false);
+        reportSettingsPresenter.checkRepo(button,editText);
     }
 
+    @Test
+    public void checkRepoElseBranch(){
+        when(DatabaseInitializer.isEmailSet((AppDatabase)any())).thenReturn(true);
 
-   //Here we test setAutoRepo()
-   @Test
-    public void setAutoRepoTest(){
-        when(DatabaseInitializer.getEmail(appDatabase)).thenReturn(string);
-        when(ContextCompat.getColor(view.getContext(), num)).thenReturn(num);
-
-        when(reportSettingsPresenter.isAutoRepoEnabled()).thenReturn(true);
-
-        reportSettingsPresenter.setAutoRepo(button, linearLayout);
-
-        verify(reportSettingsPresenter, Mockito.times(1)).checkRepo(button, editText);
-    }*/
-
+        reportSettingsPresenter.checkRepo(button,editText);
+    }
 
 
    //Here we test emailToCheck()
@@ -205,19 +164,13 @@ public class ReportSettingsPresenterTest {
         verify(editText, Mockito.times(1)).setClickable(true);
         verify(editText, Mockito.times(1)).setEnabled(true);
         verify(editText, Mockito.times(1)).setTextColor(num);
-        verify(editText, Mockito.times(1)).setBackgroundColor(num);
 
         verify(button, Mockito.times(1)).setOnClickListener(any(View.OnClickListener.class));
 
 
         verify(databaseInitializer,Mockito.times(1));
         DatabaseInitializer.setEmail(appDatabase, string);
-
-        //TODO: try to test the if brach: the problem is that I'm not able to mock the internal call to isEmail valid,
-        //from the manual: final things cannot be verified/stubbed
     }
-
-
 
     //Here we test emailAlreadySet()
     @Test
@@ -238,5 +191,27 @@ public class ReportSettingsPresenterTest {
         verify(databaseInitializer,Mockito.times(1));
         DatabaseInitializer.setEmail(appDatabase, string);
 
+    }
+
+    @Test
+    public void checkAutoReport(){
+        when(DatabaseInitializer.getEmail((AppDatabase)any())).thenReturn(null);
+        reportSettingsPresenter.checkAutoReport();
+        assertFalse(reportSettingsPresenter.getisReportEnabled());
+    }
+
+    @Test
+    public void enableAutoReport(){
+        when(DatabaseInitializer.getEmail((AppDatabase)any())).thenReturn("");
+        String email = "marzia@mail.it";
+        reportSettingsPresenter.enableAutoRepo(email);
+        assertTrue(reportSettingsPresenter.getisReportEnabled());
+        verify(databaseInitializer, Mockito.times(3));
+    }
+
+    @Test
+    public void disableAutoReport(){
+       reportSettingsPresenter.disableAutoRepo();
+       assertFalse(reportSettingsPresenter.getisReportEnabled());
     }
 }
