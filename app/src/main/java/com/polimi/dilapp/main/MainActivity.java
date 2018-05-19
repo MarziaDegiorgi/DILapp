@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
     private Button previous;
     private Button next;
     int currentPage;
+
+    @VisibleForTesting
+    public Boolean slideshow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,14 +158,15 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
 
         // Check for first run or upgrade
         if (currentVersionCode == savedVersionCode) {
+            slideshow = false;
             Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class );
             startActivity(intent);
 
         } else if (savedVersionCode == DOESNT_EXIST) {
-
-            next = (Button) findViewById(R.id.next);
-            viewPager =(ViewPager) findViewById(R.id.slide_view_pager);
-            dotsLayout = (LinearLayout) findViewById(R.id.dots);
+            slideshow = true;
+            next = findViewById(R.id.next);
+            viewPager = findViewById(R.id.slide_view_pager);
+            dotsLayout = findViewById(R.id.dots);
             slideAdapter = new SlideAdapter(this);
 
             viewPager.setAdapter(slideAdapter);

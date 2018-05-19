@@ -18,27 +18,32 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
+/**
+ * To run this test just one account should be present
+ */
 @RunWith(AndroidJUnit4.class)
 public class ReportMainActivityTest {
 
     @Rule
     public ActivityTestRule<ReportMainActivity> reportMainRule = new ActivityTestRule<>(ReportMainActivity.class);
 
+
     @Test
     public void mainActivityIsDisplayedTest(){
 
-        onView(withId(R.id.spec_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.spec_button)).check(matches(isClickable()));
-        onView(withId(R.id.menuButton)).check(matches(isDisplayed()));
-        onView(withId(R.id.menuButton)).check(matches(isClickable()));
+            onView(withId(R.id.spec_button)).check(matches(isDisplayed()));
+            onView(withId(R.id.spec_button)).check(matches(isClickable()));
+            onView(withId(R.id.menuButton)).check(matches(isDisplayed()));
+            onView(withId(R.id.menuButton)).check(matches(isClickable()));
 
-        onView(withId(R.id.name)).check(matches(isDisplayed()));
-        onView(withId(R.id.profile_image)).check(matches(isDisplayed()));
-        onView(withId(R.id.spec_button)).check(matches(isDisplayed()));
-        onView(withId(R.id.graph)).check(matches(isDisplayed()));
+            onView(withId(R.id.name)).check(matches(isDisplayed()));
+            onView(withId(R.id.profile_image)).check(matches(isDisplayed()));
+            onView(withId(R.id.spec_button)).check(matches(isDisplayed()));
+            onView(withId(R.id.graph)).check(matches(isDisplayed()));
 
-        onView(withId(R.id.spec_button)).check(matches(withText("Specifiche per livello")));
-        onView(withId(R.id.title_graph)).check(matches(withText("Progressi:")));
+            onView(withId(R.id.spec_button)).check(matches(withText("Specifiche per livello")));
+            onView(withId(R.id.title_graph)).check(matches(withText("Progressi:")));
+
     }
 
     @Test

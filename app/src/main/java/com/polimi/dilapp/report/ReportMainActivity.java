@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -78,14 +79,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class ReportMainActivity extends AppCompatActivity implements IReport.View {
+
     private IReport.Presenter presenter;
+
     private AppDatabase db;
     private ArrayList<Float> progressList;
     private ArrayList<Date> dateList;
     private ArrayList<Integer> correctAnswerList;
     private ArrayList<Integer> timeList;
     private int numProgressInterest = 50;
-    private int currentPlayer;
+    @VisibleForTesting
+    public int currentPlayer;
     private ImageView shareButton;
     private String currentDate;
 

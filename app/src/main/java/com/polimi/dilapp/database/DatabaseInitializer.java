@@ -38,6 +38,7 @@ public class DatabaseInitializer {
         }
         return child;
     }
+    //TODO: Remove useless lines of code
     public static void insertReports(final AppDatabase db, int id){
         ReportOneOneEntity reportOneOneEntity = new ReportOneOneEntity(id);
         db.reportOneOneDao().insertReport(reportOneOneEntity);
@@ -93,7 +94,7 @@ public class DatabaseInitializer {
     }
 
     public static Bitmap decodeSampledBitmapFromResource(ContentResolver contentResolver, ChildEntity childEntity) throws IOException {
-       if(childEntity.getPhoto() !=null) {
+       if(childEntity!=null && childEntity.getPhoto() !=null) {
            Uri uri = parse(childEntity.getPhoto());
            InputStream inputstream = contentResolver.openInputStream(uri);
 

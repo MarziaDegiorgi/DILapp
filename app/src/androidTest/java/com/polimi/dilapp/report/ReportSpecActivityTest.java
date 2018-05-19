@@ -19,6 +19,9 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 
+/**
+ * To run this test just one account should be present
+ */
 @RunWith(AndroidJUnit4.class)
 public class ReportSpecActivityTest {
 

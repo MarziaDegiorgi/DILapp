@@ -1,11 +1,15 @@
 package com.polimi.dilapp.startgame;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,11 +23,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.DatabaseInitializer;
+import com.polimi.dilapp.main.NewAccountActivity;
 
 import java.util.List;
 
@@ -34,6 +40,13 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
 
     IStartGame.Presenter presenter;
     AppDatabase db;
+    ImageView carrotImage;
+    ImageView appleImage;
+    ImageView pearImage;
+    Button playButton;
+
+    @VisibleForTesting
+    android.nfc.NfcAdapter mNfcAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +56,13 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
 
         db = AppDatabase.getAppDatabase(this);
         presenter = new StartGamePresenter(this);
+        mNfcAdapter= android.nfc.NfcAdapter.getDefaultAdapter(this);
+        carrotImage = findViewById(R.id.carrot);
+        appleImage = findViewById(R.id.apple);
+        pearImage = findViewById(R.id.pear);
 
         Bundle extras = getIntent().getExtras();
-        Button playButton = findViewById(R.id.playButton);
+        playButton = findViewById(R.id.playButton);
         Button menuButton = findViewById(R.id.menuButton);
 
         int currentPlayerId = -1;
@@ -62,8 +79,12 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                presenter.onPlayButtonPressed();
-                finish();
+                if (mNfcAdapter==null || !mNfcAdapter.isEnabled()) {
+                    showNfcAlert();
+                }else {
+                    presenter.onPlayButtonPressed();
+                    finish();
+                }
             }
         });
 
@@ -75,35 +96,29 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         });
 
         startAnimation();
-        android.nfc.NfcAdapter mNfcAdapter= android.nfc.NfcAdapter.getDefaultAdapter(this);
+    }
 
-       if (mNfcAdapter==null || !mNfcAdapter.isEnabled()) {
-
-            AlertDialog.Builder alertbox = new AlertDialog.Builder(this);
-            alertbox.setMessage("Abilita il tuo NFC per iniziare a giocare");
-            alertbox.setPositiveButton("Abilita", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
-                        startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
-                        startActivity(intent);
-                    }
+    private void showNfcAlert() {
+        final Dialog dialog = new Dialog(StartGameActivity.this);
+        dialog.setContentView(R.layout.pop_up);
+        TextView tv = dialog.findViewById(R.id.textView);
+        tv.setText(R.string.enable_nfc);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button enable = dialog.findViewById(R.id.close);
+        enable.setText(R.string.enable);
+        enable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    Intent intent = new Intent(Settings.ACTION_NFC_SETTINGS);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(Settings.ACTION_WIRELESS_SETTINGS);
+                    startActivity(intent);
                 }
-            });
-            alertbox.setNegativeButton("Chiudi", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            alertbox.show();
-
-        }
-
+            }
+        });
+        dialog.show();
     }
 
     private void initCurrentPlayer() {
@@ -127,38 +142,35 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
      * Start the animations in the start game activity
      */
    private void startAnimation() {
-       ImageView carrotImage = findViewById(R.id.carrot);
-       ImageView appleImage = findViewById(R.id.apple);
-       ImageView pearImage = findViewById(R.id.pear);
-       Button playButton = findViewById(R.id.playButton);
+           ImageView carrotImage = findViewById(R.id.carrot);
+           ImageView appleImage = findViewById(R.id.apple);
+           ImageView pearImage = findViewById(R.id.pear);
+           Button playButton = findViewById(R.id.playButton);
 
-       // Load animations
-       Animation animationBounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
-       Animation animationRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_right);
-       Animation animationLeft = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_left);
-       Animation animationLeftAndRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.lion_rotation);
+           // Load animations
+           Animation animationBounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
+           Animation animationRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_right);
+           Animation animationLeft = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.half_rotation_left);
+           Animation animationLeftAndRight = AnimationUtils.loadAnimation(StartGameActivity.this, R.anim.lion_rotation);
 
-       // Start animations
-       playButton.startAnimation(animationBounce);
-       carrotImage.startAnimation(animationRight);
-       appleImage.startAnimation(animationLeftAndRight);
-       pearImage.startAnimation(animationLeft);
+           // Start animations
+           playButton.startAnimation(animationBounce);
+           carrotImage.startAnimation(animationRight);
+           appleImage.startAnimation(animationLeftAndRight);
+           pearImage.startAnimation(animationLeft);
    }
 
     /**
      * Disable animations
      */
-    private void clearAnimations() {
-        ImageView carrotImage = findViewById(R.id.carrot);
-        ImageView appleImage = findViewById(R.id.apple);
-        ImageView pearImage = findViewById(R.id.pear);
-        Button playButton = findViewById(R.id.playButton);
+    @VisibleForTesting
+    public void clearAnimations() {
 
-        // Clear animations
-        playButton.clearAnimation();
-        carrotImage.clearAnimation();
-        appleImage.clearAnimation();
-        pearImage.clearAnimation();
+         playButton.clearAnimation();
+         carrotImage.clearAnimation();
+         appleImage.clearAnimation();
+         pearImage.clearAnimation();
+
     }
 
     /**
@@ -206,6 +218,10 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     @Override
     public void onDestroy() {
         this.clearAnimations();
+        playButton=null;
+        carrotImage=null;
+        appleImage=null;
+        pearImage=null;
         presenter.onDestroy();
         super.onDestroy();
         presenter = null;
@@ -228,6 +244,5 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         }
 
     }
-
 
 }

@@ -220,7 +220,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     protected void onPause() {
       presenter.stopForegroundDispatch();
-      if(request!=null && request.isPlaying()){
+      if(request!= null && request.isPlaying()){
           request.pause();
       }
         super.onPause();

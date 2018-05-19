@@ -29,7 +29,8 @@
     <string name="description">Descrizione...</string>
     <string name="sharing">Condivisione</string>
     <string name="blocked_level">Questo livello non è stato ancora sbloccato. Continua a giocare per raggiungerlo!</string>
-
+    <string name="enable_nfc">Abilita NFC per iniziare a giocare</string>
+    <string name="enable">Abilita</string>
 
 
 </resources>
