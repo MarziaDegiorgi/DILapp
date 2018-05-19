@@ -9,10 +9,12 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.main.CreateAccountActivity;
+import com.polimi.dilapp.startgame.StartGameActivity;
 
 public class EndLevelScreen extends AppCompatActivity {
 //TODO: add a video that explains that the child did the previous activity wrong
@@ -28,25 +30,34 @@ public class EndLevelScreen extends AppCompatActivity {
 
         setContentView(R.layout.end_level_screen);
 
-
-
-        Animation animationTwo = AnimationUtils.loadAnimation(EndLevelScreen.this, R.anim.half_rotation_right);
-        ImageView imageTwo = findViewById(R.id.imageTwo);
-        imageTwo.setVisibility(View.VISIBLE);
-        imageTwo.setAnimation(animationTwo);
-        imageTwo.startAnimation(animationTwo);
-
-        ImageView imageThree = findViewById(R.id.imageThree);
-        imageThree.setVisibility(View.VISIBLE);
-        imageThree.setAnimation(animationTwo);
-        imageThree.startAnimation(animationTwo);
-
-        ImageView imageOne = findViewById(R.id.imageOne);
-        imageOne.setVisibility(View.VISIBLE);
-        imageOne.setAnimation(animationTwo);
-        imageOne.startAnimation(animationTwo);
-
         Button nextButton = findViewById(R.id.nextButton);
+        Button exitButton = findViewById(R.id.exitButton);
+
+        Animation animationBounce = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        Animation animationRight = AnimationUtils.loadAnimation(EndLevelScreen.this, R.anim.half_rotation_right);
+        Animation animationLeft = AnimationUtils.loadAnimation(EndLevelScreen.this, R.anim.half_rotation_left);
+        Animation animationLeftAndRight = AnimationUtils.loadAnimation(EndLevelScreen.this, R.anim.lion_rotation);
+
+
+        ImageView imageTwo = findViewById(R.id.pearIm);
+        imageTwo.setVisibility(View.VISIBLE);
+        imageTwo.setAnimation(animationLeft);
+        imageTwo.startAnimation(animationLeft);
+
+        ImageView imageThree = findViewById(R.id.appleIm);
+        imageThree.setVisibility(View.VISIBLE);
+        imageThree.setAnimation(animationLeftAndRight);
+        imageThree.startAnimation(animationLeftAndRight);
+
+        ImageView imageOne = findViewById(R.id.carrotIm);
+        imageOne.setVisibility(View.VISIBLE);
+        imageOne.setAnimation(animationRight);
+        imageOne.startAnimation(animationRight);
+
+       nextButton.startAnimation(animationBounce);
+       exitButton.startAnimation(animationBounce);
+
+
         nextButton.setText(buttonName);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -62,8 +73,7 @@ public class EndLevelScreen extends AppCompatActivity {
             }
         });
 
-        //TODO: verify the correct activity to begin clicking on Exit.
-        Button exitButton = findViewById(R.id.exitButton);
+
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

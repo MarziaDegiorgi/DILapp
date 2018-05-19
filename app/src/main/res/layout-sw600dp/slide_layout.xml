@@ -6,8 +6,8 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/icon_slide"
-        android:layout_width="358dp"
-        android:layout_height="373dp"
+        android:layout_width="479dp"
+        android:layout_height="508dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="88dp" />
@@ -18,10 +18,10 @@
         android:layout_height="49dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="155dp"
+        android:layout_marginBottom="181dp"
         android:text="Slide 1"
         android:textAlignment="center"
-        android:textSize="30dp" />
+        android:textSize="35dp" />
 
 
 </RelativeLayout>

@@ -17,11 +17,11 @@
         <Button
             android:id="@+id/playButton"
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
-            android:layout_width="204dp"
-            android:layout_height="77dp"
+            android:layout_width="246dp"
+            android:layout_height="84dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="96dp"
+            android:layout_marginTop="143dp"
             android:background="@drawable/roundedbutton"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/play"
@@ -47,8 +47,8 @@
 
     <ImageView
         android:id="@+id/carrot"
-        android:layout_width="279dp"
-        android:layout_height="225dp"
+        android:layout_width="314dp"
+        android:layout_height="263dp"
         android:layout_alignBottom="@+id/pear"
         android:layout_marginBottom="16dp"
         android:contentDescription="TODO"
@@ -60,8 +60,8 @@
 
     <ImageView
         android:id="@+id/pear"
-        android:layout_width="133dp"
-        android:layout_height="145dp"
+        android:layout_width="140dp"
+        android:layout_height="165dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="48dp"
@@ -74,8 +74,8 @@
 
     <ImageView
         android:id="@+id/apple"
-        android:layout_width="133dp"
-        android:layout_height="129dp"
+        android:layout_width="154dp"
+        android:layout_height="153dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="48dp"

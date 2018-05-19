@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -211,18 +213,28 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-        if(request != null && request.isPlaying()){
-            request.start();
-        }
        presenter.setupForegroundDispatch();
+
+        /*NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
+        adapter.enableReaderMode(this,
+                new NfcAdapter.ReaderCallback() {
+                    @Override
+                    public void onTagDiscovered(final Tag tag) {
+                        // do something
+                    }
+                },
+                NfcAdapter.FLAG_READER_NFC_A |
+                        NfcAdapter.FLAG_READER_NFC_B |
+                        NfcAdapter.FLAG_READER_NFC_F |
+                        NfcAdapter.FLAG_READER_NFC_V |
+                        NfcAdapter.FLAG_READER_NFC_BARCODE |
+                        NfcAdapter.FLAG_READER_NO_PLATFORM_SOUNDS,
+                null);*/
     }
 
     @Override
     protected void onPause() {
       presenter.stopForegroundDispatch();
-      if(request!= null && request.isPlaying()){
-          request.pause();
-      }
         super.onPause();
     }
 
