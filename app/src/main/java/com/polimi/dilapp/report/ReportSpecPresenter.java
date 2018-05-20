@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class ReportSpecPresenter extends AppCompatActivity implements IReport.Presenter {
+public class ReportSpecPresenter implements IReport.Presenter {
 
     private IReport.View view;
     private AppDatabase db;
@@ -59,29 +59,11 @@ public class ReportSpecPresenter extends AppCompatActivity implements IReport.Pr
         currentPlayerId =  DatabaseInitializer.getCurrentPlayer(db);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public void onItemMenuSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(view.getContext(), ReportSettingsActivity.class);
-                view.getContext().startActivity(intent);
-                finish();
-                break;
-            default:
-                break;
-        }
-    }
 
     @Override
     public void onDestroy() {
 
-        super.onDestroy();
+        view = null;
     }
 
 

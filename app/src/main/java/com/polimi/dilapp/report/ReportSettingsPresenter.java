@@ -23,18 +23,11 @@ import java.util.regex.Pattern;
 
 import static com.polimi.dilapp.database.AppDatabase.getAppDatabase;
 
-public class ReportSettingsPresenter extends AppCompatActivity implements IReportSettings.Presenter{
+public class ReportSettingsPresenter implements IReportSettings.Presenter{
     private IReportSettings.View activityInterface;
     private AppDatabase db;
     @VisibleForTesting
     public boolean enableReport;
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
 
     public ReportSettingsPresenter(IReportSettings.View view){
         activityInterface = view;

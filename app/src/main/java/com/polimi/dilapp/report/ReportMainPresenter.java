@@ -67,22 +67,9 @@ public class ReportMainPresenter implements IReport.Presenter{
     private ProgressDialog progress;
     ReportMainPresenter(IReport.View view){
         this.view = view;
-        db = AppDatabase.getAppDatabase(view.getContext());
+        db = AppDatabase.getAppDatabase(this.view.getContext());
         currentPlayerId =  DatabaseInitializer.getCurrentPlayer(db);
     }
-
-
-    @Override
-    public void onItemMenuSelected(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.settings:
-                    Intent intent = new Intent(view.getContext(), ReportSettingsActivity.class);
-                    view.getContext().startActivity(intent);
-                    break;
-                default:
-                    break;
-            }
-        }
 
         @Override
     public void onDestroy() {
@@ -307,6 +294,10 @@ public class ReportMainPresenter implements IReport.Presenter{
     }
     private void progressDismiss(){
         progress.dismiss();
+    }
+
+    public IReport.View getView(){
+        return view;
     }
 
 }

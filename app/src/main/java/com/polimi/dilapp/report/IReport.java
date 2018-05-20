@@ -16,7 +16,6 @@ public interface IReport {
 
     }
     interface Presenter{
-        void onItemMenuSelected(MenuItem item);
         void onDestroy();
         void takeScreenshot(LinearLayout v1, LinearLayout v2, ProgressDialog progress);
     }

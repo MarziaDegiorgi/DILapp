@@ -270,7 +270,15 @@ public class ReportSpecActivity extends AppCompatActivity implements IReport.Vie
         }
 
         public void onClickMenuItem (MenuItem item) {
-            presenter.onItemMenuSelected(item);
+
+            switch (item.getItemId()) {
+                case R.id.settings:
+                    Intent intent = new Intent(this, ReportSettingsActivity.class);
+                    this.startActivity(intent);
+                    break;
+                default:
+                    break;
+            }
         }
 
 
