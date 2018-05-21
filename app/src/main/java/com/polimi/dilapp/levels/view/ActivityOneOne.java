@@ -215,7 +215,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         super.onResume();
        presenter.setupForegroundDispatch();
 
-        /*NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
+        NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
         adapter.enableReaderMode(this,
                 new NfcAdapter.ReaderCallback() {
                     @Override
@@ -229,7 +229,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
                         NfcAdapter.FLAG_READER_NFC_V |
                         NfcAdapter.FLAG_READER_NFC_BARCODE |
                         NfcAdapter.FLAG_READER_NO_PLATFORM_SOUNDS,
-                null);*/
+                null);
     }
 
     @Override

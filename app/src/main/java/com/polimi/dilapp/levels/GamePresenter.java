@@ -44,6 +44,7 @@ import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.emailSender.Mail;
+import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.report.ReportMainActivity;
 import com.polimi.dilapp.report.ReportMainPresenter;
 
@@ -583,7 +584,7 @@ public class GamePresenter implements IGame.Presenter {
 
     @Override
     public void handleIntent(Intent intent) {
-        String action = intent.getAction();
+                String action = intent.getAction();
         if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
             String type = intent.getType();
             if (MIME_TEXT_PLAIN.equals(type)) {
@@ -629,6 +630,7 @@ public class GamePresenter implements IGame.Presenter {
         }
 
         nfcAdapter.enableForegroundDispatch((Activity) activityInterface, pendingIntent, filters, techList);
+
     }
 
     public void stopForegroundDispatch() {

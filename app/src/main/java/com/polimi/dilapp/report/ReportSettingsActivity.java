@@ -73,8 +73,9 @@ public void onResume() {
 
 
     @Override
-    public void onBackPressed(){
+    public void onDestroy() {
         presenter.checkAutoReport();
+        super.onDestroy();
     }
 }
 
