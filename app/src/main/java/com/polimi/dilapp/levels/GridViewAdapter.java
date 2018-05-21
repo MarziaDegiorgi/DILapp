@@ -46,13 +46,6 @@ public class GridViewAdapter extends BaseAdapter {
         return 0;
     }
 
-    // Convert DP to PX
-    // Source: http://stackoverflow.com/a/8490361
-    public int dpToPx(int dps) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dps * scale + 0.5f);
-    }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
             ImageView gridView;
@@ -92,10 +85,6 @@ public class GridViewAdapter extends BaseAdapter {
 
     public void clearImageResources() {
         this.images_id.clear();
-    }
-
-    public void animateLastImage() {
-
     }
 
 }

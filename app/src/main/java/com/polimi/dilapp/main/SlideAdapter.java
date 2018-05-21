@@ -24,18 +24,18 @@ public class SlideAdapter extends PagerAdapter {
 
 
     //Arrays
-    public int[] slide_images = {
+    private int[] slide_images = {
             R.raw.intro_gif,
             R.raw.nfc_gif,
             R.raw.repo_gif,
             R.raw.share_gif
     };
 
-    public String[] slide_texts= {
-            "SLIDE 1",
-            "SLIDE 2",
-            "SLIDE 3",
-            "SLIDE 4"
+    private int[] slide_texts= {
+            R.string.slide1,
+            R.string.slide2,
+            R.string.slide3,
+            R.string.slide4
     };
 
 
@@ -46,7 +46,7 @@ public class SlideAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == (RelativeLayout)object;
+        return view == object;
     }
 
     @Override
@@ -66,7 +66,7 @@ public class SlideAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        ((ViewPager) container).removeView((View) object);
+        container.removeView((View) object);
     }
 
 }

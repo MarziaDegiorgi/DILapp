@@ -33,5 +33,10 @@
     <string name="enable_nfc">Abilita NFC per iniziare a giocare</string>
     <string name="enable">Abilita</string>
 
+    <string name="slide1">SLIDE1</string>
+    <string name="slide2">SLIDE2</string>
+    <string name="slide3">SLIDE3</string>
+    <string name="slide4">SLIDE4</string>
+
 
 </resources>
