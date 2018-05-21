@@ -949,7 +949,7 @@ public class GamePresenter implements IGame.Presenter {
         if (errorList.size() > 0) {
             DatabaseInitializer.setAllErrors(db, errorList, level);
         }
-        if(DatabaseInitializer.isAutoRepoEnabled(db)) {
+        if(DatabaseInitializer.isAutoRepoEnabled(db) && (correctAnswers != 0 || errorList.size()>0) ) {
             new SendEmailTask().execute();
         }
     }
