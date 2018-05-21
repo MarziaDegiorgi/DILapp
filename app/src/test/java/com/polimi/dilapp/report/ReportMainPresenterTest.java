@@ -33,9 +33,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-//TODO: SOLVE PROBLEM AND CREATE TEST
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({MenuItem.class, Intent.class})
+@PrepareForTest({AppDatabase.class, Log.class, DatabaseInitializer.class, Pattern.class, Matcher.class, ContextCompat.class,
+Context.class,Room.class })
 public class ReportMainPresenterTest {
     @Mock
     private IReport.View view;
@@ -66,8 +66,6 @@ public class ReportMainPresenterTest {
 
     @Before
     public void test(){
-        PowerMockito.mockStatic(MenuItem.class);
-        PowerMockito.mockStatic(Intent.class);
         PowerMockito.mockStatic(AppDatabase.class);
         PowerMockito.mockStatic(Log.class);
         PowerMockito.mockStatic(DatabaseInitializer.class);
@@ -78,8 +76,6 @@ public class ReportMainPresenterTest {
         PowerMockito.mockStatic(Context.class);
 
         when(AppDatabase.getAppDatabase(view.getContext())).thenReturn(appDatabase);
-        when(Room.databaseBuilder(view.getContext(),AppDatabase.class, "child-database")
-                .allowMainThreadQueries().build()).thenReturn(any(AppDatabase.class));
         when(appDatabase.childDao()).thenReturn(childDao);
         when(Log.i(any(String.class), any(String.class))).thenReturn(1);
         when(DatabaseInitializer.getCurrentPlayer(appDatabase)).thenReturn(playerId);
@@ -95,6 +91,9 @@ public class ReportMainPresenterTest {
         assertNull(reportMainPresenter.getView());
     }
 
-
+    @Test
+    public void takeScreenshot(){
+        //TODO: Unable to mock ASyncTask calling to execute() method
+    }
 
 }

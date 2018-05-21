@@ -2,17 +2,14 @@ package com.polimi.dilapp.report;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.MenuItem;
 import android.widget.LinearLayout;
 
 import com.itextpdf.text.BadElementException;
@@ -62,21 +59,19 @@ public class ReportSpecPresenter implements IReport.Presenter {
 
     @Override
     public void onDestroy() {
-
         view = null;
     }
 
 
+    public class TakeScreenshot extends AsyncTask<LinearLayout, Void, String> {
 
-    class TakeScreenshot extends AsyncTask<LinearLayout, Void, String> {
-
-        @Override
+    @Override
         protected void onPreExecute() {
             super.onPreExecute();
         }
 
         @Override
-        protected String doInBackground(LinearLayout... arg0) {
+        public String doInBackground(LinearLayout... arg0) {
 
             LinearLayout v1 = arg0[0];
             LinearLayout v2 = arg0[1];
@@ -110,6 +105,8 @@ public class ReportSpecPresenter implements IReport.Presenter {
                 document.open();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 Bitmap screen;
+
+
 
                 Drawable d = ContextCompat.getDrawable(view.getContext(), R.drawable.logo_red_report);
                 Bitmap bitmap = ((BitmapDrawable) d).getBitmap();
@@ -280,6 +277,11 @@ public class ReportSpecPresenter implements IReport.Presenter {
 
     private void progressDismiss(){
         progress.dismiss();
+    }
+
+    @VisibleForTesting
+    public IReport.View getView(){
+        return view;
     }
 
 
