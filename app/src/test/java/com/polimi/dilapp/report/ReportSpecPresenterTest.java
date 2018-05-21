@@ -79,10 +79,4 @@ public class ReportSpecPresenterTest {
         reportPresenter.onDestroy();
         assertNull(reportPresenter.getView());
     }
-
-    @Test
-    public void takeScreenshot() throws Exception {
-        //TODO: Unable to mock ASyncTask calling to execute() method
-    }
-
 }

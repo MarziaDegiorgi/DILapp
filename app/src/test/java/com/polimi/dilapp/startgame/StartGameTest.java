@@ -158,7 +158,10 @@ public class StartGameTest {
 
         verify(databaseInitializer, Mockito.times(1));
         DatabaseInitializer.resetCurrentPlayer(appDatabase);
+    }
 
-
+    @Test
+    public void linkToActivityTest(){
+        startGamePresenter.linkToActivity(11,"object");
     }
 }

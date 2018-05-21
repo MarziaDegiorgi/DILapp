@@ -91,9 +91,4 @@ public class ReportMainPresenterTest {
         assertNull(reportMainPresenter.getView());
     }
 
-    @Test
-    public void takeScreenshot(){
-        //TODO: Unable to mock ASyncTask calling to execute() method
-    }
-
 }

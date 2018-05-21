@@ -31,13 +31,6 @@ public interface IStartGame {
          */
         void onPlayButtonPressed();
 
-        /**
-         * Called by the view when an item in the menu is selected and
-         * Redirect to the correspondent activity
-         * @param item selected
-         */
-        void onItemMenuSelected(MenuItem item);
-
         void resumeCurrentPlayer(Bundle savedInstanceState);
         void storeCurrentPlayer(Bundle savedInstanceState);
         int getLevelCurrentPlayer();

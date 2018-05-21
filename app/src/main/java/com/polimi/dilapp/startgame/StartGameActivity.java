@@ -29,7 +29,10 @@ import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.DatabaseInitializer;
+import com.polimi.dilapp.levelmap.LevelMapActivity;
+import com.polimi.dilapp.main.CreateAccountActivity;
 import com.polimi.dilapp.main.NewAccountActivity;
+import com.polimi.dilapp.report.ReportMainActivity;
 
 import java.util.List;
 
@@ -188,7 +191,22 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
 
     public void onClickMenuItem (MenuItem item) {
 
-       presenter.onItemMenuSelected(item);
+        switch (item.getItemId()){
+            case R.id.change_level:
+                Intent intent = new Intent(this.getScreenContext(), LevelMapActivity.class);
+                this.getScreenContext().startActivity(intent);
+                break;
+            case R.id.report:
+                Intent report = new Intent(this.getScreenContext(), ReportMainActivity.class);
+                this.getScreenContext().startActivity(report);
+                break;
+            case R.id.change_player:
+                presenter.resetCurrentPlayer();
+                Intent activity = new Intent(this.getScreenContext(), CreateAccountActivity.class);
+                this.getScreenContext().startActivity(activity);
+                break;
+            default:break;
+        }
    }
 
 
@@ -242,7 +260,5 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
             Log.e("[StartGameActivity]", "Current Player Level " + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
         }
-
     }
-
 }

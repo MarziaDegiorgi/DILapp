@@ -47,25 +47,6 @@ public class StartGamePresenter implements  IStartGame.Presenter {
     }
 
     @Override
-    public void onItemMenuSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.change_level:
-                Intent intent = new Intent(startGameView.getScreenContext(), LevelMapActivity.class);
-                startGameView.getScreenContext().startActivity(intent);
-                break;
-            case R.id.report:
-                Intent report = new Intent(startGameView.getScreenContext(), ReportMainActivity.class);
-                startGameView.getScreenContext().startActivity(report);
-                break;
-            case R.id.change_player:
-                resetCurrentPlayer();
-                Intent activity = new Intent(startGameView.getScreenContext(), CreateAccountActivity.class);
-                startGameView.getScreenContext().startActivity(activity);
-                break;
-            default:break;
-        }
-    }
-    @Override
     public void resumeCurrentPlayer(Bundle savedInstanceState) {
         DatabaseInitializer.setCurrentPlayer(db, savedInstanceState.getInt("current_player"));
         DatabaseInitializer.setLevelCurrentPlayer(db, savedInstanceState.getInt("level"));

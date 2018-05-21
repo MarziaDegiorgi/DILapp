@@ -114,6 +114,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter{
 
     @Override
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
+        //TODO: Make selectable only levels already completed
         return true;
     }
 }
