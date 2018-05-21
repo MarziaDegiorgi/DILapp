@@ -81,7 +81,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     }
 
     private void setupVideoIntro() {
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro_2_1);
         common.startIntro(uri, numberSequence,this);
     }
 

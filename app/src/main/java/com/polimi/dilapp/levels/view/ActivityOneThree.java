@@ -76,7 +76,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
     private void setupVideoIntro(){
         //Introduction to the whole activity game
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro_1_3);
         common.startIntro(uri, shapeSequence,this);
     }
 

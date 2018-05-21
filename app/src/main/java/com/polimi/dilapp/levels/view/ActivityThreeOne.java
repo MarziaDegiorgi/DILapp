@@ -85,7 +85,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
      * Set up the Intro Video and call the presenter to start the level
      */
     private void setupVideoIntro() {
-        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro);
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro_3_1);
         common.startIntro(uri, countSequence,this);
     }
 
