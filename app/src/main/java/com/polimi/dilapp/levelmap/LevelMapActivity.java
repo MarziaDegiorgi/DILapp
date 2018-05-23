@@ -217,11 +217,12 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
                     intent = new Intent(this, ActivityTwoThree.class);
                     startActivity(intent);
                     finish();
+                    break;
             case "CONTIAMO INSIEME":
                     intent = new Intent(this, ActivityThreeOne.class);
                     startActivity(intent);
                     finish();
-                break;
+                    break;
             case "CUCINA CON NOSCO":
                     intent = new Intent(this, ActivityThreeTwo.class);
                     startActivity(intent);

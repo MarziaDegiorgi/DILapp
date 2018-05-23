@@ -331,7 +331,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                if(presenter.getNumberOfElements()>0) {
+                if(presenter.getMultipleElement() && presenter.getNumberOfElements()>1) {
                     mp.release();
                 }else {
                     disableViews();

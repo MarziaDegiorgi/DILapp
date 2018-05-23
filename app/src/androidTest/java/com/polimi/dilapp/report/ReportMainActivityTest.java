@@ -4,6 +4,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.polimi.dilapp.R;
+import com.polimi.dilapp.database.DatabaseInitializer;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,8 +37,11 @@ public class ReportMainActivityTest {
             onView(withId(R.id.menuButton)).check(matches(isDisplayed()));
             onView(withId(R.id.menuButton)).check(matches(isClickable()));
 
+        if(DatabaseInitializer.getNameCurrentPlayer(reportMainRule.getActivity().getDatabase()) != null) {
             onView(withId(R.id.name)).check(matches(isDisplayed()));
             onView(withId(R.id.profile_image)).check(matches(isDisplayed()));
+        }
+
             onView(withId(R.id.spec_button)).check(matches(isDisplayed()));
             onView(withId(R.id.graph)).check(matches(isDisplayed()));
 
@@ -60,7 +64,5 @@ public class ReportMainActivityTest {
     public void onMenuItemClicked(){
         onView(withId(R.id.menuButton)).perform(click());
         onView(withText("Impostazioni")).check(matches(isDisplayed()));
-        onView(withText("Impostazioni")).perform(click());
-        onView(withText("Abilita reportistica automatica")).check(matches(isDisplayed()));
     }
 }

@@ -351,7 +351,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         wrongAnswer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                if(presenter.getNumberOfElements() > 0) {
+                if(presenter.getNumberOfElements() > 1) {
                     mp.release();
                 }else {
                     disableViews();

@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -55,8 +56,6 @@ public class ReportSpecActivity extends AppCompatActivity implements IReport.Vie
         private DataPoint[] errorList;
         private String currentDate;
         private ImageView shareButton;
-
-
 
 
     @Override
@@ -361,5 +360,16 @@ public class ReportSpecActivity extends AppCompatActivity implements IReport.Vie
         startActivity(email);
     }
 
+    public int getCurrentPlayer(){
+        return  currentPlayer;
+    }
+
+    public AppDatabase getDatabase(){
+        return  db;
+    }
+
+    public DataPoint[] getErrorList(){
+        return errorList;
+    }
 
 }

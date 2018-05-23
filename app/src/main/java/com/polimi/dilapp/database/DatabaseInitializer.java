@@ -66,7 +66,6 @@ public class DatabaseInitializer {
         Bitmap bitmap = decodeSampledBitmapFromResource(contentResolver, childEntity);
         String flag = "null";
         if(bitmap != null){flag = "ok!";}
-        Log.i("Image of "+childEntity.getName(), flag);
         return bitmap;
     }
 

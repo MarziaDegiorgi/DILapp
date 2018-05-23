@@ -7,6 +7,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.polimi.dilapp.R;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,7 +43,7 @@ public class StartGameActivityTest {
      });
     }
 
-    @Test
+    @Ignore
     public void isDisplayed() throws Exception{
 
         onView(withId(R.id.playButton)).check(matches(ViewMatchers.isDisplayed()));

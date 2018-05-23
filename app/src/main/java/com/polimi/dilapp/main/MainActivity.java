@@ -1,13 +1,16 @@
 package com.polimi.dilapp.main;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +28,8 @@ import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
 
+import static com.polimi.dilapp.main.MusicService.*;
+
 public class MainActivity extends AppCompatActivity implements IMain.View{
 
     IMain.Presenter presenter;
@@ -35,6 +40,35 @@ public class MainActivity extends AppCompatActivity implements IMain.View{
     private Button previous;
     private Button next;
     int currentPage;
+
+    private boolean mIsBound = false;
+    private MusicService mServ;
+   /* private ServiceConnection Scon =new ServiceConnection(){
+
+        public void onServiceConnected(ComponentName name, IBinder
+                binder) {
+            mServ = new MusicService();
+        }
+
+        public void onServiceDisconnected(ComponentName name) {
+            mServ = null;
+        }
+    };
+
+    void doBindService(){
+        bindService(new Intent(this,MusicService.class),
+                Scon,Context.BIND_AUTO_CREATE);
+        mIsBound = true;
+    }
+
+    void doUnbindService()
+    {
+        if(mIsBound)
+        {
+            unbindService(Scon);
+            mIsBound = false;
+        }
+    }*/
 
     @VisibleForTesting
     public Boolean slideshow;

@@ -343,6 +343,10 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         startActivity(email);
     }
 
+    public AppDatabase getDatabase(){
+        return db;
+    }
+
 
 
 }
