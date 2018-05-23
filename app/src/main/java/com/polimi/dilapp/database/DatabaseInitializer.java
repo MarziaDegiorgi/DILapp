@@ -38,7 +38,7 @@ public class DatabaseInitializer {
         }
         return child;
     }
-    //TODO: Remove useless lines of code
+
     public static void insertReports(final AppDatabase db, int id){
         ReportOneOneEntity reportOneOneEntity = new ReportOneOneEntity(id);
         db.reportOneOneDao().insertReport(reportOneOneEntity);
@@ -52,11 +52,11 @@ public class DatabaseInitializer {
         db.reportTwoTwoDao().insertReport(reportTwoTwoEntity);
         ReportTwoThreeEntity reportTwoThreeEntity = new ReportTwoThreeEntity(id);
         db.reportTwoThreeDao().insertReport(reportTwoThreeEntity);
-        /*ReportThreeOneEntity reportThreeOneEntity = new ReportThreeOneEntity(id);
+        ReportThreeOneEntity reportThreeOneEntity = new ReportThreeOneEntity(id);
         db.reportThreeOneDao().insertReport(reportThreeOneEntity);
         ReportThreeTwoEntity reportThreeTwoEntity = new ReportThreeTwoEntity(id);
         db.reportThreeTwoDao().insertReport(reportThreeTwoEntity);
-        */
+
     }
     public static List<ChildEntity> getListOfChildren (final AppDatabase db) {
         return db.childDao().getAll();
@@ -317,8 +317,7 @@ public class DatabaseInitializer {
         Boolean flag;
         if(db.childDao().isAutoRepoEnabled(getCurrentPlayer(db)) == null){
             db.childDao().disableAutoRepo(getCurrentPlayer(db), "false");
-        }
-        if(db.childDao().isAutoRepoEnabled(getCurrentPlayer(db)).equals("true")){
+        }if(db.childDao().isAutoRepoEnabled(getCurrentPlayer(db)).equals("true")){
             flag = true;
         }else{
             flag = false;
