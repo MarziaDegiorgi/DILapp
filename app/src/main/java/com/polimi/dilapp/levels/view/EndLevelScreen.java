@@ -69,6 +69,7 @@ public class EndLevelScreen extends AppCompatActivity {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
+                overridePendingTransition(R.anim.right_enter, R.anim.right_exit);
                 startActivity(intent);
             }
         });
@@ -78,6 +79,7 @@ public class EndLevelScreen extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                overridePendingTransition(R.anim.right_enter, R.anim.right_exit);
                 startActivity(intent);
             }
         });
