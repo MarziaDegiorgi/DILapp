@@ -195,6 +195,8 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityOneThree");
         intent.putExtra("ButtonName", "Ripeti");
         startActivity(intent);
+        overridePendingTransition(R.anim.left_enter, R.anim.left_exit);
+        finish();
     }
 
     @Override
@@ -203,6 +205,8 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
         intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityTwoOne");
         intent.putExtra("ButtonName", "Avanti");
         startActivity(intent);
+        overridePendingTransition(R.anim.left_enter, R.anim.left_exit);
+        finish();
 
     }
 

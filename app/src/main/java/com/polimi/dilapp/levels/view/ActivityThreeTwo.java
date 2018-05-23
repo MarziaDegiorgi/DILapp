@@ -246,6 +246,8 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
         intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityThreeTwo");
         intent.putExtra("ButtonName", "Ripeti");
         startActivity(intent);
+        overridePendingTransition(R.anim.left_enter, R.anim.left_exit);
+        finish();
     }
 
     @Override
@@ -260,7 +262,9 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
                 intent.putExtra("Activity","com.polimi.dilapp.levels.startgame.StartGameActivity");
                 intent.putExtra("ButtonName", "Avanti");
                 startActivity(intent);
+                overridePendingTransition(R.anim.left_enter, R.anim.left_exit);
                 mp.release();
+                finish();
             }
         });
     }
