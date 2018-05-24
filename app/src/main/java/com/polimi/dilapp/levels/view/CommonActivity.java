@@ -27,6 +27,8 @@ class CommonActivity {
     private IGame.Presenter presenter;
 
     private Handler myHandler;
+    private Animation animationIn;
+    private Animation animationOut;
 
     CommonActivity(IGame.Presenter presenter){
         this.presenter = presenter;
@@ -38,6 +40,13 @@ class CommonActivity {
         return new ArrayList<>(Arrays.asList(array));
     }
 
+
+    void setAnimations(AppCompatActivity activity){
+    animationIn = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.alpha_enter);
+    animationOut = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.alpha_exit);
+    }
+
+
     /**
      * Start the introductory video of each level
      * @param uri video to start
@@ -45,15 +54,20 @@ class CommonActivity {
      * @param activity to which it refer
      */
    void startIntro(Uri uri, final List<String> sequence, AppCompatActivity activity){
-       VideoView video = activity.findViewById(R.id.video_box);
+       final VideoView video = activity.findViewById(R.id.video_box);
        video.setVideoURI(uri);
+       video.setAnimation(animationIn);
+       video.startAnimation(animationIn);
        video.start();
        video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
            //When the introduction video finishes the first session begins
            @Override
            public void onCompletion(MediaPlayer mp) {
-              presenter.startGame(sequence);
-              mp.release();
+               video.setAnimation(animationOut);
+               video.startAnimation(animationOut);
+               video.setVisibility(View.INVISIBLE);
+               presenter.startGame(sequence);
+               mp.release();
            }
        });
     }
@@ -62,12 +76,21 @@ class CommonActivity {
         final VideoView video = activity.findViewById(R.id.video_box);
         video.setVisibility(View.VISIBLE);
         video.setVideoURI(uri);
+        video.setAnimation(animationIn);
+        video.startAnimation(animationIn);
         video.start();
         video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                video.setAnimation(animationOut);
+                video.startAnimation(animationOut);
                 video.setVisibility(View.INVISIBLE);
-                presenter.chooseElement();
+                myHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.chooseElement();
+                    }
+                },600);
                 mp.release();
             }
         });

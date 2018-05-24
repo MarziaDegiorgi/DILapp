@@ -55,8 +55,9 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        common = new CommonActivity(presenter);
 
+        common = new CommonActivity(presenter);
+        common.setAnimations(ActivityOneOne.this);
         setupSequence();
 
        boolean availability = presenter.checkNfcAvailability();
@@ -218,22 +219,6 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     protected void onResume() {
         super.onResume();
        presenter.setupForegroundDispatch();
-
-        NfcAdapter adapter = NfcAdapter.getDefaultAdapter(this);
-        adapter.enableReaderMode(this,
-                new NfcAdapter.ReaderCallback() {
-                    @Override
-                    public void onTagDiscovered(final Tag tag) {
-                        // do something
-                    }
-                },
-                NfcAdapter.FLAG_READER_NFC_A |
-                        NfcAdapter.FLAG_READER_NFC_B |
-                        NfcAdapter.FLAG_READER_NFC_F |
-                        NfcAdapter.FLAG_READER_NFC_V |
-                        NfcAdapter.FLAG_READER_NFC_BARCODE |
-                        NfcAdapter.FLAG_READER_NO_PLATFORM_SOUNDS,
-                null);
     }
 
     @Override

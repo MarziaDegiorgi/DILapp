@@ -55,6 +55,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
             e.printStackTrace();
         }
         common = new CommonActivity(presenter);
+        common.setAnimations(ActivityOneTwo.this);
         presenter.setColourLevel();
         setupSequence();
 

@@ -18,6 +18,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
@@ -40,6 +41,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     String object;
     int counterID = 0;
     private Handler myHandler = new Handler();
+    private Animation animationOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
             e.printStackTrace();
         }
         common = new CommonActivity(presenter);
+        common.setAnimations(ActivityThreeTwo.this);
         presenter.setRecipeLevel();
         setupSequence();
 
@@ -252,12 +255,22 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setGoOnOrExitScreen() {
-        //TODO: PUT THE RIGHT VIDEO NAME
-        MediaPlayer request = MediaPlayer.create(this, R.raw.intro);
-        request.start();
-        request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+        final VideoView video = findViewById(R.id.video_box);
+        video.setVisibility(View.VISIBLE);
+        Uri uriEnd = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_end_game);
+        video.setVideoURI(uriEnd);
+        Animation animationIn = AnimationUtils.loadAnimation(ActivityThreeTwo.this, R.anim.alpha_enter);
+        animationOut = AnimationUtils.loadAnimation(ActivityThreeTwo.this, R.anim.alpha_exit);
+        video.setAnimation(animationIn);
+        video.startAnimation(animationIn);
+        video.start();
+        video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                video.setAnimation(animationOut);
+                video.startAnimation(animationOut);
+                video.setVisibility(View.INVISIBLE);
                 Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
                 intent.putExtra("Activity","com.polimi.dilapp.levels.startgame.StartGameActivity");
                 intent.putExtra("ButtonName", "Avanti");
@@ -265,6 +278,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
                 overridePendingTransition(R.anim.left_enter, R.anim.left_exit);
                 mp.release();
                 finish();
+
             }
         });
     }

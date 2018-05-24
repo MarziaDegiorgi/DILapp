@@ -57,7 +57,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
             e.printStackTrace();
         }
         common = new CommonActivity(presenter);
-
+        common.setAnimations(ActivityOneThree.this);
         setupSequence();
 
         boolean availability = presenter.checkNfcAvailability();

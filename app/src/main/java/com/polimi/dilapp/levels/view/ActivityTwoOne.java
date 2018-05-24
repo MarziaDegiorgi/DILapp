@@ -63,6 +63,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
             e.printStackTrace();
         }
         common = new CommonActivity(presenter);
+        common.setAnimations(ActivityTwoOne.this);
         myHandler = new Handler();
 
         setupSequence();

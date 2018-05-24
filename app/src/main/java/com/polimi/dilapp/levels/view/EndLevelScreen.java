@@ -17,7 +17,7 @@ import com.polimi.dilapp.main.CreateAccountActivity;
 import com.polimi.dilapp.startgame.StartGameActivity;
 
 public class EndLevelScreen extends AppCompatActivity {
-//TODO: add a video that explains that the child did the previous activity wrong
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -62,7 +62,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         }
         myHandler = new Handler();
         common = new CommonActivity(presenter);
-
+        common.setAnimations(ActivityThreeOne.this);
         this.setupCountSequence();
 
         boolean availability = presenter.checkNfcAvailability();
