@@ -90,7 +90,6 @@ public class GamePresenter implements IGame.Presenter {
     private int initTime;
     private int endTime;
     private int totaltime;
-    //TODO set adjustments: they are the approximated lenght in seconds of the videos of the activity
     private int adjustment;
     private IGame.View activityInterface;
     private String currentSequenceElement;
@@ -496,35 +495,35 @@ public class GamePresenter implements IGame.Presenter {
         Log.i("[GAME PRESENTER]", " setting adjustment");
         switch (activityInterface.getString()){
             case "ActivityOneOne":
-                adjustment = 0;
+                adjustment = 62;
                 Log.e("[Adjustment] ", String.valueOf(adjustment));
                 break;
             case "ActivityOneTwo":
-                adjustment = 0;
+                adjustment = 65;
                 Log.e("[Adjustment] ", String.valueOf(adjustment));
                 break;
             case "ActivityOneThree":
-                adjustment = 0;
+                adjustment = 50;
                 Log.e("[Adjustment] ", String.valueOf(adjustment));
                 break;
             case "ActivityTwoOne":
-                adjustment = 0;
+                adjustment = 74;
                 Log.e("[Adjustment] ", String.valueOf(adjustment));
                 break;
             case "ActivityTwoTwo":
-                adjustment = 0;
+                adjustment = 56;
                 Log.e("[Adjustment] ", String.valueOf(adjustment));
                 break;
             case "ActivityTwoThree":
-                adjustment = 0;
+                adjustment = 73;
                 Log.e("[Adjustment] ", String.valueOf(adjustment));
                 break;
             case "ActivityThreeOne":
-                adjustment = 0;
+                adjustment = 40;
                 Log.e("[Adjustment] ", String.valueOf(adjustment));
                 break;
             case "ActivityThreeTwo":
-                adjustment = 0;
+                adjustment = 37;
                 Log.e("[Adjustment] ", String.valueOf(adjustment));
                 break;
             default:

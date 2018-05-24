@@ -109,23 +109,39 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/spec_button"
-        style="@android:style/Widget.DeviceDefault.Button.Borderless"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
         android:layout_gravity="center"
-        android:background="@drawable/roundedbutton"
-        android:backgroundTint="@color/colorPrimaryDark"
         android:padding="10dp"
-        android:text="@string/progress_button"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textSize="20sp"
-        android:textColor="@color/white"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginHorizontal="20dp"
 
+        >
+        <Button
+            android:id="@+id/spec_button"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/roundedbutton"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="@string/progress_button"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            />
 
+        <ImageView
+            android:id="@+id/share_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/share_icon"/>
+    </LinearLayout>
 </LinearLayout>
 
 </ScrollView>
