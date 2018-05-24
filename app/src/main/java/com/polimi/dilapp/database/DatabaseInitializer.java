@@ -317,7 +317,8 @@ public class DatabaseInitializer {
         Boolean flag;
         if(db.childDao().isAutoRepoEnabled(getCurrentPlayer(db)) == null){
             db.childDao().disableAutoRepo(getCurrentPlayer(db), "false");
-        }if(db.childDao().isAutoRepoEnabled(getCurrentPlayer(db)).equals("true")){
+            flag = false;
+        }else if(db.childDao().isAutoRepoEnabled(getCurrentPlayer(db)).equals("true")){
             flag = true;
         }else{
             flag = false;
