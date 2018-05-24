@@ -8,10 +8,10 @@
         android:id="@+id/icon_slide"
         android:layout_width="300dp"
         android:layout_height="323dp"
-        android:scaleType="fitCenter"
+        android:layout_alignEnd="@+id/text_slide"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="88dp" />
+        android:layout_marginTop="88dp"
+        android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/text_slide"
@@ -20,9 +20,11 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="100dp"
-        android:text="Slide 1"
+        android:text="SLIDE 1"
         android:textAlignment="center"
-        android:textSize="30sp" />
+        android:textSize="20sp"
+        android:layout_marginHorizontal="20dp"
+        />
 
 
 </RelativeLayout>

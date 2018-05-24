@@ -33,10 +33,11 @@
     <string name="enable_nfc">Abilita NFC per iniziare a giocare</string>
     <string name="enable">Abilita</string>
 
-    <string name="slide1">SLIDE1</string>
-    <string name="slide2">SLIDE2</string>
-    <string name="slide3">SLIDE3</string>
-    <string name="slide4">SLIDE4</string>
+    <string name="slide1">Ciao!\n Mi chiamo Nosco e sarò il tuo nuovo compagno di giochi. </string>
+    <string name="slide2"> Lascia che ti spieghi come
+    giocare:\navvicina l\'oggetto al lettore NFC del tuo dispositivo per interagire con l\'app.</string>
+    <string name="slide3">Troverai tutti i dettagli riguardanti i progressi che faremo insieme nella sezione reportistica.</string>
+    <string name="slide4">Fai sapere a tutti quante cose hai imparato condividendo i tuoi progressi con chi vuoi!</string>
 
 
 </resources>
