@@ -82,9 +82,7 @@ public interface IGame {
          * disable all the image views in the activity
          */
         void disableViews();
-
-        void sendEmail(Intent i);
-    }
+        }
 
     interface  Presenter {
 

@@ -3,30 +3,23 @@ package com.polimi.dilapp.levels.view;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TableRow;
-import android.widget.Toast;
-
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
-import com.polimi.dilapp.levels.GridViewAdapter;
 import com.polimi.dilapp.levels.IGame;
 import com.polimi.dilapp.startgame.StartGameActivity;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -389,14 +382,6 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         table.setVisibility(View.INVISIBLE);
     }
 
-    @Override
-    public void sendEmail(Intent i) {
-        try {
-            startActivity(Intent.createChooser(i, "Send mail..."));
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(ActivityTwoThree.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     @Override
     public void setRepeatOrExitScreen() {

@@ -2,26 +2,13 @@ package com.polimi.dilapp.report;
 
 
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.itextpdf.text.BadElementException;
@@ -32,7 +19,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
-import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
@@ -42,16 +28,11 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.emailSender.Mail;
-import com.polimi.dilapp.levelmap.LevelMapActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -90,19 +71,8 @@ public class ReportMainPresenter implements IReport.Presenter{
         {
             image = Image.getInstance(byteArray);
         }
-        catch (BadElementException e)
+        catch (BadElementException | IOException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (MalformedURLException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         image.scaleAbsolute(width, hight);
@@ -110,7 +80,6 @@ public class ReportMainPresenter implements IReport.Presenter{
         {
             document.add(image);
         } catch (DocumentException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -2,7 +2,6 @@ package com.polimi.dilapp.startgame;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -10,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.VisibleForTesting;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
@@ -31,7 +29,6 @@ import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.main.CreateAccountActivity;
-import com.polimi.dilapp.main.NewAccountActivity;
 import com.polimi.dilapp.report.ReportMainActivity;
 
 import java.util.List;

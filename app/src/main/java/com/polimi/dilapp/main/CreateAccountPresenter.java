@@ -1,15 +1,11 @@
 package com.polimi.dilapp.main;
 
 
-import android.arch.persistence.room.Database;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
-
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.levelmap.ILevelMap;
 
 import java.util.List;
 

@@ -16,12 +16,10 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.ChildEntity;
 import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.startgame.StartGameActivity;
-
 import java.io.IOException;
 import java.util.List;
 

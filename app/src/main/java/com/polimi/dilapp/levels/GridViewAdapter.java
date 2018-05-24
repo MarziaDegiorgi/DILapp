@@ -2,21 +2,15 @@ package com.polimi.dilapp.levels;
 
 
 import android.content.Context;
-import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.GridLayoutAnimationController;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.polimi.dilapp.R;
-import com.polimi.dilapp.levels.view.ActivityTwoOne;
 
 import java.util.ArrayList;
 import java.util.List;
