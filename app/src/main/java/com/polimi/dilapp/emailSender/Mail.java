@@ -154,17 +154,14 @@ public class Mail extends javax.mail.Authenticator {
     }
 
     public void setTo(String[] toArr) {
-        // TODO Auto-generated method stub
         this._to=toArr;
     }
 
     public void setFrom(String string) {
-        // TODO Auto-generated method stub
         this._from=string;
     }
 
     public void setSubject(String string) {
-        // TODO Auto-generated method stub
         this._subject=string;
     }
 

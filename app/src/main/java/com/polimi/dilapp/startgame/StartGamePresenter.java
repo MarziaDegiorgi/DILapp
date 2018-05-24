@@ -4,13 +4,9 @@ package com.polimi.dilapp.startgame;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.animation.Animation;
 
-import com.polimi.dilapp.R;
 import com.polimi.dilapp.database.AppDatabase;
 import com.polimi.dilapp.database.DatabaseInitializer;
-import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.levels.view.ActivityOneOne;
 import com.polimi.dilapp.levels.view.ActivityOneThree;
 import com.polimi.dilapp.levels.view.ActivityOneTwo;
@@ -19,8 +15,6 @@ import com.polimi.dilapp.levels.view.ActivityThreeTwo;
 import com.polimi.dilapp.levels.view.ActivityTwoOne;
 import com.polimi.dilapp.levels.view.ActivityTwoThree;
 import com.polimi.dilapp.levels.view.ActivityTwoTwo;
-import com.polimi.dilapp.main.CreateAccountActivity;
-import com.polimi.dilapp.report.ReportMainActivity;
 
 
 public class StartGamePresenter implements  IStartGame.Presenter {

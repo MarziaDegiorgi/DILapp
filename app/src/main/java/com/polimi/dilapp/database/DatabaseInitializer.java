@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.jjoe64.graphview.series.DataPoint;
+import com.polimi.dilapp.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -117,7 +118,27 @@ public class DatabaseInitializer {
            return bitmap;
        }else {
            //TODO: put default profile image
-           return null;
+           Uri path = Uri.parse("android.resource://com.polimi.dilapp/" + R.drawable.avatar_default);
+           InputStream inputstream = contentResolver.openInputStream(path);
+
+           // First decode with inJustDecodeBounds=true to check dimensions
+           final BitmapFactory.Options options = new BitmapFactory.Options();
+           options.inJustDecodeBounds = true;
+           BitmapFactory.decodeStream(inputstream, null, options);
+           inputstream.close();
+
+           if ((options.outWidth == -1) || (options.outHeight == -1)) {
+               return null;
+           }
+           // Calculate inSampleSize
+           options.inSampleSize = calculateInSampleSize(options, 200, 200);
+           options.inJustDecodeBounds = false;
+
+           // Decode bitmap with inSampleSize set
+           inputstream = contentResolver.openInputStream(path);
+           Bitmap bitmap = BitmapFactory.decodeStream(inputstream, null, options);
+           inputstream.close();
+           return bitmap;
        }
     }
 

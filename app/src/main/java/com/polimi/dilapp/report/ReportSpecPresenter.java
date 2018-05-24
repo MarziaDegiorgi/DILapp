@@ -190,19 +190,8 @@ public class ReportSpecPresenter implements IReport.Presenter {
         {
             image = Image.getInstance(byteArray);
         }
-        catch (BadElementException e)
+        catch (BadElementException | IOException e)
         {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (MalformedURLException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        catch (IOException e)
-        {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         image.scaleAbsolute(width, hight);
@@ -210,7 +199,6 @@ public class ReportSpecPresenter implements IReport.Presenter {
         {
             document.add(image);
         } catch (DocumentException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

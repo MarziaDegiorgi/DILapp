@@ -14,13 +14,10 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
 import com.polimi.dilapp.startgame.StartGameActivity;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -90,14 +87,6 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         common.disableView(animationViewExtraTwo);
     }
 
-    @Override
-    public void sendEmail(Intent i) {
-        try {
-            startActivity(Intent.createChooser(i, "Send mail..."));
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(ActivityOneTwo.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     @Override
     public void setVideoView(int videoID){

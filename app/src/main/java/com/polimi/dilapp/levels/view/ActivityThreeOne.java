@@ -15,14 +15,11 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.GridViewAdapter;
 import com.polimi.dilapp.levels.IGame;
 import com.polimi.dilapp.startgame.StartGameActivity;
-
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -351,14 +348,6 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         common.disableView(answer);
     }
 
-    @Override
-    public void sendEmail(Intent i) {
-        try {
-            startActivity(Intent.createChooser(i, "Send mail..."));
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(ActivityThreeOne.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     @Override
     public List<String> getSessionArray(int vectorID) {

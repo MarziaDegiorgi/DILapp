@@ -1,12 +1,8 @@
 package com.polimi.dilapp.report;
 
 
-import android.arch.persistence.room.Database;
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,8 +16,6 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.polimi.dilapp.database.AppDatabase.getAppDatabase;
 
 public class ReportSettingsPresenter implements IReportSettings.Presenter{
     private IReportSettings.View activityInterface;
