@@ -79,14 +79,40 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     @Override
     public void disableViews(){
-        //NOT USED
-    }
+        counterID = 0;
+        for(int i=0; i<6; i++){
+            int imageToCheckId = presenter.getResourceId("answer"+i, R.id.class);
+            final ImageView answerToCheck = findViewById(imageToCheckId);
+                answerToCheck.setVisibility(View.INVISIBLE);
+                answerToCheck.setTag("none");
+            }
+        }
+
 
 
     @Override
     public void setVideoView(int videoID){
+        disableViews();
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
-        common.startMainVideo(uri, this);
+        //common.startMainVideo(uri, this);
+        final VideoView video = findViewById(R.id.video_box);
+        video.setVisibility(View.VISIBLE);
+        video.setVideoURI(uri);
+
+        video.start();
+        video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                video.setVisibility(View.INVISIBLE);
+                myHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        presenter.chooseElement();
+                    }
+                },600);
+                mp.release();
+            }
+        });
     }
 
     @Override

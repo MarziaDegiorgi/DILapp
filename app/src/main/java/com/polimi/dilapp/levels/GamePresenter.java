@@ -46,8 +46,8 @@ public class GamePresenter implements IGame.Presenter {
     private boolean executed = false;
 
     private NfcAdapter nfcAdapter;
-    @VisibleForTesting
-    protected List<String> currentSequence;
+
+    private List<String> currentSequence;
     private String currentElement;
     private String currentSubElement;
     private int subElementIndex ;
@@ -73,7 +73,6 @@ public class GamePresenter implements IGame.Presenter {
     private boolean gameEnded;
     private boolean colourLevel;
     private boolean enableNFC;
-    @VisibleForTesting
     protected boolean recipeLevel;
     private ArrayList<String> errorList;
     private ArrayList<Float> progressList;

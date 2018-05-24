@@ -55,6 +55,7 @@ class CommonActivity {
      */
    void startIntro(Uri uri, final List<String> sequence, AppCompatActivity activity){
        final VideoView video = activity.findViewById(R.id.video_box);
+       video.setVisibility(View.VISIBLE);
        video.setVideoURI(uri);
        video.setAnimation(animationIn);
        video.startAnimation(animationIn);
