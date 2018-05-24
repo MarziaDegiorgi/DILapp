@@ -117,7 +117,6 @@ public class DatabaseInitializer {
            inputstream.close();
            return bitmap;
        }else {
-           //TODO: put default profile image
            Uri path = Uri.parse("android.resource://com.polimi.dilapp/" + R.drawable.avatar_default);
            InputStream inputstream = contentResolver.openInputStream(path);
 

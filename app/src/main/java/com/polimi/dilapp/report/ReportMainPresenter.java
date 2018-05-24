@@ -2,6 +2,7 @@ package com.polimi.dilapp.report;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -9,6 +10,9 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Display;
+import android.view.Surface;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.itextpdf.text.BadElementException;
@@ -172,9 +176,10 @@ public class ReportMainPresenter implements IReport.Presenter{
 
 
             try {
+                Display display = ((WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+                int rotation = display.getRotation();
                 Document document = new Document();
                 actualWidth = document.getPageSize().getWidth() - document.leftMargin() - document.rightMargin();
-                ;
                 actualHeight = document.getPageSize().getHeight() - document.topMargin() - document.bottomMargin();
                 PdfWriter.getInstance(document, new FileOutputStream(pdfFile));
                 document.open();
@@ -203,7 +208,11 @@ public class ReportMainPresenter implements IReport.Presenter{
                 v1.setDrawingCacheEnabled(false);
                 screen.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray1 = stream.toByteArray();
-                addImage(document, byteArray1, actualWidth, actualHeight / 5);
+                if(rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180){
+                    addImage(document, byteArray1, actualWidth, actualHeight / 5);
+                }else{
+                    addImage(document, byteArray1, actualWidth, actualHeight / 8);
+                }
                 stream.reset();
 
                 document.add(Chunk.NEWLINE);
@@ -239,7 +248,11 @@ public class ReportMainPresenter implements IReport.Presenter{
                 v2.setDrawingCacheEnabled(false);
                 screen.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] byteArray2 = stream.toByteArray();
-                addImage(document, byteArray2, actualWidth, actualHeight / 2f);
+                if(rotation == Surface.ROTATION_0 || rotation == Surface.ROTATION_180){
+                    addImage(document, byteArray2, actualWidth, actualHeight / 2f);
+                }else{
+                    addImage(document, byteArray2, actualWidth, actualHeight / 3f);
+                }
                 document.add(Chunk.NEWLINE);
                 Paragraph p3 = new Paragraph("Il team di Internosco           ");
                 p3.setAlignment(Paragraph.ALIGN_RIGHT);

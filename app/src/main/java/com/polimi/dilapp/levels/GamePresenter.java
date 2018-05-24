@@ -788,7 +788,7 @@ public class GamePresenter implements IGame.Presenter {
             return gameStarted;
         }
 
-        //The following methods have been added oly for testing purpose
+        //The following methods have been added only for testing purpose
         boolean isEnded(){return gameEnded;}
         boolean getNewSessionStarted(){
             return newSessionStarted;
@@ -825,6 +825,8 @@ public class GamePresenter implements IGame.Presenter {
         void setEndTime(){endTime = 4;}
         void setErrorList(ArrayList<String> list){errorList = list;}
         void setDateList(ArrayList<Date> list){dateList = list;}
+        void setCorrectAnswersList(ArrayList<Integer> list){correctAnswersList = list;}
+
 
     @Override
     public void storeCurrentPlayer(Bundle savedInstanceState) {
@@ -858,7 +860,9 @@ public class GamePresenter implements IGame.Presenter {
         int actualTime = endTime - initTime - adjustment;
         float progress = (float) correctAnswers * 10 / actualTime;
         if (progress != 0.0 || (progress == 0.0 && errorList.size() > 0)) {
+            //If the player has already played with the game
             if (dateList.size() > 0) {
+                //If the player has already played with the game not today
                 if (!DateUtils.isToday(dateList.get(dateList.size() - 1).getTime())) {
                     Date c = Calendar.getInstance().getTime();
                     dateList.add(c);
@@ -871,7 +875,9 @@ public class GamePresenter implements IGame.Presenter {
                     DatabaseInitializer.setCorrectAnswer(db, currentPlayer, correctAnswersList);
                     timeList.add(actualTime);
                     DatabaseInitializer.setTime(db, currentPlayer, timeList);
-                } else {
+                }
+                //If the player has already played with the game today
+                else {
                     int lastCorrectAnswer = correctAnswersList.get(correctAnswersList.size() - 1);
                     correctAnswersList.remove(correctAnswersList.size() - 1);
                     int newCorrectAnswer = lastCorrectAnswer + correctAnswers;
