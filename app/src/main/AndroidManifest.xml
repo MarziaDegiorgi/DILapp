@@ -27,6 +27,8 @@
         android:largeHeap="true"
         android:hardwareAccelerated="true"
         >
+
+        <service android:name=".main.MusicService" android:enabled="true" />
         <activity android:name=".main.MainActivity"
             android:noHistory="true"
             android:launchMode="singleTop"
@@ -164,12 +166,9 @@
             android:hardwareAccelerated="true"/>
         <activity android:name=".levelmap.ReportLevelMapActivity"
             android:hardwareAccelerated="true"/>
-
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-        <service android:name=".main.MusicService" />
     </application>
 
 </manifest>

@@ -189,11 +189,22 @@
                 android:layout_height="260dp"
                 android:contentDescription="TODO" />
         </TableRow>
+
+        <ImageView
+            android:id="@+id/music"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@drawable/music_on"
+            android:onClick="onMusicChange"
+            android:contentDescription="TODO" />
     </RelativeLayout>
 
-
     <VideoView
-           android:id="@+id/video_box"
+        android:id="@+id/video_box"
         android:visibility="visible"
         android:layout_height="match_parent"
         android:layout_width="match_parent"

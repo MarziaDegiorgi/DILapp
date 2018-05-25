@@ -267,4 +267,6 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     }
 
 
+    public void onMusicChange(View view) {
+    }
 }

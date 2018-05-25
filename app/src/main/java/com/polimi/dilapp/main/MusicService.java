@@ -6,10 +6,12 @@ import android.media.MediaPlayer;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.polimi.dilapp.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -20,18 +22,13 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
 
     MediaPlayer mPlayer;
     private int length = 0;
-
-    //final String ACTION_CMD;
-    //final String CMD_NAME;
-    //final String ARG_INDEX;
-
+    private final IBinder mBinder = new ServiceBinder();
+    protected static final String TAG ="[MusicService]";
 
     @Override
     public void onCreate (){
         super.onCreate();
-
-        //TODO: INSERT MUSIC IN uri
-        mPlayer = MediaPlayer.create(this, null);
+        mPlayer = MediaPlayer.create(this, R.raw.background_music);
         mPlayer.setOnErrorListener(this);
 
         if(mPlayer!= null)
@@ -53,27 +50,10 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
     }
 
     @Override
-    public int onStartCommand (Intent intent, int flags, int startId)
+    public int onStartCommand(Intent intent, int flags, int startId)
     {
-       /* if (intent != null) {
-            String action = intent.getAction();
-            String command = intent.getStringExtra(CMD_NAME);
-            if (ACTION_CMD.equals(action)) {
-                if (CMD_PAUSE.equals(command)) {
-                    if (mplayer != null && mplayer.isPlaying()) {
-                        pauseMusic();
-                    }
-                } else if (CMD_PLAY.equals(command)) {
-                    mPlayer.start();
-                    }
-                    int index = startIntent.getIntExtra(ARG_INDEX, 0);
-
-                }
-            }
-        }
-
-        return START_STICKY;
-    }*/
+            mPlayer.start();
+            Log.i(TAG, "[STARTED]");
        return START_STICKY;
     }
 
@@ -83,7 +63,7 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
         {
             mPlayer.pause();
             length=mPlayer.getCurrentPosition();
-
+            Log.i(TAG, "[PAUSED]");
         }
     }
 
@@ -93,7 +73,12 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
         {
             mPlayer.seekTo(length);
             mPlayer.start();
+            Log.i(TAG, "[RESUMED]");
         }
+    }
+
+    public boolean isPlaying(){
+        return mPlayer.isPlaying();
     }
 
     public void stopMusic()
@@ -101,7 +86,9 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
         mPlayer.stop();
         mPlayer.release();
         mPlayer = null;
+        Log.i(TAG, "[STOPPED]");
     }
+
 
     @Override
     public void onDestroy ()
@@ -112,6 +99,7 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
             try{
                 mPlayer.stop();
                 mPlayer.release();
+                Log.i(TAG, "[DESTROYED]");
             }finally {
                 mPlayer = null;
             }
@@ -121,7 +109,7 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return mBinder;
     }
 
     @Override
@@ -137,5 +125,11 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
             }
         }
         return false;
+    }
+
+   public class ServiceBinder extends Binder {
+       public MusicService getService() {
+            return MusicService.this;
+        }
     }
 }

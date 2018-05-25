@@ -191,6 +191,17 @@
                     android:layout_height="160dp"
                     android:contentDescription="TODO" />
             </TableRow>
+
+        <ImageView
+            android:id="@+id/music"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="12dp"
+            app:srcCompat="@drawable/music_on"
+            android:onClick="onMusicChange"/>
     </RelativeLayout>
 
    <VideoView

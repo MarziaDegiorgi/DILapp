@@ -1,11 +1,14 @@
 package com.polimi.dilapp.levels.view;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.ImageView;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
+import com.polimi.dilapp.main.MusicService;
 import com.polimi.dilapp.startgame.StartGameActivity;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -36,6 +40,28 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     MediaPlayer request;
     String element;
     CommonActivity common;
+
+    private boolean isBound = false;
+    private MusicService musicService;
+    private boolean isPlaying = true;
+
+    private ServiceConnection connection = new ServiceConnection() {
+
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder binder) {
+            musicService = ((MusicService.ServiceBinder)binder).getService();
+            Log.i("[Connection]", "Music Service Created ");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            musicService = null;
+            Log.i("[Connection]", "Music Service Created ");
+        }
+    };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,13 +236,22 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     @Override
     protected void onResume() {
         super.onResume();
-       presenter.setupForegroundDispatch();
+        presenter.setupForegroundDispatch();
+       if(!isBound){
+           doBindService();
+       }
+       if(musicService!= null && isBound && isPlaying){
+           musicService.resumeMusic();
+       }
     }
 
     @Override
     protected void onPause() {
       presenter.stopForegroundDispatch();
         super.onPause();
+        if(musicService!=null && isBound && isPlaying){
+            musicService.pauseMusic();
+        }
     }
 
     @Override
@@ -226,6 +261,9 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         common.onDestroy();
         presenter = null;
         common = null;
+        if(isBound){
+            doUnbindService();
+        }
     }
 
     //onNewIntent let us stay in the same activity after reading a TAG
@@ -247,6 +285,7 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
     public void onBackPressed()
     {
         super.onBackPressed();
+        doUnbindService();
         this.disableViews();
         common.disableKiteExtraView(this);
         common.disableLionExtraView(this);
@@ -266,7 +305,36 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         presenter.storeCurrentPlayer(savedInstanceState);
         super.onSaveInstanceState(savedInstanceState);
         Log.i("[ACTIVITY 11]", "I'm calling storeCurrentPlayer");
+    }
 
+    void doBindService(){
+        Intent backgroundMusic = new Intent(this, MusicService.class);
+        bindService(backgroundMusic,
+                connection,Context.BIND_AUTO_CREATE);
+        isBound = true;
+        Log.i("[MainActivity]", "[BindedService]");
+    }
+
+    void doUnbindService(){
+        if(isBound){
+            unbindService(connection);
+            isBound = false;
+        }
+    }
+
+    public void onMusicChange(View view) {
+        ImageView speaker = findViewById(R.id.music);
+        if(musicService!=null && isBound){
+            if(musicService.isPlaying()){
+                speaker.setImageDrawable(getDrawable(R.drawable.music_off));
+                musicService.pauseMusic();
+                isPlaying = false;
+            }else {
+                speaker.setImageDrawable(getDrawable(R.drawable.music_on));
+                musicService.resumeMusic();
+                isPlaying = true;
+            }
+        }
     }
 
 }
