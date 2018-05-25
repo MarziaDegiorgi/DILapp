@@ -826,7 +826,8 @@ public class GamePresenter implements IGame.Presenter {
         void setErrorList(ArrayList<String> list){errorList = list;}
         void setDateList(ArrayList<Date> list){dateList = list;}
         void setCorrectAnswersList(ArrayList<Integer> list){correctAnswersList = list;}
-
+        void setTimeList(ArrayList<Integer> list){timeList = list;}
+        void setProgressList(ArrayList<Float> list){progressList = list;}
 
     @Override
     public void storeCurrentPlayer(Bundle savedInstanceState) {

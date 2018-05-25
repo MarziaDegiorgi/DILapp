@@ -1272,4 +1272,50 @@ public class GamePresenterTest {
         DatabaseInitializer.setTime(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
     }
 
+
+    @Test
+    public void storeProgressIfElseTest(){
+        ArrayList<String> notEmptySequence = new ArrayList<>();
+        notEmptySequence.add("white");
+        gamePresenter.startGame(notEmptySequence);
+
+
+
+        ArrayList<String> list = new ArrayList<>();
+        list.add("carrot");
+        list.add("apple");
+
+        ArrayList<Date> dateList = new ArrayList<>();
+        dateList.add(new Date(11/ 2 /2016));
+        dateList.add(new Date(12/ 2 /2016));
+
+
+        when(DateUtils.isToday(any(Long.class))).thenReturn(true);
+        when(Log.i(any(String.class), any(String.class))).thenReturn(1);
+
+        ArrayList<Integer> correctAnswerList = new ArrayList<>();
+        correctAnswerList.add(1);
+        correctAnswerList.add(3);
+
+        ArrayList<Float> progressList = new ArrayList<>();
+        progressList.add((float) 1);
+        progressList.add((float) 2);
+
+        gamePresenter.setProgressList(progressList);
+        gamePresenter.setTimeList(correctAnswerList);
+        gamePresenter.setCorrectAnswersList(correctAnswerList);
+
+        gamePresenter.setInitTime();
+        gamePresenter.setEndTime();
+        gamePresenter.setErrorList(list);
+        gamePresenter.setDateList(dateList);
+
+        gamePresenter.storeProgress();
+
+
+        verify(databaseInitializer, Mockito.times(3));
+        DatabaseInitializer.setProgress(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), progressList);
+        DatabaseInitializer.setCorrectAnswer(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
+        DatabaseInitializer.setTime(appDatabase, DatabaseInitializer.getCurrentPlayer(appDatabase), intList);
+    }
 }
