@@ -97,6 +97,9 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     private void setupVideoIntro(){
         //Introduction to the whole activity game
+        if(musicService != null && isBound && isPlaying){
+            musicService.pauseMusic();
+        }
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro_1_1);
         common.startIntro(uri, nameSequence,this);
     }
@@ -115,12 +118,20 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoView(int videoID){
+        if(musicService != null && isBound && isPlaying){
+            if(musicService.isPlaying()) {
+                musicService.pauseMusic();
+            }
+        }
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
         common.startMainVideo(uri, this);
     }
 
     @Override
     public void setPresentationAnimation(String currentElement){
+        if(musicService!= null && isBound && isPlaying){
+            musicService.resumeMusic();
+        }
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneOne.this, R.anim.rotation);
