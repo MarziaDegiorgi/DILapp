@@ -173,7 +173,18 @@
             android:visibility="invisible" />
     </LinearLayout>
 
-   <VideoView
+    <ImageView
+        android:id="@+id/music"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="20dp"
+        android:onClick="onMusicChange"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/music_on" />
+
+  <VideoView
         android:id="@+id/video_box"
         android:visibility="visible"
         android:layout_height="match_parent"

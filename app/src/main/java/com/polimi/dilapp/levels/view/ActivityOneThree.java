@@ -1,11 +1,14 @@
 package com.polimi.dilapp.levels.view;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +20,7 @@ import android.widget.ImageView;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
+import com.polimi.dilapp.main.MusicService;
 import com.polimi.dilapp.startgame.StartGameActivity;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -37,6 +41,27 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     String element;
     CommonActivity common;
     String object;
+
+    private boolean isBound = false;
+    private MusicService musicService;
+    private boolean isPlaying = true;
+
+    private ServiceConnection connection = new ServiceConnection() {
+
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder binder) {
+            musicService = ((MusicService.ServiceBinder)binder).getService();
+            Log.i("[Connection]", "Music Service Created ");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            musicService = null;
+            Log.i("[Connection]", "Music Service Created ");
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +98,9 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
     private void setupVideoIntro(){
         //Introduction to the whole activity game
+        if(musicService != null && isBound && isPlaying){
+            musicService.pauseMusic();
+        }
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro_1_3);
         common.startIntro(uri, shapeSequence,this);
     }
@@ -90,12 +118,20 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoView(int videoID){
+        if(musicService != null && isBound && isPlaying){
+            if(musicService.isPlaying()) {
+                musicService.pauseMusic();
+            }
+        }
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
         common.startMainVideo(uri, this);
     }
 
     @Override
     public void setPresentationAnimation(String currentElement){
+        if(musicService!= null && isBound && isPlaying){
+            musicService.resumeMusic();
+        }
         element = currentElement;
         int resourceID = presenter.getResourceId(element, R.drawable.class);
         Animation animationBegin = AnimationUtils.loadAnimation(ActivityOneThree.this, R.anim.rotation);
@@ -220,6 +256,9 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+        if(isBound){
+            doUnbindService();
+        }
     }
 
     @Override
@@ -241,12 +280,22 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
 
         super.onResume();
         presenter.setupForegroundDispatch();
+
+        if(!isBound){
+            doBindService();
+        }
+        if(musicService!= null && isBound && isPlaying){
+            musicService.resumeMusic();
+        }
     }
 
     @Override
     protected void onPause() {
         presenter.stopForegroundDispatch();
         super.onPause();
+        if(musicService!= null && isBound && isPlaying){
+            musicService.pauseMusic();
+        }
     }
 
     //onNewIntent let us stay in the same activity after reading a TAG
@@ -268,6 +317,7 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     public void onBackPressed()
     {
         super.onBackPressed();
+        doUnbindService();
         presenter.getEndTime();
         presenter.setObjectCurrentPlayer();
         presenter.setSubStringCurrentPlayer();
@@ -283,6 +333,34 @@ public class ActivityOneThree extends AppCompatActivity implements IGame.View {
     }
 
 
+    void doBindService(){
+        Intent backgroundMusic = new Intent(this, MusicService.class);
+        bindService(backgroundMusic,
+                connection,Context.BIND_AUTO_CREATE);
+        isBound = true;
+        Log.i("[MainActivity]", "[BindedService]");
+    }
+
+    void doUnbindService(){
+        if(isBound){
+            unbindService(connection);
+            isBound = false;
+        }
+    }
+
+
     public void onMusicChange(View view) {
+        ImageView speaker = findViewById(R.id.music);
+        if(musicService!=null && isBound){
+            if(musicService.isPlaying()){
+                speaker.setImageDrawable(getDrawable(R.drawable.music_off));
+                musicService.pauseMusic();
+                isPlaying = false;
+            }else {
+                speaker.setImageDrawable(getDrawable(R.drawable.music_on));
+                musicService.resumeMusic();
+                isPlaying = true;
+            }
+        }
     }
 }

@@ -1,12 +1,15 @@
 package com.polimi.dilapp.levels.view;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +21,7 @@ import android.widget.VideoView;
 import com.polimi.dilapp.R;
 import com.polimi.dilapp.levels.GamePresenter;
 import com.polimi.dilapp.levels.IGame;
+import com.polimi.dilapp.main.MusicService;
 import com.polimi.dilapp.startgame.StartGameActivity;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -36,6 +40,28 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     int counterID = 0;
     private Handler myHandler = new Handler();
     private Animation animationOut;
+
+    private boolean isBound = false;
+    private MusicService musicService;
+    private boolean isPlaying = true;
+
+    private ServiceConnection connection = new ServiceConnection() {
+
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder binder) {
+            musicService = ((MusicService.ServiceBinder)binder).getService();
+            Log.i("[Connection]", "Music Service Created ");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            musicService = null;
+            Log.i("[Connection]", "Music Service Created ");
+        }
+    };
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +99,9 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     private void setupVideoIntro(){
         //Introduction to the whole activity game
+        if(musicService != null && isBound && isPlaying){
+            musicService.pauseMusic();
+        }
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro_3_2);
         common.startIntro(uri, recipeSequence,this);
     }
@@ -93,6 +122,11 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     @Override
     public void setVideoView(int videoID){
         disableViews();
+        if(musicService != null && isBound && isPlaying){
+            if(musicService.isPlaying()) {
+                musicService.pauseMusic();
+            }
+        }
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + videoID);
         //common.startMainVideo(uri, this);
         final VideoView video = findViewById(R.id.video_box);
@@ -118,6 +152,9 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     @Override
     public void setPresentationAnimation(String currentElement){
         element = currentElement;
+        if(musicService!= null && isBound && isPlaying){
+            musicService.resumeMusic();
+        }
         setLionHeadAnimation();
         setAudioRequest();
     }
@@ -267,7 +304,10 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
     @Override
     public void setGoOnOrExitScreen() {
-
+        if(musicService != null && isBound && isPlaying){
+            musicService.stopMusic();
+            doUnbindService();
+        }
         final VideoView video = findViewById(R.id.video_box);
         video.setVisibility(View.VISIBLE);
         Uri uriEnd = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_end_game);
@@ -313,6 +353,9 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     public void onDestroy() {
         super.onDestroy();
         presenter.onDestroy();
+        if(isBound){
+            doUnbindService();
+        }
     }
 
     @Override
@@ -334,12 +377,21 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
         super.onResume();
         presenter.setupForegroundDispatch();
+        if(!isBound){
+            doBindService();
+        }
+        if(musicService!= null && isBound && isPlaying){
+            musicService.resumeMusic();
+        }
     }
 
     @Override
     protected void onPause() {
         presenter.stopForegroundDispatch();
         super.onPause();
+        if(musicService!= null && isBound && isPlaying){
+            musicService.pauseMusic();
+        }
     }
 
     //onNewIntent let us stay in the same activity after reading a TAG
@@ -361,18 +413,50 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
     public void onBackPressed()
     {
         super.onBackPressed();
+       doUnbindService();
         presenter.getEndTime();
         presenter.setObjectCurrentPlayer();
         presenter.setSubStringCurrentPlayer();
         startActivity(new Intent(ActivityThreeTwo.this, StartGameActivity.class));
         finish();
     }
+
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
         presenter.storeCurrentPlayer(savedInstanceState);
         super.onSaveInstanceState(savedInstanceState);
         Log.i("[ACTIVITY 32]", "I'm calling storeCurrentPlayer");
 
+    }
+
+    void doBindService(){
+        Intent backgroundMusic = new Intent(this, MusicService.class);
+        bindService(backgroundMusic,
+                connection,Context.BIND_AUTO_CREATE);
+        isBound = true;
+        Log.i("[MainActivity]", "[BindedService]");
+    }
+
+    void doUnbindService(){
+        if(isBound){
+            unbindService(connection);
+            isBound = false;
+        }
+    }
+
+    public void onMusicChange(View view) {
+        ImageView speaker = findViewById(R.id.music);
+        if(musicService!=null && isBound){
+            if(musicService.isPlaying()){
+                speaker.setImageDrawable(getDrawable(R.drawable.music_off));
+                musicService.pauseMusic();
+                isPlaying = false;
+            }else {
+                speaker.setImageDrawable(getDrawable(R.drawable.music_on));
+                musicService.resumeMusic();
+                isPlaying = true;
+            }
+        }
     }
 
 
