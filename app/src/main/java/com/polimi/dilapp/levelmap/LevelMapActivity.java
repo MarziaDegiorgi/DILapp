@@ -110,6 +110,7 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
         Intent intent;
 
         //TODO:uncomment level blocking and delete next switch
+        //Level blocked
             /*switch (itemSelected) {
                 case "NOMI":
                     if(currentLevel >= 11){
@@ -187,6 +188,7 @@ public class LevelMapActivity extends AppCompatActivity implements ILevelMap.Vie
                     break;
             }*/
 
+            //Level not blocked
         switch (itemSelected) {
             case "NOMI":
                     intent = new Intent(this, ActivityOneOne.class);

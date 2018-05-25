@@ -193,7 +193,7 @@ public class GamePresenter implements IGame.Presenter {
             chooseColour();
         } else {
             if (recipeLevel) {
-            chooseRecipe();
+                chooseRecipe();
             } else {
                 newTurnStarted = false;
                 if (tempArray.isEmpty()) {
@@ -748,7 +748,7 @@ public class GamePresenter implements IGame.Presenter {
         public void setObjectCurrentPlayer(){
             if(flagSaveNewLevel) {
                 DatabaseInitializer.setObjectCurrentPlayer(db, currentElement);
-                Log.i(CLASS, "I'm saving " + currentElement + " in the database.");
+                Log.i(CLASS, "Object: I'm saving " + currentElement + " in the database.");
             }
         }
 
@@ -756,7 +756,7 @@ public class GamePresenter implements IGame.Presenter {
     public void setSubStringCurrentPlayer(){
             if(flagSaveNewLevel) {
                 DatabaseInitializer.setSubStringCurrentPlayer(db, currentSequenceElement);
-                Log.i(CLASS, "I'm saving " + currentSequenceElement + " in the database.");
+                Log.i(CLASS, "SubString: I'm saving " + currentSequenceElement + " in the database.");
             }
     }
         public void setColourLevel(){
