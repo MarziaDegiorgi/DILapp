@@ -82,6 +82,7 @@ public class GamePresenter implements IGame.Presenter {
     private int currentPlayer;
     private Boolean flagSaveNewLevel = true;
     private int level;
+    private boolean isMusicPlaying;
 
     public GamePresenter(IGame.View view) throws ParseException {
        this.activityInterface = view;
@@ -96,6 +97,7 @@ public class GamePresenter implements IGame.Presenter {
        gameEnded = false;
        enableNFC = false;
        colourLevel = false;
+       isMusicPlaying = true;
        db = AppDatabase.getAppDatabase(activityInterface.getScreenContext());
        currentPlayer = DatabaseInitializer.getCurrentPlayer(db);
        progressList = DatabaseInitializer.getProgress(db, currentPlayer);
@@ -108,6 +110,16 @@ public class GamePresenter implements IGame.Presenter {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         currentDate = sdf.format(currentTime);
        setAdjustment();
+   }
+
+   @Override
+   public boolean isMusicPlaying(){
+        return isMusicPlaying;
+   }
+
+   @Override
+   public void setMusicPlaying(boolean isPlaying){
+       isMusicPlaying = isPlaying;
    }
 
    @Override

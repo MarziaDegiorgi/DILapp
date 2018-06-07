@@ -206,5 +206,9 @@ public interface IGame {
          */
         void storeCurrentPlayer(Bundle savedInstanceState);
 
+        boolean isMusicPlaying();
+
+        void setMusicPlaying(boolean is);
+
     }
 }

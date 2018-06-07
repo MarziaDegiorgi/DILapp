@@ -43,7 +43,6 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
 
     private boolean isBound = false;
     private MusicService musicService;
-    private boolean isPlaying = true;
 
     private ServiceConnection connection = new ServiceConnection() {
 
@@ -96,7 +95,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
 
     private void setupVideoIntro(){
         //Introduction to the whole activity game
-        if(musicService != null && isBound && isPlaying){
+        if(musicService != null && isBound && presenter.isMusicPlaying()){
             musicService.pauseMusic();
         }
         Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.intro_1_2);
@@ -118,7 +117,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setVideoView(int videoID){
-        if(musicService != null && isBound && isPlaying){
+        if(musicService != null && isBound && presenter.isMusicPlaying()){
             if(musicService.isPlaying()) {
                 musicService.pauseMusic();
             }
@@ -129,7 +128,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
 
     @Override
     public void setPresentationAnimation(String currentElement){
-        if(musicService!= null && isBound && isPlaying){
+        if(musicService!= null && isBound && presenter.isMusicPlaying()){
             musicService.resumeMusic();
         }
         element = currentElement;
@@ -294,10 +293,10 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     protected void onResume() {
         super.onResume();
         presenter.setupForegroundDispatch();
-        if(!isBound){
+        if(!isBound && presenter.isMusicPlaying()){
             doBindService();
         }
-        if(musicService!= null && isBound && isPlaying){
+        if(musicService!= null && isBound && presenter.isMusicPlaying()){
             musicService.resumeMusic();
         }
     }
@@ -306,7 +305,7 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     protected void onPause() {
         presenter.stopForegroundDispatch();
         super.onPause();
-        if(musicService!= null && isBound && isPlaying){
+        if(musicService!= null && isBound && presenter.isMusicPlaying()){
             musicService.pauseMusic();
         }
     }
@@ -363,12 +362,16 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
             if(musicService.isPlaying()){
                 speaker.setImageDrawable(getDrawable(R.drawable.music_off));
                 musicService.pauseMusic();
-                isPlaying = false;
+                presenter.setMusicPlaying(false);
             }else {
                 speaker.setImageDrawable(getDrawable(R.drawable.music_on));
                 musicService.resumeMusic();
-                isPlaying = true;
+                presenter.setMusicPlaying(true);
             }
+        }
+        else if(!isBound){
+            doBindService();
+            presenter.setMusicPlaying(true);
         }
     }
 }
