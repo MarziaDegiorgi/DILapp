@@ -323,7 +323,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
                 video.setAnimation(animationOut);
                 video.startAnimation(animationOut);
                 video.setVisibility(View.INVISIBLE);
-                Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
+                Intent intent = new Intent(getApplicationContext(), StartGameActivity.class);
                 intent.putExtra("Activity","com.polimi.dilapp.startgame.StartGameActivity");
                 intent.putExtra("ButtonName", "Avanti");
                 startActivity(intent);
