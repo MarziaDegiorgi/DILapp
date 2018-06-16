@@ -318,6 +318,7 @@ public class GamePresenter implements IGame.Presenter {
      * Update the subitem to the next one
      */
     private void updateSubItem(){
+        activityInterface.stopAnimationSubItem();
         subElementIndex++;
         Log.i(CLASS, "[CheckAnswer][MultipleItem]" + currentSubElement +
                 " index:" + subElementIndex);

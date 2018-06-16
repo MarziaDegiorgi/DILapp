@@ -366,6 +366,11 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
 
 
     @Override
+    public void stopAnimationSubItem() {
+        //NOT USED
+    }
+
+    @Override
     public Context getScreenContext() {
 
         return this;

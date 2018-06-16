@@ -440,6 +440,10 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
             doUnbindService();
         }
     }
+    @Override
+    public void stopAnimationSubItem() {
+//NOT USED
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle savedInstanceState) {
