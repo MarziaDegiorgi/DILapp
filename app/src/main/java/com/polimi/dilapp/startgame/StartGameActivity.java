@@ -74,7 +74,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             Log.i("[STARTGAME ACTIVITY] ", "Intent extra is "+ extras.getInt(EXTRA_MESSAGE));
             currentPlayerId = extras.getInt(EXTRA_MESSAGE);
             DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
-            helloPlayer.setText("Ciao "+ DatabaseInitializer.getNameCurrentPlayer(db)+ "!");
+            helloPlayer.setText("Ciao "+ System.lineSeparator() + (DatabaseInitializer.getNameCurrentPlayer(db)).toUpperCase() + "!");
             Log.i("[StartGameActivity]", "Current Player Level" + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
         }
 
