@@ -24,7 +24,8 @@
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="40sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"
+            android:gravity="center"></TextView>
 
         <Button
             android:id="@+id/playButton"

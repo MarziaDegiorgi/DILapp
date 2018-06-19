@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView xmlns:android ="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -11,12 +7,12 @@
         android:layout_height="match_parent"
         android:background="@drawable/background_land"
         >
+
     <RelativeLayout
-        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="6"
-        >
+        android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/avatar"
@@ -28,42 +24,43 @@
             android:layout_marginHorizontal="30dp"
             android:background="@drawable/avatar"
             android:scaleType="centerCrop" />
-<LinearLayout
-    android:id="@+id/form"
-    android:layout_width="match_parent"
-    android:layout_height="350dp"
-    android:layout_marginVertical="70dp"
-    android:layout_marginRight="30dp"
-    android:orientation="vertical"
-    android:layout_toRightOf="@id/avatar">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/name"
-        android:textSize="24sp" />
+        <LinearLayout
+            android:id="@+id/form"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginVertical="70dp"
+            android:layout_toRightOf="@id/avatar"
+            android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/edit_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="24sp" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/birth"
-        android:textSize="24sp" />
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="" />
 
-    <EditText
-        android:id="@+id/edit_birth"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:text="" />
-</LinearLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/birth"
+                android:textSize="24sp" />
 
-</RelativeLayout>
+            <EditText
+                android:id="@+id/edit_birth"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:text="" />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <Button
         android:id="@+id/form_button"
@@ -84,4 +81,4 @@
         android:textColor="@color/white"
         android:textSize="24sp" />
 </LinearLayout>
-</ScrollView>
+
