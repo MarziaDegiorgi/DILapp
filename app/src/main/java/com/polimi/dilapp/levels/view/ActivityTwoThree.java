@@ -234,14 +234,17 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
 
     private void startAnimationSubItem(ImageView image){
         Animation animationWait = AnimationUtils.loadAnimation(this, R.anim.blink);
-        animationWait.setDuration(Animation.INFINITE);
+        animationWait.setRepeatMode(Animation.REVERSE);
+        animationWait.setRepeatCount(Animation.INFINITE);
         image.setAnimation(animationWait);
         image.startAnimation(animationWait);
     }
 
     public void stopAnimationSubItem(){
         ImageView subItemImage = getImageView();
-        subItemImage.clearAnimation();
+        if(subItemImage != null) {
+            subItemImage.clearAnimation();
+        }
     }
 
     private void setAudioRequest(final ImageView image){
