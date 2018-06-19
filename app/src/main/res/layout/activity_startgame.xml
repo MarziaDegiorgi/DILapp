@@ -34,15 +34,13 @@
             android:id="@+id/hello_player"
             android:layout_width="311dp"
             android:layout_height="123dp"
-            android:layout_alignParentTop="true"
+            android:layout_above="@+id/playButton"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="142dp"
+            android:gravity="center"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="40sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            ></TextView>
+            android:textStyle="bold"></TextView>
 
         <Button
             android:id="@+id/playButton"

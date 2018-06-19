@@ -18,15 +18,15 @@
         <TextView
             android:id="@+id/hello_player"
             android:layout_width="635dp"
-            android:layout_height="174dp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="81dp"
+            android:gravity="center"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="40sp"
-            android:textStyle="bold"
-            android:gravity="center"></TextView>
+            android:textStyle="bold"></TextView>
 
         <Button
             android:id="@+id/playButton"
