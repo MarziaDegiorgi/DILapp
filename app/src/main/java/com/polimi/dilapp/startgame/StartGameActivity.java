@@ -44,6 +44,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     ImageView appleImage;
     ImageView pearImage;
     Button playButton;
+    TextView helloPlayer;
 
     @VisibleForTesting
     android.nfc.NfcAdapter mNfcAdapter;
@@ -60,6 +61,8 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         carrotImage = findViewById(R.id.carrot);
         appleImage = findViewById(R.id.apple);
         pearImage = findViewById(R.id.pear);
+        helloPlayer = findViewById(R.id.hello_player);
+
 
         Bundle extras = getIntent().getExtras();
         playButton = findViewById(R.id.playButton);
@@ -71,6 +74,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             Log.i("[STARTGAME ACTIVITY] ", "Intent extra is "+ extras.getInt(EXTRA_MESSAGE));
             currentPlayerId = extras.getInt(EXTRA_MESSAGE);
             DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
+            helloPlayer.setText("Ciao "+ DatabaseInitializer.getNameCurrentPlayer(db)+ "!");
             Log.i("[StartGameActivity]", "Current Player Level" + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
         }
 

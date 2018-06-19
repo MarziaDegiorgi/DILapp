@@ -249,5 +249,13 @@ public class NewAccountActivity extends AppCompatActivity implements INewAccount
         dialog.show();
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        startActivity(new Intent(NewAccountActivity.this, CreateAccountActivity.class));
+        finish();
+    }
+
 }
 

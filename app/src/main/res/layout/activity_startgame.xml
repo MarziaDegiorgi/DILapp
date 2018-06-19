@@ -29,13 +29,26 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
+
+        <TextView
+            android:id="@+id/hello_player"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:layout_marginBottom="40dp"
+            android:textAlignment="center"
+            android:textSize="40sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
+            >
+        </TextView>
         <Button
             android:id="@+id/playButton"
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="180dp"
             android:layout_height="70dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="200dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/roundedbutton"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/play"
@@ -43,7 +56,8 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="?android:attr/colorForegroundInverse"
             tools:layout_editor_absoluteX="102dp"
-            tools:layout_editor_absoluteY="256dp" />
+            tools:layout_editor_absoluteY="256dp"
+            android:layout_below="@id/hello_player"/>
 
     </RelativeLayout>
 
