@@ -129,7 +129,8 @@
             android:id="@+id/share_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/share_icon" />
+            android:src="@drawable/share_icon"
+            android:layout_gravity="center"/>
     </LinearLayout>
 </LinearLayout>
 

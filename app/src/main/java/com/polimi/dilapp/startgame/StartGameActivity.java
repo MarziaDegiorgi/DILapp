@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -31,7 +32,10 @@ import com.polimi.dilapp.levelmap.LevelMapActivity;
 import com.polimi.dilapp.main.CreateAccountActivity;
 import com.polimi.dilapp.report.ReportMainActivity;
 
+import java.io.IOException;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
@@ -44,7 +48,7 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
     ImageView appleImage;
     ImageView pearImage;
     Button playButton;
-    TextView helloPlayer;
+
 
     @VisibleForTesting
     android.nfc.NfcAdapter mNfcAdapter;
@@ -61,7 +65,6 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
         carrotImage = findViewById(R.id.carrot);
         appleImage = findViewById(R.id.apple);
         pearImage = findViewById(R.id.pear);
-        helloPlayer = findViewById(R.id.hello_player);
 
 
         Bundle extras = getIntent().getExtras();
@@ -74,7 +77,6 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             Log.i("[STARTGAME ACTIVITY] ", "Intent extra is "+ extras.getInt(EXTRA_MESSAGE));
             currentPlayerId = extras.getInt(EXTRA_MESSAGE);
             DatabaseInitializer.setCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()), currentPlayerId);
-            helloPlayer.setText("Ciao "+ System.lineSeparator() + (DatabaseInitializer.getNameCurrentPlayer(db)).toUpperCase() + "!");
             Log.i("[StartGameActivity]", "Current Player Level" + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
         }
 
@@ -140,6 +142,20 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
                 Log.i("Player " + child.getName() + "(" + child.getId() + ") ", child.getCurrentPlayer().toString());
             }
         }
+
+        CircleImageView circleImageView = findViewById(R.id.profile_image);
+        Log.i("IMAGE CIRCLE", circleImageView.toString());
+        BitmapDrawable drawable = null;
+
+        try {
+            Log.i("CURRENT PLAYER", String.valueOf(currentPlayer));
+            drawable = new BitmapDrawable(getResources(), DatabaseInitializer.getChildPhoto(getContentResolver(), DatabaseInitializer.getChildById(db, currentPlayer)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.i("DRAWABLE", drawable.toString());
+
+        circleImageView.setImageDrawable(drawable);
     }
 
     /**
@@ -262,4 +278,5 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             Log.e("[StartGameActivity]", "Current Player Level " + String.valueOf(DatabaseInitializer.getLevelCurrentPlayer(AppDatabase.getAppDatabase(getApplicationContext()))));
         }
     }
+
 }
