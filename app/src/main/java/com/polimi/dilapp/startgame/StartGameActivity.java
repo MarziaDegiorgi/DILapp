@@ -212,15 +212,18 @@ public class StartGameActivity extends AppCompatActivity implements IStartGame.V
             case R.id.change_level:
                 Intent intent = new Intent(this.getScreenContext(), LevelMapActivity.class);
                 this.getScreenContext().startActivity(intent);
+                finish();
                 break;
             case R.id.report:
                 Intent report = new Intent(this.getScreenContext(), ReportMainActivity.class);
                 this.getScreenContext().startActivity(report);
+                finish();
                 break;
             case R.id.change_player:
                 presenter.resetCurrentPlayer();
                 Intent activity = new Intent(this.getScreenContext(), CreateAccountActivity.class);
                 this.getScreenContext().startActivity(activity);
+                finish();
                 break;
             default:break;
         }

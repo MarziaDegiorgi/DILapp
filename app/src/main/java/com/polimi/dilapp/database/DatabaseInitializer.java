@@ -94,7 +94,7 @@ public class DatabaseInitializer {
     }
 
     public static Bitmap decodeSampledBitmapFromResource(ContentResolver contentResolver, ChildEntity childEntity) throws IOException {
-       if(childEntity!=null && childEntity.getPhoto() !=null) {
+       if(childEntity!=null && childEntity.getPhoto() !=null && !childEntity.getPhoto().equals("default")) {
            Uri uri = parse(childEntity.getPhoto());
            InputStream inputstream = contentResolver.openInputStream(uri);
 
