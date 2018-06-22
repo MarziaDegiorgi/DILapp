@@ -145,6 +145,9 @@ public class NewAccountActivity extends AppCompatActivity implements INewAccount
                                 showPopUp(R.string.birth_missing);
                                 break;
                             }else{
+                                if(photoPath == null){
+                                    photoPath = "default";
+                                }
                                 presenter.insertChild(name, birth, photoPath);
                                 Intent inputForm = new Intent(getApplicationContext(), CreateAccountActivity.class);
                                 startActivity(inputForm);

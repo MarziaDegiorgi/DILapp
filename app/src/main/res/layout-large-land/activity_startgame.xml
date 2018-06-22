@@ -8,32 +8,39 @@
     tools:context="com.polimi.dilapp.startgame.StartGameActivity">
 
     <RelativeLayout
-        android:id="@+id/RelativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        >
-
-        <TextView
-            android:id="@+id/hello_player"
-            android:layout_width="635dp"
-            android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="81dp"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="40sp"
-            android:textStyle="bold"></TextView>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/menuButton"
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_action_menu"
+            android:onClick="showPopup" />
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/welcome"
+            app:civ_border_color="@color/transparent"
+            app:civ_border_width="0dp"
+            android:padding="5dp"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<Button
             android:id="@+id/playButton"
             style="@android:style/Widget.DeviceDefault.Button.Borderless"
             android:layout_width="180dp"
             android:layout_height="70dp"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
             android:background="@drawable/roundedbutton"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/play"
@@ -42,18 +49,6 @@
             android:textColor="?android:attr/colorForegroundInverse"
             tools:layout_editor_absoluteX="102dp"
             tools:layout_editor_absoluteY="256dp" />
-
-        <Button
-            android:id="@+id/menuButton"
-            android:layout_width="wrap_content"
-            android:layout_height="59dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/ic_action_menu"
-            android:onClick="showPopup" />
-
 
     </RelativeLayout>
 

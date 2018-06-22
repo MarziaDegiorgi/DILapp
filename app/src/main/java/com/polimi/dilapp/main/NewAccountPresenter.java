@@ -64,7 +64,9 @@ public class NewAccountPresenter implements INewAccount.Presenter {
         List<ChildEntity> list = db.childDao().getAll();
         Boolean isValid = true;
         for (ChildEntity child : list) {
-            if (child.getPhoto().equals(selectedImage.toString())) {
+
+            Log.i("NEW ACCOUNT PRSENTER", "Child n°"+ child.getId()+", photo path: "+ child.getPhoto());
+            if (child.getPhoto().equals(selectedImage.toString()) && !child.getPhoto().equals("default")) {
                 isValid = false;
             }
         }
