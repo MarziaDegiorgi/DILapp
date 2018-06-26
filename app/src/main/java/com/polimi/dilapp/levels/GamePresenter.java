@@ -24,6 +24,7 @@ import com.polimi.dilapp.database.DatabaseInitializer;
 import com.polimi.dilapp.emailSender.Mail;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -873,6 +874,8 @@ public class GamePresenter implements IGame.Presenter {
 
         int actualTime = endTime - initTime - adjustment;
         float progress = (float) correctAnswers * 10 / actualTime;
+
+
         if (progress != 0.0 || (progress == 0.0 && errorList.size() > 0)) {
             //If the player has already played with the game
             if (dateList.size() > 0) {

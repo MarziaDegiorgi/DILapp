@@ -30,71 +30,62 @@
             android:layout_height="229dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginBottom="27dp"
-            android:layout_marginEnd="65dp">
+            android:layout_marginBottom="35dp"
+            android:layout_marginEnd="65dp"
+            >
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="168dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-
-                    android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
                     <ImageView
                         android:id="@+id/imageView0"
-                        android:layout_width="match_parent"
-                        android:layout_height="111dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:scaleType="centerInside"/>
+                        android:scaleType="fitCenter"/>
 
                     <ImageView
                         android:id="@+id/imageView1"
-                        android:layout_width="match_parent"
-                        android:layout_height="111dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:scaleType="centerInside"/>
-
+                        android:scaleType="fitCenter"/>
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="match_parent"
-                        android:layout_height="111dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:scaleType="centerInside"/>
-                </LinearLayout>
+                        android:scaleType="fitCenter"/>
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="168dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal">
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
                     <ImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="match_parent"
-                        android:layout_height="111dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:scaleType="centerInside"/>
+                        android:scaleType="fitCenter"/>
 
                     <ImageView
                         android:id="@+id/imageView4"
-                        android:layout_width="match_parent"
-                        android:layout_height="111dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:scaleType="centerInside"/>
+                        android:scaleType="fitCenter"/>
 
                     <ImageView
                         android:id="@+id/imageView5"
-                        android:layout_width="match_parent"
-                        android:layout_height="111dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:scaleType="centerInside"/>
+                        android:scaleType="fitCenter"/>
 
-                </LinearLayout>
             </TableRow>
 
         </TableLayout>
@@ -107,7 +98,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="110dp"
             android:layout_marginTop="62dp"
-            android:text="Ingredienti"
+            android:text="@string/ingredients"
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="22sp"
@@ -140,21 +131,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="fitCenter"/>
 
                 <ImageView
                     android:id="@+id/answer1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="fitCenter"/>
 
                 <ImageView
                     android:id="@+id/answer2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="fitCenter"/>
             </LinearLayout>
         </TableRow>
 
@@ -176,22 +167,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="fitCenter"/>
 
                 <ImageView
                     android:id="@+id/answer4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:scaleType="centerInside"/>
+                    android:scaleType="fitCenter"/>
 
                 <ImageView
                     android:id="@+id/answer5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:scaleType="centerInside"
-                    />
+                    android:scaleType="fitCenter"/>
             </LinearLayout>
         </TableRow>
 

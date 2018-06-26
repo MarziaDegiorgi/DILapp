@@ -17,17 +17,21 @@
             android:layout_width="70sp"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_action_menu"
-            android:onClick="showPopup" />
+            android:onClick="showPopup"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"/>
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="86dp"
+            android:layout_height="86dp"
             android:layout_alignParentEnd="true"
             android:src="@drawable/welcome"
             app:civ_border_color="@color/transparent"
             app:civ_border_width="0dp"
-            android:padding="5dp"/>
+            android:padding="5dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"/>
     </RelativeLayout>
 
     <RelativeLayout
