@@ -66,6 +66,7 @@ class CommonActivity {
            public void onCompletion(MediaPlayer mp) {
                video.setAnimation(animationOut);
                video.startAnimation(animationOut);
+               video.clearAnimation();
                video.setVisibility(View.INVISIBLE);
                presenter.startGame(sequence);
                mp.release();
@@ -85,14 +86,16 @@ class CommonActivity {
             public void onCompletion(MediaPlayer mp) {
                 video.setAnimation(animationOut);
                 video.startAnimation(animationOut);
+                video.clearAnimation();
                 video.setVisibility(View.INVISIBLE);
+                mp.release();
+
                 myHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         presenter.chooseElement();
                     }
-                },600);
-                mp.release();
+                },200);
             }
         });
     }

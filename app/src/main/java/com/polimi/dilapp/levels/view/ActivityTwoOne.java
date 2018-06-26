@@ -188,9 +188,8 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
 
     private void startAnimationSubItem(ImageView image){
         Animation animationWait = AnimationUtils.loadAnimation(this, R.anim.blink);
-        animationWait.setRepeatMode(Animation.REVERSE);
-        animationWait.setRepeatCount(Animation.INFINITE);
         image.setAnimation(animationWait);
+        animationWait.setRepeatCount(Animation.INFINITE);
         image.startAnimation(animationWait);
     }
 
@@ -495,7 +494,6 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         presenter.storeCurrentPlayer(savedInstanceState);
         super.onSaveInstanceState(savedInstanceState);
         Log.i("[ACTIVITY 21]", "I'm calling storeCurrentPlayer");
-
     }
 
 

@@ -110,7 +110,6 @@
         <item>number_three</item>
         <item>number_four</item>
         <item>number_five</item>
-<item>all_numbers</item>
 </string-array>
 
 <string-array name="all_numbers_items">

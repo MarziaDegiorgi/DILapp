@@ -206,7 +206,6 @@
 
    <VideoView
         android:id="@+id/video_box"
-        android:visibility="visible"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:gravity="center"

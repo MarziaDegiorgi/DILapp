@@ -322,6 +322,7 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
             public void onCompletion(MediaPlayer mp) {
                 video.setAnimation(animationOut);
                 video.startAnimation(animationOut);
+                video.clearAnimation();
                 video.setVisibility(View.INVISIBLE);
                 Intent intent = new Intent(getApplicationContext(), StartGameActivity.class);
                 intent.putExtra("Activity","com.polimi.dilapp.startgame.StartGameActivity");

@@ -277,7 +277,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
                     answer.setVisibility(View.VISIBLE);
                     answer.startAnimation(rotate);
                     }
-                },1000);
+                },500);
             }
             });
         }else {
@@ -307,7 +307,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
                     }
                 });
             }
-        },800);
+        },500);
     }
 
     private void disableAnswerGrid() {
@@ -442,7 +442,7 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
     }
     @Override
     public void stopAnimationSubItem() {
-//NOT USED
+    //NOT USED
     }
 
     @Override
