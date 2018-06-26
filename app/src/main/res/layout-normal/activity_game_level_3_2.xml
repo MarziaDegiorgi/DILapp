@@ -46,19 +46,22 @@
                         android:id="@+id/imageView0"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:scaleType="center"/>
 
                     <ImageView
                         android:id="@+id/imageView1"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:scaleType="center"/>
 
                     <ImageView
                         android:id="@+id/imageView2"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:scaleType="center"/>
                 </LinearLayout>
             </TableRow>
 
@@ -74,19 +77,22 @@
                         android:id="@+id/imageView3"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:scaleType="center"/>
 
                     <ImageView
                         android:id="@+id/imageView4"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:scaleType="center"/>
 
                     <ImageView
                         android:id="@+id/imageView5"
                         android:layout_width="match_parent"
                         android:layout_height="111dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:scaleType="center"/>
 
                 </LinearLayout>
             </TableRow>
@@ -133,19 +139,22 @@
                     android:id="@+id/answer0"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="center"/>
 
                 <ImageView
                     android:id="@+id/answer1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="center"/>
 
                 <ImageView
                     android:id="@+id/answer2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="center"/>
             </LinearLayout>
         </TableRow>
 
@@ -166,19 +175,22 @@
                     android:id="@+id/answer3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="center"/>
 
                 <ImageView
                     android:id="@+id/answer4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="center"/>
 
                 <ImageView
                     android:id="@+id/answer5"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="center"/>
             </LinearLayout>
         </TableRow>
 

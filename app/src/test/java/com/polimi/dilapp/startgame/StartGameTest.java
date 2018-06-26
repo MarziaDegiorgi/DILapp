@@ -160,8 +160,4 @@ public class StartGameTest {
         DatabaseInitializer.resetCurrentPlayer(appDatabase);
     }
 
-    @Test
-    public void linkToActivityTest(){
-        startGamePresenter.linkToActivity(11,"object");
-    }
 }
