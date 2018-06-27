@@ -162,10 +162,7 @@ public class GamePresenter implements IGame.Presenter {
             colourLevel = false;
             endTime = (int)(SystemClock.elapsedRealtime()/1000);
             Log.i("[INIT_TIME]", String.valueOf(endTime));
-            setTimeParameter();
             //only for debug
-            String i = String.valueOf(totaltime);
-            Log.i("Total time:", i);
             Log.i("[Game Presenter]:", "Activity Ended.");
             int diff = totalAttempts - correctAnswers;
             int percentage = (20*totalAttempts)/100;
@@ -677,11 +674,7 @@ public class GamePresenter implements IGame.Presenter {
             }
         }
     }
-        private void setTimeParameter(){
 
-        totaltime = endTime - initTime - adjustment;
-        Log.i("init time:", String.valueOf(totaltime));
-        }
 
         @Override
         public String getCurrentSequenceElement(){
@@ -875,7 +868,7 @@ public class GamePresenter implements IGame.Presenter {
         Log.i("[GAME PRESENTER]", "Old list of progresses: " + progressList);
         Log.i("[GAME PRESENTER]", "Old list of dates: " + dateList);
 
-        int actualTime = endTime - initTime - adjustment;
+        int actualTime = endTime - initTime;
         float progress = (float) correctAnswers * 10 / actualTime;
 
 
@@ -1064,7 +1057,7 @@ public class GamePresenter implements IGame.Presenter {
                         }
                         sb.append(s);
                         if(i != errorList.size()-1){
-                        sb.append(",");
+                        sb.append(", ");
                         }else{
                             sb.append(".");
 
@@ -1082,8 +1075,8 @@ public class GamePresenter implements IGame.Presenter {
                     sb1.append(" errori.");
                 }
                 error = sb1.toString();
-                m.setBody("\n\nGentile genitore, \n\nti informiamo che "+DatabaseInitializer.getNameCurrentPlayer(db) + " ha giocato con Internosco per " + convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayer)) +
-                        ", collezionando un totale di " + DatabaseInitializer.getLastCorrectAnswer(db, currentPlayer) + " risposte esatte e "+errorList.size()+ error + "\n" + string + "\n Per vedere i grafici con l'andamento dei progressi e degli errori di "+
+                m.setBody("\n\nGentile genitore, \n\nti informiamo che oggi, finora, "+DatabaseInitializer.getNameCurrentPlayer(db) + " ha giocato con Internosco per " + convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayer)) +
+                        ", collezionando un totale di " + DatabaseInitializer.getLastCorrectAnswer(db, currentPlayer) + " risposte esatte e "+errorList.size()+ error + "\n" + string + "\nPer vedere i grafici con l'andamento dei progressi e degli errori di "+
                         DatabaseInitializer.getNameCurrentPlayer(db)+ " consulta la sezione \"Reportistica\" dell'applicazione." +"\n\n\n\nQuesta email è stata generata " +
                         "automaticamente dal sistema: per non ricevere più aggiornamenti in tempo reale sui progressi di "+ DatabaseInitializer.getNameCurrentPlayer(db)+
                 " disabilita la reportistica automatica sulle impostazioni dell'app.\n\n\n\nIl team di Internosco");
