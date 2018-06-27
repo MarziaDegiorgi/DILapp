@@ -1057,7 +1057,7 @@ public class GamePresenter implements IGame.Presenter {
                         }
                         sb.append(s);
                         if(i != errorList.size()-1){
-                        sb.append(",");
+                        sb.append(", ");
                         }else{
                             sb.append(".");
 
@@ -1076,7 +1076,7 @@ public class GamePresenter implements IGame.Presenter {
                 }
                 error = sb1.toString();
                 m.setBody("\n\nGentile genitore, \n\nti informiamo che oggi, finora, "+DatabaseInitializer.getNameCurrentPlayer(db) + " ha giocato con Internosco per " + convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayer)) +
-                        ", collezionando un totale di " + DatabaseInitializer.getLastCorrectAnswer(db, currentPlayer) + " risposte esatte e "+errorList.size()+ error + "\n" + string + "\n Per vedere i grafici con l'andamento dei progressi e degli errori di "+
+                        ", collezionando un totale di " + DatabaseInitializer.getLastCorrectAnswer(db, currentPlayer) + " risposte esatte e "+errorList.size()+ error + "\n" + string + "\nPer vedere i grafici con l'andamento dei progressi e degli errori di "+
                         DatabaseInitializer.getNameCurrentPlayer(db)+ " consulta la sezione \"Reportistica\" dell'applicazione." +"\n\n\n\nQuesta email è stata generata " +
                         "automaticamente dal sistema: per non ricevere più aggiornamenti in tempo reale sui progressi di "+ DatabaseInitializer.getNameCurrentPlayer(db)+
                 " disabilita la reportistica automatica sulle impostazioni dell'app.\n\n\n\nIl team di Internosco");
