@@ -299,10 +299,6 @@ public class ReportMainActivity extends AppCompatActivity implements IReport.Vie
         File pdfDir = new File(Environment.getExternalStoragePublicDirectory
                 (Environment.DIRECTORY_DOWNLOADS), "Internosco");
         Intent email = new Intent(Intent.ACTION_SEND);
-        String emailParent = DatabaseInitializer.getEmail(db);
-        if(emailParent != null){
-        email.putExtra(Intent.EXTRA_EMAIL, emailParent);
-        }
         email.putExtra(Intent.EXTRA_SUBJECT, "Reportistica di "+ DatabaseInitializer.getNameCurrentPlayer(db)+" del "+currentDate);
         Uri uri = Uri.fromFile(new File(pdfDir, "report.pdf"));
         email.putExtra(Intent.EXTRA_STREAM, uri);
