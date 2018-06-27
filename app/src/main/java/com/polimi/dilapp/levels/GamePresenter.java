@@ -1028,8 +1028,37 @@ public class GamePresenter implements IGame.Presenter {
                             case "potato":
                                 s = "patata";
                                 break;
-
-                                default:
+                            case "_0":
+                                s = "0";
+                                break;
+                            case "_1":
+                                s = "1";
+                                break;
+                            case "_2":
+                                s = "2";
+                                break;
+                            case "_3":
+                                s = "3";
+                                break;
+                            case "_4":
+                                s = "4";
+                                break;
+                            case "_5":
+                                s = "5";
+                                break;
+                            case "_6":
+                                s = "6";
+                                break;
+                            case "_7":
+                                s = "7";
+                                break;
+                            case "_8":
+                                s = "8";
+                                break;
+                            case "_9":
+                                s = "9";
+                                break;
+                            default:
                                     break;
 
                         }
