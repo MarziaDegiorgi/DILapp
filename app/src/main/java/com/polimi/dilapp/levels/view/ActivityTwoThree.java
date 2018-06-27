@@ -233,7 +233,7 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
     }
 
     private void startAnimationSubItem(ImageView image){
-        Animation animationWait = AnimationUtils.loadAnimation(this, R.anim.blink);
+        Animation animationWait = AnimationUtils.loadAnimation(this, R.anim.bounce);
         animationWait.setRepeatMode(Animation.REVERSE);
         animationWait.setRepeatCount(Animation.INFINITE);
         image.setAnimation(animationWait);
