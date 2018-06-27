@@ -6,10 +6,8 @@
         android:largeScreens="true"
         android:normalScreens="true" />
     <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-    android:maxSdkVersion="27" />
+        android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SET_ANIMATION_SCALE"
