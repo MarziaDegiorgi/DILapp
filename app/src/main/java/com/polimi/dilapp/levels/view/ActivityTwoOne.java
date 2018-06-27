@@ -187,7 +187,7 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
     }
 
     private void startAnimationSubItem(ImageView image){
-        Animation animationWait = AnimationUtils.loadAnimation(this, R.anim.bounce);
+        Animation animationWait = AnimationUtils.loadAnimation(this, R.anim.bounce_fast);
         image.setAnimation(animationWait);
         animationWait.setRepeatCount(Animation.INFINITE);
         image.startAnimation(animationWait);
