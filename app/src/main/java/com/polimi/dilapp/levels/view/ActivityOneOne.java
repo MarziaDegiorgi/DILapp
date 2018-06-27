@@ -114,6 +114,11 @@ public class ActivityOneOne extends AppCompatActivity implements IGame.View {
         common.disableView(animationViewExtraTwo);
     }
 
+    @Override
+    public void disableImageView() {
+        //not used
+    }
+
 
     @Override
     public void setVideoView(int videoID){

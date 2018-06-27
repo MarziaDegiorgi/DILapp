@@ -114,6 +114,14 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         common.disableView(animationViewExtraTwo);
     }
 
+    @Override
+    public void disableImageView() {
+        ImageView imageToHide = findViewById(R.id.animation_box);
+        imageToHide.clearAnimation();
+        imageToHide.setImageDrawable(null);
+        imageToHide.setVisibility(View.INVISIBLE);
+    }
+
 
     @Override
     public void setVideoView(int videoID){
@@ -163,7 +171,9 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
     public void setWaitingAnimation(){
         int resourceID = presenter.getResourceId(element, R.drawable.class);
         Animation animationWait = AnimationUtils.loadAnimation(ActivityOneTwo.this, R.anim.bounce);
-
+        ImageView mainImage = findViewById(R.id.animation_box);
+        mainImage.clearAnimation();
+        mainImage.setImageDrawable(null);
         common.enableLionBackground(this);
         common.enableLionTailAnimation(this, ActivityOneTwo.this);
 
@@ -175,6 +185,8 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         disableViews();
         ImageView mainImage = findViewById(R.id.animation_box);
         mainImage.clearAnimation();
+        mainImage.setImageDrawable(null);
+        mainImage.setVisibility(View.INVISIBLE);
 
         common.enableLionHeadAnimation(ActivityOneTwo.this, this);
         String currentReadTag = presenter.getCurrentReadTag();
@@ -214,6 +226,10 @@ public class ActivityOneTwo extends AppCompatActivity implements IGame.View {
         wrongAnswer .setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
+                ImageView mainImage = findViewById(R.id.animation_box);
+                mainImage.setImageDrawable(null);
+                mainImage.clearAnimation();
+                mainImage.setVisibility(View.INVISIBLE);
                 presenter.chooseElement();
                 mp.release();
             }

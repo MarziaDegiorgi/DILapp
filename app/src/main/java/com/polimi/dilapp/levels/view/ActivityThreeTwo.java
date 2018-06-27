@@ -117,6 +117,10 @@ public class ActivityThreeTwo extends AppCompatActivity implements IGame.View{
             }
         }
 
+    @Override
+    public void disableImageView() {
+        //not used
+    }
 
 
     @Override

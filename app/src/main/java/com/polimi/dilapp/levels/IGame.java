@@ -85,6 +85,8 @@ public interface IGame {
          * disable all the image views in the activity
          */
         void disableViews();
+
+        void disableImageView();
         }
 
     interface  Presenter {

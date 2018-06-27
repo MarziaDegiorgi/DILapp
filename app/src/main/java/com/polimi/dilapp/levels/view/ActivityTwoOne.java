@@ -408,6 +408,11 @@ public class ActivityTwoOne extends AppCompatActivity implements IGame.View{
         common.disableView(imageBoxMultipleItem);
     }
 
+    @Override
+    public void disableImageView() {
+        //not used
+    }
+
 
     @Override
     public void setRepeatOrExitScreen() {

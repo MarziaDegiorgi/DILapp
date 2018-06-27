@@ -426,6 +426,11 @@ public class ActivityTwoThree extends AppCompatActivity implements IGame.View {
         table.setVisibility(View.INVISIBLE);
     }
 
+    @Override
+    public void disableImageView() {
+        //not used
+    }
+
 
     @Override
     public void setRepeatOrExitScreen() {

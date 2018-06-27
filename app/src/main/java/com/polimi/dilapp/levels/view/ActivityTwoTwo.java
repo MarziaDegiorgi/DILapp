@@ -245,6 +245,11 @@ public class ActivityTwoTwo extends AppCompatActivity implements IGame.View {
     }
 
     @Override
+    public void disableImageView() {
+        //not used
+    }
+
+    @Override
     public void setRepeatOrExitScreen() {
         Intent intent = new Intent(getApplicationContext(), EndLevelScreen.class);
         intent.putExtra("Activity","com.polimi.dilapp.levels.view.ActivityTwoTwo");

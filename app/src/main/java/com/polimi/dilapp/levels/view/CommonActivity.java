@@ -110,7 +110,6 @@ class CommonActivity {
     void startMainAnimation(AppCompatActivity activity, Animation animation, int resourceID, Context context){
 
         ImageView image = activity.findViewById(R.id.animation_box);
-        image.setVisibility(View.VISIBLE);
         image.setImageDrawable(ContextCompat.getDrawable(context, resourceID));
         image.setVisibility(View.VISIBLE);
         image.setAnimation(animation);
@@ -176,9 +175,9 @@ class CommonActivity {
         request.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mp) {
-                //TODO: ADD CLEAR LION ANIMATION
                 mp.release();
                 image.clearAnimation();
+                image.setImageDrawable(null);
                 disableView(image);
                 image.setVisibility(View.INVISIBLE);
                //delay the choose of the next element of 1 sec

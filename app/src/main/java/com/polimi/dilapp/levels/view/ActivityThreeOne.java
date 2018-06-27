@@ -385,6 +385,11 @@ public class ActivityThreeOne extends AppCompatActivity implements IGame.View{
         common.disableView(answer);
     }
 
+    @Override
+    public void disableImageView() {
+        //not used
+    }
+
 
     @Override
     public List<String> getSessionArray(int vectorID) {

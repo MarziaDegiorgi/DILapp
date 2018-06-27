@@ -372,6 +372,7 @@ public class GamePresenter implements IGame.Presenter {
         {
             counter = 0;
             counterColourSession = 0;
+            activityInterface.disableImageView();
             startNewTurn();
         } else{
                 if (counterColourSession < 4) {
@@ -379,6 +380,7 @@ public class GamePresenter implements IGame.Presenter {
                 } else {
                     counter = 0;
                     counterColourSession = 0;
+                    activityInterface.disableImageView();
                     startNewTurn();
                 }
             }
@@ -394,6 +396,7 @@ public class GamePresenter implements IGame.Presenter {
         } else {
             counter = 0;
             counterColourSession = 0;
+            activityInterface.disableImageView();
             startNewTurn();
         }
     }
