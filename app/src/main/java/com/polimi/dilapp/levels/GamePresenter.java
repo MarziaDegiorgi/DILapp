@@ -162,10 +162,7 @@ public class GamePresenter implements IGame.Presenter {
             colourLevel = false;
             endTime = (int)(SystemClock.elapsedRealtime()/1000);
             Log.i("[INIT_TIME]", String.valueOf(endTime));
-            setTimeParameter();
             //only for debug
-            String i = String.valueOf(totaltime);
-            Log.i("Total time:", i);
             Log.i("[Game Presenter]:", "Activity Ended.");
             int diff = totalAttempts - correctAnswers;
             int percentage = (20*totalAttempts)/100;
@@ -677,11 +674,7 @@ public class GamePresenter implements IGame.Presenter {
             }
         }
     }
-        private void setTimeParameter(){
 
-        totaltime = endTime - initTime - adjustment;
-        Log.i("init time:", String.valueOf(totaltime));
-        }
 
         @Override
         public String getCurrentSequenceElement(){
@@ -875,7 +868,7 @@ public class GamePresenter implements IGame.Presenter {
         Log.i("[GAME PRESENTER]", "Old list of progresses: " + progressList);
         Log.i("[GAME PRESENTER]", "Old list of dates: " + dateList);
 
-        int actualTime = endTime - initTime - adjustment;
+        int actualTime = endTime - initTime;
         float progress = (float) correctAnswers * 10 / actualTime;
 
 
