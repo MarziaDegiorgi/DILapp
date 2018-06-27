@@ -1082,7 +1082,7 @@ public class GamePresenter implements IGame.Presenter {
                     sb1.append(" errori.");
                 }
                 error = sb1.toString();
-                m.setBody("\n\nGentile genitore, \n\nti informiamo che "+DatabaseInitializer.getNameCurrentPlayer(db) + " ha giocato con Internosco per " + convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayer)) +
+                m.setBody("\n\nGentile genitore, \n\nti informiamo che oggi, finora, "+DatabaseInitializer.getNameCurrentPlayer(db) + " ha giocato con Internosco per " + convertMillis(DatabaseInitializer.getLastTimePlayed(db, currentPlayer)) +
                         ", collezionando un totale di " + DatabaseInitializer.getLastCorrectAnswer(db, currentPlayer) + " risposte esatte e "+errorList.size()+ error + "\n" + string + "\n Per vedere i grafici con l'andamento dei progressi e degli errori di "+
                         DatabaseInitializer.getNameCurrentPlayer(db)+ " consulta la sezione \"Reportistica\" dell'applicazione." +"\n\n\n\nQuesta email è stata generata " +
                         "automaticamente dal sistema: per non ricevere più aggiornamenti in tempo reale sui progressi di "+ DatabaseInitializer.getNameCurrentPlayer(db)+
