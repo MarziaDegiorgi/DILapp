@@ -4,7 +4,14 @@
     android:id="@+id/activity_createaccount"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_vert">
+   >
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_land"
+        android:scaleType="centerCrop"/>
 
     <ImageView
         android:id="@+id/welcomeImage"

@@ -39,7 +39,6 @@
         <item>letter_three</item>
         <item>letter_four</item>
         <item>letter_five</item>
-        <item>all-letters</item>
     </string-array>
 
     <string-array name="all_letters_items">
