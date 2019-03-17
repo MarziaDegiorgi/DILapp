@@ -7,3 +7,10 @@ Moreover there is a particular section of the “Inter Nosco” application mean
 ## Requirements
 * Mobile phone with enbadded NFC
 * Android v. 5.1 or higher
+
+## Useful Links
+
+[Video EP](https://drive.google.com/drive/folders/1sW8XUwKuzR86nOaMlEbvCsfDm97Oaea9)
+
+[Design Document](https://drive.google.com/drive/folders/1ifgHRE_jzJZmy5mfWXog_N7ZompfZEBU)
+
