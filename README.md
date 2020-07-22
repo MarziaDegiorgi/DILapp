@@ -14,3 +14,14 @@ Moreover there is a particular section of the “Inter Nosco” application mean
 
 [Design Document](https://drive.google.com/drive/folders/1ifgHRE_jzJZmy5mfWXog_N7ZompfZEBU)
 
+## Game Flow
+![Screen1](/pictures/screen1.png)
+
+![Screen2](/pictures/screen2.png)
+
+![Screen3](/pictures/screen3.png)
+
+![Screen4](/pictures/screen4.png)
+
+![Screen5](/pictures/screen5.png)
+
