@@ -1,5 +1,5 @@
 # Inter Nosco
-<div style="text-align:center"><img src="/pictures/logo.png" /></div>
+<div style="display:flex;justify-content:center;"><img src="/pictures/logo.png" /></div>
 ## Overview
 “Inter Nosco” is a mobile learning game, designed for children, that exploits a different interaction between the child and the device. Indeed the main scope of this application is to use physical objects as means to enable the communication replacing the traditional direct interaction with the mobile interface. In this way, we try to create a diverse learning process associated with colors, shapes, names, letters, numbers, words and logic that is not fully digital and includes real-world objects.
 
